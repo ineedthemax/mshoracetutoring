@@ -17,7 +17,7 @@ export default function BookingsPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Bookings</h1>
-          <p className="text-gray-500 text-sm mt-1">All sessions — upcoming and completed.</p>
+          <p className="text-gray-500 text-sm mt-1">All sessions upcoming and completed.</p>
         </div>
       </div>
 
@@ -70,7 +70,7 @@ export default function BookingsPage() {
                         </Button>
                       </a>
                     ) : (
-                      <span className="text-xs text-gray-400">—</span>
+                      <span className="text-xs text-gray-400">--</span>
                     )}
                   </td>
                 </tr>

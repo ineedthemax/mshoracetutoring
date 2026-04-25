@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
-  title: "Mshorace Tutoring — Live Math Tutoring for Middle & High School",
+  title: "Mshorace Tutoring Live Math Tutoring for Middle & High School",
   description: "Live 1-on-1 and small group math tutoring via Zoom. Pre-algebra through AP Calculus.",
 };
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -49,7 +49,7 @@ const faqs = [
   { q: "What if we need to reschedule?", a: "You can reschedule up to 24 hours before the session start time at no charge. Within 24 hours, a $15 reschedule fee applies. Cancellations within 2 hours are non-refundable." },
   { q: "How do I know if my student is improving?", a: "Every session comes with a written report that includes a confidence score (0-100). You can track this score over multiple sessions to see growth trends. Marcus also notes specific wins and skill gaps each time." },
   { q: "What grade levels do you work with?", a: "6th through 12th grade. This covers Pre-Algebra through AP Calculus AB and BC, plus SAT/ACT Math prep." },
-  { q: "Do you offer a trial or first-session guarantee?", a: "If you're not satisfied after your first session, contact us within 48 hours and we'll work to make it right or provide a full refund — no questions asked." },
+  { q: "Do you offer a trial or first-session guarantee?", a: "If you're not satisfied after your first session, contact us within 48 hours and we'll work to make it right or provide a full refund no questions asked." },
 ];
 
 export default function HowItWorksPage() {
@@ -61,7 +61,7 @@ export default function HowItWorksPage() {
       <section className="bg-white py-16 px-4 border-b border-gray-100">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">How It Works</h1>
-          <p className="text-xl text-gray-500">From &ldquo;I&apos;m stuck&rdquo; to &ldquo;I got this&rdquo; — here&apos;s exactly what to expect.</p>
+          <p className="text-xl text-gray-500">From &ldquo;I&apos;m stuck&rdquo; to &ldquo;I got this&rdquo; here&apos;s exactly what to expect.</p>
         </div>
       </section>
 

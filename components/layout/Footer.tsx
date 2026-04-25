@@ -12,7 +12,7 @@ export function Footer() {
               <span className="text-lg font-bold text-violet-400">Tutoring</span>
             </div>
             <p className="text-sm text-gray-400 mb-4 max-w-xs">
-              Live math tutoring that helps students understand the work — not just finish it. Pre-Algebra through AP Calculus.
+              Live math tutoring that helps students understand the work not just finish it. Pre-Algebra through AP Calculus.
             </p>
             <p className="text-xs text-gray-500">Available Monday–Saturday via Zoom</p>
           </div>

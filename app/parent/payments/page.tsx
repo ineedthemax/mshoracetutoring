@@ -79,7 +79,7 @@ export default function ParentPaymentsPage() {
                         {payment.status}
                       </Badge>
                     </td>
-                    <td className="px-6 py-4 text-xs text-gray-400 font-mono">{payment.stripeId || "—"}</td>
+                    <td className="px-6 py-4 text-xs text-gray-400 font-mono">{payment.stripeId || "--"}</td>
                   </tr>
                 ))}
               </tbody>

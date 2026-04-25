@@ -11,7 +11,7 @@ const faqs = [
   { q: "Do session packages expire?", a: "Session packages are valid for 90 days from purchase. This gives you plenty of time to use them without rushing." },
   { q: "Can I mix subjects across sessions in a package?", a: "Yes. Session packages can be used for any subject, any grade level. Use them however you need." },
   { q: "Is there a cancellation policy?", a: "Free cancellation up to 24 hours before your session. Within 24 hours, a $15 rescheduling fee applies. No-shows are non-refundable." },
-  { q: "Do you offer discounts for multiple children?", a: "Yes — families with 2+ students receive 10% off all sessions. Contact us to set this up." },
+  { q: "Do you offer discounts for multiple children?", a: "Yes families with 2+ students receive 10% off all sessions. Contact us to set this up." },
   { q: "How do group class prices work?", a: "Group class prices are per student per session. A 90-minute group session is $25/student (3-8 students per class)." },
 ];
 
@@ -70,7 +70,7 @@ export default function PricingPage() {
         </div>
 
         {/* Packages */}
-        <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">Session Packages — Save More</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">Session Packages Save More</h2>
         <div className="grid md:grid-cols-2 gap-6 mb-12">
           {mockPricing.filter(p => p.type === "package").map((plan) => {
             const savings = "originalPrice" in plan && plan.originalPrice ? plan.originalPrice - plan.price : 0;
@@ -132,7 +132,7 @@ export default function PricingPage() {
                         {v ? (
                           <CheckCircle className="w-4 h-4 text-violet-500 mx-auto" />
                         ) : (
-                          <span className="text-gray-300">—</span>
+                          <span className="text-gray-300">--</span>
                         )}
                       </td>
                     ))}

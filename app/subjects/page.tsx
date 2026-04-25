@@ -43,7 +43,7 @@ const highSchoolSubjects = [
   {
     name: "Pre-Calculus",
     grades: ["11th Grade", "12th Grade"],
-    desc: "Bridging Algebra and Calculus — functions, limits, parametric equations, and polar coordinates.",
+    desc: "Bridging Algebra and Calculus functions, limits, parametric equations, and polar coordinates.",
     topics: ["Functions & transformations", "Limits introduction", "Polynomial & rational functions", "Trig identities", "Vectors"],
   },
   {
@@ -89,7 +89,7 @@ export default function SubjectsPage() {
       <section className="bg-white py-16 px-4 border-b border-gray-100">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Subjects We Cover</h1>
-          <p className="text-xl text-gray-500">From Pre-Algebra in 6th grade to AP Calculus BC — Marcus has you covered at every step.</p>
+          <p className="text-xl text-gray-500">From Pre-Algebra in 6th grade to AP Calculus BC Marcus has you covered at every step.</p>
         </div>
       </section>
 

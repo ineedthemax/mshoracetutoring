@@ -9,7 +9,7 @@ import { CheckCircle, Heart, Lightbulb, Target, Users } from "lucide-react";
 const values = [
   { icon: Heart, title: "Meet Students Where They Are", desc: "No judgment on where a student starts. Every mathematician began somewhere, and every gap can be closed with the right support." },
   { icon: Lightbulb, title: "Conceptual Understanding First", desc: "Memorizing formulas doesn't build a foundation. We focus on understanding the 'why' behind every rule and procedure." },
-  { icon: Target, title: "Confidence Through Repetition", desc: "Confidence isn't given — it's built by doing problems until the process feels natural. That takes guided repetition, not just explanation." },
+  { icon: Target, title: "Confidence Through Repetition", desc: "Confidence isn't given it's built by doing problems until the process feels natural. That takes guided repetition, not just explanation." },
   { icon: Users, title: "Parent Partnership", desc: "Parents are partners in the process. Regular session reports and open communication keep everyone aligned on goals and progress." },
 ];
 
@@ -37,7 +37,7 @@ export default function AboutPage() {
             Math shouldn&apos;t feel like a wall. It should feel like a door.
           </p>
           <p className="text-gray-500 leading-relaxed">
-            Too many students write themselves off as &ldquo;not a math person&rdquo; when the truth is they just haven&apos;t had the right instruction at the right time. I started tutoring to be that right instruction — patient, clear, and personalized to each individual student.
+            Too many students write themselves off as &ldquo;not a math person&rdquo; when the truth is they just haven&apos;t had the right instruction at the right time. I started tutoring to be that right instruction patient, clear, and personalized to each individual student.
           </p>
         </div>
       </section>
@@ -58,9 +58,9 @@ export default function AboutPage() {
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">My Story</h2>
               <div className="space-y-4 text-gray-500 text-sm leading-relaxed">
-                <p>I grew up in Atlanta, where I was fortunate to have a math teacher in 9th grade who changed everything for me. He didn&apos;t just teach formulas — he taught thinking. He showed me that every problem had a structure you could learn to see.</p>
+                <p>I grew up in Atlanta, where I was fortunate to have a math teacher in 9th grade who changed everything for me. He didn&apos;t just teach formulas he taught thinking. He showed me that every problem had a structure you could learn to see.</p>
                 <p>I went on to study Mathematics at Morehouse College and earned my Master&apos;s in Applied Mathematics from Howard University. But the classroom kept calling. I started tutoring part-time in grad school and never stopped.</p>
-                <p>Eight years and 200+ students later, I&apos;ve seen the same transformation happen over and over: a student who was failing Algebra 2 in October is acing the final in December. Not because they became magically smarter — because someone took the time to explain it clearly, from the right angle, with patience.</p>
+                <p>Eight years and 200+ students later, I&apos;ve seen the same transformation happen over and over: a student who was failing Algebra 2 in October is acing the final in December. Not because they became magically smarter because someone took the time to explain it clearly, from the right angle, with patience.</p>
                 <p>That&apos;s what I do, and I love doing it.</p>
               </div>
             </div>

@@ -49,7 +49,7 @@ export default function HomeworkPage() {
                   <div className="border-2 border-dashed border-gray-200 rounded-xl p-10 text-center hover:border-violet-300 transition-colors cursor-pointer bg-gray-50">
                     <Upload className="w-10 h-10 text-gray-300 mx-auto mb-3" />
                     <p className="text-sm font-medium text-gray-600">Click to browse or drag &amp; drop</p>
-                    <p className="text-xs text-gray-400 mt-1">PDF, JPG, PNG — max 10MB</p>
+                    <p className="text-xs text-gray-400 mt-1">PDF, JPG, PNG max 10MB</p>
                     <button className="mt-3 text-xs text-violet-600 hover:underline">Choose File</button>
                   </div>
 
@@ -78,8 +78,8 @@ export default function HomeworkPage() {
                       className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 bg-white"
                     >
                       <option value="">Link to a session (optional)...</option>
-                      <option>Apr 28 — Algebra 2</option>
-                      <option>Apr 21 — Algebra 2</option>
+                      <option>Apr 28 Algebra 2</option>
+                      <option>Apr 21 Algebra 2</option>
                     </select>
                   </div>
 

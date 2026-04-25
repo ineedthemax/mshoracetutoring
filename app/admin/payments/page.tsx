@@ -56,7 +56,7 @@ export default function PaymentsPage() {
                     <Badge variant={p.status === "paid" ? "success" : "warning"}>{p.status}</Badge>
                   </td>
                   <td className="px-6 py-4 text-gray-400 font-mono text-xs">
-                    {p.stripeId || "—"}
+                    {p.stripeId || "--"}
                   </td>
                 </tr>
               ))}

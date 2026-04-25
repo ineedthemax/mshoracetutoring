@@ -63,7 +63,7 @@ export const mockAvailability = [
 export const mockPricing = [
   { id: "p1", name: "30-Min Session", description: "Quick focused help on one topic", price: 40, type: "single" },
   { id: "p2", name: "60-Min Session", description: "Deep dive into concepts and practice", price: 75, type: "single" },
-  { id: "p3", name: "4-Session Pack", description: "Save 8% — great for ongoing support", price: 276, originalPrice: 300, type: "package", sessions: 4 },
-  { id: "p4", name: "8-Session Pack", description: "Save 13% — best value for consistent progress", price: 522, originalPrice: 600, type: "package", sessions: 8 },
+  { id: "p3", name: "4-Session Pack", description: "Save 8% great for ongoing support", price: 276, originalPrice: 300, type: "package", sessions: 4 },
+  { id: "p4", name: "8-Session Pack", description: "Save 13% best value for consistent progress", price: 522, originalPrice: 600, type: "package", sessions: 8 },
   { id: "p5", name: "Group Class", description: "3-8 students, exam prep and review", price: 25, type: "group" },
 ];

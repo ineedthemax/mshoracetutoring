@@ -93,7 +93,7 @@ export default function StudentProgressPage() {
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <h3 className="font-bold text-gray-900">{r.subject} — Session Report</h3>
+                    <h3 className="font-bold text-gray-900">{r.subject} Session Report</h3>
                     <p className="text-sm text-gray-400">{new Date(r.date).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}</p>
                   </div>
                   <Badge variant="success">Confidence: {r.studentConfidence}%</Badge>
