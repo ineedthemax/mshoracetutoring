@@ -23,6 +23,7 @@ export function PublicNav() {
             <Link href="/subjects" className="text-sm text-gray-600 hover:text-violet-600 transition-colors">Subjects</Link>
             <Link href="/groups" className="text-sm text-gray-600 hover:text-violet-600 transition-colors">Group Classes</Link>
             <Link href="/pricing" className="text-sm text-gray-600 hover:text-violet-600 transition-colors">Pricing</Link>
+            <Link href="/courses" className="text-sm text-gray-600 hover:text-violet-600 transition-colors">Courses</Link>
             <Link href="/about" className="text-sm text-gray-600 hover:text-violet-600 transition-colors">About</Link>
           </div>
 
@@ -52,6 +53,7 @@ export function PublicNav() {
             <Link href="/subjects" className="block px-2 py-2 text-sm text-gray-600 hover:text-violet-600" onClick={() => setMobileOpen(false)}>Subjects</Link>
             <Link href="/groups" className="block px-2 py-2 text-sm text-gray-600 hover:text-violet-600" onClick={() => setMobileOpen(false)}>Group Classes</Link>
             <Link href="/pricing" className="block px-2 py-2 text-sm text-gray-600 hover:text-violet-600" onClick={() => setMobileOpen(false)}>Pricing</Link>
+            <Link href="/courses" className="block px-2 py-2 text-sm text-gray-600 hover:text-violet-600" onClick={() => setMobileOpen(false)}>Courses</Link>
             <Link href="/about" className="block px-2 py-2 text-sm text-gray-600 hover:text-violet-600" onClick={() => setMobileOpen(false)}>About</Link>
             <div className="flex gap-3 pt-2">
               <Link href="/login" onClick={() => setMobileOpen(false)}>

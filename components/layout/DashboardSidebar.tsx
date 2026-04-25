@@ -23,6 +23,7 @@ const navItems = {
   student: [
     { label: "Dashboard", href: "/student", icon: LayoutDashboard },
     { label: "My Sessions", href: "/student/sessions", icon: Calendar },
+    { label: "My Courses", href: "/student/courses", icon: BookOpen },
     { label: "Upload Homework", href: "/student/homework", icon: Upload },
     { label: "Session History", href: "/student/history", icon: History },
   ],
@@ -30,6 +31,7 @@ const navItems = {
     { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { label: "Bookings", href: "/admin/bookings", icon: Calendar },
     { label: "Students", href: "/admin/students", icon: Users },
+    { label: "Courses", href: "/admin/courses", icon: BookOpen },
     { label: "Session Reports", href: "/admin/reports", icon: FileText },
     { label: "Group Classes", href: "/admin/groups", icon: BarChart2 },
     { label: "Payments", href: "/admin/payments", icon: CreditCard },
