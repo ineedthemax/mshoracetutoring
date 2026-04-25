@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import Link from "next/link";
 import { PublicNav } from "@/components/layout/PublicNav";
 import { Footer } from "@/components/layout/Footer";
@@ -38,10 +38,36 @@ export default function BookPage() {
   const [selectedSlot, setSelectedSlot] = useState("");
   const [form, setForm] = useState({ name: "", email: "", phone: "", timezone: "Eastern (ET)" });
 
+  const [isPending, startTransition] = useTransition();
+  const [payError, setPayError] = useState("");
   const selectedSession = sessionTypes.find(s => s.id === sessionType);
 
   const next = () => setStep(s => s + 1);
   const back = () => setStep(s => s - 1);
+
+  async function handleCheckout() {
+    setPayError("");
+    startTransition(async () => {
+      const durationKey = sessionType === "solo-30" ? "30-min" : sessionType === "solo-60" ? "60-min" : "group";
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sessionType,
+          subject,
+          gradeLevel: grade,
+          duration: durationKey,
+          date: selectedDay,
+          time: selectedSlot,
+          parentName: form.name,
+          parentEmail: form.email,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) { setPayError(data.error || "Payment setup failed. Please try again."); return; }
+      window.location.href = data.url;
+    });
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -312,17 +338,24 @@ export default function BookPage() {
                 </div>
               </div>
 
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
-                <p className="text-sm text-blue-700 font-medium mb-1">Stripe Checkout (Placeholder)</p>
-                <p className="text-xs text-blue-600">In production, clicking &quot;Pay Now&quot; would redirect to Stripe&apos;s secure checkout. Payment processing is not active in this MVP demo.</p>
+              <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-6 flex items-center gap-3">
+                <span className="text-2xl">🔒</span>
+                <div>
+                  <p className="text-sm font-medium text-gray-900">Secure payment via Stripe</p>
+                  <p className="text-xs text-gray-500">You&apos;ll be redirected to Stripe&apos;s secure checkout page.</p>
+                </div>
               </div>
 
+              {payError && (
+                <p className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg mb-4">{payError}</p>
+              )}
+
               <div className="flex gap-3">
-                <Button variant="outline" onClick={back} className="flex-1">
+                <Button variant="outline" onClick={back} className="flex-1" disabled={isPending}>
                   <ArrowLeft className="w-4 h-4 mr-2" /> Back
                 </Button>
-                <Button onClick={next} className="flex-1 bg-green-600 hover:bg-green-700">
-                  Pay ${selectedSession?.price} →
+                <Button onClick={handleCheckout} className="flex-1 bg-green-600 hover:bg-green-700" disabled={isPending}>
+                  {isPending ? "Redirecting..." : `Pay $${selectedSession?.price} →`}
                 </Button>
               </div>
             </CardContent>
