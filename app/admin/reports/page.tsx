@@ -45,7 +45,7 @@ export default function ReportsPage() {
                 <div>
                   <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Skill Gaps</p>
                   <div className="flex flex-wrap gap-1.5">
-                    {r.skillGaps.split(",").map((g) => (
+                    {(Array.isArray(r.skillGaps) ? r.skillGaps : r.skillGaps.split(",")).map((g) => (
                       <Badge key={g} variant="warning">{g.trim()}</Badge>
                     ))}
                   </div>
