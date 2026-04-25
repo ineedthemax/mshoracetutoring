@@ -18,7 +18,7 @@ export default function HomePage() {
 
       {/* Summer urgency banner */}
       <div className="bg-amber-500 text-white text-center py-3 px-4 text-sm font-semibold">
-        🌞 Summer 2026 spots are filling fast — limited availability for June, July &amp; August. <Link href="/book" className="underline ml-1">Reserve your slot now →</Link>
+        🌞 Summer 2026 spots are filling fast limited availability for June, July &amp; August. <Link href="/book" className="underline ml-1">Reserve your slot now →</Link>
       </div>
 
       {/* Hero */}
@@ -33,7 +33,7 @@ export default function HomePage() {
             a whole year of math.
           </h1>
           <p className="text-lg md:text-xl text-violet-100 mb-10 max-w-2xl mx-auto">
-            Summer is the best time to close skill gaps, get ahead for next year, and build the confidence your student needs before school starts again. Live 1-on-1 and group sessions via Zoom — flexible scheduling all summer long.
+            Summer is the best time to close skill gaps, get ahead for next year, and build the confidence your student needs before school starts again. Live 1-on-1 and group sessions via Zoom flexible scheduling all summer long.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/book">
@@ -144,7 +144,7 @@ export default function HomePage() {
       <section className="bg-gray-50 py-20 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Summer is when students fall behind — or pull ahead.</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Summer is when students fall behind or pull ahead.</h2>
             <p className="text-gray-500 text-lg">Which one will your student be in September?</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -152,17 +152,17 @@ export default function HomePage() {
               {
                 icon: Brain,
                 title: "\"They forgot everything from last year\"",
-                desc: "Summer learning loss is real — studies show students can lose up to 2 months of math skills over summer. A few sessions a week keeps their mind sharp and ready."
+                desc: "Summer learning loss is real studies show students can lose up to 2 months of math skills over summer. A few sessions a week keeps their mind sharp and ready."
               },
               {
                 icon: Calculator,
                 title: "\"They struggled all year and I don't want that again\"",
-                desc: "Summer is the perfect reset. No pressure, no grades — just time to actually understand the concepts that got skipped over during the school year."
+                desc: "Summer is the perfect reset. No pressure, no grades just time to actually understand the concepts that got skipped over during the school year."
               },
               {
                 icon: Target,
                 title: "\"They want to be ahead when school starts\"",
-                desc: "Students who preview next year's material in summer start the school year with confidence. We can cover pre-algebra, algebra, geometry, or beyond — at their pace."
+                desc: "Students who preview next year's material in summer start the school year with confidence. We can cover pre-algebra, algebra, geometry, or beyond at their pace."
               },
             ].map((item) => (
               <Card key={item.title} className="p-6">
@@ -182,14 +182,14 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">How It Works</h2>
-            <p className="text-gray-500">From booking to breakthrough — in 5 simple steps.</p>
+            <p className="text-gray-500">From booking to breakthrough in 5 simple steps.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-5 gap-6">
             {[
               { step: 1, icon: BookOpen, title: "Book Online", desc: "Pick your subject, grade, and session type. Choose a day and time that works." },
               { step: 2, icon: DollarSign, title: "Pay Securely", desc: "Stripe-powered checkout. Single sessions or save with summer packages." },
               { step: 3, icon: Video, title: "Get Zoom Link", desc: "Receive your confirmation and Zoom link instantly by email." },
-              { step: 4, icon: Lightbulb, title: "Live Session", desc: "Interactive live session — screen sharing, digital whiteboard, guided problems." },
+              { step: 4, icon: Lightbulb, title: "Live Session", desc: "Interactive live session screen sharing, digital whiteboard, guided problems." },
               { step: 5, icon: FileText, title: "Progress Report", desc: "Parents receive a written report with topics covered, wins, and next steps." },
             ].map((step) => (
               <div key={step.step} className="flex flex-col items-center text-center">
@@ -210,12 +210,12 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Summer Subjects We Cover</h2>
-            <p className="text-gray-500">Middle school through AP — wherever your student needs support.</p>
+            <p className="text-gray-500">Middle school through AP wherever your student needs support.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               { icon: Calculator, title: "Middle School Math", desc: "Pre-Algebra, fractions, decimals, ratios, and foundations for high school. Build the base before 9th grade." },
-              { icon: Brain, title: "Algebra 1 & 2", desc: "The most commonly retaken subject. We make equations, functions, and graphing click — for good." },
+              { icon: Brain, title: "Algebra 1 & 2", desc: "The most commonly retaken subject. We make equations, functions, and graphing click for good." },
               { icon: Target, title: "Geometry", desc: "Proofs, angles, triangles, circles, and coordinate geometry. Great for students who struggled during the school year." },
               { icon: Lightbulb, title: "Pre-Calculus & Trig", desc: "Bridge the gap before Calculus. Functions, limits intro, and trig identities in a relaxed summer format." },
               { icon: Video, title: "AP Calculus AB/BC", desc: "Get a head start on the hardest math class. Summer previews dramatically improve fall performance and AP exam scores." },
@@ -283,13 +283,13 @@ export default function HomePage() {
       <section className="bg-gray-50 py-20 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Parents stay in the loop — every session.</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Parents stay in the loop every session.</h2>
             <p className="text-gray-500 text-lg">No guessing. No &ldquo;I don&apos;t know what they covered.&rdquo; Full visibility, every week.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { icon: FileText, title: "Written Report After Every Session", desc: "Topics covered, what clicked, skill gaps identified, homework assigned, and the recommended next step — delivered to your inbox after each session." },
-              { icon: TrendingUp, title: "Confidence Score Tracking", desc: "We rate student confidence 0–100 each session so you can see real growth over the summer — not just whether they showed up." },
+              { icon: FileText, title: "Written Report After Every Session", desc: "Topics covered, what clicked, skill gaps identified, homework assigned, and the recommended next step delivered to your inbox after each session." },
+              { icon: TrendingUp, title: "Confidence Score Tracking", desc: "We rate student confidence 0–100 each session so you can see real growth over the summer not just whether they showed up." },
               { icon: Video, title: "Live Zoom Sessions", desc: "All sessions run on Zoom. You can observe any session at any time. Transparent, safe, and flexible around your family's summer schedule." },
             ].map((feature) => (
               <Card key={feature.title} className="p-6">
