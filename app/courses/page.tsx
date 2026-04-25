@@ -4,10 +4,21 @@ import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { mockCourses, mockBundle } from "@/lib/mock-courses";
-import { BookOpen, Lock, FileText, Star, Zap, CheckCircle } from "lucide-react";
+import { mockBundle } from "@/lib/mock-courses";
+import { BookOpen, FileText, Star, Zap, CheckCircle, Lock } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
 
-export default function CoursesPage() {
+export default async function CoursesPage() {
+  const supabase = await createClient();
+
+  const { data: courses } = await supabase
+    .from("courses")
+    .select("*, lessons(id, is_free_preview)")
+    .eq("is_published", true)
+    .order("created_at");
+
+  const courseList = courses ?? [];
+
   return (
     <div className="min-h-screen">
       <PublicNav />
@@ -42,7 +53,7 @@ export default function CoursesPage() {
                   <h2 className="text-2xl font-bold text-gray-900 mb-2">{mockBundle.title}</h2>
                   <p className="text-gray-500 mb-4">{mockBundle.description}</p>
                   <div className="flex flex-wrap gap-2">
-                    {mockCourses.map((c) => (
+                    {courseList.map((c) => (
                       <span key={c.id} className="px-3 py-1 bg-violet-100 text-violet-700 rounded-full text-sm font-medium">{c.title}</span>
                     ))}
                   </div>
@@ -69,31 +80,27 @@ export default function CoursesPage() {
             <p className="text-gray-500">Purchase just the course your student needs.</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {mockCourses.map((course) => {
-              const freeLessons = course.lessons.filter(l => l.isFreePreview).length;
+          <div className="grid md:grid-cols-2 gap-6">
+            {courseList.map((course) => {
+              const freeLessons = course.lessons?.filter((l: { is_free_preview: boolean }) => l.is_free_preview).length ?? 0;
               return (
                 <Card key={course.id} className="overflow-hidden hover:shadow-md transition-shadow">
-                  {/* Thumbnail */}
                   <div className="bg-gradient-to-br from-violet-100 to-violet-200 h-36 flex items-center justify-center">
                     <div className="text-center">
                       <BookOpen className="w-10 h-10 text-violet-600 mx-auto mb-2" />
                       <span className="text-sm font-semibold text-violet-700">{course.subject}</span>
                     </div>
                   </div>
-
                   <CardContent className="p-5">
-                    <Badge variant="outline" className="mb-2 text-xs">{course.gradeLevel}</Badge>
+                    <Badge variant="outline" className="mb-2 text-xs">{course.grade_level}</Badge>
                     <h3 className="font-bold text-gray-900 text-lg mb-2">{course.title}</h3>
-                    <p className="text-sm text-gray-500 mb-4 leading-relaxed">{course.shortDescription}</p>
-
+                    <p className="text-sm text-gray-500 mb-4 leading-relaxed">{course.short_description}</p>
                     <div className="flex items-center gap-3 text-xs text-gray-400 mb-4">
-                      <span className="flex items-center gap-1"><FileText className="w-3 h-3" /> {course.totalLessons} lessons</span>
+                      <span className="flex items-center gap-1"><FileText className="w-3 h-3" /> {course.total_lessons} lessons</span>
                       <span className="flex items-center gap-1"><Star className="w-3 h-3" /> {freeLessons} free preview</span>
                     </div>
-
                     <div className="border-t border-gray-100 pt-4 flex items-center justify-between">
-                      <div className="text-2xl font-bold text-violet-600">${course.price}</div>
+                      <div className="text-2xl font-bold text-violet-600">${(course.price_cents / 100).toFixed(0)}</div>
                       <Link href={`/courses/${course.slug}`}>
                         <Button size="sm">View Course</Button>
                       </Link>

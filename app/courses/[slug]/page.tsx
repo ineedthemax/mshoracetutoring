@@ -5,15 +5,25 @@ import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { mockCourses, mockBundle } from "@/lib/mock-courses";
+import { mockBundle } from "@/lib/mock-courses";
 import { Lock, FileText, CheckCircle, Star, ArrowLeft, BookOpen } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
 
-export default function CourseDetailPage({ params }: { params: { slug: string } }) {
-  const course = mockCourses.find(c => c.slug === params.slug);
+export default async function CourseDetailPage({ params }: { params: { slug: string } }) {
+  const supabase = await createClient();
+
+  const { data: course } = await supabase
+    .from("courses")
+    .select("*, lessons(*)")
+    .eq("slug", params.slug)
+    .eq("is_published", true)
+    .single();
+
   if (!course) notFound();
 
-  const freeLessons = course.lessons.filter(l => l.isFreePreview);
-  const paidLessons = course.lessons.filter(l => !l.isFreePreview);
+  const lessons = course.lessons ?? [];
+  const freeLessons = lessons.filter((l: { is_free_preview: boolean }) => l.is_free_preview).sort((a: { lesson_order: number }, b: { lesson_order: number }) => a.lesson_order - b.lesson_order);
+  const paidLessons = lessons.filter((l: { is_free_preview: boolean }) => !l.is_free_preview).sort((a: { lesson_order: number }, b: { lesson_order: number }) => a.lesson_order - b.lesson_order);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -27,48 +37,49 @@ export default function CourseDetailPage({ params }: { params: { slug: string } 
         <div className="grid md:grid-cols-3 gap-8">
           {/* Main content */}
           <div className="md:col-span-2">
-            {/* Header */}
             <div className="bg-gradient-to-br from-violet-600 to-violet-800 rounded-2xl p-8 text-white mb-6">
-              <Badge className="mb-3 bg-white/20 text-white border-0">{course.gradeLevel}</Badge>
+              <Badge className="mb-3 bg-white/20 text-white border-0">{course.grade_level}</Badge>
               <h1 className="text-3xl font-bold mb-3">{course.title}</h1>
               <p className="text-violet-100 leading-relaxed">{course.description}</p>
               <div className="flex items-center gap-4 mt-4 text-sm text-violet-200">
-                <span className="flex items-center gap-1"><FileText className="w-4 h-4" /> {course.totalLessons} PDF lessons</span>
+                <span className="flex items-center gap-1"><FileText className="w-4 h-4" /> {course.total_lessons} PDF lessons</span>
                 <span className="flex items-center gap-1"><Star className="w-4 h-4" /> {freeLessons.length} free previews</span>
               </div>
             </div>
 
             {/* Free Preview Lessons */}
-            <Card className="mb-4">
-              <CardContent className="p-6">
-                <h2 className="font-bold text-gray-900 text-lg mb-1">Free Preview Lessons</h2>
-                <p className="text-sm text-gray-500 mb-4">{course.previewDescription}</p>
-                <div className="space-y-2">
-                  {freeLessons.map((lesson) => (
-                    <div key={lesson.id} className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-xl">
-                      <div className="flex items-center gap-3">
-                        <div className="w-7 h-7 bg-green-100 rounded-lg flex items-center justify-center text-xs font-bold text-green-700">
-                          {lesson.order}
+            {freeLessons.length > 0 && (
+              <Card className="mb-4">
+                <CardContent className="p-6">
+                  <h2 className="font-bold text-gray-900 text-lg mb-1">Free Preview Lessons</h2>
+                  <p className="text-sm text-gray-500 mb-4">{course.preview_description}</p>
+                  <div className="space-y-2">
+                    {freeLessons.map((lesson: { id: string; lesson_order: number; title: string }) => (
+                      <div key={lesson.id} className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-xl">
+                        <div className="flex items-center gap-3">
+                          <div className="w-7 h-7 bg-green-100 rounded-lg flex items-center justify-center text-xs font-bold text-green-700">
+                            {lesson.lesson_order}
+                          </div>
+                          <span className="text-sm font-medium text-gray-900">{lesson.title}</span>
                         </div>
-                        <span className="text-sm font-medium text-gray-900">{lesson.title}</span>
+                        <Badge variant="success">Free</Badge>
                       </div>
-                      <Badge variant="success">Free</Badge>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Paid Lessons */}
             <Card>
               <CardContent className="p-6">
                 <h2 className="font-bold text-gray-900 text-lg mb-4">Full Course Curriculum</h2>
                 <div className="space-y-2">
-                  {paidLessons.map((lesson) => (
+                  {paidLessons.map((lesson: { id: string; lesson_order: number; title: string }) => (
                     <div key={lesson.id} className="flex items-center justify-between p-3 bg-gray-50 border border-gray-200 rounded-xl">
                       <div className="flex items-center gap-3">
                         <div className="w-7 h-7 bg-gray-100 rounded-lg flex items-center justify-center text-xs font-bold text-gray-500">
-                          {lesson.order}
+                          {lesson.lesson_order}
                         </div>
                         <span className="text-sm text-gray-600">{lesson.title}</span>
                       </div>
@@ -80,25 +91,22 @@ export default function CourseDetailPage({ params }: { params: { slug: string } 
             </Card>
           </div>
 
-          {/* Sidebar purchase card */}
+          {/* Sidebar */}
           <div className="md:col-span-1">
             <div className="sticky top-6 space-y-4">
               <Card className="border-violet-200 shadow-md">
                 <CardContent className="p-6">
                   <div className="text-center mb-6">
-                    <div className="text-4xl font-bold text-violet-600 mb-1">${course.price}</div>
+                    <div className="text-4xl font-bold text-violet-600 mb-1">${(course.price_cents / 100).toFixed(0)}</div>
                     <p className="text-sm text-gray-400">One-time purchase · Lifetime access</p>
                   </div>
-
                   <Link href="/login">
                     <Button className="w-full mb-3">Buy This Course</Button>
                   </Link>
-
                   <p className="text-center text-xs text-gray-400 mb-4">Login required to purchase</p>
-
                   <div className="space-y-2 text-sm">
                     {[
-                      `${course.totalLessons} PDF lesson files`,
+                      `${course.total_lessons} PDF lesson files`,
                       "Full answer keys included",
                       "Lifetime access after purchase",
                       "Works on any device",
