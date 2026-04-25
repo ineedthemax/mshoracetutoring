@@ -78,7 +78,7 @@ export default function HomePage() {
             <p className="text-gray-500 text-lg">Flexible options built around your student&apos;s summer schedule.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
-            [
+            {[
               {
                 icon: Zap,
                 badge: "Most Popular",
