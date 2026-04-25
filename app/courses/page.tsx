@@ -6,10 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { mockBundle } from "@/lib/mock-courses";
 import { BookOpen, FileText, Star, Zap, CheckCircle, Lock } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 export default async function CoursesPage() {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
 
   const { data: courses } = await supabase
     .from("courses")
