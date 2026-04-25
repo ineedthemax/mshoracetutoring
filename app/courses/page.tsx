@@ -13,11 +13,21 @@ export default async function CoursesPage() {
 
   const { data: courses } = await supabase
     .from("courses")
-    .select("*, lessons(id, is_free_preview)")
+    .select("*")
     .eq("is_published", true)
     .order("created_at");
 
+  // Get free preview counts separately
+  const { data: freeLessonCounts } = await supabase
+    .from("lessons")
+    .select("course_id")
+    .eq("is_free_preview", true);
+
   const courseList = courses ?? [];
+  const freeCountMap: Record<string, number> = {};
+  (freeLessonCounts ?? []).forEach((l: { course_id: string }) => {
+    freeCountMap[l.course_id] = (freeCountMap[l.course_id] ?? 0) + 1;
+  });
 
   return (
     <div className="min-h-screen">
@@ -82,7 +92,7 @@ export default async function CoursesPage() {
 
           <div className="grid md:grid-cols-2 gap-6">
             {courseList.map((course) => {
-              const freeLessons = course.lessons?.filter((l: { is_free_preview: boolean }) => l.is_free_preview).length ?? 0;
+              const freeLessons = freeCountMap[course.id] ?? 0;
               return (
                 <Card key={course.id} className="overflow-hidden hover:shadow-md transition-shadow">
                   <div className="bg-gradient-to-br from-violet-100 to-violet-200 h-36 flex items-center justify-center">
