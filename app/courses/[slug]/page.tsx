@@ -120,7 +120,7 @@ export default function CourseDetailPage({ params }: { params: { slug: string } 
                     <span className="text-sm font-bold text-amber-700">Better deal</span>
                   </div>
                   <p className="text-sm text-gray-700 mb-3">
-                    Get all 3 courses for <strong>${mockBundle.price}</strong> and save ${mockBundle.savings}.
+                    Get both courses — Pre-Algebra and Algebra 1 — for <strong>${mockBundle.price}</strong>.
                   </p>
                   <Link href="/courses">
                     <Button size="sm" variant="outline" className="w-full border-amber-400 text-amber-700 hover:bg-amber-100">

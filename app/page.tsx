@@ -78,7 +78,7 @@ export default function HomePage() {
             <p className="text-gray-500 text-lg">Flexible options built around your student&apos;s summer schedule.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
-            {[
+            [
               {
                 icon: Zap,
                 badge: "Most Popular",
@@ -97,19 +97,19 @@ export default function HomePage() {
                 subtitle: "3–8 students per class",
                 price: "$25",
                 original: null,
-                desc: "Weekly small group sessions covering Algebra, Geometry, Pre-Calc, and SAT Math. Affordable, social, and still highly effective.",
+                desc: "Weekly small group sessions covering Pre-Algebra and Algebra 1. Affordable, social, and still highly effective.",
                 cta: "Browse Classes",
                 highlight: false,
               },
               {
-                icon: Target,
-                badge: "For Rising Seniors",
-                title: "SAT Math Prep",
-                subtitle: "Focused test prep",
-                price: "$75",
+                icon: BookOpen,
+                badge: "Self-Paced",
+                title: "Digital Courses",
+                subtitle: "Pre-Algebra & Algebra 1",
+                price: "$197",
                 original: null,
-                desc: "Dedicated SAT Math sessions before fall retakes. Covers calculator and no-calculator sections, strategy, and timed practice.",
-                cta: "Book SAT Prep",
+                desc: "PDF-based self-paced courses your student can work through anytime. Step-by-step lessons, practice problems, and answer keys included.",
+                cta: "View Courses",
                 highlight: false,
               },
             ].map((offer) => (
@@ -128,7 +128,7 @@ export default function HomePage() {
                   <div className={`text-4xl font-bold mb-1 ${offer.highlight ? "text-amber-500" : "text-violet-600"}`}>{offer.price}</div>
                   {offer.original && <div className="text-sm text-gray-400 line-through mb-3">{offer.original}</div>}
                   <p className="text-sm text-gray-500 leading-relaxed mb-6">{offer.desc}</p>
-                  <Link href="/book" className="block">
+                  <Link href={offer.cta === "View Courses" ? "/courses" : "/book"} className="block">
                     <Button className={`w-full ${offer.highlight ? "bg-amber-500 hover:bg-amber-600 text-white" : ""}`} variant={offer.highlight ? "default" : "outline"}>
                       {offer.cta}
                     </Button>
@@ -162,7 +162,7 @@ export default function HomePage() {
               {
                 icon: Target,
                 title: "\"They want to be ahead when school starts\"",
-                desc: "Students who preview next year's material in summer start the school year with confidence. We can cover pre-algebra, algebra, geometry, or beyond at their pace."
+                desc: "Students who preview next year's material in summer start the school year with confidence. We cover Pre-Algebra and Algebra 1 at their pace."
               },
             ].map((item) => (
               <Card key={item.title} className="p-6">
@@ -207,26 +207,25 @@ export default function HomePage() {
 
       {/* Summer subjects */}
       <section className="bg-violet-50 py-20 px-4">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Summer Subjects We Cover</h2>
-            <p className="text-gray-500">Middle school through AP wherever your student needs support.</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">What We Teach</h2>
+            <p className="text-gray-500">Specialized, focused instruction in the two subjects students need most.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-8">
             {[
-              { icon: Calculator, title: "Middle School Math", desc: "Pre-Algebra, fractions, decimals, ratios, and foundations for high school. Build the base before 9th grade." },
-              { icon: Brain, title: "Algebra 1 & 2", desc: "The most commonly retaken subject. We make equations, functions, and graphing click for good." },
-              { icon: Target, title: "Geometry", desc: "Proofs, angles, triangles, circles, and coordinate geometry. Great for students who struggled during the school year." },
-              { icon: Lightbulb, title: "Pre-Calculus & Trig", desc: "Bridge the gap before Calculus. Functions, limits intro, and trig identities in a relaxed summer format." },
-              { icon: Video, title: "AP Calculus AB/BC", desc: "Get a head start on the hardest math class. Summer previews dramatically improve fall performance and AP exam scores." },
-              { icon: MessageSquare, title: "SAT/ACT Math Prep", desc: "Targeted test prep for fall retakes. Strategy, calculator tips, and personalized weak area focus." },
+              { icon: Calculator, title: "Pre-Algebra", grade: "6th–8th Grade", desc: "Fractions, decimals, ratios, integers, order of operations, and solving equations. We build the foundation students need before high school math." },
+              { icon: Brain, title: "Algebra 1", grade: "8th–9th Grade", desc: "Linear equations, inequalities, systems, functions, graphing, polynomials, and factoring. The most important math class your student will take." },
             ].map((service) => (
-              <Card key={service.title} className="p-6 hover:shadow-md transition-shadow">
+              <Card key={service.title} className="p-8 hover:shadow-md transition-shadow">
                 <CardContent className="p-0">
-                  <div className="w-10 h-10 bg-violet-100 rounded-xl flex items-center justify-center mb-4">
-                    <service.icon className="w-5 h-5 text-violet-600" />
+                  <div className="w-12 h-12 bg-violet-100 rounded-xl flex items-center justify-center mb-4">
+                    <service.icon className="w-6 h-6 text-violet-600" />
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">{service.title}</h3>
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="font-bold text-gray-900 text-xl">{service.title}</h3>
+                    <span className="text-xs text-violet-600 bg-violet-100 px-2 py-0.5 rounded-full font-medium">{service.grade}</span>
+                  </div>
                   <p className="text-sm text-gray-500 leading-relaxed">{service.desc}</p>
                 </CardContent>
               </Card>

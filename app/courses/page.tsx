@@ -34,7 +34,7 @@ export default function CoursesPage() {
           <Card className="border-amber-400 ring-1 ring-amber-400 overflow-hidden">
             <div className="bg-amber-500 px-6 py-2 flex items-center gap-2">
               <Zap className="w-4 h-4 text-white" />
-              <span className="text-white text-sm font-bold">Best Value — Save ${mockBundle.savings}</span>
+              <span className="text-white text-sm font-bold">Complete Math Bundle — Both Courses</span>
             </div>
             <CardContent className="p-6 md:p-8">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -48,9 +48,8 @@ export default function CoursesPage() {
                   </div>
                 </div>
                 <div className="text-center md:text-right flex-shrink-0">
-                  <div className="text-sm text-gray-400 line-through mb-1">${mockBundle.originalPrice}</div>
                   <div className="text-4xl font-bold text-amber-500 mb-1">${mockBundle.price}</div>
-                  <div className="text-sm text-green-600 font-medium mb-4">You save ${mockBundle.savings}</div>
+                  <p className="text-sm text-gray-400 mb-4">Both courses · Lifetime access</p>
                   <Link href="/login">
                     <Button className="bg-amber-500 hover:bg-amber-600 text-white px-8">Get the Bundle</Button>
                   </Link>

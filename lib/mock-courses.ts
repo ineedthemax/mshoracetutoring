@@ -8,8 +8,8 @@ export const mockCourses = [
     shortDescription: "Build a strong math foundation with every core Pre-Algebra concept.",
     description: "A complete Pre-Algebra course covering number sense, fractions, decimals, ratios, proportions, integers, basic equations, and intro to functions. Includes step-by-step PDF worksheets, practice problem sets, and answer keys.",
     previewDescription: "The first 2 lessons are free — get a feel for the format and teaching style before you buy.",
-    priceCents: 4900,
-    price: 49,
+    priceCents: 19700,
+    price: 197,
     totalLessons: 10,
     isPublished: true,
     lessons: [
@@ -34,8 +34,8 @@ export const mockCourses = [
     shortDescription: "Master every core Algebra 1 concept from equations to graphing.",
     description: "A complete Algebra 1 course covering linear equations, inequalities, systems of equations, functions, and graphing. Includes step-by-step PDF worksheets for every unit, practice problem sets, and answer keys.",
     previewDescription: "The first 2 lessons are free — get a feel for the format and teaching style before you buy.",
-    priceCents: 4900,
-    price: 49,
+    priceCents: 19700,
+    price: 197,
     totalLessons: 12,
     isPublished: true,
     lessons: [
@@ -58,11 +58,11 @@ export const mockCourses = [
 export const mockBundle = {
   id: "b1",
   title: "Complete Math Bundle",
-  description: "Both courses — Pre-Algebra and Algebra 1 — at one discounted price. The full progression from foundational math all the way through Algebra 1.",
-  priceCents: 7900,
-  price: 79,
-  originalPrice: 98,
-  savings: 19,
+  description: "Both courses — Pre-Algebra and Algebra 1 — together. The full progression from foundational math all the way through Algebra 1.",
+  priceCents: 39400,
+  price: 394,
+  originalPrice: 394,
+  savings: 0,
   isPublished: true,
   courses: ["c1", "c2"],
 };
