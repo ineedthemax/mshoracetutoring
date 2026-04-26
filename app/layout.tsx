@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { TawkChat } from "@/components/TawkChat";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -150,7 +151,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.className} bg-gray-50`}>{children}</body>
+      <body className={`${inter.className} bg-gray-50`}>
+        {children}
+        <TawkChat />
+      </body>
     </html>
   );
 }
