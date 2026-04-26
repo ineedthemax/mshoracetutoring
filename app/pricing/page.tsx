@@ -5,9 +5,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { mockPricing } from "@/lib/mock-data";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, CreditCard } from "lucide-react";
 
 const faqs = [
+  { q: "Do you offer payment plans?", a: "Yes! Payment plans are available on all courses and the bundle. Courses can be split into 2 payments of $99/month. The bundle can be split into 2 payments of $197/month or 3 payments of $132/month. Simply select your plan at checkout — Stripe handles the rest automatically." },
   { q: "Do session packages expire?", a: "Session packages are valid for 90 days from purchase. This gives you plenty of time to use them without rushing." },
   { q: "Can I mix subjects across sessions in a package?", a: "Yes. Session packages can be used for any subject, any grade level. Use them however you need." },
   { q: "Is there a cancellation policy?", a: "Free cancellation up to 24 hours before your session. Within 24 hours, a $15 rescheduling fee applies. No-shows are non-refundable." },
@@ -142,6 +143,33 @@ export default function PricingPage() {
             </table>
           </div>
         </Card>
+
+        {/* Payment Plans Banner */}
+        <div className="bg-violet-50 border border-violet-200 rounded-2xl p-8 mb-16 text-center">
+          <div className="w-12 h-12 bg-violet-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <CreditCard className="w-6 h-6 text-violet-600" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Payment Plans Available</h2>
+          <p className="text-gray-500 mb-6 max-w-xl mx-auto">
+            Don&apos;t let the upfront cost hold you back. Split your purchase into easy monthly payments with no interest and no hidden fees.
+          </p>
+          <div className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto mb-6">
+            {[
+              { label: "Pre-Algebra Course", full: "$197", plan: "2 × $99/mo" },
+              { label: "Algebra 1 Course", full: "$197", plan: "2 × $99/mo" },
+              { label: "Complete Bundle", full: "$394", plan: "2 × $197/mo or 3 × $132/mo" },
+            ].map((item) => (
+              <div key={item.label} className="bg-white rounded-xl p-4 border border-violet-100">
+                <p className="font-semibold text-gray-900 text-sm mb-1">{item.label}</p>
+                <p className="text-xs text-gray-400 mb-2">Full price: {item.full}</p>
+                <p className="text-violet-600 font-bold text-sm">{item.plan}</p>
+              </div>
+            ))}
+          </div>
+          <Link href="/courses">
+            <Button className="px-8">View Courses & Payment Plans</Button>
+          </Link>
+        </div>
 
         {/* FAQ */}
         <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Pricing FAQ</h2>
