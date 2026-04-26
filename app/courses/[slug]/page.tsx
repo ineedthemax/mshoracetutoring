@@ -16,16 +16,22 @@ export default async function CourseDetailPage({ params }: { params: { slug: str
 
   const { data: course } = await supabase
     .from("courses")
-    .select("*, lessons(*)")
+    .select("*")
     .eq("slug", params.slug)
     .eq("is_published", true)
     .single();
 
   if (!course) notFound();
 
-  const lessons = course.lessons ?? [];
-  const freeLessons = lessons.filter((l: { is_free_preview: boolean }) => l.is_free_preview).sort((a: { lesson_order: number }, b: { lesson_order: number }) => a.lesson_order - b.lesson_order);
-  const paidLessons = lessons.filter((l: { is_free_preview: boolean }) => !l.is_free_preview).sort((a: { lesson_order: number }, b: { lesson_order: number }) => a.lesson_order - b.lesson_order);
+  const { data: lessons } = await supabase
+    .from("lessons")
+    .select("*")
+    .eq("course_id", course.id)
+    .order("lesson_order");
+
+  const allLessons = lessons ?? [];
+  const freeLessons = allLessons.filter((l: { is_free_preview: boolean }) => l.is_free_preview);
+  const paidLessons = allLessons.filter((l: { is_free_preview: boolean }) => !l.is_free_preview);
 
   return (
     <div className="min-h-screen bg-gray-50">
