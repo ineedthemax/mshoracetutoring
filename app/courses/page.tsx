@@ -70,13 +70,21 @@ export default async function CoursesPage() {
                     ))}
                   </div>
                 </div>
-                <div className="text-center md:text-right flex-shrink-0">
+                <div className="text-center md:text-right flex-shrink-0 space-y-2">
                   <div className="text-4xl font-bold text-amber-500 mb-1">${mockBundle.price}</div>
-                  <p className="text-sm text-gray-400 mb-4">Both courses · Lifetime access</p>
-                  <Link href="/login">
-                    <Button className="bg-amber-500 hover:bg-amber-600 text-white px-8">Get the Bundle</Button>
+                  <p className="text-sm text-gray-400 mb-2">Both courses · Lifetime access</p>
+                  <Link href="/login" className="block">
+                    <Button className="bg-amber-500 hover:bg-amber-600 text-white w-full">Pay in Full — ${mockBundle.price}</Button>
                   </Link>
-                  <p className="text-xs text-gray-400 mt-2">Login required to purchase</p>
+                  <div className="bg-white border border-amber-300 rounded-xl p-3 text-left">
+                    <p className="text-xs font-semibold text-amber-700 mb-0.5">Installment options:</p>
+                    <p className="text-xs text-gray-500">2 payments of $197/mo</p>
+                    <p className="text-xs text-gray-500">3 payments of $132/mo</p>
+                    <Link href="/login" className="block mt-2">
+                      <Button size="sm" variant="outline" className="w-full border-amber-400 text-amber-700 text-xs">Choose a Payment Plan</Button>
+                    </Link>
+                  </div>
+                  <p className="text-xs text-gray-400">Login required to purchase</p>
                 </div>
               </div>
             </CardContent>

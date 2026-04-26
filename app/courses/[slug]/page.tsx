@@ -105,13 +105,34 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
             <div className="sticky top-6 space-y-4">
               <Card className="border-violet-200 shadow-md">
                 <CardContent className="p-6">
-                  <div className="text-center mb-6">
+                  <div className="text-center mb-4">
                     <div className="text-4xl font-bold text-violet-600 mb-1">${(course.price_cents / 100).toFixed(0)}</div>
-                    <p className="text-sm text-gray-400">One-time purchase · Lifetime access</p>
+                    <p className="text-sm text-gray-400">Lifetime access · All PDFs included</p>
                   </div>
+
+                  {/* Pay in full */}
                   <Link href="/login">
-                    <Button className="w-full mb-3">Buy This Course</Button>
+                    <Button className="w-full mb-3">Pay in Full — ${(course.price_cents / 100).toFixed(0)}</Button>
                   </Link>
+
+                  {/* Divider */}
+                  <div className="flex items-center gap-2 my-3">
+                    <div className="flex-1 h-px bg-gray-200" />
+                    <span className="text-xs text-gray-400">or</span>
+                    <div className="flex-1 h-px bg-gray-200" />
+                  </div>
+
+                  {/* Installment option */}
+                  <div className="bg-violet-50 border border-violet-200 rounded-xl p-4 mb-3">
+                    <p className="text-sm font-semibold text-violet-700 mb-1">Pay in 2 Installments</p>
+                    <p className="text-xs text-gray-500 mb-3">$99 today, then $99 in 30 days</p>
+                    <Link href="/login">
+                      <Button variant="outline" className="w-full border-violet-300 text-violet-600 hover:bg-violet-100 text-sm">
+                        Start for $99/mo
+                      </Button>
+                    </Link>
+                  </div>
+
                   <p className="text-center text-xs text-gray-400 mb-4">Login required to purchase</p>
                   <div className="space-y-2 text-sm">
                     {[
