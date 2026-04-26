@@ -55,8 +55,8 @@ export default function HomePage() {
       <section className="bg-white border-b border-gray-100 py-12 px-4">
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
-            { icon: Users, label: "Students Helped", value: "200+" },
-            { icon: Award, label: "Years Experience", value: "8 Years" },
+            { icon: Users, label: "Students Helped", value: "900+" },
+            { icon: Award, label: "Years Experience", value: "6+ Years" },
             { icon: Star, label: "Average Rating", value: "4.9★" },
             { icon: TrendingUp, label: "Return Rate", value: "95%" },
           ].map((stat) => (
