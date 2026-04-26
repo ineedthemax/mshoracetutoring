@@ -242,9 +242,9 @@ export default function HomePage() {
               <div className="w-full aspect-square max-w-sm mx-auto bg-gradient-to-br from-violet-100 to-violet-200 rounded-2xl flex items-center justify-center">
                 <div className="text-center">
                   <div className="w-24 h-24 bg-violet-300 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-3xl font-bold text-violet-700">MH</span>
+                    <span className="text-3xl font-bold text-violet-700">SH</span>
                   </div>
-                  <p className="text-violet-600 font-medium">Marcus Horace</p>
+                  <p className="text-violet-600 font-medium">Stenita Horace</p>
                   <p className="text-violet-500 text-sm">Math Tutor</p>
                 </div>
               </div>

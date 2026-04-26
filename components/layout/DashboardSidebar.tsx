@@ -50,7 +50,7 @@ const roleLabels = {
 const roleUsers = {
   parent: { name: "Lisa Campbell", initials: "LC" },
   student: { name: "Jordan Campbell", initials: "JC" },
-  admin: { name: "Marcus Horace", initials: "MH" },
+  admin: { name: "Stenita Horace", initials: "SH" },
 };
 
 export function DashboardSidebar({ role }: SidebarProps) {

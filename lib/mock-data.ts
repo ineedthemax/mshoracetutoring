@@ -1,6 +1,6 @@
 export const mockTutor = {
-  name: "Marcus Horace",
-  title: "Math Tutor | MS in Applied Mathematics",
+  name: "Stenita Horace",
+  title: "Math Tutor | Pre-Algebra & Algebra 1 Specialist",
   bio: "I've helped over 900 students move from confusion to confidence in math. I specialize in breaking down complex concepts into clear, manageable steps. Whether you're struggling with Pre-Algebra or tackling Algebra 1, I'll meet you where you are.",
   photo: "/tutor-photo.jpg",
   subjects: ["Pre-Algebra", "Algebra 1"],
