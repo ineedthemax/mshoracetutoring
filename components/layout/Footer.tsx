@@ -20,7 +20,8 @@ export function Footer() {
             <p className="text-sm text-gray-400 mb-4 max-w-xs leading-relaxed">
               Live math tutoring that helps students understand the work, not just finish it. Pre-Algebra and Algebra 1 specialists.
             </p>
-            <p className="text-xs text-gray-500">Available Monday–Saturday via Zoom</p>
+            <p className="text-xs text-gray-500">White Plains, Maryland · Online via Zoom nationwide</p>
+            <p className="text-xs text-gray-500 mt-1">Monday–Saturday</p>
           </div>
 
           {/* Links */}

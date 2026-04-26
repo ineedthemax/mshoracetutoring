@@ -33,7 +33,7 @@ export default function HomePage() {
             a whole year of math.
           </h1>
           <p className="text-lg md:text-xl text-violet-100 mb-10 max-w-2xl mx-auto">
-            Summer is the best time to close skill gaps, get ahead for next year, and build the confidence your student needs before school starts again. Live 1-on-1 and group sessions via Zoom flexible scheduling all summer long.
+            Summer is the best time to close skill gaps, get ahead for next year, and build the confidence your student needs before school starts again. Based in White Plains, Maryland — serving students online via Zoom nationwide.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/book">
