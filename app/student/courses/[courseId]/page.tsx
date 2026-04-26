@@ -6,18 +6,25 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, FileText, Download, CheckCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 
-export default async function StudentCourseLessonPage({ params }: { params: { courseId: string } }) {
+export default async function StudentCourseLessonPage({ params }: { params: Promise<{ courseId: string }> }) {
+  const { courseId } = await params;
   const supabase = await createClient();
 
   const { data: course } = await supabase
     .from("courses")
-    .select("*, lessons(*)")
-    .eq("id", params.courseId)
+    .select("*")
+    .eq("id", courseId)
     .single();
 
   if (!course) notFound();
 
-  const lessons = (course.lessons ?? []).sort((a: { lesson_order: number }, b: { lesson_order: number }) => a.lesson_order - b.lesson_order);
+  const { data: lessonData } = await supabase
+    .from("lessons")
+    .select("*")
+    .eq("course_id", courseId)
+    .order("lesson_order");
+
+  const lessons = lessonData ?? [];
 
   return (
     <div className="p-8 max-w-4xl mx-auto">

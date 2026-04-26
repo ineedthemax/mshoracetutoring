@@ -11,13 +11,14 @@ import { mockBundle } from "@/lib/mock-courses";
 import { Lock, FileText, CheckCircle, Star, ArrowLeft, BookOpen } from "lucide-react";
 import { createPublicClient } from "@/lib/supabase/public";
 
-export default async function CourseDetailPage({ params }: { params: { slug: string } }) {
+export default async function CourseDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const supabase = createPublicClient();
 
   const { data: course } = await supabase
     .from("courses")
     .select("*")
-    .eq("slug", params.slug)
+    .eq("slug", slug)
     .eq("is_published", true)
     .single();
 
