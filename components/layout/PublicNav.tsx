@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
@@ -13,8 +14,7 @@ export function PublicNav() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <span className="text-lg font-medium text-gray-800">Mshorace</span>
-            <span className="text-lg font-bold text-violet-600">Tutoring</span>
+            <Image src="/Logo.png" alt="MsHorace Tutoring" width={120} height={48} className="h-12 w-auto" />
           </Link>
 
           {/* Center nav - desktop */}

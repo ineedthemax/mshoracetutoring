@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, Calendar, TrendingUp, CreditCard, BookOpen, Upload,
@@ -62,8 +63,7 @@ export function DashboardSidebar({ role }: SidebarProps) {
       {/* Logo + role */}
       <div className="p-6 border-b border-gray-100">
         <Link href="/" className="flex items-center mb-1">
-          <span className="text-base font-medium text-gray-800">Mshorace</span>
-          <span className="text-base font-bold text-violet-600">Tutoring</span>
+          <Image src="/Logo.png" alt="MsHorace Tutoring" width={100} height={40} className="h-10 w-auto" />
         </Link>
         <span className="text-xs text-gray-400 font-medium uppercase tracking-wide">{roleLabels[role]}</span>
       </div>
