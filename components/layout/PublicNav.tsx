@@ -11,10 +11,10 @@ export function PublicNav() {
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-24">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <Image src="/Logo.png" alt="MsHorace Tutoring" width={180} height={72} className="h-16 w-auto" />
+            <Image src="/Logo.png" alt="MsHorace Tutoring" width={220} height={88} className="h-20 w-auto" />
           </Link>
 
           {/* Center nav - desktop */}
