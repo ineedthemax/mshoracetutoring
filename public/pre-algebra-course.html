@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-Algebra | MSHORACE Tutoring</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07040F;--card:#110D1E;--brand:#482F6F;--mid:#6B4CA0;--light:#9B78D4;--gold:#C9A84C;--gold2:#E8C96C;--text:#EDE7FA;--sub:#8A80A8;--border:rgba(201,168,76,.18);--ok:#52C97E;--err:#E05C5C}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 50% at 20% 10%,rgba(72,47,111,.35) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 80% 80%,rgba(201,168,76,.08) 0%,transparent 55%);pointer-events:none;z-index:0}
+#app{position:relative;z-index:1}
+.hdr{padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:rgba(7,4,15,.9);backdrop-filter:blur(14px);position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:11px;cursor:pointer}
+.logo-mark{width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,var(--brand),var(--mid));border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--gold)}
+.logo-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;line-height:1.2}
+.logo-tag{font-size:10px;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase;font-weight:600}
+.hdr-right{display:flex;align-items:center;gap:11px;font-size:13px;color:var(--sub)}
+.mbar{width:100px;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.mfill{height:100%;background:linear-gradient(90deg,var(--mid),var(--gold));border-radius:3px;transition:width .5s}
+.hdr-pct{color:var(--gold);font-weight:700}
+.hero{padding:56px 24px 32px;text-align:center;max-width:700px;margin:0 auto}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.6rem);font-weight:900;line-height:1.1;margin-bottom:12px}
+.hero h1 em{color:var(--gold);font-style:normal}
+.hero p{font-size:16px;color:var(--sub);line-height:1.7;max-width:460px;margin:0 auto 32px}
+.stats{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin-bottom:6px}
+.stat .n{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--gold);display:block}
+.stat .l{font-size:11px;color:var(--sub);text-transform:uppercase;letter-spacing:1.2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:16px;padding:24px;max-width:1160px;margin:0 auto}
+.scard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.scard::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--brand),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .25s}
+.scard:hover{transform:translateY(-4px);border-color:rgba(201,168,76,.4);box-shadow:0 14px 44px rgba(72,47,111,.4)}
+.scard:hover::after{transform:scaleX(1)}
+.scard .unit{font-size:10px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:5px}
+.scard .ico{font-size:2.2rem;margin-bottom:9px;display:block}
+.scard .title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:4px}
+.scard .sub{font-size:12px;color:var(--sub);margin-bottom:16px;line-height:1.5}
+.scard .prow{display:flex;align-items:center;gap:9px}
+.scard .pbar{flex:1;height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.scard .pfill{height:100%;background:linear-gradient(90deg,var(--mid),var(--gold));border-radius:2px;transition:width .5s}
+.scard .ptxt{font-size:12px;color:var(--sub)}
+.secview{max-width:760px;margin:0 auto;padding:24px}
+.back{display:inline-flex;align-items:center;gap:7px;color:var(--gold);font-size:13.5px;cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;margin-bottom:24px;transition:gap .2s}
+.back:hover{gap:12px}
+.sechdr{background:linear-gradient(135deg,var(--brand) 0%,var(--mid) 100%);border-radius:14px;padding:26px;margin-bottom:20px;position:relative;overflow:hidden}
+.sechdr::after{content:attr(data-ico);position:absolute;right:22px;top:50%;transform:translateY(-50%);font-size:3.8rem;opacity:.22;pointer-events:none}
+.sechdr .badge{display:inline-block;background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.4);color:var(--gold);font-size:10px;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:9px;font-weight:600}
+.sechdr h2{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;margin-bottom:4px}
+.sechdr p{color:rgba(255,255,255,.7);font-size:13.5px}
+.llist{display:flex;flex-direction:column;gap:9px}
+.litem{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:16px 20px;cursor:pointer;display:flex;align-items:center;gap:13px;transition:all .2s;position:relative;overflow:hidden}
+.litem::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);transform:scaleY(0);transition:transform .2s}
+.litem:hover{border-color:rgba(201,168,76,.3);background:rgba(72,47,111,.15);padding-left:24px}
+.litem:hover::before{transform:scaleY(1)}
+.lnum{width:32px;height:32px;border-radius:7px;background:rgba(72,47,111,.5);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--gold);flex-shrink:0}
+.linfo{flex:1}
+.lname{font-weight:600;font-size:14.5px;margin-bottom:2px}
+.lmeta{font-size:12px;color:var(--sub)}
+.crumb{padding:12px 24px;font-size:13px;color:var(--sub);display:flex;align-items:center;gap:7px;max-width:1100px;margin:0 auto;flex-wrap:wrap}
+.crumb a{color:var(--gold);cursor:pointer}
+.crumb a:hover{text-decoration:underline}
+.lview{max-width:1100px;margin:0 auto;padding:16px 24px 48px;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+@media(max-width:800px){.lview{grid-template-columns:1fr}}
+.lcontent{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:26px;position:sticky;top:76px}
+.lcontent h2{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--gold);margin-bottom:16px}
+.lcontent h3{font-size:11px;text-transform:uppercase;letter-spacing:1.8px;color:var(--gold);margin:16px 0 6px;font-weight:600}
+.lcontent p{font-size:14px;line-height:1.72;color:var(--text);margin-bottom:9px}
+.rbox{background:rgba(72,47,111,.25);border:1px solid rgba(201,168,76,.28);border-left:3px solid var(--gold);border-radius:7px;padding:11px 15px;margin:12px 0;font-size:13.5px;color:var(--text);line-height:1.6}
+.ebox{background:rgba(17,13,30,.9);border:1px solid var(--border);border-radius:9px;padding:14px;margin:9px 0;font-size:13.5px}
+.ebox .elabel{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);margin-bottom:7px;font-weight:600}
+.ebox .eq{font-size:15px;font-weight:600;color:var(--text);margin-bottom:3px}
+.ebox .step{color:var(--sub);margin:3px 0;line-height:1.5}
+.ebox .res{color:var(--ok);font-weight:600;margin-top:6px}
+.ppanel{display:flex;flex-direction:column;gap:13px}
+.phead{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:20px}
+.ptitle{font-size:10.5px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);margin-bottom:2px;font-weight:600}
+.psub{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700}
+.pbar2{height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin-top:11px}
+.pfill2{height:100%;background:linear-gradient(90deg,var(--ok),#78E8A8);border-radius:2px;transition:width .5s}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:17px;transition:border-color .25s}
+.pcard.ok{border-color:rgba(82,201,126,.4)}
+.pcard.bad{border-color:rgba(224,92,92,.4)}
+.pnum{font-size:10px;color:var(--sub);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.pq{font-size:14.5px;font-weight:500;line-height:1.55;margin-bottom:12px}
+.irow{display:flex;gap:8px;margin-bottom:8px}
+.ainput{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:7px;padding:9px 12px;color:var(--text);font-size:15px;font-family:'DM Sans',sans-serif;transition:border-color .2s,box-shadow .2s;outline:none}
+.ainput:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.14)}
+.ainput:disabled{opacity:.55}
+.btn{padding:9px 16px;border-radius:7px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;transition:all .2s;display:inline-flex;align-items:center;gap:5px}
+.btn-p{background:linear-gradient(135deg,var(--brand),var(--mid));color:#fff}
+.btn-p:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(72,47,111,.45)}
+.btn-g{background:linear-gradient(135deg,#8A6028,var(--gold));color:#1A1028;font-weight:700}
+.btn-g:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(201,168,76,.35)}
+.btn-o{background:transparent;color:var(--sub);border:1px solid rgba(255,255,255,.13)}
+.btn-o:hover{border-color:var(--gold);color:var(--gold)}
+.btn:disabled{opacity:.45;cursor:default;transform:none!important}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.cbtn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);border-radius:7px;padding:9px 12px;color:var(--text);font-size:13px;cursor:pointer;transition:all .2s;text-align:left;font-family:'DM Sans',sans-serif;line-height:1.3}
+.cbtn:hover:not(:disabled){border-color:var(--gold);color:var(--gold)}
+.cbtn.cok{border-color:var(--ok)!important;background:rgba(82,201,126,.14)!important;color:var(--ok)!important}
+.cbtn.cno{border-color:var(--err)!important;background:rgba(224,92,92,.14)!important;color:var(--err)!important}
+.cbtn:disabled{cursor:default}
+.fb{padding:9px 13px;border-radius:7px;font-size:13px;margin-top:6px;display:flex;align-items:flex-start;gap:7px;line-height:1.5}
+.fb-ok{background:rgba(82,201,126,.1);border:1px solid rgba(82,201,126,.3);color:var(--ok)}
+.fb-bad{background:rgba(224,92,92,.1);border:1px solid rgba(224,92,92,.3);color:var(--err)}
+.fb-hint{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.28);color:var(--gold)}
+.hrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:7px}
+.navrow{display:flex;gap:9px;flex-wrap:wrap}
+.navrow-sec{display:flex;gap:9px;flex-wrap:wrap;justify-content:space-between;margin-top:6px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.fade-in{animation:fadeUp .35s ease both}
+.shake{animation:shake .28s ease}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:var(--brand);border-radius:3px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// ── STATE ──
+let S={view:'home',sec:null,les:null,results:{},hinted:{}};
+try{const sv=localStorage.getItem('msh_pa_v4');if(sv){const p=JSON.parse(sv);S.results=p.r||{};S.hinted=p.h||{};}}catch(e){}
+function save(){try{localStorage.setItem('msh_pa_v4',JSON.stringify({r:S.results,h:S.hinted}));}catch(e){}}
+
+// ── COURSE DATA ──
+const SECTIONS=[
+{id:1,ico:'⚖️',title:'Solving Equations',sub:'Balance both sides to find the unknown variable',lessons:[
+{id:'1-1',title:'One-Step Equations: Add & Subtract',
+content:`<h3>What is an Equation?</h3><p>An equation is a math sentence with an <strong>equals sign (=)</strong>. Both sides must stay balanced — like a scale.</p><div class="rbox">💡 <strong>Golden Rule:</strong> Whatever you do to one side, do the same to the other side.</div><h3>How to Solve</h3><p>Use the <em>opposite (inverse) operation</em> to isolate the variable.</p><div class="ebox"><div class="elabel">Example 1 — Addition</div><div class="eq">Solve: x + 5 = 12</div><div class="step">Subtract 5 from both sides:</div><div class="step">x + 5 − 5 = 12 − 5</div><div class="res">x = 7 ✓  Check: 7 + 5 = 12 ✓</div></div><div class="ebox"><div class="elabel">Example 2 — Subtraction</div><div class="eq">Solve: y − 8 = 3</div><div class="step">Add 8 to both sides:</div><div class="step">y − 8 + 8 = 3 + 8</div><div class="res">y = 11 ✓</div></div>`,
+problems:[
+{id:'p1',q:'Solve for x: x + 7 = 15',type:'num',ans:8,hint:'Subtract 7 from both sides',exp:'x = 15 − 7 = 8'},
+{id:'p2',q:'Solve for y: y − 4 = 11',type:'num',ans:15,hint:'Add 4 to both sides',exp:'y = 11 + 4 = 15'},
+{id:'p3',q:'Solve for n: 6 + n = 20',type:'num',ans:14,hint:'Subtract 6 from both sides',exp:'n = 20 − 6 = 14'},
+{id:'p4',q:'Solve for m: m − 9 = 3',type:'num',ans:12,hint:'Add 9 to both sides',exp:'m = 3 + 9 = 12'},
+{id:'p5',q:'Solve for k: k + 13 = 30',type:'num',ans:17,hint:'Subtract 13 from both sides',exp:'k = 30 − 13 = 17'},
+]},
+{id:'1-2',title:'One-Step Equations: Multiply & Divide',
+content:`<h3>Undo Multiplication → Divide</h3><p>When the variable is multiplied by a number, divide both sides by that number.</p><div class="rbox">💡 To undo ×, use ÷ &nbsp;|&nbsp; To undo ÷, use ×</div><div class="ebox"><div class="elabel">Example 1</div><div class="eq">Solve: 3x = 21</div><div class="step">Divide both sides by 3:</div><div class="res">x = 7 ✓</div></div><div class="ebox"><div class="elabel">Example 2</div><div class="eq">Solve: x ÷ 4 = 6</div><div class="step">Multiply both sides by 4:</div><div class="res">x = 24 ✓</div></div>`,
+problems:[
+{id:'p6',q:'Solve for x: 3x = 21',type:'num',ans:7,hint:'Divide both sides by 3',exp:'21 ÷ 3 = 7'},
+{id:'p7',q:'Solve for n: n ÷ 5 = 8',type:'num',ans:40,hint:'Multiply both sides by 5',exp:'8 × 5 = 40'},
+{id:'p8',q:'Solve for y: 7y = 56',type:'num',ans:8,hint:'Divide both sides by 7',exp:'56 ÷ 7 = 8'},
+{id:'p9',q:'Solve for m: m ÷ 9 = 6',type:'num',ans:54,hint:'Multiply both sides by 9',exp:'6 × 9 = 54'},
+{id:'p10',q:'Solve for x: 12x = 144',type:'num',ans:12,hint:'Divide both sides by 12',exp:'144 ÷ 12 = 12'},
+]},
+{id:'1-3',title:'Multi-Step Equations',
+content:`<h3>Two or More Operations</h3><p>Work in reverse PEMDAS: undo addition/subtraction first, then multiplication/division.</p><div class="rbox">💡 Step 1: Move constants &nbsp;|&nbsp; Step 2: Divide by coefficient</div><div class="ebox"><div class="elabel">Example 1</div><div class="eq">Solve: 2x + 3 = 11</div><div class="step">Step 1: 2x = 8 &nbsp;(subtract 3)</div><div class="step">Step 2: x = 4 &nbsp;(divide by 2)</div><div class="res">x = 4 ✓  Check: 2(4)+3 = 11 ✓</div></div><div class="ebox"><div class="elabel">Example 2</div><div class="eq">Solve: 5y − 7 = 18</div><div class="step">5y = 25 → y = 5</div><div class="res">y = 5 ✓</div></div>`,
+problems:[
+{id:'p11',q:'Solve for x: 2x + 3 = 11',type:'num',ans:4,hint:'Subtract 3 first, then divide by 2',exp:'2x=8 → x=4'},
+{id:'p12',q:'Solve for y: 5y − 7 = 18',type:'num',ans:5,hint:'Add 7 first, then divide by 5',exp:'5y=25 → y=5'},
+{id:'p13',q:'Solve for n: 3n + 9 = 30',type:'num',ans:7,hint:'Subtract 9 first, then divide by 3',exp:'3n=21 → n=7'},
+{id:'p14',q:'Solve for m: 4m − 5 = 23',type:'num',ans:7,hint:'Add 5 first, then divide by 4',exp:'4m=28 → m=7'},
+{id:'p15',q:'Solve for x: 6x + 2 = 44',type:'num',ans:7,hint:'Subtract 2 first, then divide by 6',exp:'6x=42 → x=7'},
+]}
+]},
+{id:2,ico:'↔️',title:'Inequalities',sub:'Compare values and solve inequality statements',lessons:[
+{id:'2-1',title:'One-Step Inequalities',
+content:`<h3>Inequality Symbols</h3><div class="ebox"><div class="step"><strong>&gt;</strong> greater than &nbsp;|&nbsp; <strong>&lt;</strong> less than</div><div class="step"><strong>≥</strong> greater than or equal &nbsp;|&nbsp; <strong>≤</strong> less than or equal</div></div><div class="rbox">⚠️ <strong>Flip Rule:</strong> Multiplying or dividing by a NEGATIVE number → flip the inequality!</div><div class="ebox"><div class="elabel">Example 1</div><div class="eq">Solve: x + 4 &gt; 9</div><div class="step">Subtract 4:</div><div class="res">x &gt; 5</div></div><div class="ebox"><div class="elabel">Example 2 — Flip!</div><div class="eq">Solve: −2x ≥ 10</div><div class="step">Divide by −2 → FLIP sign:</div><div class="res">x ≤ −5</div></div>`,
+problems:[
+{id:'p16',q:'Solve: x + 4 > 9  (enter boundary value)',type:'num',ans:5,hint:'Subtract 4 from both sides',exp:'x > 5, boundary = 5'},
+{id:'p17',q:'Solve: 2y ≤ 18  (enter boundary value)',type:'num',ans:9,hint:'Divide both sides by 2',exp:'y ≤ 9, boundary = 9'},
+{id:'p18',q:'Solve: m − 3 ≥ 7  (enter boundary value)',type:'num',ans:10,hint:'Add 3 to both sides',exp:'m ≥ 10, boundary = 10'},
+{id:'p19',q:'Solve: n ÷ 4 < 5  (enter boundary value)',type:'num',ans:20,hint:'Multiply both sides by 4',exp:'n < 20, boundary = 20'},
+{id:'p20',q:'Solve: 3x + 1 > 10  (enter boundary value)',type:'num',ans:3,hint:'Subtract 1, then divide by 3',exp:'3x > 9 → x > 3, boundary = 3'},
+]},
+{id:'2-2',title:'Inequality Word Problems',
+content:`<h3>Key Words</h3><div class="ebox"><div class="step"><strong>at least / minimum</strong> → ≥</div><div class="step"><strong>at most / no more than</strong> → ≤</div><div class="step"><strong>more than / greater than</strong> → &gt;</div><div class="step"><strong>fewer than / less than</strong> → &lt;</div></div><div class="ebox"><div class="elabel">Example</div><div class="eq">Budget $25. Admission $4. Rides $1.50 each. Max rides?</div><div class="step">4 + 1.5r ≤ 25 → 1.5r ≤ 21</div><div class="res">r ≤ 14 → at most 14 rides ✓</div></div>`,
+problems:[
+{id:'p21',q:'Maria needs at least 80 points to pass. She has 63. Minimum additional points needed?',type:'num',ans:17,hint:'63 + p ≥ 80',exp:'p ≥ 17'},
+{id:'p22',q:'You can spend at most $50. Books cost $8 each. Maximum books you can buy?',type:'num',ans:6,hint:'8b ≤ 50, round down',exp:'b ≤ 6.25 → max 6 books'},
+{id:'p23',q:'A truck can carry at most 1,200 lbs. Already loaded: 850 lbs. How many more pounds can it carry?',type:'num',ans:350,hint:'850 + w ≤ 1200',exp:'w ≤ 350'},
+]
+}
+]},
+{id:3,ico:'🔀',title:'Systems of Equations',sub:'Find the point that satisfies two equations at once',lessons:[
+{id:'3-1',title:'Substitution Method',
+content:`<h3>What is a System?</h3><p>Two equations with the same variables. Solution = the (x, y) that satisfies BOTH.</p><div class="ebox"><div class="step">1. Solve one equation for one variable</div><div class="step">2. Substitute into the other equation</div><div class="step">3. Solve, then back-substitute</div></div><div class="ebox"><div class="elabel">Example</div><div class="eq">y = x + 2 &nbsp; and &nbsp; y = 2x − 1</div><div class="step">Set equal: x + 2 = 2x − 1 → x = 3</div><div class="step">y = 3 + 2 = 5</div><div class="res">Solution: (3, 5) ✓</div></div>`,
+problems:[
+{id:'p24',q:'System: y = x + 2 and y = 2x − 1.  Find x.',type:'num',ans:3,hint:'Set x+2 = 2x−1',exp:'x+2=2x−1 → 3=x'},
+{id:'p25',q:'System: y = 3x and y = x + 6.  Find x.',type:'num',ans:3,hint:'Set 3x = x+6',exp:'2x=6 → x=3'},
+{id:'p26',q:'System: y = 2x + 1 and y = x + 5.  Find y.',type:'num',ans:9,hint:'Find x first (x=4), then find y',exp:'x=4, y=2(4)+1=9'},
+{id:'p27',q:'System: y = x − 3 and y = −2x + 9.  Find x.',type:'num',ans:4,hint:'Set x−3 = −2x+9',exp:'3x=12 → x=4'},
+]},
+{id:'3-2',title:'Elimination Method',
+content:`<h3>Eliminate a Variable</h3><p>Add or subtract equations to cancel one variable.</p><div class="rbox">💡 Make coefficients equal (or opposite), then add/subtract rows.</div><div class="ebox"><div class="elabel">Example</div><div class="eq">2x + y = 10 &nbsp;&nbsp; x − y = 2</div><div class="step">Add: 3x = 12 → x = 4</div><div class="step">Sub back: 2(4)+y=10 → y=2</div><div class="res">Solution: (4, 2) ✓</div></div>`,
+problems:[
+{id:'p28',q:'2x + y = 10 and x − y = 2.  Find x (add the equations).',type:'num',ans:4,hint:'Add both equations to eliminate y',exp:'3x=12 → x=4'},
+{id:'p29',q:'x + y = 8 and x − y = 2.  Find y.',type:'num',ans:3,hint:'Add to get x=5, substitute back',exp:'x=5, 5+y=8 → y=3'},
+{id:'p30',q:'4x − y = 11 and 2x + y = 7.  Find x.',type:'num',ans:3,hint:'Add both equations to eliminate y',exp:'6x=18 → x=3'},
+]
+}
+]},
+{id:4,ico:'⚖️',title:'Proportions',sub:'Explore equal ratios and proportional relationships',lessons:[
+{id:'4-1',title:'Solving Proportions',
+content:`<h3>a/b = c/d</h3><p>Cross-multiply to solve: <strong>a × d = b × c</strong></p><div class="ebox"><div class="elabel">Example 1</div><div class="eq">Solve: 3/x = 6/10</div><div class="step">Cross multiply: 30 = 6x</div><div class="res">x = 5 ✓</div></div><div class="ebox"><div class="elabel">Example 2</div><div class="eq">Solve: 3/5 = x/20</div><div class="step">Cross multiply: 60 = 5x</div><div class="res">x = 12 ✓</div></div>`,
+problems:[
+{id:'p31',q:'Solve: 3/x = 6/10',type:'num',ans:5,hint:'Cross multiply: 30 = 6x',exp:'x=5'},
+{id:'p32',q:'Solve: 3/5 = x/20',type:'num',ans:12,hint:'Cross multiply: 60 = 5x',exp:'x=12'},
+{id:'p33',q:'Solve: 4/6 = 10/x',type:'num',ans:15,hint:'Cross multiply: 4x = 60',exp:'x=15'},
+{id:'p34',q:'Solve: x/7 = 6/21',type:'num',ans:2,hint:'Cross multiply: 21x = 42',exp:'x=2'},
+{id:'p35',q:'Recipe: 2 cups flour per 3 cups sugar. How many cups flour for 12 cups sugar?',type:'num',ans:8,hint:'2/3 = x/12',exp:'3x=24 → x=8'},
+]},
+{id:'4-2',title:'Proportional vs. Non-Proportional',
+content:`<h3>Proportional?</h3><p>Calculate y/x for each pair. If the ratio is <em>constant</em> → proportional. Graph passes through (0,0).</p><div class="ebox"><div class="elabel">Proportional ✓</div><div class="step">x: 2,4,6 &nbsp; y: 6,12,18 &nbsp; → &nbsp; y/x=3 (constant)</div></div><div class="ebox"><div class="elabel">NOT Proportional ✗</div><div class="step">x: 1,2,3 &nbsp; y: 5,8,11 &nbsp; → &nbsp; y/x=5,4,3.67 (changes)</div></div>`,
+problems:[
+{id:'p36',q:'x=2,4,6 and y=8,16,24. Is the relationship proportional?',type:'mc',opts:['Yes — proportional','No — not proportional'],ans:'Yes — proportional',hint:'y/x = 4 for all pairs',exp:'Constant ratio → proportional'},
+{id:'p37',q:'x=1,2,3 and y=4,7,10. Proportional?',type:'mc',opts:['Yes — proportional','No — not proportional'],ans:'No — not proportional',hint:'y/x = 4, 3.5, 3.33 — not equal',exp:'Ratio changes → not proportional'},
+{id:'p38',q:'Is y = 6x a proportional relationship?',type:'mc',opts:['Yes — proportional','No — not proportional'],ans:'Yes — proportional',hint:'Form y = kx always passes through origin',exp:'Proportional ✓'},
+{id:'p39',q:'Is y = 3x + 2 a proportional relationship?',type:'mc',opts:['Yes — proportional','No — not proportional'],ans:'No — not proportional',hint:'The +2 means it does NOT pass through (0,0)',exp:'y-intercept ≠ 0 → not proportional'},
+]
+}
+]},
+{id:5,ico:'🔁',title:'Functions',sub:'Understand input-output relationships and function notation',lessons:[
+{id:'5-1',title:'What is a Function?',
+content:`<h3>One Input → One Output</h3><p>A <strong>function</strong> is a relation where each x-value has <em>exactly one</em> y-value.</p><div class="rbox">🔑 NOT a function if any x-value appears more than once with different y-values.</div><div class="ebox"><div class="elabel">Function ✓</div><div class="step">{(1,4),(2,8),(3,12)} — each x is unique</div></div><div class="ebox"><div class="elabel">NOT a Function ✗</div><div class="step">{(1,3),(2,5),(1,7)} — x=1 maps to 3 AND 7</div></div>`,
+problems:[
+{id:'p40',q:'Is {(1,2),(2,4),(3,6),(4,8)} a function?',type:'mc',opts:['Yes — it is a function','No — not a function'],ans:'Yes — it is a function',hint:'Check for repeated x-values',exp:'All x-values unique → function ✓'},
+{id:'p41',q:'Is {(1,3),(1,5),(2,7),(3,9)} a function?',type:'mc',opts:['Yes — it is a function','No — not a function'],ans:'No — not a function',hint:'x=1 appears twice with different y-values',exp:'x=1 maps to 3 and 5 → NOT a function'},
+{id:'p42',q:'Is {(2,5),(4,5),(6,5)} a function?',type:'mc',opts:['Yes — it is a function','No — not a function'],ans:'Yes — it is a function',hint:'Repeated y-values are fine; only repeated x-values are a problem',exp:'x-values 2,4,6 are all unique → function ✓'},
+{id:'p43',q:'Is {(0,1),(2,3),(2,5),(4,7)} a function?',type:'mc',opts:['Yes — it is a function','No — not a function'],ans:'No — not a function',hint:'x=2 appears twice',exp:'x=2 maps to 3 and 5 → NOT a function'},
+]},
+{id:'5-2',title:'Domain, Range & Function Notation',
+content:`<h3>Domain & Range</h3><p><strong>Domain</strong> = all x-values (inputs). &nbsp; <strong>Range</strong> = all y-values (outputs).</p><div class="ebox"><div class="elabel">Example</div><div class="eq">{(3,7),(5,11),(8,15)}</div><div class="step">Domain: {3,5,8}</div><div class="res">Range: {7,11,15}</div></div><h3>Function Notation: f(x)</h3><div class="ebox"><div class="elabel">Evaluate f(x) = 2x + 3 at x = 5</div><div class="step">Replace x with 5:</div><div class="res">f(5) = 2(5)+3 = 13 ✓</div></div>`,
+problems:[
+{id:'p44',q:'f(x) = 3x − 2.  Find f(4).',type:'num',ans:10,hint:'Replace x with 4: 3(4)−2',exp:'12−2=10'},
+{id:'p45',q:'f(x) = x² + 1.  Find f(3).',type:'num',ans:10,hint:'3²+1',exp:'9+1=10'},
+{id:'p46',q:'f(x) = 5x.  Find f(7).',type:'num',ans:35,hint:'5×7',exp:'35'},
+{id:'p47',q:'f(x) = 4x − 6.  Find f(0).',type:'num',ans:-6,hint:'4(0)−6',exp:'−6'},
+{id:'p48',q:'For {(2,6),(4,10),(6,14)}, output when x=4?',type:'num',ans:10,hint:'Look up x=4 in the set',exp:'y=10'},
+]
+}
+]},
+{id:6,ico:'📈',title:'Slope & Linear Equations',sub:'Measure steepness and write equations of lines',lessons:[
+{id:'6-1',title:'Slope from Two Points',
+content:`<h3>m = rise/run</h3><div class="rbox">m = (y₂ − y₁) ÷ (x₂ − x₁)</div><div class="ebox"><div class="elabel">Example</div><div class="eq">Points: (1,2) and (3,6)</div><div class="step">m = (6−2)/(3−1) = 4/2</div><div class="res">m = 2 ✓</div></div><div class="ebox"><div class="elabel">Types of Slope</div><div class="step">Positive → goes UP &nbsp;| Negative → goes DOWN</div><div class="step">Zero → horizontal &nbsp;| Undefined → vertical</div></div>`,
+problems:[
+{id:'p49',q:'Find slope through (1,2) and (3,6).',type:'num',ans:2,hint:'m=(6−2)/(3−1)',exp:'4/2=2'},
+{id:'p50',q:'Find slope through (0,3) and (5,8).',type:'num',ans:1,hint:'m=(8−3)/(5−0)',exp:'5/5=1'},
+{id:'p51',q:'Find slope through (1,5) and (4,2).',type:'num',ans:-1,hint:'m=(2−5)/(4−1)',exp:'−3/3=−1'},
+{id:'p52',q:'Find slope through (−2,1) and (3,11).',type:'num',ans:2,hint:'m=(11−1)/(3−(−2))',exp:'10/5=2'},
+{id:'p53',q:'Slope through (4,7) and (4,12)?',type:'mc',opts:['0','undefined','5','−5'],ans:'undefined',hint:'Same x-values → vertical line',exp:'Vertical line → undefined slope'},
+]},
+{id:'6-2',title:'Slope-Intercept Form: y = mx + b',
+content:`<h3>y = mx + b</h3><p><strong>m</strong> = slope &nbsp;&nbsp; <strong>b</strong> = y-intercept (where line crosses y-axis)</p><div class="ebox"><div class="elabel">Identify m and b</div><div class="eq">y = 3x − 5</div><div class="step">m = 3 &nbsp;|&nbsp; b = −5</div></div><div class="ebox"><div class="elabel">Write the Equation</div><div class="eq">Slope = 2, passes through (0, 4)</div><div class="res">y = 2x + 4 ✓</div></div>`,
+problems:[
+{id:'p54',q:'In y = 3x − 5, what is the slope?',type:'num',ans:3,hint:'Slope = coefficient of x',exp:'m=3'},
+{id:'p55',q:'In y = −2x + 7, what is the y-intercept?',type:'num',ans:7,hint:'y-intercept = constant b',exp:'b=7'},
+{id:'p56',q:'Line: slope 4, y-intercept −3. Coefficient of x?',type:'num',ans:4,hint:'y=4x−3',exp:'4'},
+{id:'p57',q:'A line passes through (0,6) with slope 2. What is b?',type:'num',ans:6,hint:'Passing through (0,b) gives b directly',exp:'b=6'},
+{id:'p58',q:'For y = −x + 10, what is the slope?',type:'num',ans:-1,hint:'−x means coefficient −1',exp:'m=−1'},
+]
+}
+]},
+{id:7,ico:'🔷',title:'Transformations',sub:'Translate, reflect, rotate, and dilate geometric figures',lessons:[
+{id:'7-1',title:'The Four Transformations',
+content:`<div class="ebox"><div class="elabel">Translation (Slide)</div><div class="step">Moves every point the same direction.</div><div class="res">Size/shape unchanged. Position changes.</div></div><div class="ebox"><div class="elabel">Reflection (Flip)</div><div class="step">Flips a figure over a line of reflection.</div><div class="res">Size/shape unchanged. Orientation flips.</div></div><div class="ebox"><div class="elabel">Rotation (Turn)</div><div class="step">Turns a figure around a center point.</div><div class="res">Size/shape unchanged. Orientation changes.</div></div><div class="ebox"><div class="elabel">Dilation (Resize)</div><div class="step">Enlarges or shrinks by a scale factor.</div><div class="res">Shape unchanged. SIZE changes.</div></div>`,
+problems:[
+{id:'p59',q:'A triangle is moved 3 units right, 5 units up — no size change. This is a:',type:'mc',opts:['Translation','Reflection','Rotation','Dilation'],ans:'Translation',hint:'Sliding without flipping or turning',exp:'Translation ✓'},
+{id:'p60',q:'A figure is flipped over the x-axis. This is a:',type:'mc',opts:['Translation','Reflection','Rotation','Dilation'],ans:'Reflection',hint:'Flipping over a line',exp:'Reflection ✓'},
+{id:'p61',q:'A figure is turned 90° clockwise around the origin. This is a:',type:'mc',opts:['Translation','Reflection','Rotation','Dilation'],ans:'Rotation',hint:'Turning around a point',exp:'Rotation ✓'},
+{id:'p62',q:'A square with side 4 is enlarged to side 12. This is a:',type:'mc',opts:['Translation','Reflection','Rotation','Dilation'],ans:'Dilation',hint:'The SIZE changed',exp:'Dilation, scale factor = 3 ✓'},
+]},
+{id:'7-2',title:'Congruent & Similar Figures',
+content:`<h3>Congruent (≅)</h3><p>Same shape AND same size. All corresponding sides and angles are equal.</p><h3>Similar (~)</h3><p>Same shape, proportional sides. Corresponding angles equal.</p><div class="rbox">Rigid transformations (slide/flip/rotate) → congruent<br>Dilation → similar (but not congruent)</div><div class="ebox"><div class="elabel">Example</div><div class="eq">△A: 3,4,5 &nbsp; △B: 6,8,10</div><div class="step">6/3=8/4=10/5=2 → scale factor 2</div><div class="res">Similar, NOT congruent</div></div>`,
+problems:[
+{id:'p63',q:'Triangles with sides 3,4,5 and 3,4,5. They are:',type:'mc',opts:['Congruent','Similar but not congruent','Neither'],ans:'Congruent',hint:'Same shape AND same size',exp:'Identical sides → congruent ✓'},
+{id:'p64',q:'Rectangles 2×4 and 4×8. They are:',type:'mc',opts:['Congruent','Similar but not congruent','Neither'],ans:'Similar but not congruent',hint:'Check: 4/2 = 8/4 = 2 (proportional)',exp:'Scale factor 2 → similar ✓'},
+{id:'p65',q:'Triangles with sides 5,7,9 and 10,14,18. What is the scale factor?',type:'num',ans:2,hint:'10/5 = ?',exp:'10/5=14/7=18/9=2'},
+{id:'p66',q:'Translations, reflections, and rotations create _____ figures.',type:'mc',opts:['Congruent','Similar','Dilated'],ans:'Congruent',hint:'These transformations do not change size',exp:'Rigid transformations → congruent ✓'},
+]
+}
+]},
+{id:8,ico:'📐',title:'Pythagorean Theorem',sub:'Find missing sides in right triangles using a² + b² = c²',lessons:[
+{id:'8-1',title:'The Pythagorean Theorem',
+content:`<h3>a² + b² = c²</h3><p>In a right triangle, the square of the hypotenuse equals the sum of squares of the two legs.</p><div class="rbox"><strong>a, b</strong> = legs (shorter sides) &nbsp;|&nbsp; <strong>c</strong> = hypotenuse (longest, opposite right angle)</div><div class="ebox"><div class="elabel">Find hypotenuse</div><div class="eq">a=3, b=4. Find c.</div><div class="step">9+16=c² → 25=c²</div><div class="res">c=5 ✓</div></div><div class="ebox"><div class="elabel">Find missing leg</div><div class="eq">c=10, b=6. Find a.</div><div class="step">a²+36=100 → a²=64</div><div class="res">a=8 ✓</div></div>`,
+problems:[
+{id:'p67',q:'Right triangle: a=3, b=4. Find hypotenuse c.',type:'num',ans:5,hint:'3²+4²=c²',exp:'9+16=25 → c=5'},
+{id:'p68',q:'Right triangle: a=5, b=12. Find c.',type:'num',ans:13,hint:'5²+12²=c²',exp:'25+144=169 → c=13'},
+{id:'p69',q:'Right triangle: a=6, b=8. Find c.',type:'num',ans:10,hint:'6²+8²=c²',exp:'36+64=100 → c=10'},
+{id:'p70',q:'Right triangle: c=25, a=7. Find leg b.',type:'num',ans:24,hint:'7²+b²=25²',exp:'49+b²=625 → b²=576 → b=24'},
+{id:'p71',q:'Right triangle: c=17, a=8. Find leg b.',type:'num',ans:15,hint:'8²+b²=17²',exp:'64+b²=289 → b=15'},
+]
+}
+]},
+{id:9,ico:'📊',title:'Statistics',sub:'Analyze data with mean, median, mode, range, and frequency tables',lessons:[
+{id:'9-1',title:'Mean, Median, Mode & Range',
+content:`<div class="ebox"><div class="elabel">Mean</div><div class="step">Sum of all values ÷ count</div></div><div class="ebox"><div class="elabel">Median</div><div class="step">Middle value when data is ordered</div></div><div class="ebox"><div class="elabel">Mode</div><div class="step">Most frequently appearing value</div></div><div class="ebox"><div class="elabel">Range</div><div class="step">Max − Min</div></div><div class="ebox"><div class="elabel">All Four — Example</div><div class="eq">Data: {4,7,7,10,12}</div><div class="step">Mean=40/5=8 &nbsp; Median=7</div><div class="res">Mode=7 &nbsp; Range=12−4=8</div></div>`,
+problems:[
+{id:'p72',q:'Find the mean of: 4, 8, 12, 16, 20',type:'num',ans:12,hint:'Sum=60, divide by 5',exp:'60÷5=12'},
+{id:'p73',q:'Find the median of: 3, 7, 11, 15, 19',type:'num',ans:11,hint:'Middle value of 5',exp:'3rd value=11'},
+{id:'p74',q:'Find the mode of: 2, 4, 4, 6, 8, 8, 8',type:'num',ans:8,hint:'Most frequent value',exp:'8 appears 3 times'},
+{id:'p75',q:'Find the range of: 5, 12, 3, 18, 9',type:'num',ans:15,hint:'max−min = 18−3',exp:'18−3=15'},
+{id:'p76',q:'Mean of {8,12,6,x}=10. Find x.',type:'num',ans:14,hint:'(8+12+6+x)/4=10 → 26+x=40',exp:'x=14'},
+]},
+{id:'9-2',title:'Two-Way Frequency Tables',
+content:`<h3>Reading Two-Way Tables</h3><p>Shows the relationship between two categorical variables. Read both rows and columns carefully.</p><div class="ebox"><div class="elabel">Sports Preferences Table</div><div class="step" style="font-family:monospace;font-size:11.5px;line-height:1.9">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Soccer | Basketball | Total<br>
+Girls  |&nbsp; 15 &nbsp;&nbsp;|&nbsp;&nbsp; 10 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp; 25<br>
+Boys &nbsp; |&nbsp; 12 &nbsp;&nbsp;|&nbsp;&nbsp; 18 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp; 30<br>
+Total &nbsp;|&nbsp; 27 &nbsp;&nbsp;|&nbsp;&nbsp; 28 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp; 55</div></div>`,
+problems:[
+{id:'p77',q:'From the sports table: How many total students prefer soccer?',type:'num',ans:27,hint:'Soccer column total',exp:'15+12=27'},
+{id:'p78',q:'From the sports table: How many boys prefer basketball?',type:'num',ans:18,hint:'Boys row, Basketball column',exp:'18'},
+{id:'p79',q:'20 students surveyed: 12 prefer cats, 8 prefer dogs. 5 cat-lovers are boys. How many girls prefer cats?',type:'num',ans:7,hint:'Total cat-lovers minus boys',exp:'12−5=7'},
+{id:'p80',q:'From the sports table: What percent of all students prefer basketball? (nearest whole number)',type:'num',ans:51,hint:'28 out of 55 total',exp:'28/55≈50.9% → 51%'},
+]
+}
+]},
+{id:10,ico:'🔢',title:'Exponents',sub:'Master zero, negative, product, quotient, and power rules',lessons:[
+{id:'10-1',title:'Zero & Negative Exponents',
+content:`<div class="rbox">x⁰ = 1 &nbsp;(any nonzero base)</div><div class="rbox">x⁻ⁿ = 1/xⁿ &nbsp;(negative → reciprocal)</div><div class="ebox"><div class="elabel">Examples</div><div class="step">5⁰ = 1</div><div class="step">2⁻³ = 1/8 = 0.125</div><div class="res">10⁻¹ = 0.1</div></div>`,
+problems:[
+{id:'p81',q:'What is 7⁰?',type:'num',ans:1,hint:'Any nonzero base to power 0 = 1',exp:'7⁰=1'},
+{id:'p82',q:'What is 2⁻³? Enter as a decimal.',type:'num',ans:0.125,hint:'2⁻³=1/8',exp:'1/8=0.125'},
+{id:'p83',q:'Which equals 3⁻²?',type:'mc',opts:['1/9','−9','9','−1/9'],ans:'1/9',hint:'3⁻²=1/3²',exp:'1/9'},
+{id:'p84',q:'What is (−4)⁰?',type:'num',ans:1,hint:'Any nonzero base to power 0 = 1',exp:'1'},
+{id:'p85',q:'Simplify 5⁻¹. Enter as a decimal.',type:'num',ans:0.2,hint:'5⁻¹=1/5',exp:'0.2'},
+]},
+{id:'10-2',title:'Multiplying & Dividing Exponents',
+content:`<div class="rbox">Product rule: xᵃ · xᵇ = xᵃ⁺ᵇ &nbsp;(ADD exponents)</div><div class="rbox">Quotient rule: xᵃ ÷ xᵇ = xᵃ⁻ᵇ &nbsp;(SUBTRACT exponents)</div><div class="ebox"><div class="elabel">Examples</div><div class="step">x³ · x⁵ = x⁸</div><div class="step">x⁸ ÷ x³ = x⁵</div><div class="res">2³ · 2⁴ = 2⁷ = 128</div></div>`,
+problems:[
+{id:'p86',q:'x³ · x⁵ = x to what power?',type:'num',ans:8,hint:'ADD exponents: 3+5',exp:'8'},
+{id:'p87',q:'x⁸ ÷ x³ = x to what power?',type:'num',ans:5,hint:'SUBTRACT: 8−3',exp:'5'},
+{id:'p88',q:'y⁴ · y⁴ = y to what power?',type:'num',ans:8,hint:'4+4',exp:'8'},
+{id:'p89',q:'2⁵ · 2³ = 2 to what power?',type:'num',ans:8,hint:'5+3',exp:'8'},
+{id:'p90',q:'n¹⁰ ÷ n⁶ = n to what power?',type:'num',ans:4,hint:'10−6',exp:'4'},
+]},
+{id:'10-3',title:'Power Rule & Power of Products',
+content:`<div class="rbox">Power rule: (xᵃ)ᵇ = xᵃ·ᵇ &nbsp;(MULTIPLY exponents)</div><div class="rbox">Power of product: (xy)ⁿ = xⁿ · yⁿ</div><div class="ebox"><div class="elabel">Examples</div><div class="step">(x³)⁴ = x¹²</div><div class="step">(2x)³ = 8x³</div><div class="res">(x²y³)² = x⁴y⁶</div></div>`,
+problems:[
+{id:'p91',q:'(x³)⁴ = x to what power?',type:'num',ans:12,hint:'MULTIPLY: 3×4',exp:'12'},
+{id:'p92',q:'Which equals (2x)³?',type:'mc',opts:['8x³','2x³','6x','8x'],ans:'8x³',hint:'2³ · x³',exp:'8x³'},
+{id:'p93',q:'(x²)⁵ = x to what power?',type:'num',ans:10,hint:'2×5',exp:'10'},
+{id:'p94',q:'(3y)² = ?y²',type:'num',ans:9,hint:'3²=9',exp:'9y²'},
+]
+}
+]}
+];
+
+// ── HELPERS ──
+function secProgress(sid){
+  const s=SECTIONS.find(x=>x.id===sid);if(!s)return{c:0,t:0};
+  let c=0,t=0;
+  s.lessons.forEach(l=>l.problems.forEach(p=>{t++;if(S.results[p.id]?.ok)c++;}));
+  return{c,t};
+}
+function totalProgress(){let c=0,t=0;SECTIONS.forEach(s=>{const p=secProgress(s.id);c+=p.c;t+=p.t;});return{c,t};}
+function parseAns(v){const cl=v.trim().replace(/\s/g,'');const m=cl.match(/(-?\d+\.?\d*)/);if(m)return parseFloat(m[1]);return NaN;}
+function check(prob,val){
+  if(prob.type==='num'){const u=parseAns(val);return!isNaN(u)&&Math.abs(u-prob.ans)<0.06;}
+  return val.trim()===prob.ans;
+}
+function go(view,sec,les){S.view=view;S.sec=sec||null;S.les=les||null;render();window.scrollTo({top:0,behavior:'smooth'});}
+
+// ── RENDER ──
+function render(){
+  const app=document.getElementById('app');
+  app.innerHTML='';
+  app.appendChild(makeHdr());
+  if(S.view==='home')app.appendChild(makeHome());
+  else if(S.view==='section')app.appendChild(makeSection());
+  else if(S.view==='lesson')app.appendChild(makeLesson());
+}
+
+function el(tag,cls,html){const e=document.createElement(tag);if(cls)e.className=cls;if(html)e.innerHTML=html;return e;}
+
+function makeHdr(){
+  const{c,t}=totalProgress();const pct=t>0?Math.round((c/t)*100):0;
+  const h=el('header','hdr');
+  h.innerHTML=`<div class="logo" onclick="go('home')"><div class="logo-mark">M</div><div><div class="logo-name">MSHORACE Tutoring</div><div class="logo-tag">Pre-Algebra</div></div></div><div class="hdr-right"><span>${c}/${t} solved</span><div class="mbar"><div class="mfill" style="width:${pct}%"></div></div><span class="hdr-pct">${pct}%</span></div>`;
+  return h;
+}
+
+function makeHome(){
+  const{c,t}=totalProgress();
+  const d=el('div');
+  d.innerHTML=`<div class="hero fade-in"><h1>Master <em>Pre-Algebra</em><br>One Step at a Time</h1><p>10 units · interactive lessons · instant feedback · build the foundation for Algebra success</p><div class="stats"><div class="stat"><span class="n">10</span><span class="l">Units</span></div><div class="stat"><span class="n">28</span><span class="l">Lessons</span></div><div class="stat"><span class="n">${t}</span><span class="l">Problems</span></div><div class="stat"><span class="n" style="color:var(--ok)">${c}</span><span class="l">Solved</span></div></div></div>`;
+  const grid=el('div','grid');
+  SECTIONS.forEach((sec,i)=>{
+    const{c,t}=secProgress(sec.id);const pct=t>0?Math.round((c/t)*100):0;const done=c===t&&t>0;
+    const card=el('div','scard fade-in');card.style.animationDelay=`${i*0.04}s`;
+    card.innerHTML=`<div class="unit">Unit ${sec.id}</div><span class="ico">${sec.ico}</span><div class="title">${sec.title}</div><div class="sub">${sec.sub}</div><div class="prow"><div class="pbar"><div class="pfill" style="width:${pct}%"></div></div><div class="ptxt">${done?'✅ Complete':c+'/'+t}</div></div>`;
+    card.onclick=()=>go('section',sec.id);
+    grid.appendChild(card);
+  });
+  d.appendChild(grid);
+  return d;
+}
+
+function makeSection(){
+  const sec=SECTIONS.find(s=>s.id===S.sec);if(!sec)return el('div');
+  const{c,t}=secProgress(sec.id);const pct=t>0?Math.round((c/t)*100):0;
+  const d=el('div','secview fade-in');
+  const bb=el('button','back');bb.innerHTML='← Back to Course';bb.onclick=()=>go('home');d.appendChild(bb);
+  d.innerHTML+=`<div class="sechdr" data-ico="${sec.ico}"><div class="badge">Unit ${sec.id}</div><h2>${sec.ico} ${sec.title}</h2><p>${sec.sub}</p></div><div style="display:flex;align-items:center;gap:11px;margin-bottom:20px"><span style="color:var(--sub);font-size:13px">${c} of ${t} problems solved</span><div style="flex:1;height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden"><div style="height:100%;width:${pct}%;background:linear-gradient(90deg,var(--mid),var(--gold));border-radius:2px;transition:width .5s"></div></div></div>`;
+  const list=el('div','llist');
+  sec.lessons.forEach((les,i)=>{
+    const sv=les.problems.filter(p=>S.results[p.id]?.ok).length;
+    const done=sv===les.problems.length&&les.problems.length>0;
+    const item=el('div','litem');
+    item.innerHTML=`<div class="lnum">${i+1}</div><div class="linfo"><div class="lname">${les.title}</div><div class="lmeta">${les.problems.length} problems · ${sv} solved</div></div><div style="font-size:1.1rem">${done?'✅':sv>0?'🔄':'📝'}</div>`;
+    item.onclick=()=>go('lesson',sec.id,les.id);
+    list.appendChild(item);
+  });
+  d.appendChild(list);
+  return d;
+}
+
+function makeLesson(){
+  const sec=SECTIONS.find(s=>s.id===S.sec);
+  const les=sec?.lessons.find(l=>l.id===S.les);
+  if(!sec||!les)return el('div');
+  const wrap=el('div');
+  // Crumb
+  const crumb=el('div','crumb fade-in');
+  crumb.innerHTML=`<a onclick="go('home')">Pre-Algebra</a> › <a onclick="go('section',${sec.id})">${sec.title}</a> › <span style="color:var(--text)">${les.title}</span>`;
+  wrap.appendChild(crumb);
+  // Layout
+  const lview=el('div','lview fade-in');
+  // Left — Content
+  const content=el('div','lcontent');
+  content.innerHTML=`<h2>${les.title}</h2>${les.content}`;
+  lview.appendChild(content);
+  // Right — Practice
+  const ppanel=el('div','ppanel');
+  // Header
+  const solved=les.problems.filter(p=>S.results[p.id]?.ok).length;
+  const pct=les.problems.length>0?Math.round((solved/les.problems.length)*100):0;
+  const phead=el('div','phead');
+  phead.innerHTML=`<div class="ptitle">Practice Problems</div><div class="psub">${solved}/${les.problems.length} correct</div><div class="pbar2"><div class="pfill2" id="ppct" style="width:${pct}%"></div></div>`;
+  ppanel.appendChild(phead);
+  // Problems
+  les.problems.forEach((prob,idx)=>ppanel.appendChild(makeProbCard(prob,idx)));
+  // Nav row
+  const nav=el('div','navrow-sec');
+  const allLes=[];SECTIONS.forEach(sc=>sc.lessons.forEach(l=>allLes.push({sid:sc.id,lid:l.id})));
+  const cur=allLes.findIndex(x=>x.sid===sec.id&&x.lid===les.id);
+  if(cur>0){
+    const prev=allLes[cur-1];
+    const pb=el('button','btn btn-o');pb.textContent='← Previous';pb.onclick=()=>go('lesson',prev.sid,prev.lid);
+    nav.appendChild(pb);
+  }
+  const secb=el('button','btn btn-p');secb.textContent=`Back to ${sec.title}`;secb.onclick=()=>go('section',sec.id);
+  nav.appendChild(secb);
+  if(cur<allLes.length-1){
+    const next=allLes[cur+1];
+    const nb=el('button','btn btn-g');nb.textContent='Next Lesson →';nb.onclick=()=>go('lesson',next.sid,next.lid);
+    nav.appendChild(nb);
+  }
+  ppanel.appendChild(nav);
+  lview.appendChild(ppanel);
+  wrap.appendChild(lview);
+  return wrap;
+}
+
+function makeProbCard(prob,idx){
+  const done=S.results[prob.id];
+  const card=el('div',`pcard${done?done.ok?' ok':' bad':''}`);
+  card.id='card-'+prob.id;
+  const inner=el('div');
+  inner.innerHTML=`<div class="pnum">Problem ${idx+1}</div><div class="pq">${prob.q}</div>`;
+  // Input area
+  if(prob.type==='num'){
+    const irow=el('div','irow');
+    const inp=el('input','ainput');inp.type='text';inp.placeholder='Your answer…';
+    if(done)inp.value=done.ok?prob.ans:done.val||'';
+    if(done)inp.disabled=true;
+    const chk=el('button','btn btn-p');chk.textContent='Check';
+    if(done)chk.disabled=true;
+    irow.appendChild(inp);irow.appendChild(chk);
+    inner.appendChild(irow);
+    if(!done){
+      inp.addEventListener('keydown',e=>{if(e.key==='Enter')chk.click();});
+      chk.onclick=()=>{
+        if(!inp.value.trim())return;
+        const ok=check(prob,inp.value);
+        S.results[prob.id]={ok,val:inp.value};save();
+        const fb=el('div',`fb ${ok?'fb-ok':'fb-bad'}`);
+        fb.innerHTML=ok?`✅ Correct! ${prob.exp}`:`❌ Not quite. ${prob.exp}`;
+        inner.appendChild(fb);
+        inp.disabled=true;chk.disabled=true;
+        card.classList.toggle('ok',ok);card.classList.toggle('bad',!ok);
+        if(!ok)card.classList.add('shake');setTimeout(()=>card.classList.remove('shake'),400);
+        updatePracticeHead(prob);
+      };
+      const hrow=el('div','hrow');
+      const hb=el('button','btn btn-o');hb.style.fontSize='12px';hb.textContent='💡 Hint';
+      hb.onclick=()=>{
+        if(!S.hinted[prob.id]){S.hinted[prob.id]=true;save();}
+        const hfb=el('div','fb fb-hint');hfb.innerHTML=`💡 ${prob.hint}`;
+        hrow.innerHTML='';hrow.appendChild(hfb);
+      };
+      hrow.appendChild(hb);inner.appendChild(hrow);
+    } else {
+      const fb=el('div',`fb ${done.ok?'fb-ok':'fb-bad'}`);
+      fb.innerHTML=done.ok?`✅ Correct! ${prob.exp}`:`❌ The answer: ${prob.exp}`;
+      inner.appendChild(fb);
+    }
+  } else {
+    const grid=el('div','choices');
+    prob.opts.forEach(opt=>{
+      const cb=el('button','cbtn');cb.textContent=opt;
+      if(done){
+        cb.disabled=true;
+        if(opt===prob.ans)cb.classList.add('cok');
+        else if(done.val===opt)cb.classList.add('cno');
+      } else {
+        cb.onclick=()=>{
+          const ok=opt===prob.ans;
+          S.results[prob.id]={ok,val:opt};save();
+          grid.querySelectorAll('.cbtn').forEach(b=>{
+            b.disabled=true;
+            if(b.textContent===prob.ans)b.classList.add('cok');
+            else if(b.textContent===opt&&!ok)b.classList.add('cno');
+          });
+          const fb=el('div',`fb ${ok?'fb-ok':'fb-bad'}`);
+          fb.innerHTML=ok?`✅ Correct! ${prob.exp}`:`❌ ${prob.ans}. ${prob.exp}`;
+          inner.appendChild(fb);
+          card.classList.toggle('ok',ok);card.classList.toggle('bad',!ok);
+          if(!ok)card.classList.add('shake');setTimeout(()=>card.classList.remove('shake'),400);
+          updatePracticeHead(prob);
+        };
+      }
+      grid.appendChild(cb);
+    });
+    inner.appendChild(grid);
+    if(done){
+      const fb=el('div',`fb ${done.ok?'fb-ok':'fb-bad'}`);
+      fb.innerHTML=done.ok?`✅ Correct! ${prob.exp}`:`❌ ${prob.ans}. ${prob.exp}`;
+      inner.appendChild(fb);
+    } else {
+      const hrow=el('div','hrow');
+      const hb=el('button','btn btn-o');hb.style.fontSize='12px';hb.textContent='💡 Hint';
+      hb.onclick=()=>{
+        if(!S.hinted[prob.id]){S.hinted[prob.id]=true;save();}
+        const hfb=el('div','fb fb-hint');hfb.innerHTML=`💡 ${prob.hint}`;
+        hrow.innerHTML='';hrow.appendChild(hfb);
+      };
+      hrow.appendChild(hb);inner.appendChild(hrow);
+    }
+  }
+  card.appendChild(inner);
+  return card;
+}
+
+function updatePracticeHead(prob){
+  const les=SECTIONS.flatMap(s=>s.lessons).find(l=>l.problems.some(p=>p.id===prob.id));
+  if(!les)return;
+  const solved=les.problems.filter(p=>S.results[p.id]?.ok).length;
+  const pct=Math.round((solved/les.problems.length)*100);
+  const head=document.querySelector('.psub');
+  const bar=document.getElementById('ppct');
+  if(head)head.textContent=`${solved}/${les.problems.length} correct`;
+  if(bar)bar.style.width=pct+'%';
+  const hdrFill=document.querySelector('.mfill');
+  const hdrPct=document.querySelector('.hdr-pct');
+  const hdrCount=document.querySelector('.hdr-right span');
+  const{c,t}=totalProgress();
+  const tp=t>0?Math.round((c/t)*100):0;
+  if(hdrFill)hdrFill.style.width=tp+'%';
+  if(hdrPct)hdrPct.textContent=tp+'%';
+  if(hdrCount)hdrCount.textContent=`${c}/${t} solved`;
+}
+
+render();
+</script>
+</body>
+</html>
