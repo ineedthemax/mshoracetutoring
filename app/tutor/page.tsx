@@ -49,6 +49,7 @@ export default function TutorPage() {
             <Link href="/book" className="sm:hidden block mb-4">
               <Button className="w-full">Book a Session</Button>
             </Link>
+          </CardContent>
         </Card>
 
         <div className="grid md:grid-cols-3 gap-8">
