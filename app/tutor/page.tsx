@@ -21,33 +21,34 @@ export default function TutorPage() {
       <div className="max-w-4xl mx-auto px-4 py-12 space-y-8">
         {/* Hero Card */}
         <Card className="overflow-hidden">
-          <div className="bg-gradient-to-r from-violet-600 to-violet-800 h-32" />
-          <CardContent className="pt-0 px-8 pb-8 -mt-16">
-            <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-end">
-              <div className="w-28 h-28 bg-violet-200 rounded-2xl border-4 border-white shadow-lg flex items-center justify-center flex-shrink-0">
-                <span className="text-3xl font-bold text-violet-700">MH</span>
+          <div className="bg-gradient-to-r from-violet-600 to-violet-800 px-8 pt-8 pb-16 flex items-start justify-between">
+            <div className="flex items-center gap-4">
+              <div className="w-20 h-20 bg-violet-200 rounded-2xl border-4 border-white/30 shadow-lg flex items-center justify-center flex-shrink-0">
+                <span className="text-2xl font-bold text-violet-700">SH</span>
               </div>
-              <div className="flex-1">
-                <h1 className="text-3xl font-bold text-gray-900">{mockTutor.name}</h1>
-                <p className="text-gray-500 mt-1">{mockTutor.title}</p>
-                <div className="flex items-center gap-3 mt-3">
+              <div>
+                <h1 className="text-2xl font-bold text-white">{mockTutor.name}</h1>
+                <p className="text-violet-200 text-sm mt-0.5">{mockTutor.title}</p>
+                <div className="flex items-center gap-2 mt-2">
                   <div className="flex gap-0.5">
                     {[1,2,3,4,5].map(i => (
-                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
                     ))}
                   </div>
-                  <span className="font-bold text-gray-800">{mockTutor.rating}</span>
-                  <span className="text-gray-400 text-sm">({mockTutor.reviewCount} reviews)</span>
-                  <Badge variant="success">{mockTutor.experience} experience</Badge>
+                  <span className="font-bold text-white text-sm">{mockTutor.rating}</span>
+                  <span className="text-violet-200 text-xs">({mockTutor.reviewCount} reviews)</span>
+                  <Badge className="bg-white/20 text-white border-0 text-xs">{mockTutor.experience} experience</Badge>
                 </div>
               </div>
-              <div className="sm:ml-auto">
-                <Link href="/book">
-                  <Button size="lg">Book a Session</Button>
-                </Link>
-              </div>
             </div>
-          </CardContent>
+            <Link href="/book">
+              <Button size="lg" className="bg-white text-violet-700 hover:bg-violet-50 hidden sm:flex">Book a Session</Button>
+            </Link>
+          </div>
+          <CardContent className="px-8 pb-8 pt-4">
+            <Link href="/book" className="sm:hidden block mb-4">
+              <Button className="w-full">Book a Session</Button>
+            </Link>
         </Card>
 
         <div className="grid md:grid-cols-3 gap-8">
