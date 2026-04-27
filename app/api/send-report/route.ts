@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
   const { error } = await resend.emails.send({
     from: "MsHorace Tutoring <onboarding@resend.dev>",
     to: [parentEmail],
-    replyTo: "sahorace27@gmail.com",
+    replyTo: "MsHoraceTutoring06@gmail.com",
     subject: `Session Report — ${studentName} · ${subject} · ${sessionDate}`,
     html: `
 <!DOCTYPE html>
@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
 
     <!-- Footer -->
     <div style="margin:32px 0 0;padding:24px 32px;border-top:1px solid #f3f4f6;text-align:center;">
-      <p style="margin:0;color:#9ca3af;font-size:13px;">Questions? Reply to this email or reach out at <a href="mailto:sahorace27@gmail.com" style="color:#7c3aed;">sahorace27@gmail.com</a></p>
+      <p style="margin:0;color:#9ca3af;font-size:13px;">Questions? Reply to this email or reach out at <a href="mailto:MsHoraceTutoring06@gmail.com" style="color:#7c3aed;">MsHoraceTutoring06@gmail.com</a></p>
       <p style="margin:8px 0 0;color:#d1d5db;font-size:12px;">MsHorace Tutoring &nbsp;·&nbsp; White Plains, Maryland &nbsp;·&nbsp; mshoracetutoring.com</p>
     </div>
 

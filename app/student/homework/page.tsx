@@ -21,7 +21,7 @@ export default function HomeworkPage() {
   return (
     <div className="flex min-h-screen bg-gray-50">
       <DashboardSidebar role="student" />
-      <main className="ml-64 flex-1 p-8">
+      <main className="md:ml-64 flex-1 p-4 md:p-8 pt-18 md:pt-8 pb-20 md:pb-8">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900">Upload Homework</h1>
           <p className="text-gray-500 text-sm mt-1">Send your work to Marcus for review before or after your session.</p>

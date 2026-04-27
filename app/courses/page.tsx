@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { mockBundle } from "@/lib/mock-courses";
-import { BookOpen, FileText, Star, Zap, CheckCircle, Lock } from "lucide-react";
+import { BookOpen, FileText, Star, Zap, CheckCircle, Lock, Download, ShoppingCart } from "lucide-react";
 import { createPublicClient } from "@/lib/supabase/public";
 
 export default async function CoursesPage() {
@@ -130,6 +130,99 @@ export default async function CoursesPage() {
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* Digital Products */}
+      <section className="bg-gray-50 py-16 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <Badge className="mb-3 bg-violet-100 text-violet-700 border-0">Digital Downloads</Badge>
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">Individual Study Resources</h2>
+            <p className="text-gray-500">Targeted practice materials — no full course needed. Buy what your student needs right now.</p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[
+              {
+                title: "Pre-Algebra Practice Packet",
+                desc: "50+ problems covering fractions, decimals, integers, and basic equations with full answer key.",
+                subject: "Pre-Algebra",
+                price: "$9",
+                color: "bg-violet-50",
+                iconColor: "text-violet-600",
+                tag: "Practice Problems",
+              },
+              {
+                title: "Algebra 1 Practice Packet",
+                desc: "50+ problems covering linear equations, inequalities, graphing, and systems with full answer key.",
+                subject: "Algebra 1",
+                price: "$9",
+                color: "bg-blue-50",
+                iconColor: "text-blue-600",
+                tag: "Practice Problems",
+              },
+              {
+                title: "Pre-Algebra Study Guide",
+                desc: "Quick-reference formula sheet and concept breakdown for all major Pre-Algebra topics.",
+                subject: "Pre-Algebra",
+                price: "$7",
+                color: "bg-violet-50",
+                iconColor: "text-violet-600",
+                tag: "Study Guide",
+              },
+              {
+                title: "Algebra 1 Study Guide",
+                desc: "Quick-reference formula sheet and concept breakdown for all major Algebra 1 topics.",
+                subject: "Algebra 1",
+                price: "$7",
+                color: "bg-blue-50",
+                iconColor: "text-blue-600",
+                tag: "Study Guide",
+              },
+              {
+                title: "Pre-Algebra Exam Prep",
+                desc: "Full-length practice test with answer key — designed to mirror real classroom assessments.",
+                subject: "Pre-Algebra",
+                price: "$12",
+                color: "bg-violet-50",
+                iconColor: "text-violet-600",
+                tag: "Exam Prep",
+              },
+              {
+                title: "Algebra 1 Exam Prep",
+                desc: "Full-length practice test with answer key — designed to mirror real classroom assessments.",
+                subject: "Algebra 1",
+                price: "$12",
+                color: "bg-blue-50",
+                iconColor: "text-blue-600",
+                tag: "Exam Prep",
+              },
+            ].map((product) => (
+              <Card key={product.title} className="bg-white overflow-hidden hover:shadow-md transition-shadow">
+                <CardContent className="p-5">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className={`w-10 h-10 ${product.color} rounded-xl flex items-center justify-center`}>
+                      <Download className={`w-5 h-5 ${product.iconColor}`} />
+                    </div>
+                    <Badge variant="outline" className="text-xs">{product.tag}</Badge>
+                  </div>
+                  <h3 className="font-bold text-gray-900 mb-1">{product.title}</h3>
+                  <p className="text-xs text-gray-500 mb-4 leading-relaxed">{product.desc}</p>
+                  <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+                    <span className="text-xl font-bold text-violet-600">{product.price}</span>
+                    <Link href="/login">
+                      <Button size="sm" variant="outline" className="flex items-center gap-1.5">
+                        <ShoppingCart className="w-3.5 h-3.5" /> Buy Now
+                      </Button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <p className="text-center text-xs text-gray-400 mt-6">All products are PDF downloads. Delivered instantly after purchase.</p>
         </div>
       </section>
 

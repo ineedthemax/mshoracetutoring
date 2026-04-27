@@ -14,7 +14,7 @@ export default function ParentDashboard() {
   return (
     <div className="flex min-h-screen bg-gray-50">
       <DashboardSidebar role="parent" />
-      <main className="ml-64 flex-1 p-8">
+      <main className="md:ml-64 flex-1 p-4 md:p-8 pt-18 md:pt-8 pb-20 md:pb-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -27,7 +27,7 @@ export default function ParentDashboard() {
         </div>
 
         {/* Stats row */}
-        <div className="grid grid-cols-4 gap-5 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 mb-8">
           {[
             { label: "Sessions Completed", value: completed.length, icon: Calendar, color: "text-violet-600", bg: "bg-violet-50" },
             { label: "Upcoming Sessions", value: upcoming.length, icon: TrendingUp, color: "text-blue-600", bg: "bg-blue-50" },

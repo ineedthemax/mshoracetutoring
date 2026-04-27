@@ -13,3 +13,12 @@ body {
   background: #F8F8FB;
   color: #111827;
 }
+
+/* Push Tawk.to chat bubble above mobile bottom nav */
+@media (max-width: 767px) {
+  #tawk-bubble-container,
+  .tawk-min-container,
+  [id^="tawk-"] iframe {
+    bottom: 80px !important;
+  }
+}
