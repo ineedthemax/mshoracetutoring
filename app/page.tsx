@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { PublicNav } from "@/components/layout/PublicNav";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -66,6 +67,49 @@ export default function HomePage() {
               <div className="text-sm text-gray-500">{stat.label}</div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Student photos */}
+      <section className="bg-white py-16 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">Built for middle school students</h2>
+            <p className="text-gray-500">6th through 9th grade · Pre-Algebra & Algebra 1 · Online via Zoom</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              {
+                src: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=400&fit=crop",
+                alt: "Middle school student studying math",
+                caption: "Building confidence one concept at a time",
+              },
+              {
+                src: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=400&fit=crop",
+                alt: "Student learning online via laptop",
+                caption: "Live sessions via Zoom — from anywhere",
+              },
+              {
+                src: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=600&h=400&fit=crop",
+                alt: "Student focused on schoolwork",
+                caption: "Step-by-step until it clicks",
+              },
+            ].map((photo) => (
+              <div key={photo.src} className="rounded-2xl overflow-hidden shadow-sm group">
+                <div className="relative h-56 w-full overflow-hidden">
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <div className="bg-violet-50 px-4 py-3">
+                  <p className="text-sm text-violet-700 font-medium text-center">{photo.caption}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
