@@ -8,9 +8,9 @@ import { mockTutor, mockAvailability, mockPricing } from "@/lib/mock-data";
 import { Star, CheckCircle, Clock, BookOpen } from "lucide-react";
 
 const testimonials = [
-  { name: "Lisa Campbell", role: "Parent of 10th Grader", text: "Marcus completely turned Jordan's confidence around. She went from dreading Algebra to actually enjoying it. The session reports keep me in the loop every week.", stars: 5 },
-  { name: "Devon Harris", role: "12th Grade Student", text: "I raised my SAT math score by 80 points after 6 sessions. Marcus knows exactly which strategies work and which to skip. Worth every dollar before college apps.", stars: 5 },
-  { name: "Renee Williams", role: "Parent of 9th Grader", text: "I appreciate how Marcus explains everything step-by-step. Aisha finally understands geometry proofs. The Zoom setup was easy and the price is fair for the quality.", stars: 5 },
+  { name: "Lisa Campbell", role: "Parent of 10th Grader", text: "Ms. Horace completely turned Jordan's confidence around. She went from dreading Algebra to actually enjoying it. The session reports keep me in the loop every week.", stars: 5 },
+  { name: "Devon Harris", role: "12th Grade Student", text: "I raised my SAT math score by 80 points after 6 sessions. Ms. Horace knows exactly which strategies work and which to skip. Worth every dollar before college apps.", stars: 5 },
+  { name: "Renee Williams", role: "Parent of 9th Grader", text: "I appreciate how Ms. Horace explains everything step-by-step. Aisha finally understands geometry proofs. The Zoom setup was easy and the price is fair for the quality.", stars: 5 },
 ];
 
 export default function TutorPage() {
@@ -55,7 +55,7 @@ export default function TutorPage() {
             {/* Bio */}
             <Card>
               <CardContent className="pt-6">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">About Marcus</h2>
+                <h2 className="text-xl font-bold text-gray-900 mb-4">About Stenita</h2>
                 <p className="text-gray-600 leading-relaxed mb-4">{mockTutor.bio}</p>
                 <blockquote className="border-l-4 border-violet-500 pl-4 italic text-gray-500 text-sm">
                   &ldquo;{mockTutor.teachingStyle}&rdquo;
@@ -191,7 +191,7 @@ export default function TutorPage() {
         <Link href="/book">
           <button className="bg-violet-600 text-white font-semibold px-6 py-3.5 rounded-2xl shadow-xl hover:bg-violet-700 transition-colors flex items-center gap-2 text-sm">
             <BookOpen className="w-4 h-4" />
-            Book with Marcus
+            Book with Ms. Horace
           </button>
         </Link>
       </div>

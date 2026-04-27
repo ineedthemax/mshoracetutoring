@@ -51,7 +51,7 @@ export default function AboutPage() {
                 <div className="w-20 h-20 bg-violet-300 rounded-full mx-auto mb-4 flex items-center justify-center">
                   <span className="text-2xl font-bold text-violet-700">MH</span>
                 </div>
-                <p className="text-violet-700 font-medium">Marcus Horace</p>
+                <p className="text-violet-700 font-medium">Stenita Horace</p>
                 <p className="text-violet-500 text-sm mt-1">8 years · 200+ students</p>
               </div>
             </div>

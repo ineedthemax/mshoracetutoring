@@ -31,7 +31,7 @@ const steps = [
     step: 4,
     icon: Lightbulb,
     title: "Attend Your Live Session",
-    desc: "Show up at the scheduled time. Marcus will guide the session with screen sharing, a digital whiteboard, and worked examples. Come with questions, a problem set, or just say what you're stuck on.",
+    desc: "Show up at the scheduled time. Ms. Horace will guide the session with screen sharing, a digital whiteboard, and worked examples. Come with questions, a problem set, or just say what you're stuck on.",
     details: ["Interactive digital whiteboard", "Screen share for problem walkthrough", "Session recording available on request"],
   },
   {
@@ -45,9 +45,9 @@ const steps = [
 
 const faqs = [
   { q: "What do I need to join a session?", a: "A computer or tablet with a camera and microphone, a stable internet connection, and the free Zoom app. A pencil and paper or a tablet for working through problems is helpful." },
-  { q: "Can I watch my child's session?", a: "Yes. You're welcome to observe any session. Just let Marcus know ahead of time so he can set up the session accordingly." },
+  { q: "Can I watch my child's session?", a: "Yes. You're welcome to observe any session. Just let Ms. Horace know ahead of time so he can set up the session accordingly." },
   { q: "What if we need to reschedule?", a: "You can reschedule up to 24 hours before the session start time at no charge. Within 24 hours, a $15 reschedule fee applies. Cancellations within 2 hours are non-refundable." },
-  { q: "How do I know if my student is improving?", a: "Every session comes with a written report that includes a confidence score (0-100). You can track this score over multiple sessions to see growth trends. Marcus also notes specific wins and skill gaps each time." },
+  { q: "How do I know if my student is improving?", a: "Every session comes with a written report that includes a confidence score (0-100). You can track this score over multiple sessions to see growth trends. Ms. Horace also notes specific wins and skill gaps each time." },
   { q: "What grade levels do you work with?", a: "6th through 12th grade. This covers Pre-Algebra through AP Calculus AB and BC, plus SAT/ACT Math prep." },
   { q: "Do you offer a trial or first-session guarantee?", a: "If you're not satisfied after your first session, contact us within 48 hours and we'll work to make it right or provide a full refund no questions asked." },
 ];

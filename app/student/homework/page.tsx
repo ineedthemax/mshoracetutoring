@@ -24,7 +24,7 @@ export default function HomeworkPage() {
       <main className="md:ml-64 flex-1 p-4 md:p-8 pt-18 md:pt-8 pb-20 md:pb-8">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900">Upload Homework</h1>
-          <p className="text-gray-500 text-sm mt-1">Send your work to Marcus for review before or after your session.</p>
+          <p className="text-gray-500 text-sm mt-1">Send your work to Ms. Horace for review before or after your session.</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6">
@@ -40,7 +40,7 @@ export default function HomeworkPage() {
                     <span className="text-xl">✓</span>
                   </div>
                   <h3 className="font-semibold text-gray-900 mb-1">Uploaded!</h3>
-                  <p className="text-sm text-gray-500 mb-4">Marcus will review it before your next session.</p>
+                  <p className="text-sm text-gray-500 mb-4">Ms. Horace will review it before your next session.</p>
                   <Button variant="outline" onClick={() => setSubmitted(false)}>Upload Another</Button>
                 </div>
               ) : (
@@ -84,7 +84,7 @@ export default function HomeworkPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Notes for Marcus</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Notes for Ms. Horace</label>
                     <textarea
                       rows={3}
                       value={notes}

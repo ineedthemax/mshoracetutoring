@@ -8,18 +8,18 @@ import { cn } from "@/lib/utils";
 const faqs = [
   { category: "Booking", q: "How do I book a session?", a: "Go to the Book page, select your grade level, subject, session type, and preferred time slot. Complete the form and payment, and you'll receive a Zoom link by email immediately." },
   { category: "Booking", q: "Do I need an account to book?", a: "No account is required for your first booking. After your first session, you can create a parent or student account to track progress, view session reports, and manage bookings easily." },
-  { category: "Booking", q: "How far in advance do I need to book?", a: "We recommend booking at least 24 hours in advance. Same-day bookings may be available based on Marcus's schedule. Check the live availability on the booking page." },
+  { category: "Booking", q: "How far in advance do I need to book?", a: "We recommend booking at least 24 hours in advance. Same-day bookings may be available based on Ms. Horace's schedule. Check the live availability on the booking page." },
   { category: "Booking", q: "Can I book recurring sessions?", a: "Yes. Once you have an account, you can schedule recurring weekly sessions. Many families find a consistent weekly slot works best for steady progress." },
   { category: "Payments", q: "What payment methods do you accept?", a: "We accept all major credit and debit cards through Stripe. Apple Pay and Google Pay are also supported. We do not accept cash or checks." },
   { category: "Payments", q: "When am I charged?", a: "Payment is collected at the time of booking. For session packages, the full package amount is charged upfront." },
   { category: "Payments", q: "Can I get a refund?", a: "If you cancel more than 24 hours before your session, you'll receive a full refund. Cancellations within 24 hours are non-refundable, but you can reschedule for a $15 fee. First-session satisfaction guarantee applies." },
   { category: "Sessions", q: "What technology do I need for sessions?", a: "You need a computer, tablet, or phone with a camera and microphone, a stable internet connection, and the free Zoom app. We recommend having paper and pencil or a writing tablet for working through problems." },
   { category: "Sessions", q: "How long are sessions?", a: "Individual sessions are either 30 minutes or 60 minutes. Group classes are typically 90 minutes. You choose the length when booking." },
-  { category: "Sessions", q: "Can a parent observe the session?", a: "Absolutely. Parents are welcome to join and observe any session. Just let Marcus know beforehand so the session environment is set up appropriately." },
-  { category: "Sessions", q: "What if a student shows up without doing the prep work?", a: "No problem. Marcus will assess where the student is and work from there. Coming with specific questions or a recent test is helpful, but not required." },
+  { category: "Sessions", q: "Can a parent observe the session?", a: "Absolutely. Parents are welcome to join and observe any session. Just let Ms. Horace know beforehand so the session environment is set up appropriately." },
+  { category: "Sessions", q: "What if a student shows up without doing the prep work?", a: "No problem. Ms. Horace will assess where the student is and work from there. Coming with specific questions or a recent test is helpful, but not required." },
   { category: "Cancellations", q: "What is the cancellation policy?", a: "Free cancellation with full refund up to 24 hours before the session. Within 24 hours, a $15 rescheduling fee applies. No-show (student doesn't show up without notice) is non-refundable." },
   { category: "Progress", q: "How will I know my child is improving?", a: "After every 60-minute 1-on-1 session, parents receive a written progress report including: topics covered, wins, skill gaps, homework assigned, a confidence score (0-100), and recommended next steps." },
-  { category: "Progress", q: "What is the confidence score?", a: "The confidence score (0-100) is Marcus's assessment of the student's comfort and competency with the session's material. Tracking this across sessions shows clear growth trends over time." },
+  { category: "Progress", q: "What is the confidence score?", a: "The confidence score (0-100) is Ms. Horace's assessment of the student's comfort and competency with the session's material. Tracking this across sessions shows clear growth trends over time." },
 ];
 
 function FAQItem({ faq }: { faq: typeof faqs[0] }) {

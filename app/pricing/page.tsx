@@ -119,7 +119,7 @@ export default function PricingPage() {
               <tbody className="divide-y divide-gray-50">
                 {[
                   ["Live Zoom session", true, true, true, true],
-                  ["1-on-1 with Marcus", true, true, true, false],
+                  ["1-on-1 with Ms. Horace", true, true, true, false],
                   ["Session progress report", false, true, true, true],
                   ["Homework assigned", false, true, true, false],
                   ["Confidence score", false, true, true, false],

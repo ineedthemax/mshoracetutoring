@@ -33,7 +33,7 @@ export default function StudentDashboard() {
                   </p>
                   <div className="flex items-center gap-2 mt-2 text-violet-200 text-sm">
                     <Clock className="w-4 h-4" />
-                    {nextSession.duration} minutes · with Marcus Horace
+                    {nextSession.duration} minutes · with Ms. Horace
                   </div>
                 </div>
                 <a href={nextSession.zoomUrl} target="_blank" rel="noopener noreferrer">

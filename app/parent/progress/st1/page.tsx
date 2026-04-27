@@ -61,7 +61,7 @@ export default function StudentProgressPage() {
                   </div>
                 ))}
               </div>
-              <p className="text-xs text-gray-400 mt-4">Confidence scores are assessed by Marcus each session (0-100 scale).</p>
+              <p className="text-xs text-gray-400 mt-4">Confidence scores are assessed by Ms. Horace each session (0-100 scale).</p>
             </CardContent>
           </Card>
 
