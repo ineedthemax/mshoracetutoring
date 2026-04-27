@@ -32,10 +32,8 @@ export const mockStudents = [
 ];
 
 export const mockGroupClasses = [
-  { id: "g1", title: "Algebra 1 Review Night", subject: "Algebra 1", grade: "8th-9th Grade", date: "2026-05-02", time: "6:00 PM", duration: 90, capacity: 8, enrolled: 5, price: 25, description: "Focused review of key Algebra 1 concepts before finals. Cover equations, inequalities, and graphing.", zoomUrl: "https://zoom.us/j/placeholder", status: "open" },
-  { id: "g2", title: "Geometry Test Prep", subject: "Geometry", grade: "9th-10th Grade", date: "2026-05-09", time: "5:00 PM", duration: 90, capacity: 8, enrolled: 3, price: 25, description: "Proofs, angles, triangles, and circle theorems. Bring your toughest problems.", zoomUrl: "https://zoom.us/j/placeholder", status: "open" },
-  { id: "g3", title: "SAT Math Mini Bootcamp", subject: "SAT Math", grade: "10th-12th Grade", date: "2026-05-16", time: "10:00 AM", duration: 120, capacity: 6, enrolled: 6, price: 35, description: "Two-hour intensive covering SAT math strategies, calculator vs. no-calculator sections, and timed practice.", zoomUrl: "https://zoom.us/j/placeholder", status: "full" },
-  { id: "g4", title: "Pre-Calculus Problem Solving", subject: "Pre-Calculus", grade: "11th Grade", date: "2026-05-23", time: "4:00 PM", duration: 90, capacity: 6, enrolled: 2, price: 30, description: "Functions, limits intro, and trig identities. Perfect for students preparing for Calculus.", zoomUrl: "https://zoom.us/j/placeholder", status: "open" },
+  { id: "g1", title: "Pre-Algebra Group Class", subject: "Pre-Algebra", grade: "6th-8th Grade", date: "2026-05-03", time: "10:00 AM", duration: 90, capacity: 8, enrolled: 3, price: 25, description: "Small group session covering key Pre-Algebra concepts — fractions, integers, one-step equations, and more. Great for reinforcement and review.", zoomUrl: "https://zoom.us/j/placeholder", status: "open" },
+  { id: "g2", title: "Algebra 1 Group Class", subject: "Algebra 1", grade: "8th-9th Grade", date: "2026-05-10", time: "11:00 AM", duration: 90, capacity: 8, enrolled: 4, price: 25, description: "Small group session focused on Algebra 1 topics — linear equations, inequalities, graphing, and systems. Collaborative problem solving with direct guidance.", zoomUrl: "https://zoom.us/j/placeholder", status: "open" },
 ];
 
 export const mockProgressReports = [

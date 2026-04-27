@@ -106,9 +106,9 @@ export default function GroupsPage() {
           <p className="text-gray-500 mb-8">Same quality as 1-on-1 just shared with a small, focused group at a fraction of the price.</p>
           <div className="grid sm:grid-cols-3 gap-6 text-left">
             {[
-              { title: "Small Size, High Impact", desc: "Max 8 students per class. Marcus interacts with each student personally and calls on everyone." },
-              { title: "Live on Zoom", desc: "Not a video a real live session. Ask questions, work problems, and get feedback in real time." },
-              { title: "Subject-Focused", desc: "Each class targets one subject and one set of concepts. Students come prepared and leave with clarity." },
+              { title: "Small Size, High Impact", desc: "Max 8 students per class. Ms. Horace interacts with each student personally and makes sure everyone is following along." },
+              { title: "Live on Zoom", desc: "Not a video — a real live session. Ask questions, work problems, and get feedback in real time." },
+              { title: "Pre-Algebra & Algebra 1 Only", desc: "Classes are focused on what Ms. Horace specializes in — Pre-Algebra and Algebra 1. Targeted, effective, and built for success." },
             ].map((item) => (
               <div key={item.title} className="bg-gray-50 rounded-2xl p-5">
                 <h3 className="font-semibold text-gray-900 mb-2 text-sm">{item.title}</h3>
