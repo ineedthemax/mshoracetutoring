@@ -94,7 +94,7 @@ export default function HomePage() {
                 icon: Users,
                 badge: "Best Value",
                 title: "Group Review Classes",
-                subtitle: "3–8 students per class",
+                subtitle: "3–10 students per class",
                 price: "$25",
                 original: null,
                 desc: "Weekly small group sessions covering Pre-Algebra and Algebra 1. Affordable, social, and still highly effective.",

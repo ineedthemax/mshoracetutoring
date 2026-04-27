@@ -13,7 +13,7 @@ const faqs = [
   { q: "Can I mix subjects across sessions in a package?", a: "Yes. Session packages can be used for any subject, any grade level. Use them however you need." },
   { q: "Is there a cancellation policy?", a: "Free cancellation up to 24 hours before your session. Within 24 hours, a $15 rescheduling fee applies. No-shows are non-refundable." },
   { q: "Do you offer discounts for multiple children?", a: "Yes families with 2+ students receive 10% off all sessions. Contact us to set this up." },
-  { q: "How do group class prices work?", a: "Group class prices are per student per session. A 90-minute group session is $25/student (3-8 students per class)." },
+  { q: "How do group class prices work?", a: "Group class prices are per student per session. A 90-minute group session is $25/student (3-10 students per class)." },
 ];
 
 export default function PricingPage() {
@@ -49,7 +49,7 @@ export default function PricingPage() {
                     "Live 1-on-1 Zoom session",
                     "Session progress report",
                     "Digital whiteboard",
-                    plan.type === "group" ? "3-8 students per class" : "Focused 1-on-1 attention",
+                    plan.type === "group" ? "3-10 students per class" : "Focused 1-on-1 attention",
                   ].map(f => (
                     <li key={f} className="flex items-center gap-2 text-sm text-gray-600">
                       <CheckCircle className="w-4 h-4 text-violet-500 flex-shrink-0" />

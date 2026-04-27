@@ -24,7 +24,7 @@ const subjectsByGrade: Record<string, string[]> = {
 const sessionTypes = [
   { id: "solo-30", label: "1-on-1 (30 min)", price: 40, icon: Clock, desc: "Quick focused help on one topic" },
   { id: "solo-60", label: "1-on-1 (60 min)", price: 75, icon: Video, desc: "Deep dive into concepts and practice", popular: true },
-  { id: "group", label: "Group Class", price: 25, icon: Users, desc: "3-8 students, exam prep and review" },
+  { id: "group", label: "Group Class", price: 25, icon: Users, desc: "3-10 students, exam prep and review" },
 ];
 
 const steps = ["Grade", "Subject", "Session Type", "Date & Time", "Your Info", "Payment", "Confirmed"];

@@ -32,8 +32,8 @@ export const mockStudents = [
 ];
 
 export const mockGroupClasses = [
-  { id: "g1", title: "Pre-Algebra Group Class", subject: "Pre-Algebra", grade: "6th-8th Grade", date: "2026-05-03", time: "10:00 AM", duration: 90, capacity: 8, enrolled: 3, price: 25, description: "Small group session covering key Pre-Algebra concepts — fractions, integers, one-step equations, and more. Great for reinforcement and review.", zoomUrl: "https://zoom.us/j/placeholder", status: "open" },
-  { id: "g2", title: "Algebra 1 Group Class", subject: "Algebra 1", grade: "8th-9th Grade", date: "2026-05-10", time: "11:00 AM", duration: 90, capacity: 8, enrolled: 4, price: 25, description: "Small group session focused on Algebra 1 topics — linear equations, inequalities, graphing, and systems. Collaborative problem solving with direct guidance.", zoomUrl: "https://zoom.us/j/placeholder", status: "open" },
+  { id: "g1", title: "Pre-Algebra Group Class", subject: "Pre-Algebra", grade: "6th-8th Grade", date: "2026-05-03", time: "10:00 AM", duration: 90, capacity: 10, enrolled: 3, price: 25, description: "Small group session covering key Pre-Algebra concepts — fractions, integers, one-step equations, and more. Great for reinforcement and review.", zoomUrl: "https://zoom.us/j/placeholder", status: "open" },
+  { id: "g2", title: "Algebra 1 Group Class", subject: "Algebra 1", grade: "8th-9th Grade", date: "2026-05-10", time: "11:00 AM", duration: 90, capacity: 10, enrolled: 4, price: 25, description: "Small group session focused on Algebra 1 topics — linear equations, inequalities, graphing, and systems. Collaborative problem solving with direct guidance.", zoomUrl: "https://zoom.us/j/placeholder", status: "open" },
 ];
 
 export const mockProgressReports = [
@@ -63,5 +63,5 @@ export const mockPricing = [
   { id: "p2", name: "60-Min Session", description: "Deep dive into concepts and practice", price: 75, type: "single" },
   { id: "p3", name: "4-Session Pack", description: "Save 8% great for ongoing support", price: 276, originalPrice: 300, type: "package", sessions: 4 },
   { id: "p4", name: "8-Session Pack", description: "Save 13% best value for consistent progress", price: 522, originalPrice: 600, type: "package", sessions: 8 },
-  { id: "p5", name: "Group Class", description: "3-8 students, exam prep and review", price: 25, type: "group" },
+  { id: "p5", name: "Group Class", description: "3-10 students, exam prep and review", price: 25, type: "group" },
 ];

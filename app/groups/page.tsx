@@ -16,9 +16,9 @@ export default function GroupsPage() {
       <section className="bg-white py-16 px-4 border-b border-gray-100">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Group Classes</h1>
-          <p className="text-xl text-gray-500 mb-6">Small group sessions (3-8 students) for exam prep, concept review, and shared learning. More affordable still high impact.</p>
+          <p className="text-xl text-gray-500 mb-6">Small group sessions (3-10 students) for exam prep, concept review, and shared learning. More affordable still high impact.</p>
           <div className="flex flex-wrap gap-4 justify-center text-sm text-gray-500">
-            <span className="flex items-center gap-1.5"><Users className="w-4 h-4 text-violet-500" /> 3-8 students max</span>
+            <span className="flex items-center gap-1.5"><Users className="w-4 h-4 text-violet-500" /> 3-10 students max</span>
             <span className="flex items-center gap-1.5"><Clock className="w-4 h-4 text-violet-500" /> 90-120 minutes</span>
             <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4 text-violet-500" /> Evenings &amp; weekends</span>
           </div>
@@ -106,7 +106,7 @@ export default function GroupsPage() {
           <p className="text-gray-500 mb-8">Same quality as 1-on-1 just shared with a small, focused group at a fraction of the price.</p>
           <div className="grid sm:grid-cols-3 gap-6 text-left">
             {[
-              { title: "Small Size, High Impact", desc: "Max 8 students per class. Ms. Horace interacts with each student personally and makes sure everyone is following along." },
+              { title: "Small Size, High Impact", desc: "Max 10 students per class. Ms. Horace interacts with each student personally and makes sure everyone is following along." },
               { title: "Live on Zoom", desc: "Not a video — a real live session. Ask questions, work problems, and get feedback in real time." },
               { title: "Pre-Algebra & Algebra 1 Only", desc: "Classes are focused on what Ms. Horace specializes in — Pre-Algebra and Algebra 1. Targeted, effective, and built for success." },
             ].map((item) => (

@@ -19,7 +19,7 @@ SERVICES & PRICING:
   - Summer Boost Pack: 8 sessions for $522 (save 13%)
 
 Group Classes:
-  - $25 per student per session (3–8 students)
+  - $25 per student per session (3–10 students)
   - Small group, collaborative learning
 
 Digital Courses (self-paced PDF downloads):
