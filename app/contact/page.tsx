@@ -4,7 +4,7 @@ import { PublicNav } from "@/components/layout/PublicNav";
 import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Mail, Clock, Video, CheckCircle } from "lucide-react";
+import { Mail, Clock, Video, CheckCircle, Phone } from "lucide-react";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -129,10 +129,17 @@ export default function ContactPage() {
                 <h3 className="font-semibold text-gray-900 mb-4">Contact Info</h3>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
+                    <Phone className="w-5 h-5 text-violet-500 mt-0.5" />
+                    <div>
+                      <p className="text-sm font-medium text-gray-800">Phone</p>
+                      <a href="tel:2272206227" className="text-sm text-gray-500 hover:text-violet-600">(227) 220-6227</a>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
                     <Mail className="w-5 h-5 text-violet-500 mt-0.5" />
                     <div>
                       <p className="text-sm font-medium text-gray-800">Email</p>
-                      <p className="text-sm text-gray-500">MsHoraceTutoring06@gmail.com</p>
+                      <a href="mailto:MsHoraceTutoring06@gmail.com" className="text-sm text-gray-500 hover:text-violet-600">MsHoraceTutoring06@gmail.com</a>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
