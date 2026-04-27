@@ -9,11 +9,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { mockBundle } from "@/lib/mock-courses";
 import { Lock, FileText, CheckCircle, Star, ArrowLeft, BookOpen } from "lucide-react";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { createPublicClient } from "@/lib/supabase/public";
 
 export default async function CourseDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const supabase = createAdminClient();
+  const supabase = createPublicClient();
 
   const { data: course } = await supabase
     .from("courses")
