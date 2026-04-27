@@ -160,7 +160,7 @@ export default function TutorPage() {
                     </div>
                   ))}
                 </div>
-                <p className="text-xs text-gray-400 mt-3">All times Eastern (ET). Sunday off.</p>
+                <p className="text-xs text-gray-400 mt-3">All times Eastern (ET). Saturday & Sunday off.</p>
               </CardContent>
             </Card>
 

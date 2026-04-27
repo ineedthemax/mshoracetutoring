@@ -21,7 +21,7 @@ export function Footer() {
               Live math tutoring that helps students understand the work, not just finish it. Pre-Algebra and Algebra 1 specialists.
             </p>
             <p className="text-xs text-gray-500">White Plains, Maryland · Online via Zoom nationwide</p>
-            <p className="text-xs text-gray-500 mt-1">Monday–Saturday</p>
+            <p className="text-xs text-gray-500 mt-1">Monday–Friday</p>
             <div className="mt-3 space-y-1">
               <a href="tel:2272206227" className="text-xs text-gray-400 hover:text-white transition-colors block">(227) 220-6227</a>
               <a href="mailto:MsHoraceTutoring06@gmail.com" className="text-xs text-gray-400 hover:text-white transition-colors block">MsHoraceTutoring06@gmail.com</a>

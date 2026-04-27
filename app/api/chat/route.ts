@@ -22,6 +22,9 @@ Group Classes:
   - $25 per student per session (3–10 students)
   - Small group, collaborative learning
 
+HOURS:
+Monday–Friday, 10:00 AM – 5:00 PM Eastern Time. Saturday and Sunday off.
+
 Digital Courses (self-paced PDF downloads):
   - Pre-Algebra Mastery: $197 (or 2 payments of $99/month)
   - Algebra 1 Mastery: $197 (or 2 payments of $99/month)

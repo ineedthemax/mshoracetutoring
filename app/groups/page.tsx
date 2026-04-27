@@ -20,7 +20,7 @@ export default function GroupsPage() {
           <div className="flex flex-wrap gap-4 justify-center text-sm text-gray-500">
             <span className="flex items-center gap-1.5"><Users className="w-4 h-4 text-violet-500" /> 3-10 students max</span>
             <span className="flex items-center gap-1.5"><Clock className="w-4 h-4 text-violet-500" /> 90-120 minutes</span>
-            <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4 text-violet-500" /> Evenings &amp; weekends</span>
+            <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4 text-violet-500" /> Monday–Friday · 10am–5pm ET</span>
           </div>
         </div>
       </section>

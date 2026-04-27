@@ -50,12 +50,11 @@ export const mockPayments = [
 ];
 
 export const mockAvailability = [
-  { day: "Monday", slots: ["3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM"] },
-  { day: "Tuesday", slots: ["4:00 PM", "5:00 PM", "6:00 PM"] },
-  { day: "Wednesday", slots: ["3:00 PM", "4:00 PM", "5:00 PM"] },
-  { day: "Thursday", slots: ["4:00 PM", "5:00 PM", "6:00 PM"] },
-  { day: "Friday", slots: ["3:00 PM", "4:00 PM"] },
-  { day: "Saturday", slots: ["10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM"] },
+  { day: "Monday", slots: ["10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM"] },
+  { day: "Tuesday", slots: ["10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM"] },
+  { day: "Wednesday", slots: ["10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM"] },
+  { day: "Thursday", slots: ["10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM"] },
+  { day: "Friday", slots: ["10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM"] },
 ];
 
 export const mockPricing = [
