@@ -42,8 +42,8 @@ export async function POST(request: Request) {
       parentName,
       parentEmail,
     },
-    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/book/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/book?cancelled=1`,
+    success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/book/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/book?cancelled=1`,
   });
 
   return NextResponse.json({ url: checkoutSession.url });
