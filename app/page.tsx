@@ -414,6 +414,65 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Testimonials */}
+      <section className="bg-white py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <Badge className="mb-3 bg-violet-100 text-violet-700 border-0">What Families Are Saying</Badge>
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">Real results from real students</h2>
+            <p className="text-gray-500">Hear from the parents and students who&apos;ve worked with Ms. Horace.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Lisa Campbell",
+                role: "Parent · 10th Grader",
+                text: "Ms. Horace completely turned my daughter's confidence around. She went from dreading Algebra to actually enjoying it. The session reports after every class keep me in the loop every week.",
+                stars: 5,
+                initial: "LC",
+                color: "bg-violet-100 text-violet-700",
+              },
+              {
+                name: "Kezia Thompson",
+                role: "8th Grade Student",
+                text: "I used to freeze up on tests but now I actually understand what I'm doing. Ms. Horace breaks everything down so it makes sense. My grade went from a D to a B in one semester.",
+                stars: 5,
+                initial: "KT",
+                color: "bg-blue-100 text-blue-700",
+              },
+              {
+                name: "Renee Williams",
+                role: "Parent · 9th Grader",
+                text: "I appreciate how Ms. Horace explains everything step-by-step. My daughter finally understands math concepts she's been struggling with for years. Worth every dollar.",
+                stars: 5,
+                initial: "RW",
+                color: "bg-green-100 text-green-700",
+              },
+            ].map((t) => (
+              <Card key={t.name} className="hover:shadow-md transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex gap-0.5 mb-4">
+                    {[1,2,3,4,5].map(i => (
+                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                    ))}
+                  </div>
+                  <p className="text-gray-600 text-sm leading-relaxed mb-6 italic">&ldquo;{t.text}&rdquo;</p>
+                  <div className="flex items-center gap-3">
+                    <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold ${t.color}`}>
+                      {t.initial}
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-gray-900">{t.name}</p>
+                      <p className="text-xs text-gray-400">{t.role}</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Google Review CTA */}
       <section className="bg-violet-600 py-16 px-4">
         <div className="max-w-3xl mx-auto text-center">
