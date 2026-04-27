@@ -41,7 +41,7 @@ export default async function CoursesPage() {
           <Badge className="mb-4 bg-white/20 text-white border-0">Digital Courses</Badge>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Learn at your own pace</h1>
           <p className="text-violet-100 text-lg max-w-2xl mx-auto mb-8">
-            PDF-based math courses you can work through anytime. Step-by-step lessons, practice problems, and answer keys — all downloadable.
+            PDF-based math courses you can work through anytime. Step-by-step lessons, practice problems, and answer keys all downloadable.
           </p>
           <div className="flex items-center justify-center gap-6 text-sm text-violet-200">
             <span className="flex items-center gap-2"><FileText className="w-4 h-4" /> PDF Downloads</span>
@@ -57,7 +57,7 @@ export default async function CoursesPage() {
           <Card className="border-amber-400 ring-1 ring-amber-400 overflow-hidden">
             <div className="bg-amber-500 px-6 py-2 flex items-center gap-2">
               <Zap className="w-4 h-4 text-white" />
-              <span className="text-white text-sm font-bold">Complete Math Bundle — Both Courses</span>
+              <span className="text-white text-sm font-bold">Complete Math Bundle Both Courses</span>
             </div>
             <CardContent className="p-6 md:p-8">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -74,7 +74,7 @@ export default async function CoursesPage() {
                   <div className="text-4xl font-bold text-amber-500 mb-1">${mockBundle.price}</div>
                   <p className="text-sm text-gray-400 mb-2">Both courses · Lifetime access</p>
                   <Link href="/login" className="block">
-                    <Button className="bg-amber-500 hover:bg-amber-600 text-white w-full">Pay in Full — ${mockBundle.price}</Button>
+                    <Button className="bg-amber-500 hover:bg-amber-600 text-white w-full">Pay in Full ${mockBundle.price}</Button>
                   </Link>
                   <div className="bg-white border border-amber-300 rounded-xl p-3 text-left">
                     <p className="text-xs font-semibold text-amber-700 mb-0.5">Installment options:</p>

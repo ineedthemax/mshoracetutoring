@@ -112,7 +112,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
 
                   {/* Pay in full */}
                   <Link href="/login">
-                    <Button className="w-full mb-3">Pay in Full — ${(course.price_cents / 100).toFixed(0)}</Button>
+                    <Button className="w-full mb-3">Pay in Full ${(course.price_cents / 100).toFixed(0)}</Button>
                   </Link>
 
                   {/* Divider */}
@@ -158,7 +158,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
                     <span className="text-sm font-bold text-amber-700">Better deal</span>
                   </div>
                   <p className="text-sm text-gray-700 mb-3">
-                    Get both courses — Pre-Algebra and Algebra 1 — for <strong>${mockBundle.price}</strong>.
+                    Get both courses Pre-Algebra and Algebra 1 for <strong>${mockBundle.price}</strong>.
                   </p>
                   <Link href="/courses">
                     <Button size="sm" variant="outline" className="w-full border-amber-400 text-amber-700 hover:bg-amber-100">

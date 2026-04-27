@@ -8,7 +8,7 @@ import { mockPricing } from "@/lib/mock-data";
 import { CheckCircle, CreditCard } from "lucide-react";
 
 const faqs = [
-  { q: "Do you offer payment plans?", a: "Yes! Payment plans are available on all courses and the bundle. Courses can be split into 2 payments of $99/month. The bundle can be split into 2 payments of $197/month or 3 payments of $132/month. Simply select your plan at checkout — Stripe handles the rest automatically." },
+  { q: "Do you offer payment plans?", a: "Yes! Payment plans are available on all courses and the bundle. Courses can be split into 2 payments of $99/month. The bundle can be split into 2 payments of $197/month or 3 payments of $132/month. Simply select your plan at checkout Stripe handles the rest automatically." },
   { q: "Do session packages expire?", a: "Session packages are valid for 90 days from purchase. This gives you plenty of time to use them without rushing." },
   { q: "Can I mix subjects across sessions in a package?", a: "Yes. Session packages can be used for any subject, any grade level. Use them however you need." },
   { q: "Is there a cancellation policy?", a: "Free cancellation up to 24 hours before your session. Within 24 hours, a $15 rescheduling fee applies. No-shows are non-refundable." },

@@ -43,7 +43,7 @@ const comingSoonSubjects = [
   {
     name: "Pre-Calculus",
     grades: ["11th Grade", "12th Grade"],
-    desc: "Bridging Algebra and Calculus — functions, limits, parametric equations, and polar coordinates.",
+    desc: "Bridging Algebra and Calculus functions, limits, parametric equations, and polar coordinates.",
     topics: ["Functions & transformations", "Limits introduction", "Polynomial & rational functions", "Trig identities", "Vectors"],
   },
   {
