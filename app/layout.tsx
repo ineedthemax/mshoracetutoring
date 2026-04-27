@@ -6,7 +6,7 @@ import { TawkChat } from "@/components/TawkChat";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://mshoracetutoring.vercel.app"),
+  metadataBase: new URL("https://mshoracetutoring.com"),
   title: {
     default: "MsHorace Tutoring | Math Tutor in White Plains, Maryland",
     template: "%s | MsHorace Tutoring",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://mshoracetutoring.vercel.app",
+    url: "https://mshoracetutoring.com",
     siteName: "MsHorace Tutoring",
     title: "MsHorace Tutoring | Math Tutor in White Plains, Maryland",
     description:
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://mshoracetutoring.vercel.app",
+    canonical: "https://mshoracetutoring.com",
   },
 };
 
@@ -76,9 +76,9 @@ const jsonLd = {
   name: "MsHorace Tutoring",
   description:
     "Expert math tutoring for Pre-Algebra and Algebra 1 students. Live 1-on-1 and group sessions via Zoom. Serving White Plains, Maryland and students nationwide.",
-  url: "https://mshoracetutoring.vercel.app",
-  logo: "https://mshoracetutoring.vercel.app/Logo.png",
-  image: "https://mshoracetutoring.vercel.app/Logo.png",
+  url: "https://mshoracetutoring.com",
+  logo: "https://mshoracetutoring.com/Logo.png",
+  image: "https://mshoracetutoring.com/Logo.png",
   founder: {
     "@type": "Person",
     name: "Stenita Horace",
@@ -101,7 +101,7 @@ const jsonLd = {
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer service",
-    url: "https://mshoracetutoring.vercel.app/contact",
+    url: "https://mshoracetutoring.com/contact",
   },
   sameAs: [],
   hasOfferCatalog: {

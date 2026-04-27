@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/admin/", "/student/", "/parent/", "/api/"],
     },
-    sitemap: "https://mshoracetutoring.vercel.app/sitemap.xml",
+    sitemap: "https://mshoracetutoring.com/sitemap.xml",
   };
 }
