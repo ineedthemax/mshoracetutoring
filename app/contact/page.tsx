@@ -8,7 +8,28 @@ import { Mail, Clock, Video, CheckCircle } from "lucide-react";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+
+  async function handleSubmit() {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        alert("Failed to send message. Please try again.");
+      }
+    } catch {
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -89,10 +110,10 @@ export default function ContactPage() {
                       </div>
                       <Button
                         className="w-full"
-                        onClick={() => setSubmitted(true)}
-                        disabled={!form.name || !form.email || !form.message}
+                        onClick={handleSubmit}
+                        disabled={!form.name || !form.email || !form.message || loading}
                       >
-                        Send Message
+                        {loading ? "Sending..." : "Send Message"}
                       </Button>
                     </div>
                   </>
@@ -111,7 +132,7 @@ export default function ContactPage() {
                     <Mail className="w-5 h-5 text-violet-500 mt-0.5" />
                     <div>
                       <p className="text-sm font-medium text-gray-800">Email</p>
-                      <p className="text-sm text-gray-500">marcus@mshoracetutoring.com</p>
+                      <p className="text-sm text-gray-500">MsHoraceTutoring06@gmail.com</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
