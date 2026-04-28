@@ -384,7 +384,20 @@ export default function BookPage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-500">Zoom Link</span>
-                    <a href="https://zoom.us/j/placeholder" className="text-violet-600 font-medium hover:underline">Join Meeting</a>
+                    <a
+                      href={
+                        sessionType === "solo-30"
+                          ? "https://us06web.zoom.us/j/86054653309?pwd=bmSKYvXlsHnIFi5eSTvqOW7LR2vzM7.1"
+                          : sessionType === "group"
+                          ? "https://us06web.zoom.us/j/83897527262?pwd=3PK8eBvZaVlzUR8jlmI5jL5BKHvzD2.1"
+                          : "https://us06web.zoom.us/j/83084805570?pwd=oWTi3ifrieiuhsNK8MgMjWxqanocgJ.1"
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-violet-600 font-medium hover:underline"
+                    >
+                      Join Meeting
+                    </a>
                   </div>
                 </div>
               </div>

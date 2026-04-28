@@ -14,9 +14,9 @@ export const mockTutor = {
 };
 
 export const mockSessions = [
-  { id: "s1", student: "Jordan Campbell", subject: "Algebra 2", date: "2026-04-28", time: "4:00 PM", duration: 60, status: "upcoming", type: "1-on-1", price: 75, zoomUrl: "https://zoom.us/j/placeholder" },
-  { id: "s2", student: "Aisha Williams", subject: "Geometry", date: "2026-04-29", time: "5:00 PM", duration: 45, status: "upcoming", type: "1-on-1", price: 60, zoomUrl: "https://zoom.us/j/placeholder" },
-  { id: "s3", student: "Marcus Jr.", subject: "Pre-Calculus", date: "2026-04-25", time: "3:00 PM", duration: 60, status: "upcoming", type: "1-on-1", price: 75, zoomUrl: "https://zoom.us/j/placeholder" },
+  { id: "s1", student: "Jordan Campbell", subject: "Algebra 2", date: "2026-04-28", time: "4:00 PM", duration: 60, status: "upcoming", type: "1-on-1", price: 75, zoomUrl: "https://us06web.zoom.us/j/83084805570?pwd=oWTi3ifrieiuhsNK8MgMjWxqanocgJ.1" },
+  { id: "s2", student: "Aisha Williams", subject: "Geometry", date: "2026-04-29", time: "5:00 PM", duration: 45, status: "upcoming", type: "1-on-1", price: 60, zoomUrl: "https://us06web.zoom.us/j/83084805570?pwd=oWTi3ifrieiuhsNK8MgMjWxqanocgJ.1" },
+  { id: "s3", student: "Marcus Jr.", subject: "Pre-Calculus", date: "2026-04-25", time: "3:00 PM", duration: 60, status: "upcoming", type: "1-on-1", price: 75, zoomUrl: "https://us06web.zoom.us/j/83084805570?pwd=oWTi3ifrieiuhsNK8MgMjWxqanocgJ.1" },
   { id: "s4", student: "Jordan Campbell", subject: "Algebra 2", date: "2026-04-21", time: "4:00 PM", duration: 60, status: "completed", type: "1-on-1", price: 75, zoomUrl: "" },
   { id: "s5", student: "Aisha Williams", subject: "Geometry", date: "2026-04-18", time: "5:00 PM", duration: 45, status: "completed", type: "1-on-1", price: 60, zoomUrl: "" },
   { id: "s6", student: "Devon Harris", subject: "SAT Math Prep", date: "2026-04-15", time: "6:00 PM", duration: 60, status: "completed", type: "1-on-1", price: 75, zoomUrl: "" },
@@ -32,8 +32,8 @@ export const mockStudents = [
 ];
 
 export const mockGroupClasses = [
-  { id: "g1", title: "Pre-Algebra Group Class", subject: "Pre-Algebra", grade: "6th-8th Grade", date: "2026-05-03", time: "10:00 AM", duration: 90, capacity: 10, enrolled: 3, price: 25, description: "Small group session covering key Pre-Algebra concepts — fractions, integers, one-step equations, and more. Great for reinforcement and review.", zoomUrl: "https://zoom.us/j/placeholder", status: "open" },
-  { id: "g2", title: "Algebra 1 Group Class", subject: "Algebra 1", grade: "8th-9th Grade", date: "2026-05-10", time: "11:00 AM", duration: 90, capacity: 10, enrolled: 4, price: 25, description: "Small group session focused on Algebra 1 topics — linear equations, inequalities, graphing, and systems. Collaborative problem solving with direct guidance.", zoomUrl: "https://zoom.us/j/placeholder", status: "open" },
+  { id: "g1", title: "Pre-Algebra Group Class", subject: "Pre-Algebra", grade: "6th-8th Grade", date: "2026-05-03", time: "10:00 AM", duration: 90, capacity: 10, enrolled: 3, price: 25, description: "Small group session covering key Pre-Algebra concepts — fractions, integers, one-step equations, and more. Great for reinforcement and review.", zoomUrl: "https://us06web.zoom.us/j/83897527262?pwd=3PK8eBvZaVlzUR8jlmI5jL5BKHvzD2.1", status: "open" },
+  { id: "g2", title: "Algebra 1 Group Class", subject: "Algebra 1", grade: "8th-9th Grade", date: "2026-05-10", time: "11:00 AM", duration: 90, capacity: 10, enrolled: 4, price: 25, description: "Small group session focused on Algebra 1 topics — linear equations, inequalities, graphing, and systems. Collaborative problem solving with direct guidance.", zoomUrl: "https://us06web.zoom.us/j/83897527262?pwd=3PK8eBvZaVlzUR8jlmI5jL5BKHvzD2.1", status: "open" },
 ];
 
 export const mockProgressReports = [
