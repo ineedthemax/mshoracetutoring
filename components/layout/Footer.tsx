@@ -1,9 +1,34 @@
 import Link from "next/link";
 import Image from "next/image";
+import { User, Users } from "lucide-react";
 
 export function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300">
+
+      {/* Portal Access Bar */}
+      <div className="border-b border-gray-800 bg-gray-800/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-gray-400 font-medium">Already a client? Sign in to your portal:</p>
+            <div className="flex gap-3">
+              <Link
+                href="/login"
+                className="flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors"
+              >
+                <User className="w-4 h-4" /> Parent Login
+              </Link>
+              <Link
+                href="/login"
+                className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors border border-gray-600"
+              >
+                <Users className="w-4 h-4" /> Student Login
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Brand */}
@@ -21,7 +46,7 @@ export function Footer() {
               Live math tutoring that helps students understand the work, not just finish it. Pre-Algebra and Algebra 1 specialists.
             </p>
             <p className="text-xs text-gray-500">White Plains, Maryland · Online via Zoom nationwide</p>
-            <p className="text-xs text-gray-500 mt-1">Monday–Friday</p>
+            <p className="text-xs text-gray-500 mt-1">Monday–Friday · 10am–5pm ET</p>
             <div className="mt-3 space-y-1">
               <a href="tel:2272206227" className="text-xs text-gray-400 hover:text-white transition-colors block">(227) 220-6227</a>
               <a href="mailto:MsHoraceTutoring06@gmail.com" className="text-xs text-gray-400 hover:text-white transition-colors block">MsHoraceTutoring06@gmail.com</a>
@@ -57,8 +82,6 @@ export function Footer() {
             <Link href="/privacy" className="text-xs text-gray-500 hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="text-xs text-gray-500 hover:text-white transition-colors">Terms of Service</Link>
             <Link href="/refunds" className="text-xs text-gray-500 hover:text-white transition-colors">Refund Policy</Link>
-            <Link href="/login" className="text-xs text-gray-500 hover:text-white transition-colors">Parent Login</Link>
-            <Link href="/login" className="text-xs text-gray-500 hover:text-white transition-colors">Student Login</Link>
           </div>
         </div>
       </div>
