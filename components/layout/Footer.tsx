@@ -53,7 +53,10 @@ export function Footer() {
 
         <div className="mt-10 pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-gray-500">© 2026 MsHorace Tutoring. All rights reserved.</p>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link href="/privacy" className="text-xs text-gray-500 hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="text-xs text-gray-500 hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/refunds" className="text-xs text-gray-500 hover:text-white transition-colors">Refund Policy</Link>
             <Link href="/login" className="text-xs text-gray-500 hover:text-white transition-colors">Parent Login</Link>
             <Link href="/login" className="text-xs text-gray-500 hover:text-white transition-colors">Student Login</Link>
           </div>
