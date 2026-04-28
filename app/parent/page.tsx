@@ -3,13 +3,34 @@ import { DashboardSidebar } from "@/components/layout/DashboardSidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { mockSessions, mockStudents, mockProgressReports, mockPayments } from "@/lib/mock-data";
+import { createClient } from "@/lib/supabase/server";
 import { Calendar, TrendingUp, DollarSign, Users, Video, Star } from "lucide-react";
 
-export default function ParentDashboard() {
-  const upcoming = mockSessions.filter(s => s.status === "upcoming");
-  const completed = mockSessions.filter(s => s.status === "completed");
-  const totalSpent = mockPayments.filter(p => p.status === "paid").reduce((a, p) => a + p.amount, 0);
+export default async function ParentDashboard() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  // Fetch real sessions for this parent
+  const { data: sessions } = await supabase
+    .from("sessions")
+    .select("*")
+    .eq("parent_email", user?.email ?? "")
+    .order("session_date", { ascending: true });
+
+  const allSessions = sessions ?? [];
+  const upcoming = allSessions.filter(s => s.status === "upcoming");
+  const completed = allSessions.filter(s => s.status === "completed");
+  const totalSpent = allSessions.reduce((a, s) => a + (s.price_cents ?? 0), 0) / 100;
+
+  // Fetch session reports for this parent
+  const { data: reports } = await supabase
+    .from("session_reports")
+    .select("*")
+    .eq("parent_email", user?.email ?? "")
+    .order("created_at", { ascending: false })
+    .limit(3);
+
+  const parentName = user?.user_metadata?.name ?? "there";
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -18,8 +39,8 @@ export default function ParentDashboard() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Welcome back, Lisa!</h1>
-            <p className="text-gray-500 text-sm mt-1">Here&apos;s what&apos;s happening with Jordan&apos;s tutoring.</p>
+            <h1 className="text-2xl font-bold text-gray-900">Welcome back, {parentName}!</h1>
+            <p className="text-gray-500 text-sm mt-1">Here&apos;s what&apos;s happening with your student&apos;s tutoring.</p>
           </div>
           <Link href="/book">
             <Button>+ Book New Session</Button>
@@ -31,8 +52,8 @@ export default function ParentDashboard() {
           {[
             { label: "Sessions Completed", value: completed.length, icon: Calendar, color: "text-violet-600", bg: "bg-violet-50" },
             { label: "Upcoming Sessions", value: upcoming.length, icon: TrendingUp, color: "text-blue-600", bg: "bg-blue-50" },
-            { label: "Total Invested", value: `$${totalSpent}`, icon: DollarSign, color: "text-green-600", bg: "bg-green-50" },
-            { label: "Active Students", value: mockStudents.length, icon: Users, color: "text-orange-600", bg: "bg-orange-50" },
+            { label: "Total Invested", value: `$${totalSpent.toFixed(0)}`, icon: DollarSign, color: "text-green-600", bg: "bg-green-50" },
+            { label: "Total Sessions", value: allSessions.length, icon: Users, color: "text-orange-600", bg: "bg-orange-50" },
           ].map((stat) => (
             <Card key={stat.label}>
               <CardContent className="pt-5 pb-5">
@@ -63,14 +84,21 @@ export default function ParentDashboard() {
                   <div key={session.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
                     <div>
                       <p className="font-medium text-gray-900 text-sm">{session.subject}</p>
-                      <p className="text-xs text-gray-400">{session.student} · {new Date(session.date).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} at {session.time}</p>
+                      <p className="text-xs text-gray-400">
+                        {session.session_date
+                          ? new Date(session.session_date).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })
+                          : "TBD"
+                        } at {session.session_time}
+                      </p>
                     </div>
                     <div className="flex gap-2">
-                      <a href={session.zoomUrl} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" className="flex items-center gap-1">
-                          <Video className="w-3 h-3" /> Join
-                        </Button>
-                      </a>
+                      {session.zoom_join_url && (
+                        <a href={session.zoom_join_url} target="_blank" rel="noopener noreferrer">
+                          <Button size="sm" className="flex items-center gap-1">
+                            <Video className="w-3 h-3" /> Join
+                          </Button>
+                        </a>
+                      )}
                       <Button size="sm" variant="ghost" className="text-xs text-gray-400">Reschedule</Button>
                     </div>
                   </div>
@@ -86,85 +114,55 @@ export default function ParentDashboard() {
             </CardContent>
           </Card>
 
-          {/* Recent Progress */}
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle>Student Confidence</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-5">
-                {mockStudents.map((student) => (
-                  <div key={student.id}>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <div>
-                        <span className="text-sm font-medium text-gray-800">{student.name}</span>
-                        <span className="text-xs text-gray-400 ml-2">{student.subject}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-bold text-gray-700">{student.confidence}%</span>
-                        {student.trend === "up" && <TrendingUp className="w-3 h-3 text-green-500" />}
-                      </div>
-                    </div>
-                    <div className="h-2 bg-gray-100 rounded-full">
-                      <div
-                        className="h-2 rounded-full bg-violet-500 transition-all"
-                        style={{ width: `${student.confidence}%` }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-6">
           {/* Session Reports */}
           <Card>
             <CardHeader className="pb-3">
               <CardTitle>Recent Session Reports</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                {mockProgressReports.map((r) => (
-                  <div key={r.id} className="p-4 bg-gray-50 rounded-xl">
-                    <div className="flex items-center justify-between mb-2">
-                      <div>
-                        <p className="font-medium text-gray-900 text-sm">{r.student}</p>
-                        <p className="text-xs text-gray-400">{r.subject} · {new Date(r.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</p>
+              {reports && reports.length > 0 ? (
+                <div className="space-y-4">
+                  {reports.map((r: any) => (
+                    <div key={r.id} className="p-4 bg-gray-50 rounded-xl">
+                      <div className="flex items-center justify-between mb-2">
+                        <div>
+                          <p className="font-medium text-gray-900 text-sm">{r.student_name}</p>
+                          <p className="text-xs text-gray-400">{r.subject} · {new Date(r.session_date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</p>
+                        </div>
+                        <Badge variant="success">{r.confidence_score}% confidence</Badge>
                       </div>
-                      <Badge variant="success">+{r.studentConfidence}% confidence</Badge>
+                      <p className="text-xs text-gray-500">{r.topics_covered}</p>
+                      {r.wins && <p className="text-xs text-gray-500 italic mt-1">&ldquo;{r.wins}&rdquo;</p>}
                     </div>
-                    <div className="flex flex-wrap gap-1 mb-2">
-                      {r.topicsCovered.map(t => (
-                        <span key={t} className="text-xs bg-white border border-gray-200 px-2 py-0.5 rounded-full text-gray-600">{t}</span>
-                      ))}
-                    </div>
-                    <p className="text-xs text-gray-500 italic">&ldquo;{r.wins}&rdquo;</p>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Google Review */}
-          <Card className="bg-gradient-to-br from-violet-600 to-violet-800 border-0 text-white">
-            <CardContent className="pt-8">
-              <Star className="w-10 h-10 text-yellow-300 fill-yellow-300 mb-4" />
-              <h3 className="text-xl font-bold mb-2">Leave a Google Review</h3>
-              <p className="text-violet-100 text-sm mb-6">Had a great experience? Share it on Google and help other families find Mshorace Tutoring.</p>
-              <a
-                href="https://g.page/r/placeholder/review"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-white text-violet-700 font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-violet-50 transition-colors"
-              >
-                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                Write a Review
-              </a>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-6 text-gray-400">
+                  <p className="text-sm">No session reports yet.</p>
+                  <p className="text-xs mt-1">Reports are sent after each session.</p>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
+
+        {/* Google Review */}
+        <Card className="bg-gradient-to-br from-violet-600 to-violet-800 border-0 text-white">
+          <CardContent className="pt-8">
+            <Star className="w-10 h-10 text-yellow-300 fill-yellow-300 mb-4" />
+            <h3 className="text-xl font-bold mb-2">Leave a Google Review</h3>
+            <p className="text-violet-100 text-sm mb-6">Had a great experience? Share it on Google and help other families find MsHorace Tutoring.</p>
+            <a
+              href="https://g.page/r/placeholder/review"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-white text-violet-700 font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-violet-50 transition-colors"
+            >
+              <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+              Write a Review
+            </a>
+          </CardContent>
+        </Card>
       </main>
     </div>
   );
