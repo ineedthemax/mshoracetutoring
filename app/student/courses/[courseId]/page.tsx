@@ -53,7 +53,7 @@ export default async function StudentCourseLessonPage({ params }: { params: Prom
           </div>
           <h2 className="text-xl font-bold mb-1">Learn with instant feedback</h2>
           <p className="text-violet-200 text-sm mb-4">
-            94 practice problems, hints, progress tracking and instant answers. Works in your browser — no download needed.
+            94 practice problems, hints, progress tracking and instant answers. Works in your browser - no download needed.
           </p>
           <a href={interactiveUrl} target="_blank" rel="noopener noreferrer">
             <Button className="bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold">

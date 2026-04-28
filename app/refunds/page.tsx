@@ -21,7 +21,7 @@ export default function RefundsPage() {
                 <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="font-medium text-gray-800">Cancelled 24+ hours before session</p>
-                  <p className="text-sm text-gray-500">Full refund or free reschedule — no questions asked.</p>
+                  <p className="text-sm text-gray-500">Full refund or free reschedule - no questions asked.</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">

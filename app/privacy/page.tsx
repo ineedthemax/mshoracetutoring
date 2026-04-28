@@ -24,7 +24,7 @@ export default function PrivacyPolicyPage() {
               <li>Parent or guardian full name and email address</li>
               <li>Student first name and grade level</li>
               <li>Phone number (optional)</li>
-              <li>Payment information (processed securely by Stripe — we never store card details)</li>
+              <li>Payment information (processed securely by Stripe - we never store card details)</li>
               <li>Session history and progress notes</li>
               <li>Messages sent through our contact form</li>
             </ul>
@@ -57,11 +57,11 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-lg font-bold text-gray-900 mb-3">5. How We Share Your Information</h2>
             <p className="mb-3">We do not sell your personal information. We share data only with trusted service providers necessary to operate our business:</p>
             <ul className="list-disc pl-5 space-y-1">
-              <li><strong>Stripe</strong> — Payment processing</li>
-              <li><strong>Resend</strong> — Transactional email delivery</li>
-              <li><strong>Supabase</strong> — Secure database hosting</li>
-              <li><strong>Tawk.to</strong> — Live chat support</li>
-              <li><strong>Zoom</strong> — Video session delivery</li>
+              <li><strong>Stripe</strong> - Payment processing</li>
+              <li><strong>Resend</strong> - Transactional email delivery</li>
+              <li><strong>Supabase</strong> - Secure database hosting</li>
+              <li><strong>Tawk.to</strong> - Live chat support</li>
+              <li><strong>Zoom</strong> - Video session delivery</li>
             </ul>
             <p className="mt-3">Each provider has their own privacy policy and we require them to keep your data confidential.</p>
           </section>

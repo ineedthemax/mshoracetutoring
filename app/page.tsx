@@ -87,7 +87,7 @@ export default function HomePage() {
               {
                 src: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&h=400&fit=crop",
                 alt: "Student learning online via laptop",
-                caption: "Live sessions via Zoom — from anywhere",
+                caption: "Live sessions via Zoom - from anywhere",
               },
               {
                 src: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?w=600&h=400&fit=crop",

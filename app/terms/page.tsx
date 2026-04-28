@@ -40,7 +40,7 @@ export default function TermsPage() {
               <li>All payments are processed securely through Stripe.</li>
               <li>Payment is due at the time of booking.</li>
               <li>Session packages and digital course purchases are non-transferable.</li>
-              <li>Installment plans are binding — missed payments may result in loss of access to course materials.</li>
+              <li>Installment plans are binding - missed payments may result in loss of access to course materials.</li>
               <li>Prices are listed in USD and are subject to change with notice.</li>
             </ul>
           </section>
@@ -82,7 +82,7 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-lg font-bold text-gray-900 mb-3">9. Intellectual Property</h2>
-            <p>All content on this website — including course materials, worksheets, session reports, lesson plans, and website design — is the intellectual property of MsHorace Tutoring and may not be copied, reproduced, or used without written permission.</p>
+            <p>All content on this website - including course materials, worksheets, session reports, lesson plans, and website design - is the intellectual property of MsHorace Tutoring and may not be copied, reproduced, or used without written permission.</p>
           </section>
 
           <section>
@@ -105,7 +105,7 @@ export default function TermsPage() {
             <p>Questions about these terms? Reach out:</p>
             <div className="mt-3 bg-gray-50 rounded-xl p-4">
               <p className="font-medium text-gray-900">MsHorace Tutoring</p>
-              <p>Stenita Horace — White Plains, Maryland</p>
+              <p>Stenita Horace - White Plains, Maryland</p>
               <p><a href="mailto:MsHoraceTutoring06@gmail.com" className="text-violet-600 hover:underline">MsHoraceTutoring06@gmail.com</a></p>
               <p><a href="tel:2272206227" className="text-violet-600 hover:underline">(227) 220-6227</a></p>
             </div>

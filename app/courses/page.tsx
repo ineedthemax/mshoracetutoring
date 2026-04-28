@@ -157,7 +157,7 @@ export default async function CoursesPage() {
           <div className="text-center mb-12">
             <Badge className="mb-3 bg-violet-100 text-violet-700 border-0">Digital Downloads</Badge>
             <h2 className="text-3xl font-bold text-gray-900 mb-3">Individual Study Resources</h2>
-            <p className="text-gray-500">Targeted practice materials — no full course needed. Buy what your student needs right now.</p>
+            <p className="text-gray-500">Targeted practice materials - no full course needed. Buy what your student needs right now.</p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -200,7 +200,7 @@ export default async function CoursesPage() {
               },
               {
                 title: "Pre-Algebra Exam Prep",
-                desc: "Full-length practice test with answer key — designed to mirror real classroom assessments.",
+                desc: "Full-length practice test with answer key - designed to mirror real classroom assessments.",
                 subject: "Pre-Algebra",
                 price: "$12",
                 color: "bg-violet-50",
@@ -209,7 +209,7 @@ export default async function CoursesPage() {
               },
               {
                 title: "Algebra 1 Exam Prep",
-                desc: "Full-length practice test with answer key — designed to mirror real classroom assessments.",
+                desc: "Full-length practice test with answer key - designed to mirror real classroom assessments.",
                 subject: "Algebra 1",
                 price: "$12",
                 color: "bg-blue-50",
