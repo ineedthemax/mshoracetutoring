@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { mockBundle } from "@/lib/mock-courses";
 import { BookOpen, FileText, Star, Zap, CheckCircle, Lock, Download, ShoppingCart } from "lucide-react";
+import { CourseCheckoutButton } from "@/components/CourseCheckoutButton";
 import { createPublicClient } from "@/lib/supabase/public";
 
 export default async function CoursesPage() {
@@ -73,18 +74,35 @@ export default async function CoursesPage() {
                 <div className="text-center md:text-right flex-shrink-0 space-y-2">
                   <div className="text-4xl font-bold text-amber-500 mb-1">${mockBundle.price}</div>
                   <p className="text-sm text-gray-400 mb-2">Both courses · Lifetime access</p>
-                  <Link href="/login" className="block">
-                    <Button className="bg-amber-500 hover:bg-amber-600 text-white w-full">Pay in Full ${mockBundle.price}</Button>
-                  </Link>
+                  <CourseCheckoutButton
+                    label={`Pay in Full $${mockBundle.price}`}
+                    bundleId="b1"
+                    productName="Complete Math Bundle"
+                    className="bg-amber-500 hover:bg-amber-600 text-white w-full"
+                  />
                   <div className="bg-white border border-amber-300 rounded-xl p-3 text-left">
                     <p className="text-xs font-semibold text-amber-700 mb-0.5">Installment options:</p>
                     <p className="text-xs text-gray-500">2 payments of $197/mo</p>
                     <p className="text-xs text-gray-500">3 payments of $132/mo</p>
-                    <Link href="/login" className="block mt-2">
-                      <Button size="sm" variant="outline" className="w-full border-amber-400 text-amber-700 text-xs">Choose a Payment Plan</Button>
-                    </Link>
+                    <CourseCheckoutButton
+                      label="2 Payments of $197/mo"
+                      bundleId="b1"
+                      planKey="bundle-2pay"
+                      productName="Complete Math Bundle"
+                      variant="outline"
+                      size="sm"
+                      className="w-full border-amber-400 text-amber-700 text-xs mt-2"
+                    />
+                    <CourseCheckoutButton
+                      label="3 Payments of $132/mo"
+                      bundleId="b1"
+                      planKey="bundle-3pay"
+                      productName="Complete Math Bundle"
+                      variant="outline"
+                      size="sm"
+                      className="w-full border-amber-400 text-amber-700 text-xs mt-1"
+                    />
                   </div>
-                  <p className="text-xs text-gray-400">Login required to purchase</p>
                 </div>
               </div>
             </CardContent>

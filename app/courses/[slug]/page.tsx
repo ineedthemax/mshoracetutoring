@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { mockBundle } from "@/lib/mock-courses";
 import { Lock, FileText, CheckCircle, Star, ArrowLeft, BookOpen } from "lucide-react";
 import { createPublicClient } from "@/lib/supabase/public";
+import { CourseCheckoutButton } from "@/components/CourseCheckoutButton";
 
 export default async function CourseDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -111,9 +112,12 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
                   </div>
 
                   {/* Pay in full */}
-                  <Link href="/login">
-                    <Button className="w-full mb-3">Pay in Full ${(course.price_cents / 100).toFixed(0)}</Button>
-                  </Link>
+                  <CourseCheckoutButton
+                    label={`Pay in Full $${(course.price_cents / 100).toFixed(0)}`}
+                    courseId={slug === "pre-algebra-mastery" ? "c1" : "c2"}
+                    productName={course.title}
+                    className="w-full mb-3"
+                  />
 
                   {/* Divider */}
                   <div className="flex items-center gap-2 my-3">
@@ -126,14 +130,15 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
                   <div className="bg-violet-50 border border-violet-200 rounded-xl p-4 mb-3">
                     <p className="text-sm font-semibold text-violet-700 mb-1">Pay in 2 Installments</p>
                     <p className="text-xs text-gray-500 mb-3">$99 today, then $99 in 30 days</p>
-                    <Link href="/login">
-                      <Button variant="outline" className="w-full border-violet-300 text-violet-600 hover:bg-violet-100 text-sm">
-                        Start for $99/mo
-                      </Button>
-                    </Link>
+                    <CourseCheckoutButton
+                      label="Start for $99/mo"
+                      courseId={slug === "pre-algebra-mastery" ? "c1" : "c2"}
+                      planKey="course-2pay"
+                      productName={course.title}
+                      variant="outline"
+                      className="w-full border-violet-300 text-violet-600 hover:bg-violet-100 text-sm"
+                    />
                   </div>
-
-                  <p className="text-center text-xs text-gray-400 mb-4">Login required to purchase</p>
                   <div className="space-y-2 text-sm">
                     {[
                       `${course.total_lessons} PDF lesson files`,
