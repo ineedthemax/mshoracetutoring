@@ -9,16 +9,13 @@ import { mockAvailability } from "@/lib/mock-data";
 import { CheckCircle, Video, Clock, Users, ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const gradeLevels = ["6th Grade", "7th Grade", "8th Grade", "9th Grade", "10th Grade", "11th Grade", "12th Grade"];
+const gradeLevels = ["6th Grade", "7th Grade", "8th Grade", "9th Grade"];
 
 const subjectsByGrade: Record<string, string[]> = {
-  "6th Grade": ["Pre-Algebra", "General Math"],
-  "7th Grade": ["Pre-Algebra", "Algebra 1"],
-  "8th Grade": ["Algebra 1", "Geometry", "Pre-Algebra"],
-  "9th Grade": ["Algebra 1", "Algebra 2", "Geometry"],
-  "10th Grade": ["Algebra 2", "Geometry", "Trigonometry"],
-  "11th Grade": ["Pre-Calculus", "Trigonometry", "Algebra 2", "SAT Math"],
-  "12th Grade": ["Pre-Calculus", "Calculus", "AP Calculus AB", "AP Calculus BC", "SAT Math", "ACT Math"],
+  "6th Grade": ["Pre-Algebra"],
+  "7th Grade": ["Pre-Algebra"],
+  "8th Grade": ["Pre-Algebra", "Algebra 1"],
+  "9th Grade": ["Algebra 1"],
 };
 
 const sessionTypes = [

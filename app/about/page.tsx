@@ -49,10 +49,10 @@ export default function AboutPage() {
             <div className="bg-gradient-to-br from-violet-100 to-violet-200 rounded-2xl aspect-square flex items-center justify-center">
               <div className="text-center p-8">
                 <div className="w-20 h-20 bg-violet-300 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-2xl font-bold text-violet-700">MH</span>
+                  <span className="text-2xl font-bold text-violet-700">SH</span>
                 </div>
                 <p className="text-violet-700 font-medium">Stenita Horace</p>
-                <p className="text-violet-500 text-sm mt-1">8 years · 200+ students</p>
+                <p className="text-violet-500 text-sm mt-1">6+ years · 900+ students</p>
               </div>
             </div>
             <div>
@@ -60,7 +60,7 @@ export default function AboutPage() {
               <div className="space-y-4 text-gray-500 text-sm leading-relaxed">
                 <p>I grew up in Atlanta, where I was fortunate to have a math teacher in 9th grade who changed everything for me. He didn&apos;t just teach formulas he taught thinking. He showed me that every problem had a structure you could learn to see.</p>
                 <p>I went on to study Mathematics at Morehouse College and earned my Master&apos;s in Applied Mathematics from Howard University. But the classroom kept calling. I started tutoring part-time in grad school and never stopped.</p>
-                <p>Eight years and 200+ students later, I&apos;ve seen the same transformation happen over and over: a student who was failing Algebra 2 in October is acing the final in December. Not because they became magically smarter because someone took the time to explain it clearly, from the right angle, with patience.</p>
+                <p>Six-plus years and 900+ students later, I&apos;ve seen the same transformation happen over and over: a student who was failing Algebra 2 in October is acing the final in December. Not because they became magically smarter because someone took the time to explain it clearly, from the right angle, with patience.</p>
                 <p>That&apos;s what I do, and I love doing it.</p>
               </div>
             </div>
@@ -81,11 +81,11 @@ export default function AboutPage() {
             ))}
             <div className="flex items-center gap-3 bg-violet-50 rounded-xl px-4 py-3">
               <CheckCircle className="w-5 h-5 text-violet-600 flex-shrink-0" />
-              <span className="text-sm text-gray-700 font-medium">8+ years private tutoring</span>
+              <span className="text-sm text-gray-700 font-medium">6+ years of teaching experience</span>
             </div>
             <div className="flex items-center gap-3 bg-violet-50 rounded-xl px-4 py-3">
               <CheckCircle className="w-5 h-5 text-violet-600 flex-shrink-0" />
-              <span className="text-sm text-gray-700 font-medium">200+ students helped</span>
+              <span className="text-sm text-gray-700 font-medium">900+ students helped</span>
             </div>
           </div>
         </div>
