@@ -78,8 +78,8 @@ export default function HomeworkPage() {
                       className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 bg-white"
                     >
                       <option value="">Link to a session (optional)...</option>
-                      <option>Apr 28 Algebra 2</option>
-                      <option>Apr 21 Algebra 2</option>
+                      <option>Apr 28 Pre-Algebra</option>
+                      <option>Apr 21 Algebra 1</option>
                     </select>
                   </div>
 

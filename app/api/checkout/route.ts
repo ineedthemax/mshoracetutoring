@@ -7,7 +7,7 @@ export async function POST(request: Request) {
 
     const priceMap: Record<string, number> = {
       "30-min": 4000,
-      "45-min": 6000,
+
       "60-min": 7500,
       "group": 2500,
     };

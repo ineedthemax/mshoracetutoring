@@ -14,7 +14,6 @@ ABOUT MS. HORACE TUTORING:
 SERVICES & PRICING:
 1-on-1 Live Sessions (via Zoom):
   - 30-minute session: $40
-  - 45-minute session: $60
   - 60-minute session: $75
   - Summer Boost Pack: 8 sessions for $522 (save 13%)
 

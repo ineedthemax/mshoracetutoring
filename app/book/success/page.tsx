@@ -46,8 +46,8 @@ export default function BookingSuccessPage() {
 
         <p className="text-center text-sm text-gray-400 mt-4">
           Questions? Email us at{" "}
-          <a href="mailto:sahorace27@gmail.com" className="text-violet-600 hover:underline">
-            sahorace27@gmail.com
+          <a href="mailto:MsHoraceTutoring06@gmail.com" className="text-violet-600 hover:underline">
+            MsHoraceTutoring06@gmail.com
           </a>
         </p>
       </div>

@@ -60,7 +60,7 @@ export default function AboutPage() {
               <div className="space-y-4 text-gray-500 text-sm leading-relaxed">
                 <p>I grew up in Atlanta, where I was fortunate to have a math teacher in 9th grade who changed everything for me. He didn&apos;t just teach formulas he taught thinking. He showed me that every problem had a structure you could learn to see.</p>
                 <p>I went on to study Mathematics at Morehouse College and earned my Master&apos;s in Applied Mathematics from Howard University. But the classroom kept calling. I started tutoring part-time in grad school and never stopped.</p>
-                <p>Six-plus years and 900+ students later, I&apos;ve seen the same transformation happen over and over: a student who was failing Algebra 2 in October is acing the final in December. Not because they became magically smarter because someone took the time to explain it clearly, from the right angle, with patience.</p>
+                <p>Six-plus years and 900+ students later, I&apos;ve seen the same transformation happen over and over: a student who was failing Algebra 1 in October is acing the final in December. Not because they became magically smarter because someone took the time to explain it clearly, from the right angle, with patience.</p>
                 <p>That&apos;s what I do, and I love doing it.</p>
               </div>
             </div>

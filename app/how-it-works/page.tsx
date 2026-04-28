@@ -48,7 +48,7 @@ const faqs = [
   { q: "Can I watch my child's session?", a: "Yes. You're welcome to observe any session. Just let Ms. Horace know ahead of time so he can set up the session accordingly." },
   { q: "What if we need to reschedule?", a: "You can reschedule up to 24 hours before the session start time at no charge. Within 24 hours, a $15 reschedule fee applies. Cancellations within 2 hours are non-refundable." },
   { q: "How do I know if my student is improving?", a: "Every session comes with a written report that includes a confidence score (0-100). You can track this score over multiple sessions to see growth trends. Ms. Horace also notes specific wins and skill gaps each time." },
-  { q: "What grade levels do you work with?", a: "6th through 12th grade. This covers Pre-Algebra through AP Calculus AB and BC, plus SAT/ACT Math prep." },
+  { q: "What grade levels do you work with?", a: "6th through 9th grade, specializing in Pre-Algebra and Algebra 1." },
   { q: "Do you offer a trial or first-session guarantee?", a: "If you're not satisfied after your first session, contact us within 48 hours and we'll work to make it right or provide a full refund no questions asked." },
 ];
 
