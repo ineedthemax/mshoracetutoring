@@ -80,17 +80,17 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
               {
-                src: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=400&fit=crop",
+                src: "https://images.unsplash.com/photo-1588072432836-e10032774350?w=600&h=400&fit=crop",
                 alt: "Middle school student studying math",
                 caption: "Building confidence one concept at a time",
               },
               {
-                src: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=400&fit=crop",
+                src: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&h=400&fit=crop",
                 alt: "Student learning online via laptop",
                 caption: "Live sessions via Zoom — from anywhere",
               },
               {
-                src: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=600&h=400&fit=crop",
+                src: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?w=600&h=400&fit=crop",
                 alt: "Student focused on schoolwork",
                 caption: "Step-by-step until it clicks",
               },
