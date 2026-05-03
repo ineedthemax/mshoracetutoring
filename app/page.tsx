@@ -426,7 +426,7 @@ export default function HomePage() {
             {[
               {
                 name: "Lisa Campbell",
-                role: "Parent · 10th Grader",
+                role: "Parent · 9th Grader",
                 text: "Ms. Horace completely turned my daughter's confidence around. She went from dreading Algebra to actually enjoying it. The session reports after every class keep me in the loop every week.",
                 stars: 5,
                 initial: "LC",

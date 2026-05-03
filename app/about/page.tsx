@@ -22,7 +22,7 @@ export default function AboutPage() {
       <section className="bg-gradient-to-br from-violet-900 to-violet-700 text-white py-20 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <div className="w-24 h-24 bg-violet-300 rounded-full mx-auto mb-6 flex items-center justify-center">
-            <span className="text-3xl font-bold text-violet-800">MH</span>
+            <span className="text-3xl font-bold text-violet-800">SH</span>
           </div>
           <h1 className="text-4xl font-bold mb-4">{mockTutor.name}</h1>
           <p className="text-violet-100 text-xl">{mockTutor.title}</p>

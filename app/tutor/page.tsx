@@ -8,7 +8,7 @@ import { mockTutor, mockAvailability, mockPricing } from "@/lib/mock-data";
 import { Star, CheckCircle, Clock, BookOpen } from "lucide-react";
 
 const testimonials = [
-  { name: "Lisa Campbell", role: "Parent of 10th Grader", text: "Ms. Horace completely turned Jordan's confidence around. She went from dreading Algebra to actually enjoying it. The session reports keep me in the loop every week.", stars: 5 },
+  { name: "Lisa Campbell", role: "Parent of 9th Grader", text: "Ms. Horace completely turned Jordan's confidence around. She went from dreading Algebra to actually enjoying it. The session reports keep me in the loop every week.", stars: 5 },
   { name: "Devon Harris", role: "9th Grade Student", text: "I was failing Algebra 1 at the start of the year. After 6 sessions with Ms. Horace I went from a D to a B. She breaks everything down so it actually makes sense.", stars: 5 },
   { name: "Renee Williams", role: "Parent of 9th Grader", text: "I appreciate how Ms. Horace explains everything step-by-step. Aisha finally understands geometry proofs. The Zoom setup was easy and the price is fair for the quality.", stars: 5 },
 ];
@@ -172,7 +172,7 @@ export default function TutorPage() {
                 <div className="space-y-4">
                   {[
                     { label: "Sessions Taught", value: "500+" },
-                    { label: "Students Helped", value: "200+" },
+                    { label: "Students Helped", value: "900+" },
                     { label: "Satisfaction Rate", value: "98%" },
                     { label: "Hourly Rate", value: `$${mockTutor.hourlyRate}` },
                   ].map((s) => (
