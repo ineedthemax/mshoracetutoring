@@ -5,6 +5,16 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
+// Map product keys to Supabase Storage file paths
+const DIGITAL_PRODUCT_FILES: Record<string, string> = {
+  "pre-algebra-practice":   "Practice Problems/PreAlgebra_Practice_Packet.pdf",
+  "algebra1-practice":      "Practice Problems/AlgebraI_Practice_Packet.pdf",
+  "pre-algebra-study-guide":"Study Guide/PreAlgebra_Study_Guide.pdf",
+  "algebra1-study-guide":   "Study Guide/AlgebraI_Study_Guide.pdf",
+  "pre-algebra-exam-prep":  "Exam Prep/PreAlgebra_Exam_Prep.pdf",
+  "algebra1-exam-prep":     "Exam Prep/AlgebraI_Exam_Prep.pdf",
+};
+
 const ZOOM_LINKS: Record<string, string> = {
   "solo-30": "https://us06web.zoom.us/j/86054653309?pwd=bmSKYvXlsHnIFi5eSTvqOW7LR2vzM7.1",
   "solo-60": "https://us06web.zoom.us/j/83084805570?pwd=oWTi3ifrieiuhsNK8MgMjWxqanocgJ.1",
@@ -37,6 +47,16 @@ export async function POST(request: Request) {
     if (meta.type === "digital_product") {
       const buyerEmail = session.customer_email ?? meta.buyerEmail ?? "";
       const productName = meta.productName ?? "Study Resource";
+      const filePath = DIGITAL_PRODUCT_FILES[meta.productKey];
+
+      // Generate a signed download URL valid for 7 days
+      let downloadUrl = "";
+      if (filePath) {
+        const { data: signedData } = await admin.storage
+          .from("digital-products")
+          .createSignedUrl(filePath, 60 * 60 * 24 * 7); // 7 days
+        downloadUrl = signedData?.signedUrl ?? "";
+      }
 
       await admin.from("digital_purchases").insert({
         buyer_email: buyerEmail,
@@ -46,14 +66,14 @@ export async function POST(request: Request) {
         stripe_session_id: session.id,
         stripe_payment_intent_id: session.payment_intent,
         status: "paid",
-        download_sent: false,
+        download_sent: !!downloadUrl,
       });
 
       await resend.emails.send({
         from: "MsHorace Tutoring <onboarding@resend.dev>",
         to: [buyerEmail],
         replyTo: "MsHoraceTutoring06@gmail.com",
-        subject: `Your Purchase: ${productName}`,
+        subject: `Your Download: ${productName}`,
         html: `
 <!DOCTYPE html>
 <html>
@@ -62,7 +82,7 @@ export async function POST(request: Request) {
   <div style="max-width:600px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
 
     <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:32px;text-align:center;">
-      <h1 style="color:#fff;margin:0;font-size:22px;font-weight:700;">Purchase Confirmed!</h1>
+      <h1 style="color:#fff;margin:0;font-size:22px;font-weight:700;">Your Download is Ready!</h1>
       <p style="color:#ddd6fe;margin:6px 0 0;font-size:14px;">MsHorace Tutoring</p>
     </div>
 
@@ -76,10 +96,17 @@ export async function POST(request: Request) {
         <p style="margin:0;font-size:16px;font-weight:700;color:#5b21b6;">${productName}</p>
       </div>
 
-      <div style="background:#fef9f0;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 18px;margin-bottom:24px;">
-        <p style="margin:0 0 4px;font-size:12px;font-weight:600;color:#92400e;text-transform:uppercase;">Coming to your inbox soon</p>
-        <p style="margin:0;color:#78350f;font-size:14px;">Your PDF download link will be emailed to you at <strong>${buyerEmail}</strong> within 24 hours. If you don't receive it, please contact us.</p>
+      ${downloadUrl ? `
+      <div style="text-align:center;margin-bottom:24px;">
+        <p style="margin:0 0 12px;color:#374151;font-size:14px;">Click the button below to download your PDF:</p>
+        <a href="${downloadUrl}" style="display:inline-block;background:#7c3aed;color:#fff;padding:14px 32px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;">Download PDF Now</a>
+        <p style="margin:12px 0 0;color:#9ca3af;font-size:12px;">This link expires in 7 days. Save your PDF after downloading.</p>
       </div>
+      ` : `
+      <div style="background:#fef9f0;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 18px;margin-bottom:24px;">
+        <p style="margin:0;color:#78350f;font-size:14px;">Your download link will be emailed to you at <strong>${buyerEmail}</strong> shortly. If you don't receive it within 1 hour, please contact us.</p>
+      </div>
+      `}
 
       <p style="color:#6b7280;font-size:14px;">Questions? Reply to this email or reach out at <a href="mailto:MsHoraceTutoring06@gmail.com" style="color:#7c3aed;">MsHoraceTutoring06@gmail.com</a> or <a href="tel:2272206227" style="color:#7c3aed;">(227) 220-6227</a>.</p>
     </div>
