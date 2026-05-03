@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { mockBundle } from "@/lib/mock-courses";
 import { BookOpen, FileText, Star, Zap, CheckCircle, Lock, Download, ShoppingCart } from "lucide-react";
 import { CourseCheckoutButton } from "@/components/CourseCheckoutButton";
+import { DigitalProductButton } from "@/components/DigitalProductButton";
 import { createPublicClient } from "@/lib/supabase/public";
 
 export default async function CoursesPage() {
@@ -165,56 +166,56 @@ export default async function CoursesPage() {
               {
                 title: "Pre-Algebra Practice Packet",
                 desc: "50+ problems covering fractions, decimals, integers, and basic equations with full answer key.",
-                subject: "Pre-Algebra",
                 price: "$9",
                 color: "bg-violet-50",
                 iconColor: "text-violet-600",
                 tag: "Practice Problems",
+                productKey: "pre-algebra-practice",
               },
               {
                 title: "Algebra 1 Practice Packet",
                 desc: "50+ problems covering linear equations, inequalities, graphing, and systems with full answer key.",
-                subject: "Algebra 1",
                 price: "$9",
                 color: "bg-blue-50",
                 iconColor: "text-blue-600",
                 tag: "Practice Problems",
+                productKey: "algebra1-practice",
               },
               {
                 title: "Pre-Algebra Study Guide",
                 desc: "Quick-reference formula sheet and concept breakdown for all major Pre-Algebra topics.",
-                subject: "Pre-Algebra",
                 price: "$7",
                 color: "bg-violet-50",
                 iconColor: "text-violet-600",
                 tag: "Study Guide",
+                productKey: "pre-algebra-study-guide",
               },
               {
                 title: "Algebra 1 Study Guide",
                 desc: "Quick-reference formula sheet and concept breakdown for all major Algebra 1 topics.",
-                subject: "Algebra 1",
                 price: "$7",
                 color: "bg-blue-50",
                 iconColor: "text-blue-600",
                 tag: "Study Guide",
+                productKey: "algebra1-study-guide",
               },
               {
                 title: "Pre-Algebra Exam Prep",
                 desc: "Full-length practice test with answer key - designed to mirror real classroom assessments.",
-                subject: "Pre-Algebra",
                 price: "$12",
                 color: "bg-violet-50",
                 iconColor: "text-violet-600",
                 tag: "Exam Prep",
+                productKey: "pre-algebra-exam-prep",
               },
               {
                 title: "Algebra 1 Exam Prep",
                 desc: "Full-length practice test with answer key - designed to mirror real classroom assessments.",
-                subject: "Algebra 1",
                 price: "$12",
                 color: "bg-blue-50",
                 iconColor: "text-blue-600",
                 tag: "Exam Prep",
+                productKey: "algebra1-exam-prep",
               },
             ].map((product) => (
               <Card key={product.title} className="bg-white overflow-hidden hover:shadow-md transition-shadow">
@@ -229,11 +230,7 @@ export default async function CoursesPage() {
                   <p className="text-xs text-gray-500 mb-4 leading-relaxed">{product.desc}</p>
                   <div className="flex items-center justify-between pt-3 border-t border-gray-100">
                     <span className="text-xl font-bold text-violet-600">{product.price}</span>
-                    <Link href="/login">
-                      <Button size="sm" variant="outline" className="flex items-center gap-1.5">
-                        <ShoppingCart className="w-3.5 h-3.5" /> Buy Now
-                      </Button>
-                    </Link>
+                    <DigitalProductButton productKey={product.productKey} />
                   </div>
                 </CardContent>
               </Card>

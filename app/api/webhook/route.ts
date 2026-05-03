@@ -33,6 +33,68 @@ export async function POST(request: Request) {
     const meta = session.metadata ?? {};
     const admin = createAdminClient();
 
+    // --- Digital Product Purchase ---
+    if (meta.type === "digital_product") {
+      const buyerEmail = session.customer_email ?? meta.buyerEmail ?? "";
+      const productName = meta.productName ?? "Study Resource";
+
+      await admin.from("digital_purchases").insert({
+        buyer_email: buyerEmail,
+        product_key: meta.productKey,
+        product_name: productName,
+        amount_cents: session.amount_total,
+        stripe_session_id: session.id,
+        stripe_payment_intent_id: session.payment_intent,
+        status: "paid",
+        download_sent: false,
+      });
+
+      await resend.emails.send({
+        from: "MsHorace Tutoring <onboarding@resend.dev>",
+        to: [buyerEmail],
+        replyTo: "MsHoraceTutoring06@gmail.com",
+        subject: `Your Purchase: ${productName}`,
+        html: `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#f9f9f9;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+  <div style="max-width:600px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+
+    <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:32px;text-align:center;">
+      <h1 style="color:#fff;margin:0;font-size:22px;font-weight:700;">Purchase Confirmed!</h1>
+      <p style="color:#ddd6fe;margin:6px 0 0;font-size:14px;">MsHorace Tutoring</p>
+    </div>
+
+    <div style="padding:28px 32px;">
+      <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px 18px;margin-bottom:24px;text-align:center;">
+        <p style="margin:0;color:#16a34a;font-weight:600;font-size:15px;">Payment received - $${((session.amount_total ?? 0) / 100).toFixed(0)}</p>
+      </div>
+
+      <h2 style="margin:0 0 8px;font-size:18px;color:#1f2937;">You purchased:</h2>
+      <div style="background:#f5f3ff;border-radius:12px;padding:16px 20px;margin-bottom:24px;">
+        <p style="margin:0;font-size:16px;font-weight:700;color:#5b21b6;">${productName}</p>
+      </div>
+
+      <div style="background:#fef9f0;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 18px;margin-bottom:24px;">
+        <p style="margin:0 0 4px;font-size:12px;font-weight:600;color:#92400e;text-transform:uppercase;">Coming to your inbox soon</p>
+        <p style="margin:0;color:#78350f;font-size:14px;">Your PDF download link will be emailed to you at <strong>${buyerEmail}</strong> within 24 hours. If you don't receive it, please contact us.</p>
+      </div>
+
+      <p style="color:#6b7280;font-size:14px;">Questions? Reply to this email or reach out at <a href="mailto:MsHoraceTutoring06@gmail.com" style="color:#7c3aed;">MsHoraceTutoring06@gmail.com</a> or <a href="tel:2272206227" style="color:#7c3aed;">(227) 220-6227</a>.</p>
+    </div>
+
+    <div style="padding:16px 32px;border-top:1px solid #f3f4f6;text-align:center;">
+      <p style="margin:0;color:#d1d5db;font-size:12px;">MsHorace Tutoring - White Plains, Maryland - mshoracetutoring.com</p>
+    </div>
+  </div>
+</body>
+</html>`,
+      });
+
+      return NextResponse.json({ received: true });
+    }
+
     const zoomUrl = ZOOM_LINKS[meta.sessionType] ?? ZOOM_LINKS["solo-60"];
     const sessionLabel = SESSION_LABELS[meta.sessionType] ?? "Tutoring Session";
     const parentEmail = meta.parentEmail ?? session.customer_email;
