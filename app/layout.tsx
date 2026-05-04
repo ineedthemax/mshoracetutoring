@@ -78,6 +78,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://mshoracetutoring.com",
   },
+  verification: {
+    google: "686b6f8cac3ed765",
+  },
 };
 
 // Local business structured data for Google & AI search engines
