@@ -153,7 +153,7 @@ export default async function ParentDashboard() {
             <h3 className="text-xl font-bold mb-2">Leave a Google Review</h3>
             <p className="text-violet-100 text-sm mb-6">Had a great experience? Share it on Google and help other families find MsHorace Tutoring.</p>
             <a
-              href="https://g.page/r/placeholder/review"
+              href="https://www.google.com/maps/place/MsHoraceTutoring/@38.6214401,-76.9105131,17z/data=!3m1!4b1!4m6!3m5!1s0x89b7a1c13c687af7:0x35a4299364cda514!8m2!3d38.6214401!4d-76.9105131!16s%2Fg%2F11z9xt4xzz"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-white text-violet-700 font-semibold px-5 py-2.5 rounded-xl text-sm hover:bg-violet-50 transition-colors"
