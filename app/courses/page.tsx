@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Digital Math Courses | Pre-Algebra & Algebra 1 | MsHorace Tutoring",
+  description: "Self-paced PDF math courses for Pre-Algebra and Algebra 1. Step-by-step lessons, practice problems, and answer keys. Lifetime access from $197.",
+};
+
 export const dynamic = "force-dynamic";
 
 import Link from "next/link";

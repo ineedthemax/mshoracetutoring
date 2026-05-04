@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "How Online Math Tutoring Works | MsHorace Tutoring",
+  description: "See how easy it is to book and attend online math tutoring with Ms. Horace. Book online, meet on Zoom, receive a session report. Start in minutes.",
+};
+
 import Link from "next/link";
 import { PublicNav } from "@/components/layout/PublicNav";
 import { Footer } from "@/components/layout/Footer";

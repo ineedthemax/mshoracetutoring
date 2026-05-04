@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Math Tutoring Prices & Plans | MsHorace Tutoring",
+  description: "Affordable online math tutoring starting at $25. 30-min sessions $40, 60-min $75, group classes $25. Flexible payment plans available.",
+};
+
 import Link from "next/link";
 import { PublicNav } from "@/components/layout/PublicNav";
 import { Footer } from "@/components/layout/Footer";

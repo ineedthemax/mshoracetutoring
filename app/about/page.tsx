@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Stenita Horace | MsHorace Tutoring",
+  description: "Meet Stenita Horace, math tutor with 6+ years experience and 900+ students helped. Specializing in Pre-Algebra and Algebra 1 for middle school students.",
+};
+
 import Link from "next/link";
 import { PublicNav } from "@/components/layout/PublicNav";
 import { Footer } from "@/components/layout/Footer";

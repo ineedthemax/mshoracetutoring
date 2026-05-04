@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Online Math Group Classes | Pre-Algebra & Algebra 1 | MsHorace Tutoring",
+  description: "Small group math tutoring classes online via Zoom. 3-10 students, $25 per session. Pre-Algebra and Algebra 1 for 6th-9th grade students.",
+};
+
 import Link from "next/link";
 import { PublicNav } from "@/components/layout/PublicNav";
 import { Footer } from "@/components/layout/Footer";
