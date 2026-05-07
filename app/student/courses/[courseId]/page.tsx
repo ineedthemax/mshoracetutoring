@@ -9,6 +9,7 @@ import { createClient } from "@/lib/supabase/server";
 // Map course slugs to their interactive HTML course file
 const INTERACTIVE_COURSES: Record<string, string> = {
   "pre-algebra-mastery": "/pre-algebra-course.html",
+  "algebra-1-mastery": "/algebra1-course.html",
 };
 
 export default async function StudentCourseLessonPage({ params }: { params: Promise<{ courseId: string }> }) {
