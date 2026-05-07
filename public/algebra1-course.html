@@ -103,7 +103,6 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .done-card p{color:rgba(255,255,255,.75);margin-bottom:20px}
 .done-card .score{font-size:3rem;font-weight:900;color:var(--gold);font-family:'Playfair Display',serif}
 .done-back{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:11px 24px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:16px}
-.hint{font-size:12px;color:var(--sub);margin-top:8px;font-style:italic}
 </style>
 </head>
 <body>
@@ -120,330 +119,328 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 </header>
 <div id="main"></div>
 </div>
-
 <script>
 const UNITS=[
-  {id:0,ico:'🔢',title:'Variables & Expressions',sub:'Understand variables, write expressions, evaluate formulas',lessons:[
-    {title:'What is a Variable?',meta:'Foundation · 5 problems',content:{
-      heading:'Variables & Expressions',
-      intro:'A <strong>variable</strong> is a letter that represents an unknown number. An <strong>expression</strong> combines numbers, variables, and operations — but has no equals sign.',
-      rule:'Key terms: variable (x, y, n), coefficient (the number in front), constant (a plain number), expression (no = sign), equation (has = sign).',
+  {id:0,ico:'🔢',title:'Solving Equations',sub:'One-step, two-step, and multi-step equations',lessons:[
+    {title:'One-Step Equations (Add & Subtract)',meta:'Add/Subtract operations · 5 problems',content:{
+      heading:'One-Step Equations — Add & Subtract',
+      intro:'To solve an equation, <strong>isolate the variable</strong> by using the opposite operation on both sides. For addition equations, subtract. For subtraction equations, add.',
+      rule:'Whatever you do to one side, do to the other. Goal: get the variable alone.',
       examples:[
-        {label:'Expression vs Equation',eq:'3x + 5   ← expression (no equals sign)',steps:['3 is the coefficient','x is the variable','5 is the constant']},
-        {label:'Evaluate when x = 4',eq:'3x + 5 = 3(4) + 5 = 12 + 5 = 17',steps:['Substitute x with 4','Multiply: 3 × 4 = 12','Add: 12 + 5 = 17'],res:'Answer: 17'}
+        {label:'x + 7 = 15',eq:'x + 7 = 15',steps:['Subtract 7 from both sides','x + 7 − 7 = 15 − 7'],res:'x = 8'},
+        {label:'y − 4 = 11',eq:'y − 4 = 11',steps:['Add 4 to both sides','y − 4 + 4 = 11 + 4'],res:'y = 15'}
       ],
       problems:[
-        {q:'Which is an EXPRESSION (not an equation)?',opts:['2x + 3 = 9','4y − 1','n = 7','x + y = 10'],ans:1,fb:'Expressions have no equals sign. "4y − 1" has no = sign, so it\'s an expression.'},
-        {q:'Evaluate 5n − 2 when n = 3.',opts:['13','17','10','11'],ans:0,fb:'5(3) − 2 = 15 − 2 = 13'},
-        {q:'What is the coefficient of x in the expression 7x + 4?',opts:['4','7','x','11'],ans:1,fb:'The coefficient is the number multiplied by the variable. Here it\'s 7.'},
-        {q:'Evaluate 2a + 3b when a = 5, b = 2.',opts:['16','20','19','13'],ans:0,fb:'2(5) + 3(2) = 10 + 6 = 16'},
-        {q:'Which expression equals 18 when x = 3?',opts:['x + 5','4x + 6','x²','2x + 10'],ans:1,fb:'4(3) + 6 = 12 + 6 = 18 ✓'}
+        {q:'Solve: x + 9 = 20',opts:['x = 11','x = 29','x = 9','x = 20'],ans:0,fb:'Subtract 9 from both sides: x = 20 − 9 = 11'},
+        {q:'Solve: m − 6 = 14',opts:['m = 8','m = 20','m = 84','m = 6'],ans:1,fb:'Add 6 to both sides: m = 14 + 6 = 20'},
+        {q:'Solve: n + 15 = 23',opts:['n = 38','n = 8','n = 15','n = 7'],ans:1,fb:'Subtract 15: n = 23 − 15 = 8'},
+        {q:'Solve: p − 12 = 5',opts:['p = 7','p = 17','p = 60','p = 5'],ans:1,fb:'Add 12 to both sides: p = 5 + 12 = 17'},
+        {q:'If x + 8 = 8, what is x?',opts:['x = 16','x = 64','x = 0','x = 1'],ans:2,fb:'Subtract 8: x = 8 − 8 = 0'}
       ]
     }},
-    {title:'Solving One-Step Equations',meta:'Add/Subtract/Multiply/Divide · 5 problems',content:{
-      heading:'One-Step Equations',
-      intro:'To solve an equation, <strong>isolate the variable</strong> by using the opposite (inverse) operation on both sides.',
-      rule:'Addition ↔ Subtraction are opposites. Multiplication ↔ Division are opposites. Whatever you do to one side, do to the other.',
+    {title:'One-Step Equations (Multiply & Divide)',meta:'Multiply/Divide operations · 5 problems',content:{
+      heading:'One-Step Equations — Multiply & Divide',
+      intro:'When the variable is multiplied by a number, <strong>divide</strong> to isolate it. When it is divided, <strong>multiply</strong>.',
+      rule:'Multiplication and division are inverse operations. Always apply the same operation to BOTH sides.',
       examples:[
-        {label:'x + 9 = 15',eq:'x + 9 = 15',steps:['Subtract 9 from both sides','x + 9 − 9 = 15 − 9'],res:'x = 6'},
-        {label:'4x = 28',eq:'4x = 28',steps:['Divide both sides by 4','4x ÷ 4 = 28 ÷ 4'],res:'x = 7'}
+        {label:'5x = 35',eq:'5x = 35',steps:['Divide both sides by 5','5x ÷ 5 = 35 ÷ 5'],res:'x = 7'},
+        {label:'x ÷ 3 = 8',eq:'x ÷ 3 = 8',steps:['Multiply both sides by 3','x = 8 × 3'],res:'x = 24'}
       ],
       problems:[
-        {q:'Solve: x + 12 = 20',opts:['x = 8','x = 32','x = 7','x = 12'],ans:0,fb:'Subtract 12 from both sides: x = 20 − 12 = 8'},
-        {q:'Solve: y − 7 = 11',opts:['y = 4','y = 18','y = 77','y = 7'],ans:1,fb:'Add 7 to both sides: y = 11 + 7 = 18'},
-        {q:'Solve: 6n = 42',opts:['n = 7','n = 36','n = 48','n = 252'],ans:0,fb:'Divide both sides by 6: n = 42 ÷ 6 = 7'},
-        {q:'Solve: x ÷ 4 = 9',opts:['x = 36','x = 13','x = 2.25','x = 4'],ans:0,fb:'Multiply both sides by 4: x = 9 × 4 = 36'},
-        {q:'Solve: m − 15 = 30',opts:['m = 15','m = 45','m = 2','m = 50'],ans:1,fb:'Add 15 to both sides: m = 30 + 15 = 45'}
+        {q:'Solve: 4x = 32',opts:['x = 8','x = 28','x = 128','x = 4'],ans:0,fb:'Divide both sides by 4: x = 32 ÷ 4 = 8'},
+        {q:'Solve: x ÷ 5 = 6',opts:['x = 1','x = 11','x = 30','x = 5'],ans:2,fb:'Multiply both sides by 5: x = 6 × 5 = 30'},
+        {q:'Solve: 9n = 63',opts:['n = 7','n = 54','n = 72','n = 9'],ans:0,fb:'Divide both sides by 9: n = 63 ÷ 9 = 7'},
+        {q:'Solve: m ÷ 7 = 4',opts:['m = 28','m = 11','m = 3','m = 47'],ans:0,fb:'Multiply both sides by 7: m = 4 × 7 = 28'},
+        {q:'Solve: 12y = 60',opts:['y = 5','y = 48','y = 72','y = 6'],ans:0,fb:'Divide both sides by 12: y = 60 ÷ 12 = 5'}
       ]
     }},
-    {title:'Two-Step Equations',meta:'Multi-operation · 5 problems',content:{
-      heading:'Two-Step Equations',
-      intro:'Two-step equations require <strong>two operations</strong> to isolate the variable. Always undo addition/subtraction FIRST, then multiplication/division.',
-      rule:'Order: 1) Undo + or −  2) Undo × or ÷',
+    {title:'Multi-Step Equations',meta:'Two or more steps · 5 problems',content:{
+      heading:'Multi-Step Equations',
+      intro:'Multi-step equations require <strong>two or more operations</strong>. Always undo addition/subtraction FIRST, then multiplication/division. Combine like terms first if needed.',
+      rule:'Order of steps: 1) Simplify each side 2) Undo + or − 3) Undo × or ÷',
       examples:[
-        {label:'2x + 3 = 11',eq:'2x + 3 = 11',steps:['Step 1: Subtract 3 → 2x = 8','Step 2: Divide by 2 → x = 4'],res:'x = 4'},
-        {label:'3y − 6 = 15',eq:'3y − 6 = 15',steps:['Step 1: Add 6 → 3y = 21','Step 2: Divide by 3 → y = 7'],res:'y = 7'}
+        {label:'2x + 5 = 13',eq:'2x + 5 = 13',steps:['Subtract 5: 2x = 8','Divide by 2: x = 4'],res:'x = 4'},
+        {label:'3x − 2 + x = 14',eq:'4x − 2 = 14',steps:['Combine like terms: 4x','Add 2: 4x = 16','Divide by 4: x = 4'],res:'x = 4'}
       ],
       problems:[
-        {q:'Solve: 2x + 5 = 13',opts:['x = 9','x = 4','x = 3','x = 7'],ans:1,fb:'Subtract 5: 2x = 8. Divide by 2: x = 4'},
-        {q:'Solve: 3n − 4 = 17',opts:['n = 7','n = 13','n = 21','n = 4'],ans:0,fb:'Add 4: 3n = 21. Divide by 3: n = 7'},
-        {q:'Solve: 5y + 1 = 26',opts:['y = 5','y = 27','y = 6','y = 3'],ans:0,fb:'Subtract 1: 5y = 25. Divide by 5: y = 5'},
-        {q:'Solve: 4x − 8 = 12',opts:['x = 1','x = 5','x = 4','x = 20'],ans:1,fb:'Add 8: 4x = 20. Divide by 4: x = 5'},
-        {q:'Solve: 6m + 3 = 39',opts:['m = 6','m = 7','m = 4','m = 9'],ans:0,fb:'Subtract 3: 6m = 36. Divide by 6: m = 6'}
+        {q:'Solve: 3x + 4 = 19',opts:['x = 5','x = 23','x = 4','x = 7'],ans:0,fb:'Subtract 4: 3x = 15. Divide by 3: x = 5'},
+        {q:'Solve: 5y − 7 = 18',opts:['y = 5','y = 11','y = 2','y = 25'],ans:0,fb:'Add 7: 5y = 25. Divide by 5: y = 5'},
+        {q:'Solve: 2(x + 3) = 14',opts:['x = 4','x = 7','x = 10','x = 2'],ans:0,fb:'Distribute: 2x + 6 = 14. Subtract 6: 2x = 8. Divide by 2: x = 4'},
+        {q:'Solve: 4x + x = 20',opts:['x = 5','x = 4','x = 20','x = 2'],ans:1,fb:'Combine like terms: 5x = 20. Divide by 5: x = 4'},
+        {q:'Solve: 6x − 3x + 2 = 11',opts:['x = 3','x = 13','x = 9','x = 4'],ans:0,fb:'Combine: 3x + 2 = 11. Subtract 2: 3x = 9. Divide by 3: x = 3'}
       ]
     }}
   ]},
-  {id:1,ico:'📈',title:'Slope & Linear Equations',sub:'Calculate slope, write equations, graph lines',lessons:[
+  {id:1,ico:'📈',title:'Slope & Linear Equations',sub:'Calculate slope, slope-intercept form, graph lines',lessons:[
     {title:'Understanding Slope',meta:'Rise over Run · 5 problems',content:{
       heading:'Slope',
-      intro:'<strong>Slope</strong> measures how steep a line is. It\'s the ratio of vertical change (rise) to horizontal change (run).',
-      rule:'Slope formula: m = (y₂ − y₁) / (x₂ − x₁)  |  Positive slope = goes up. Negative slope = goes down. Zero = horizontal. Undefined = vertical.',
+      intro:'<strong>Slope</strong> measures the steepness of a line. It equals the rise (vertical change) divided by the run (horizontal change).',
+      rule:'m = (y₂ − y₁) / (x₂ − x₁) | Positive = goes up | Negative = goes down | Zero = horizontal | Undefined = vertical',
       examples:[
-        {label:'Find slope through (1,2) and (3,6)',eq:'m = (6−2)/(3−1) = 4/2 = 2',steps:['Rise = y₂ − y₁ = 6 − 2 = 4','Run = x₂ − x₁ = 3 − 1 = 2'],res:'Slope = 2'},
-        {label:'Find slope through (0,5) and (4,1)',eq:'m = (1−5)/(4−0) = −4/4 = −1',steps:['Rise = 1 − 5 = −4','Run = 4 − 0 = 4'],res:'Slope = −1'}
+        {label:'Find slope through (1,2) and (4,8)',eq:'m = (8−2)/(4−1) = 6/3 = 2',steps:['Rise = 8 − 2 = 6','Run = 4 − 1 = 3'],res:'Slope = 2'},
+        {label:'Find slope through (0,5) and (3,2)',eq:'m = (2−5)/(3−0) = −3/3 = −1',steps:['Rise = 2 − 5 = −3 (going down)','Run = 3'],res:'Slope = −1'}
       ],
       problems:[
-        {q:'Find the slope through (0,0) and (3,6).',opts:['2','3','½','6'],ans:0,fb:'m = (6−0)/(3−0) = 6/3 = 2'},
-        {q:'Find the slope through (1,3) and (5,11).',opts:['½','3','2','4'],ans:2,fb:'m = (11−3)/(5−1) = 8/4 = 2'},
-        {q:'A line goes through (2,4) and (2,9). What is the slope?',opts:['0','1','5','Undefined'],ans:3,fb:'When x values are the same, the line is vertical — slope is undefined.'},
-        {q:'A horizontal line has slope ___.',opts:['1','−1','0','Undefined'],ans:2,fb:'Horizontal lines have a slope of 0 because rise = 0.'},
-        {q:'Find the slope through (−1,2) and (3,−2).',opts:['1','−1','4','−4'],ans:1,fb:'m = (−2−2)/(3−(−1)) = −4/4 = −1'}
+        {q:'Find the slope through (0,0) and (4,8).',opts:['2','4','½','8'],ans:0,fb:'m = (8−0)/(4−0) = 8/4 = 2'},
+        {q:'Find the slope through (2,3) and (6,11).',opts:['2','4','½','8'],ans:0,fb:'m = (11−3)/(6−2) = 8/4 = 2'},
+        {q:'A horizontal line has slope ___.',opts:['1','−1','0','Undefined'],ans:2,fb:'Horizontal lines have zero rise, so slope = 0.'},
+        {q:'A vertical line has slope ___.',opts:['0','1','−1','Undefined'],ans:3,fb:'Vertical lines have zero run. Division by zero is undefined.'},
+        {q:'Find the slope through (−2,1) and (4,7).',opts:['1','2','6','3'],ans:0,fb:'m = (7−1)/(4−(−2)) = 6/6 = 1'}
       ]
     }},
     {title:'Slope-Intercept Form',meta:'y = mx + b · 5 problems',content:{
-      heading:'Slope-Intercept Form',
-      intro:'<strong>y = mx + b</strong> is slope-intercept form. <strong>m</strong> is the slope (steepness), <strong>b</strong> is the y-intercept (where the line crosses the y-axis).',
-      rule:'To graph: 1) Plot the y-intercept (0,b)  2) Use slope to find next point  3) Draw the line',
+      heading:'Slope-Intercept Form: y = mx + b',
+      intro:'<strong>y = mx + b</strong> is the most common form of a linear equation. <strong>m</strong> is the slope and <strong>b</strong> is the y-intercept (where the line crosses the y-axis at x = 0).',
+      rule:'To graph: 1) Plot y-intercept (0, b) 2) Use slope = rise/run to find next point 3) Connect and extend',
       examples:[
-        {label:'Identify m and b in y = 3x + 2',eq:'y = 3x + 2',steps:['m = 3 (slope)','b = 2 (y-intercept)','Starts at (0,2), goes up 3 for every 1 right'],res:'m = 3, b = 2'},
-        {label:'Write equation with slope=2, passes through (0,−5)',eq:'y = mx + b',steps:['m = 2, b = −5','Plug in: y = 2x + (−5)'],res:'y = 2x − 5'}
+        {label:'Identify slope and y-intercept: y = 3x − 5',eq:'y = 3x − 5',steps:['m = 3 (slope)','b = −5 (y-intercept)'],res:'Slope = 3, y-intercept = (0, −5)'},
+        {label:'Write equation: slope = 2, y-intercept = 4',eq:'y = mx + b',steps:['Substitute m = 2, b = 4'],res:'y = 2x + 4'}
       ],
       problems:[
-        {q:'In y = 4x − 3, what is the slope?',opts:['4','−3','3','x'],ans:0,fb:'In y = mx + b, m is the slope. Here m = 4.'},
-        {q:'In y = −2x + 7, what is the y-intercept?',opts:['−2','2','7','−7'],ans:2,fb:'In y = mx + b, b is the y-intercept. Here b = 7.'},
-        {q:'What is the equation of a line with slope 3 and y-intercept −4?',opts:['y = −4x + 3','y = 3x − 4','y = 3x + 4','y = −3x + 4'],ans:1,fb:'y = mx + b → y = 3x + (−4) → y = 3x − 4'},
-        {q:'What is the y-intercept of y = 5x?',opts:['5','1','0','Undefined'],ans:2,fb:'y = 5x is the same as y = 5x + 0, so b = 0. The line passes through the origin.'},
-        {q:'Which equation has a slope of −1 and y-intercept of 6?',opts:['y = 6x − 1','y = x + 6','y = −x + 6','y = −6x + 1'],ans:2,fb:'m = −1, b = 6 → y = −x + 6'}
+        {q:'In y = 5x + 3, what is the slope?',opts:['3','5','x','15'],ans:1,fb:'In y = mx + b, m = 5 is the slope.'},
+        {q:'In y = −2x + 7, what is the y-intercept?',opts:['−2','2','7','−7'],ans:2,fb:'In y = mx + b, b = 7 is the y-intercept.'},
+        {q:'Write the equation with slope = 4 and y-intercept = −1.',opts:['y = −x + 4','y = 4x − 1','y = 4x + 1','y = −4x + 1'],ans:1,fb:'y = mx + b: y = 4x + (−1) = 4x − 1'},
+        {q:'What is the y-intercept of y = 6x?',opts:['6','1','0','−6'],ans:2,fb:'y = 6x is y = 6x + 0, so b = 0. The line passes through the origin.'},
+        {q:'Which point is on the line y = 2x + 1?',opts:['(1,4)','(2,5)','(3,8)','(0,2)'],ans:1,fb:'y = 2(2) + 1 = 4 + 1 = 5. Point (2,5) is on the line. ✓'}
       ]
     }},
-    {title:'Graphing Linear Equations',meta:'Plotting & reading graphs · 5 problems',content:{
+    {title:'Graphing Linear Equations',meta:'Plot lines from equations · 5 problems',content:{
       heading:'Graphing Linear Equations',
-      intro:'To graph a line from <strong>y = mx + b</strong>: plot the y-intercept, then use slope as rise/run to find another point, then draw the line.',
-      rule:'Slope = rise/run. If slope = 2/3, go up 2, right 3. If slope = −2, go down 2, right 1.',
+      intro:'Given <strong>y = mx + b</strong>, plot the y-intercept first, then use slope as rise/run to find more points. Always use at least 2 points to draw a line.',
+      rule:'Slope as a fraction: rise/run. Move up (positive) or down (negative) for rise, then right for run.',
       examples:[
-        {label:'Graph y = 2x + 1',eq:'y = 2x + 1',steps:['Plot y-intercept: (0,1)','Slope = 2 = 2/1: go up 2, right 1 → (1,3)','Connect the points'],res:'Line through (0,1) and (1,3)'},
-        {label:'Find the equation from a graph passing through (0,−2) and (3,4)',eq:'m = (4−(−2))/(3−0) = 6/3 = 2, b = −2',steps:['Calculate slope from two points','Read y-intercept from graph'],res:'y = 2x − 2'}
+        {label:'Graph y = 2x + 1',eq:'y = 2x + 1',steps:['Plot y-intercept: (0,1)','Slope = 2/1: up 2, right 1 → (1,3)','Draw the line'],res:'Line through (0,1) and (1,3)'},
+        {label:'Find equation from graph through (0,−3) and (2,1)',eq:'m = (1−(−3))/(2−0) = 4/2 = 2, b = −3',steps:['Calculate slope','Read y-intercept'],res:'y = 2x − 3'}
       ],
       problems:[
-        {q:'A line has y = x − 3. What is its y-intercept?',opts:['(0,1)','(0,−3)','(3,0)','(0,3)'],ans:1,fb:'In y = x − 3, b = −3, so y-intercept is (0,−3).'},
-        {q:'A line passes through (0,4) with slope ½. What is the equation?',opts:['y = 4x + ½','y = ½x − 4','y = ½x + 4','y = 2x + 4'],ans:2,fb:'m = ½, b = 4 → y = ½x + 4'},
-        {q:'Which point is on the line y = 3x − 2?',opts:['(0,3)','(1,1)','(2,4)','(−1,−5)'],ans:1,fb:'y = 3(1) − 2 = 3 − 2 = 1. So (1,1) is on the line. ✓'},
-        {q:'Two lines have the same slope. They are ___.',opts:['Perpendicular','Parallel','Identical','Intersecting'],ans:1,fb:'Lines with equal slopes are parallel (they never intersect).'},
-        {q:'What is the x-intercept of y = 2x − 6?',opts:['(0,6)','(3,0)','(6,0)','(0,3)'],ans:1,fb:'Set y = 0: 0 = 2x − 6 → 2x = 6 → x = 3. So (3,0).'}
+        {q:'What is the y-intercept of y = 4x − 6?',opts:['4','−6','6','0'],ans:1,fb:'In y = mx + b, b = −6. Y-intercept is (0, −6).'},
+        {q:'A line has slope ½ and y-intercept 3. Its equation is:',opts:['y = 3x + ½','y = ½x + 3','y = ½x − 3','y = 2x + 3'],ans:1,fb:'y = mx + b: y = ½x + 3'},
+        {q:'Which point is on the line y = 3x − 2?',opts:['(2,4)','(1,1)','(0,3)','(2,5)'],ans:1,fb:'y = 3(1) − 2 = 1. Point (1,1) ✓'},
+        {q:'Two lines are parallel if they have:',opts:['Same y-intercept','Same slope','No slope','Opposite slopes'],ans:1,fb:'Parallel lines have the same slope but different y-intercepts.'},
+        {q:'Find the x-intercept of y = 3x − 9.',opts:['(0,−9)','(3,0)','(9,0)','(0,3)'],ans:1,fb:'Set y = 0: 0 = 3x − 9, 3x = 9, x = 3. X-intercept: (3, 0)'}
       ]
     }}
   ]},
-  {id:2,ico:'⚖️',title:'Inequalities',sub:'Solve, graph, and interpret inequalities',lessons:[
-    {title:'Solving Inequalities',meta:'Symbols & rules · 5 problems',content:{
+  {id:2,ico:'⚖️',title:'Inequalities & Systems',sub:'Solve inequalities and systems of equations',lessons:[
+    {title:'Solving & Graphing Inequalities',meta:'Inequality symbols and number lines · 5 problems',content:{
       heading:'Inequalities',
-      intro:'Inequalities are like equations, but instead of =, we use >, <, ≥, ≤. <strong>Key rule:</strong> When you multiply or divide by a negative number, FLIP the inequality sign!',
-      rule:'> means "greater than" | < means "less than" | ≥ means "greater than or equal to" | ≤ means "less than or equal to"',
+      intro:'Inequalities are solved like equations, except: <strong>when you multiply or divide by a NEGATIVE number, flip the inequality sign!</strong>',
+      rule:'> greater than (open circle) | < less than (open circle) | ≥ greater than or equal to (closed circle) | ≤ less than or equal to (closed circle)',
       examples:[
-        {label:'Solve: 2x + 3 < 11',eq:'2x + 3 < 11',steps:['Subtract 3: 2x < 8','Divide by 2: x < 4'],res:'x < 4'},
-        {label:'Solve: −3x ≥ 12',eq:'−3x ≥ 12',steps:['Divide by −3 → FLIP the sign!','x ≤ −4'],res:'x ≤ −4 (sign flipped!)'}
+        {label:'Solve: 3x + 2 < 14',eq:'3x + 2 < 14',steps:['Subtract 2: 3x < 12','Divide by 3: x < 4','Open circle at 4, shade left'],res:'x < 4'},
+        {label:'Solve: −2x ≥ 10',eq:'−2x ≥ 10',steps:['Divide by −2 → FLIP the sign!','x ≤ −5','Closed circle at −5, shade left'],res:'x ≤ −5'}
       ],
       problems:[
-        {q:'Solve: x + 5 > 12',opts:['x > 7','x > 17','x < 7','x = 7'],ans:0,fb:'Subtract 5 from both sides: x > 12 − 5 → x > 7'},
-        {q:'Solve: 3y ≤ 18',opts:['y ≤ 6','y ≥ 6','y ≤ 54','y = 6'],ans:0,fb:'Divide both sides by 3: y ≤ 18 ÷ 3 → y ≤ 6'},
-        {q:'Solve: −2x > 10. What happens to the inequality sign?',opts:['Stays the same','Flips to <','Becomes =','Disappears'],ans:1,fb:'When dividing or multiplying by a NEGATIVE number, the inequality flips. −2x > 10 becomes x < −5.'},
-        {q:'Solve: 4x − 3 < 13',opts:['x < 4','x < 10','x > 4','x < 16'],ans:0,fb:'Add 3: 4x < 16. Divide by 4: x < 4'},
-        {q:'Which value satisfies x ≥ 5?',opts:['x = 3','x = 4','x = 5','x = 0'],ans:2,fb:'x = 5 satisfies x ≥ 5 because 5 ≥ 5 is true (≥ includes equal to).'}
+        {q:'Solve: x + 4 > 9',opts:['x > 13','x > 5','x < 5','x = 5'],ans:1,fb:'Subtract 4: x > 9 − 4 = 5'},
+        {q:'Solve: 4y ≤ 20',opts:['y ≤ 5','y ≥ 5','y ≤ 80','y ≤ 16'],ans:0,fb:'Divide by 4: y ≤ 20 ÷ 4 = 5'},
+        {q:'Solve: −3x > 12. What is the solution?',opts:['x > −4','x < −4','x > 4','x < 4'],ans:1,fb:'Divide by −3 and FLIP: x < −4'},
+        {q:'For x ≥ 7, you use a ___ circle at 7.',opts:['Open','Closed','No','Dotted'],ans:1,fb:'≥ means "greater than or equal to," so include 7 with a closed circle.'},
+        {q:'Solve: 2x − 3 < 7',opts:['x < 5','x < 2','x > 5','x < 10'],ans:0,fb:'Add 3: 2x < 10. Divide by 2: x < 5'}
       ]
     }},
-    {title:'Graphing Inequalities on a Number Line',meta:'Open vs closed circles · 5 problems',content:{
-      heading:'Graphing Inequalities',
-      intro:'On a number line: <strong>open circle</strong> (○) means the number is NOT included (< or >). <strong>Closed circle</strong> (●) means the number IS included (≤ or ≥). Shade in the direction of the solution.',
-      rule:'< and > → open circle  |  ≤ and ≥ → closed circle',
+    {title:'Systems of Equations',meta:'Substitution and elimination · 5 problems',content:{
+      heading:'Systems of Equations',
+      intro:'A <strong>system</strong> has two equations with two variables. Methods to solve: <strong>Substitution</strong> (plug one equation into the other) or <strong>Elimination</strong> (add/subtract equations to cancel a variable).',
+      rule:'Substitution: Solve for one variable, substitute. Elimination: Add or subtract equations to cancel a variable.',
       examples:[
-        {label:'Graph x > 3',eq:'x > 3',steps:['Open circle at 3 (3 not included)','Shade to the RIGHT (greater than)'],res:'○ at 3, arrow pointing right'},
-        {label:'Graph x ≤ −1',eq:'x ≤ −1',steps:['Closed circle at −1 (included)','Shade to the LEFT (less than)'],res:'● at −1, arrow pointing left'}
+        {label:'Substitution: y = 2x and x + y = 9',eq:'Substitute y = 2x into x + y = 9',steps:['x + 2x = 9','3x = 9, x = 3','y = 2(3) = 6'],res:'Solution: (3, 6)'},
+        {label:'Elimination: x+y=8 and x−y=2',eq:'Add the equations',steps:['2x = 10, x = 5','Substitute: 5 + y = 8, y = 3'],res:'Solution: (5, 3)'}
       ],
       problems:[
-        {q:'For x > 5, what type of circle goes at 5?',opts:['Open circle','Closed circle','No circle','X mark'],ans:0,fb:'> means "greater than" but NOT equal to, so we use an OPEN circle at 5.'},
-        {q:'For x ≤ 2, which direction do you shade?',opts:['Right','Left','Both','Neither'],ans:1,fb:'≤ means "less than or equal to," so shade to the LEFT (toward smaller numbers).'},
-        {q:'Which inequality matches: closed circle at 4, shading right?',opts:['x < 4','x > 4','x ≥ 4','x ≤ 4'],ans:2,fb:'Closed circle = equal to included. Shading right = greater than. So x ≥ 4.'},
-        {q:'The graph shows open circle at −2, shading left. Which inequality?',opts:['x > −2','x < −2','x ≥ −2','x ≤ −2'],ans:1,fb:'Open circle = not included. Shading left = less than. So x < −2.'},
-        {q:'Solve and describe the graph: 2x + 1 ≥ 7',opts:['x ≥ 3, closed circle, shade right','x > 3, open circle, shade right','x ≤ 3, closed circle, shade left','x < 3, open circle, shade left'],ans:0,fb:'2x ≥ 6, x ≥ 3. Closed circle at 3 (≥ includes 3), shade right.'}
+        {q:'System: y = x and x + y = 10. Find x.',opts:['x = 5','x = 10','x = 2','x = 4'],ans:0,fb:'Substitute y = x: x + x = 10 → 2x = 10 → x = 5'},
+        {q:'System: y = 3 and 2x + y = 11. Find x.',opts:['x = 4','x = 7','x = 3','x = 14'],ans:0,fb:'Substitute y = 3: 2x + 3 = 11 → 2x = 8 → x = 4'},
+        {q:'Solve by elimination: x + y = 12 and x − y = 4. Find x.',opts:['x = 8','x = 4','x = 16','x = 6'],ans:0,fb:'Add equations: 2x = 16 → x = 8'},
+        {q:'Parallel lines in a system have how many solutions?',opts:['One','Two','Infinitely many','No solution'],ans:3,fb:'Parallel lines never intersect, so the system has NO solution.'},
+        {q:'If two equations have the same line, the system has:',opts:['No solution','One solution','Two solutions','Infinitely many solutions'],ans:3,fb:'The same line means every point is a solution — infinitely many solutions.'}
       ]
     }}
   ]},
-  {id:3,ico:'🔀',title:'Systems of Equations',sub:'Solve using substitution and elimination',lessons:[
-    {title:'Substitution Method',meta:'Replace and solve · 5 problems',content:{
-      heading:'Systems of Equations — Substitution',
-      intro:'A <strong>system of equations</strong> has two equations and two unknowns. The <strong>substitution method</strong>: solve one equation for one variable, then substitute into the other.',
-      rule:'Steps: 1) Solve one equation for x or y  2) Substitute into the other equation  3) Solve  4) Plug back in to find the other variable',
+  {id:3,ico:'🔁',title:'Functions',sub:'Identify functions, notation, domain and range',lessons:[
+    {title:'Introduction to Functions',meta:'Definition, mapping, ordered pairs · 5 problems',content:{
+      heading:'Introduction to Functions',
+      intro:'A <strong>function</strong> is a relationship where each input (x) has <strong>exactly one</strong> output (y). Use mapping diagrams and ordered pairs to test this.',
+      rule:'Vertical Line Test: If a vertical line crosses the graph more than once, it is NOT a function.',
       examples:[
-        {label:'Solve: y = 2x and x + y = 9',eq:'System: y = 2x  |  x + y = 9',steps:['y is already solved: y = 2x','Substitute into x + y = 9: x + 2x = 9','3x = 9, x = 3','y = 2(3) = 6'],res:'Solution: (3, 6)'},
-        {label:'Solve: y = x + 1 and 2x + y = 10',eq:'System: y = x + 1  |  2x + y = 10',steps:['Substitute y = x + 1 into 2x + y = 10','2x + (x+1) = 10 → 3x + 1 = 10','3x = 9, x = 3','y = 3 + 1 = 4'],res:'Solution: (3, 4)'}
+        {label:'Is {(1,4),(2,5),(3,6)} a function?',eq:'Each x-value appears only once',steps:['x=1→y=4, x=2→y=5, x=3→y=6','No x repeats'],res:'YES — a function'},
+        {label:'Is {(2,3),(2,5),(4,7)} a function?',eq:'x=2 maps to BOTH 3 and 5',steps:['One input (2) has two outputs','Violates the definition'],res:'NOT a function'}
       ],
       problems:[
-        {q:'System: y = x and x + y = 8. Find x.',opts:['x = 2','x = 4','x = 8','x = 3'],ans:1,fb:'Substitute y = x: x + x = 8 → 2x = 8 → x = 4'},
-        {q:'System: y = 2x + 1 and x + y = 7. Find y.',opts:['y = 2','y = 5','y = 7','y = 3'],ans:1,fb:'Substitute: x + (2x+1) = 7 → 3x = 6 → x = 2, y = 2(2)+1 = 5'},
-        {q:'System: y = 3 and 2x + y = 11. Find x.',opts:['x = 4','x = 7','x = 3','x = 5'],ans:0,fb:'Substitute y = 3: 2x + 3 = 11 → 2x = 8 → x = 4'},
-        {q:'Two numbers add to 10. One is 3 more than the other. What is the larger?',opts:['6','6.5','7','8'],ans:2,fb:'x + y = 10 and y = x + 3. Substitute: x + x + 3 = 10 → 2x = 7 → x = 3.5, y = 6.5. Wait... x + (x+3) = 10, 2x = 7, x = 3.5, y = 6.5. The larger is 6.5... Actually: 3.5 + 6.5 = 10 ✓. But let\'s try: if larger number is y, y = x+3, x = 3.5. Hmm. The answer is 6.5.', },
-        {q:'System: y = x − 2 and x + y = 6. What is the solution?',opts:['(4,2)','(3,1)','(2,0)','(5,3)'],ans:0,fb:'Substitute: x + (x−2) = 6 → 2x = 8 → x = 4, y = 4−2 = 2. Solution (4,2)'}
+        {q:'Which is a function?',opts:['{(1,2),(1,3),(2,4)}','{(3,4),(4,5),(3,6)}','{(1,2),(2,3),(3,4)}','{(0,1),(0,2),(0,3)}'],ans:2,fb:'In option C, each x-value is unique (1, 2, 3 each appear once). It is a function.'},
+        {q:'Function notation f(x) = 2x + 1. Find f(4).',opts:['9','7','8','10'],ans:0,fb:'f(4) = 2(4) + 1 = 8 + 1 = 9'},
+        {q:'f(x) = x² + 3. Find f(2).',opts:['7','5','10','9'],ans:0,fb:'f(2) = 2² + 3 = 4 + 3 = 7'},
+        {q:'The vertical line test determines if a graph is a ___.',opts:['Line','Slope','Function','Parabola'],ans:2,fb:'The vertical line test checks if any vertical line crosses the graph more than once.'},
+        {q:'In a function, how many outputs can each input have?',opts:['Unlimited','Two','Exactly one','Zero'],ans:2,fb:'By definition, each input (x) in a function must have EXACTLY ONE output (y).'}
       ]
     }},
-    {title:'Elimination Method',meta:'Add equations to cancel a variable · 5 problems',content:{
-      heading:'Systems of Equations — Elimination',
-      intro:'The <strong>elimination method</strong> adds or subtracts the two equations to cancel one variable. You may need to multiply one equation first.',
-      rule:'Steps: 1) Line up equations  2) Add or subtract to eliminate one variable  3) Solve  4) Substitute back',
-      examples:[
-        {label:'Solve: x + y = 8 and x − y = 2',eq:'x + y = 8\nx − y = 2',steps:['Add the equations: 2x = 10','x = 5','Substitute: 5 + y = 8, y = 3'],res:'Solution: (5, 3)'},
-        {label:'Solve: 2x + y = 7 and x + y = 5',eq:'2x + y = 7\nx + y = 5',steps:['Subtract: (2x+y) − (x+y) = 7−5 → x = 2','Substitute: 2 + y = 5, y = 3'],res:'Solution: (2, 3)'}
-      ],
-      problems:[
-        {q:'Solve by elimination: x + y = 10 and x − y = 4. Find x.',opts:['x = 7','x = 3','x = 6','x = 14'],ans:0,fb:'Add: 2x = 14, x = 7'},
-        {q:'Using the above system, find y.',opts:['y = 3','y = 7','y = 4','y = 10'],ans:0,fb:'x = 7, substitute: 7 + y = 10, y = 3'},
-        {q:'Solve: 3x + y = 12 and x + y = 6. Find x.',opts:['x = 2','x = 3','x = 4','x = 6'],ans:1,fb:'Subtract: 2x = 6, x = 3'},
-        {q:'Solve: 2x + 3y = 13 and 2x + y = 7. Find y.',opts:['y = 2','y = 3','y = 5','y = 4'],ans:1,fb:'Subtract: 2y = 6, y = 3'},
-        {q:'How many solutions does a system have if the two lines are parallel?',opts:['Exactly 1','Exactly 2','Infinitely many','No solution'],ans:3,fb:'Parallel lines never intersect, so there is NO solution to the system.'}
-      ]
-    }}
-  ]},
-  {id:4,ico:'🔁',title:'Functions',sub:'Identify functions, use notation, find domain & range',lessons:[
-    {title:'What is a Function?',meta:'Definition & the vertical line test · 5 problems',content:{
-      heading:'Functions',
-      intro:'A <strong>function</strong> is a relationship where each input (x) has <strong>exactly one</strong> output (y). Think of it as a machine: put in x, get out y.',
-      rule:'Vertical Line Test: If any vertical line crosses the graph MORE THAN ONCE, it is NOT a function. Each x can only have one y.',
-      examples:[
-        {label:'Is {(1,2),(2,3),(3,4)} a function?',eq:'Each x-value is unique',steps:['x=1 → y=2','x=2 → y=3','x=3 → y=4','No x repeats!'],res:'YES — it\'s a function'},
-        {label:'Is {(1,2),(1,3),(2,4)} a function?',eq:'x=1 appears twice!',steps:['x=1 maps to BOTH 2 and 3','One input, two outputs'],res:'NOT a function'}
-      ],
-      problems:[
-        {q:'Which set of ordered pairs is a function?',opts:['{(1,2),(1,3),(2,4)}','{(2,3),(3,4),(2,5)}','{(1,2),(2,3),(3,4)}','{(5,1),(5,2),(5,3)}'],ans:2,fb:'In option C, each x value (1, 2, 3) maps to exactly one y. No x repeats.'},
-        {q:'A function machine takes input x = 5 and gives output 13 using the rule f(x) = 2x + 3. What is the output?',opts:['8','10','13','11'],ans:2,fb:'f(5) = 2(5) + 3 = 10 + 3 = 13'},
-        {q:'f(x) = x² − 1. Find f(3).',opts:['5','8','6','10'],ans:1,fb:'f(3) = 3² − 1 = 9 − 1 = 8'},
-        {q:'Which statement describes a function?',opts:['Every y has exactly one x','Every x has exactly one y','x and y must be equal','No repeated y values'],ans:1,fb:'A function requires each INPUT (x) to have exactly ONE output (y).'},
-        {q:'The vertical line test is used to determine if a graph represents a ___.',opts:['Slope','Equation','Function','Parabola'],ans:2,fb:'The vertical line test checks if any vertical line crosses a graph more than once — if so, it\'s not a function.'}
-      ]
-    }},
-    {title:'Domain and Range',meta:'Inputs and outputs · 5 problems',content:{
+    {title:'Domain and Range',meta:'Inputs, outputs, and tables · 5 problems',content:{
       heading:'Domain and Range',
-      intro:'<strong>Domain</strong> = all possible x-values (inputs). <strong>Range</strong> = all possible y-values (outputs). Think: Domain is what you can put IN, Range is what comes OUT.',
-      rule:'List domain and range in order from least to greatest, or use interval notation for continuous functions.',
+      intro:'<strong>Domain</strong> = all possible x-values (inputs). <strong>Range</strong> = all possible y-values (outputs). Read domain from a table, set, or graph.',
+      rule:'List domain and range without repeating values, in order from least to greatest.',
       examples:[
-        {label:'Find domain and range of {(1,3),(2,5),(4,7)}',eq:'Domain: {1, 2, 4}  |  Range: {3, 5, 7}',steps:['Domain = all x-values: 1, 2, 4','Range = all y-values: 3, 5, 7'],res:'D: {1,2,4} R: {3,5,7}'},
-        {label:'f(x) = x + 2 for x = 1, 2, 3',eq:'f(1)=3, f(2)=4, f(3)=5',steps:['Input each x into the function'],res:'D: {1,2,3} R: {3,4,5}'}
+        {label:'Find domain & range of {(2,5),(4,9),(6,5)}',eq:'Domain: all x-values | Range: all y-values',steps:['Domain = {2, 4, 6}','Range = {5, 9} (no repeats)'],res:'D = {2,4,6} R = {5,9}'},
+        {label:'f(x) = x + 3, domain {1,2,3}',eq:'f(1)=4, f(2)=5, f(3)=6',steps:['Plug each domain value into f(x)'],res:'Range = {4,5,6}'}
       ],
       problems:[
-        {q:'What is the domain of {(2,4),(3,6),(5,10)}?',opts:['{4,6,10}','{2,3,5}','{2,4,6}','{3,5,10}'],ans:1,fb:'Domain = x-values = {2, 3, 5}'},
-        {q:'What is the range of {(1,5),(2,5),(3,7)}?',opts:['{1,2,3}','{5,5,7}','{5,7}','{1,5,7}'],ans:2,fb:'Range = y-values = {5, 7} (we don\'t repeat 5)'},
-        {q:'f(x) = 3x. What is the range when the domain is {1, 2, 3}?',opts:['{1,2,3}','{3,6,9}','{3,5,7}','{2,4,6}'],ans:1,fb:'f(1)=3, f(2)=6, f(3)=9. Range = {3,6,9}'},
-        {q:'Which value is NOT in the domain of f(x) = 1/x?',opts:['x = 1','x = −2','x = 0','x = 100'],ans:2,fb:'Division by zero is undefined, so x = 0 cannot be in the domain of f(x) = 1/x.'},
-        {q:'f(x) = x² for domain {−2, −1, 0, 1, 2}. What is the range?',opts:['{−4,−1,0,1,4}','{0,1,4}','{−2,−1,0,1,2}','{1,4}'],ans:1,fb:'f(−2)=4, f(−1)=1, f(0)=0, f(1)=1, f(2)=4. Range = {0,1,4} (no repeats)'}
+        {q:'Domain of {(3,7),(5,9),(8,2)}?',opts:['{7,9,2}','{3,5,8}','{3,7,5}','{9,2,5}'],ans:1,fb:'Domain = x-values = {3, 5, 8}'},
+        {q:'Range of {(1,6),(2,6),(3,8)}?',opts:['{1,2,3}','{6,6,8}','{6,8}','{1,6,8}'],ans:2,fb:'Range = y-values (no repeats) = {6, 8}'},
+        {q:'f(x) = 3x − 1, domain = {2, 3, 4}. Find the range.',opts:['{5,8,11}','{5,9,11}','{6,8,11}','{5,8,12}'],ans:0,fb:'f(2)=5, f(3)=8, f(4)=11. Range = {5,8,11}'},
+        {q:'Which x value is NOT in the domain of f(x) = 5/x?',opts:['x = 1','x = −5','x = 0','x = 10'],ans:2,fb:'Division by zero is undefined, so x = 0 cannot be in the domain.'},
+        {q:'f(x) = x² for domain {−2,0,2}. What is the range?',opts:['{−4,0,4}','{0,4}','{0,2,4}','{4,0,4}'],ans:1,fb:'f(−2)=4, f(0)=0, f(2)=4. Range = {0,4} (no repeats)'}
       ]
     }}
   ]},
-  {id:5,ico:'📊',title:'Exponents',sub:'Laws of exponents, scientific notation',lessons:[
-    {title:'Laws of Exponents',meta:'Multiply, divide, power rules · 5 problems',content:{
-      heading:'Laws of Exponents',
-      intro:'<strong>Exponents</strong> tell you how many times to multiply a base by itself. There are rules (laws) that make working with exponents faster.',
-      rule:'Product rule: xᵃ · xᵇ = xᵃ⁺ᵇ  |  Quotient rule: xᵃ ÷ xᵇ = xᵃ⁻ᵇ  |  Power rule: (xᵃ)ᵇ = xᵃᵇ  |  Zero rule: x⁰ = 1  |  Negative rule: x⁻ᵃ = 1/xᵃ',
+  {id:4,ico:'📊',title:'Exponentials',sub:'Properties of exponents, constructing and graphing exponential functions',lessons:[
+    {title:'Properties of Exponents',meta:'Product, quotient, power rules · 5 problems',content:{
+      heading:'Properties of Exponents',
+      intro:'Exponents follow specific rules (properties) that let you simplify expressions quickly without writing out all the multiplications.',
+      rule:'Product: xᵃ · xᵇ = xᵃ⁺ᵇ | Quotient: xᵃ ÷ xᵇ = xᵃ⁻ᵇ | Power: (xᵃ)ᵇ = xᵃᵇ | Zero: x⁰ = 1 | Negative: x⁻ⁿ = 1/xⁿ',
       examples:[
-        {label:'x³ · x⁴',eq:'x³ · x⁴ = x³⁺⁴ = x⁷',steps:['Same base, so ADD the exponents'],res:'x⁷'},
-        {label:'(x²)³',eq:'(x²)³ = x²×³ = x⁶',steps:['Power raised to power: MULTIPLY exponents'],res:'x⁶'}
+        {label:'x⁴ · x³',eq:'x⁴ · x³ = x⁴⁺³ = x⁷',steps:['Same base → add exponents'],res:'x⁷'},
+        {label:'(2x³)²',eq:'2² · x³·² = 4x⁶',steps:['Apply power to coefficient: 2² = 4','Apply power to variable: x³·² = x⁶'],res:'4x⁶'}
       ],
       problems:[
-        {q:'Simplify: x² · x⁵',opts:['x⁷','x¹⁰','x³','2x⁷'],ans:0,fb:'Product rule: add exponents. x²⁺⁵ = x⁷'},
-        {q:'Simplify: x⁸ ÷ x³',opts:['x⁵','x¹¹','x²⁴','x⁴'],ans:0,fb:'Quotient rule: subtract exponents. x⁸⁻³ = x⁵'},
-        {q:'Simplify: (x³)⁴',opts:['x⁷','x¹²','x¹','x⁸¹'],ans:1,fb:'Power rule: multiply exponents. x³×⁴ = x¹²'},
-        {q:'What is 5⁰?',opts:['0','5','1','50'],ans:2,fb:'Anything to the power of 0 equals 1. 5⁰ = 1.'},
-        {q:'Simplify: 2x³ · 3x²',opts:['5x⁵','6x⁵','6x⁶','5x⁶'],ans:1,fb:'Multiply coefficients: 2×3=6. Add exponents: x³⁺²=x⁵. Answer: 6x⁵'}
+        {q:'Simplify: x³ · x⁵',opts:['x⁸','x¹⁵','x²','2x⁸'],ans:0,fb:'Product rule: add exponents. x³⁺⁵ = x⁸'},
+        {q:'Simplify: x⁷ ÷ x²',opts:['x⁵','x⁹','x¹⁴','x³'],ans:0,fb:'Quotient rule: subtract exponents. x⁷⁻² = x⁵'},
+        {q:'Simplify: (x⁴)³',opts:['x⁷','x¹²','x⁶⁴','x⁴³'],ans:1,fb:'Power rule: multiply exponents. x⁴·³ = x¹²'},
+        {q:'What is 8⁰?',opts:['0','8','1','80'],ans:2,fb:'Any nonzero number raised to the power 0 equals 1.'},
+        {q:'Simplify: 3x² · 4x³',opts:['7x⁵','12x⁵','12x⁶','7x⁶'],ans:1,fb:'Multiply coefficients: 3·4 = 12. Add exponents: x²⁺³ = x⁵. Answer: 12x⁵'}
       ]
     }},
-    {title:'Scientific Notation',meta:'Very large and small numbers · 5 problems',content:{
-      heading:'Scientific Notation',
-      intro:'<strong>Scientific notation</strong> writes very large or small numbers as a × 10ⁿ where 1 ≤ a < 10.',
-      rule:'Moving decimal LEFT → positive exponent (big number)  |  Moving decimal RIGHT → negative exponent (small number)',
+    {title:'Exponential Functions',meta:'Growth, decay, and graphing · 5 problems',content:{
+      heading:'Exponential Functions',
+      intro:'An <strong>exponential function</strong> has the form <strong>y = a · bˣ</strong> where b > 0 and b ≠ 1. If b > 1, the function grows. If 0 < b < 1, it decays.',
+      rule:'y = a · bˣ | a = starting value (y-intercept) | b = growth/decay factor | b > 1 = growth | 0 < b < 1 = decay',
       examples:[
-        {label:'Write 4,500,000 in scientific notation',eq:'4,500,000 = 4.5 × 10⁶',steps:['Move decimal 6 places left','4.5 × 10⁶'],res:'4.5 × 10⁶'},
-        {label:'Write 0.00032 in scientific notation',eq:'0.00032 = 3.2 × 10⁻⁴',steps:['Move decimal 4 places right','Negative exponent for small numbers'],res:'3.2 × 10⁻⁴'}
+        {label:'y = 2 · 3ˣ — identify a and b',eq:'y = 2 · 3ˣ',steps:['a = 2 (starting value)','b = 3 (growth factor > 1)'],res:'Exponential GROWTH, starts at y = 2'},
+        {label:'y = 100 · (0.5)ˣ — growth or decay?',eq:'b = 0.5, which is between 0 and 1',steps:['0 < 0.5 < 1'],res:'Exponential DECAY (halving each time)'}
       ],
       problems:[
-        {q:'Write 6,200,000 in scientific notation.',opts:['62 × 10⁵','6.2 × 10⁶','6.2 × 10⁵','0.62 × 10⁷'],ans:1,fb:'Move decimal 6 places left → 6.2 × 10⁶'},
-        {q:'Write 0.0045 in scientific notation.',opts:['4.5 × 10⁻³','45 × 10⁻⁴','4.5 × 10³','0.45 × 10⁻²'],ans:0,fb:'Move decimal 3 places right → 4.5 × 10⁻³'},
-        {q:'Write 3.7 × 10⁴ in standard form.',opts:['370','3,700','37,000','370,000'],ans:2,fb:'Move decimal 4 places right → 37,000'},
-        {q:'Write 2.1 × 10⁻³ in standard form.',opts:['0.0021','0.021','21,000','0.0021'],ans:0,fb:'Move decimal 3 places left → 0.0021'},
-        {q:'Which is the largest number?',opts:['3.2 × 10⁴','5.1 × 10³','8.9 × 10⁴','2.0 × 10⁵'],ans:3,fb:'2.0 × 10⁵ = 200,000. Compare: 32,000 vs 5,100 vs 89,000 vs 200,000. Largest is 200,000.'}
+        {q:'In y = 5 · 2ˣ, what is the y-intercept (when x = 0)?',opts:['2','5','10','0'],ans:1,fb:'When x = 0: y = 5 · 2⁰ = 5 · 1 = 5'},
+        {q:'y = 3ˣ. Find y when x = 4.',opts:['12','81','64','27'],ans:1,fb:'y = 3⁴ = 3·3·3·3 = 81'},
+        {q:'Which function shows DECAY?',opts:['y = 2ˣ','y = 3 · 5ˣ','y = (0.8)ˣ','y = 10 · 2ˣ'],ans:2,fb:'b = 0.8, which is between 0 and 1, so it is exponential decay.'},
+        {q:'A population doubles each year. Starting at 500, after 3 years:',opts:['1000','2000','4000','1500'],ans:2,fb:'500 · 2³ = 500 · 8 = 4,000'},
+        {q:'A car worth $20,000 loses 10% of its value each year. After 1 year:',opts:['$18,000','$2,000','$19,000','$10,000'],ans:0,fb:'$20,000 · (1 − 0.10) = $20,000 · 0.90 = $18,000'}
       ]
     }}
   ]},
-  {id:6,ico:'📐',title:'Polynomials & Quadratics',sub:'Factor, FOIL, and solve quadratic equations',lessons:[
-    {title:'Polynomials & FOIL',meta:'Multiply binomials · 5 problems',content:{
-      heading:'Polynomials & FOIL',
-      intro:'A <strong>polynomial</strong> is an expression with variables and exponents. To multiply two binomials, use <strong>FOIL</strong>: First, Outer, Inner, Last.',
-      rule:'FOIL: (a+b)(c+d) = ac + ad + bc + bd  |  Then combine like terms.',
+  {id:5,ico:'📐',title:'Quadratics & Factoring',sub:'Quadratic functions, factoring, and solving quadratic equations',lessons:[
+    {title:'Quadratic Functions',meta:'Parabolas and vertex form · 5 problems',content:{
+      heading:'Quadratic Functions',
+      intro:'A <strong>quadratic function</strong> has the form <strong>y = ax² + bx + c</strong>. Its graph is a U-shaped curve called a <strong>parabola</strong>. If a > 0, opens up. If a < 0, opens down.',
+      rule:'Vertex = the highest or lowest point. Axis of symmetry: x = −b/(2a). Y-intercept = c.',
       examples:[
-        {label:'(x + 3)(x + 2)',eq:'F: x·x = x²  |  O: x·2 = 2x  |  I: 3·x = 3x  |  L: 3·2 = 6',steps:['Combine: x² + 2x + 3x + 6'],res:'x² + 5x + 6'},
-        {label:'(x − 4)(x + 1)',eq:'F: x²  |  O: x  |  I: −4x  |  L: −4',steps:['Combine: x² + x − 4x − 4'],res:'x² − 3x − 4'}
+        {label:'y = x² + 4x + 3 — find the y-intercept',eq:'Set x = 0: y = 0 + 0 + 3 = 3',steps:['Substitute x = 0'],res:'Y-intercept: (0, 3)'},
+        {label:'y = x² − 6x + 9 — does the parabola open up or down?',eq:'a = 1, which is positive',steps:['a > 0 → opens UP'],res:'Opens upward, has a minimum'}
       ],
       problems:[
-        {q:'Expand: (x + 5)(x + 2)',opts:['x² + 7x + 10','x² + 10x + 7','x² + 10','x² + 7x + 7'],ans:0,fb:'F: x², O: 2x, I: 5x, L: 10. Combine: x² + 7x + 10'},
-        {q:'Expand: (x − 3)(x + 4)',opts:['x² + x − 12','x² − x − 12','x² + x + 12','x² − 7x − 12'],ans:0,fb:'F: x², O: 4x, I: −3x, L: −12. Combine: x² + x − 12'},
-        {q:'Expand: (x + 6)(x − 6)',opts:['x² + 12x − 36','x² − 36','x² + 36','x² − 12x − 36'],ans:1,fb:'This is a difference of squares: (a+b)(a−b) = a²−b². So x²−36.'},
-        {q:'Expand: (2x + 1)(x + 3)',opts:['2x² + 7x + 3','2x² + 6x + 3','2x² + 7x + 6','x² + 7x + 3'],ans:0,fb:'F: 2x², O: 6x, I: x, L: 3. Combine: 2x² + 7x + 3'},
-        {q:'Expand: (x − 2)²',opts:['x² + 4','x² − 4x + 4','x² − 4','x² − 4x − 4'],ans:1,fb:'(x−2)(x−2): F: x², O: −2x, I: −2x, L: 4. Combine: x² − 4x + 4'}
+        {q:'In y = 3x² − 2x + 5, what is the y-intercept?',opts:['3','−2','5','0'],ans:2,fb:'Set x = 0: y = 0 − 0 + 5 = 5. Y-intercept is 5.'},
+        {q:'y = −2x² + 4x. Does the parabola open up or down?',opts:['Up','Down','Neither','Both'],ans:1,fb:'a = −2 < 0, so the parabola opens downward.'},
+        {q:'Evaluate y = x² − 3x + 2 when x = 4.',opts:['6','14','10','18'],ans:0,fb:'y = 16 − 12 + 2 = 6'},
+        {q:'The vertex of a parabola is its ___ point.',opts:['Starting','Highest or lowest','Middle x-value','Y-intercept'],ans:1,fb:'The vertex is the highest point (if opens down) or lowest point (if opens up).'},
+        {q:'For y = x² + 2x + 1, what is the value of a?',opts:['2','1','−1','0'],ans:1,fb:'In y = ax² + bx + c, a is the coefficient of x². Here a = 1.'}
       ]
     }},
-    {title:'Factoring & Quadratic Equations',meta:'Factor and use quadratic formula · 5 problems',content:{
-      heading:'Factoring & Quadratic Equations',
-      intro:'<strong>Factoring</strong> reverses FOIL. To solve ax² + bx + c = 0, factor it or use the <strong>quadratic formula</strong>: x = (−b ± √(b²−4ac)) / 2a.',
-      rule:'To factor x² + bx + c, find two numbers that multiply to c and add to b.',
+    {title:'Factoring & Solving Quadratics',meta:'GCF, factoring trinomials, quadratic formula · 5 problems',content:{
+      heading:'Factoring Quadratic Equations',
+      intro:'To solve <strong>ax² + bx + c = 0</strong>, factor the expression or use the quadratic formula. Factoring: find two numbers that multiply to c and add to b.',
+      rule:'To factor x² + bx + c: find two numbers that × to c and + to b. Set each factor = 0 to solve.',
       examples:[
-        {label:'Factor: x² + 5x + 6',eq:'Find two numbers that × to 6 and + to 5',steps:['Try: 2 × 3 = 6 and 2 + 3 = 5 ✓'],res:'(x + 2)(x + 3)'},
-        {label:'Solve: x² − 5x + 6 = 0',eq:'Factor: (x−2)(x−3) = 0',steps:['Set each factor = 0','x − 2 = 0 → x = 2','x − 3 = 0 → x = 3'],res:'x = 2 or x = 3'}
+        {label:'Factor: x² + 5x + 6',eq:'Find numbers that × to 6 and + to 5',steps:['2 × 3 = 6 and 2 + 3 = 5 ✓'],res:'(x + 2)(x + 3)'},
+        {label:'Solve: x² − 7x + 12 = 0',eq:'Factor: (x−3)(x−4) = 0',steps:['x − 3 = 0 → x = 3','x − 4 = 0 → x = 4'],res:'x = 3 or x = 4'}
       ],
       problems:[
-        {q:'Factor: x² + 7x + 12',opts:['(x+3)(x+4)','(x+2)(x+6)','(x+1)(x+12)','(x+7)(x+1)'],ans:0,fb:'Find numbers that × to 12 and + to 7: 3 and 4. Factor: (x+3)(x+4)'},
-        {q:'Factor: x² − x − 6',opts:['(x+2)(x−3)','(x−2)(x+3)','(x+3)(x+2)','(x−6)(x+1)'],ans:0,fb:'Find numbers that × to −6 and + to −1: 2 and −3. Factor: (x+2)(x−3)'},
-        {q:'Solve: x² + 3x − 10 = 0',opts:['x = 2 or x = −5','x = −2 or x = 5','x = 2 or x = 5','x = −2 or x = −5'],ans:0,fb:'Factor: (x+5)(x−2) = 0. x = −5 or x = 2'},
-        {q:'In the quadratic formula, what does the discriminant b²−4ac tell you?',opts:['The vertex','Number of solutions','The y-intercept','The slope'],ans:1,fb:'If b²−4ac > 0: two solutions. If = 0: one solution. If < 0: no real solutions.'},
-        {q:'Solve using quadratic formula: x² − 4 = 0',opts:['x = 2','x = ±2','x = 4','x = ±4'],ans:1,fb:'x² = 4 → x = ±√4 = ±2. Or factor: (x+2)(x−2) = 0 → x = ±2'}
+        {q:'Factor: x² + 6x + 8',opts:['(x+2)(x+4)','(x+1)(x+8)','(x+3)(x+3)','(x+4)(x+2)'],ans:0,fb:'Find numbers that × to 8 and + to 6: 2 and 4. Factor: (x+2)(x+4)'},
+        {q:'Factor: x² − 3x − 10',opts:['(x−5)(x+2)','(x+5)(x−2)','(x−2)(x+5)','(x+10)(x−1)'],ans:0,fb:'Find numbers that × to −10 and + to −3: −5 and 2. Factor: (x−5)(x+2)'},
+        {q:'Solve: x² + 7x + 10 = 0',opts:['x = −5 or x = −2','x = 5 or x = 2','x = −5 or x = 2','x = 5 or x = −2'],ans:0,fb:'Factor: (x+5)(x+2) = 0. x = −5 or x = −2'},
+        {q:'What is the GCF of 6x² + 9x?',opts:['3x','6x','9x','3x²'],ans:0,fb:'GCF of 6 and 9 is 3. GCF of x² and x is x. So GCF = 3x. Factor: 3x(2x + 3)'},
+        {q:'Solve: x² − 9 = 0',opts:['x = 9','x = ±3','x = 3','x = ±9'],ans:1,fb:'x² = 9. Take square root of both sides: x = ±3'}
       ]
     }}
   ]},
-  {id:7,ico:'📏',title:'Statistics & Pythagorean Theorem',sub:'Data analysis and right triangle relationships',lessons:[
+  {id:6,ico:'📉',title:'Statistics',sub:'Mean, median, mode, range, and frequency tables',lessons:[
     {title:'Mean, Median, Mode & Range',meta:'Measures of central tendency · 5 problems',content:{
       heading:'Mean, Median, Mode & Range',
-      intro:'These are ways to describe a set of data. <strong>Mean</strong> = average. <strong>Median</strong> = middle value. <strong>Mode</strong> = most frequent. <strong>Range</strong> = max − min.',
-      rule:'Mean: add all, divide by count  |  Median: arrange in order, find the middle  |  Mode: appears most often  |  Range: largest − smallest',
+      intro:'These statistics describe a data set. <strong>Mean</strong> = average. <strong>Median</strong> = middle value. <strong>Mode</strong> = most frequent. <strong>Range</strong> = max − min.',
+      rule:'Mean: add all values ÷ count | Median: arrange in order, find middle | Mode: appears most often | Range: largest − smallest',
       examples:[
-        {label:'Dataset: 4, 7, 2, 7, 10',eq:'Ordered: 2, 4, 7, 7, 10',steps:['Mean: (4+7+2+7+10)/5 = 30/5 = 6','Median: middle value = 7','Mode: 7 (appears twice)','Range: 10−2 = 8'],res:'Mean=6, Median=7, Mode=7, Range=8'}
+        {label:'Dataset: 3, 7, 2, 7, 11',eq:'Ordered: 2, 3, 7, 7, 11',steps:['Mean: (3+7+2+7+11)/5 = 30/5 = 6','Median: middle = 7','Mode: 7 (appears twice)','Range: 11 − 2 = 9'],res:'Mean=6, Median=7, Mode=7, Range=9'}
       ],
       problems:[
-        {q:'Find the mean of: 3, 7, 5, 9, 6',opts:['6','5','7','30'],ans:0,fb:'Mean = (3+7+5+9+6)/5 = 30/5 = 6'},
-        {q:'Find the median of: 2, 8, 3, 6, 5',opts:['3','5','6','8'],ans:1,fb:'Ordered: 2, 3, 5, 6, 8. Middle value (3rd) = 5'},
-        {q:'Find the mode of: 4, 7, 2, 7, 9, 4, 7',opts:['4','2','9','7'],ans:3,fb:'7 appears 3 times — more than any other value. Mode = 7'},
-        {q:'Find the range of: 12, 5, 18, 3, 9',opts:['15','9','18','6'],ans:0,fb:'Range = largest − smallest = 18 − 3 = 15'},
-        {q:'A dataset has mean 10. If you add a value of 10, the mean will ___.',opts:['Increase','Decrease','Stay the same','Double'],ans:2,fb:'Adding a value equal to the mean does not change the mean.'}
+        {q:'Find the mean of: 5, 8, 3, 10, 4',opts:['6','5','7','30'],ans:0,fb:'Mean = (5+8+3+10+4) ÷ 5 = 30 ÷ 5 = 6'},
+        {q:'Find the median of: 4, 1, 7, 3, 9',opts:['4','3','7','1'],ans:0,fb:'Ordered: 1, 3, 4, 7, 9. Middle value (3rd) = 4'},
+        {q:'Find the mode of: 5, 3, 7, 3, 9, 5, 3',opts:['5','7','3','9'],ans:2,fb:'3 appears 3 times — more than any other. Mode = 3'},
+        {q:'Find the range of: 15, 4, 22, 8, 11',opts:['18','11','22','6'],ans:0,fb:'Range = largest − smallest = 22 − 4 = 18'},
+        {q:'A class scored: 70, 80, 90, 80, 75. What is the mean?',opts:['79','80','75','82'],ans:0,fb:'(70+80+90+80+75) ÷ 5 = 395 ÷ 5 = 79'}
       ]
     }},
-    {title:'The Pythagorean Theorem',meta:'a² + b² = c² · 5 problems',content:{
-      heading:'Pythagorean Theorem',
-      intro:'In a <strong>right triangle</strong>, the sum of the squares of the two legs equals the square of the hypotenuse: <strong>a² + b² = c²</strong>. The hypotenuse (c) is always opposite the right angle.',
-      rule:'a and b are the legs (shorter sides). c is the hypotenuse (longest side). Always c² = a² + b².',
+    {title:'Frequency Tables & Line of Best Fit',meta:'Two-way tables and scatter plots · 5 problems',content:{
+      heading:'Frequency Tables & Line of Best Fit',
+      intro:'A <strong>two-way frequency table</strong> shows data in categories across two variables. A <strong>line of best fit</strong> is a straight line drawn through a scatter plot that best represents the data trend.',
+      rule:'Relative frequency = (part) / (total). Line of best fit shows the trend (positive, negative, or no correlation).',
       examples:[
-        {label:'Find c when a=3, b=4',eq:'3² + 4² = c²',steps:['9 + 16 = c²','25 = c²','c = √25 = 5'],res:'c = 5 (a 3-4-5 right triangle)'},
-        {label:'Find b when a=5, c=13',eq:'5² + b² = 13²',steps:['25 + b² = 169','b² = 144','b = √144 = 12'],res:'b = 12'}
+        {label:'Two-way table: 30 students, 18 like math',eq:'Relative frequency = 18/30 = 0.60',steps:['Divide part by total'],res:'60% like math'},
+        {label:'Scatter plot: as x increases, y increases',eq:'Positive correlation',steps:['Line of best fit slopes upward'],res:'Positive correlation → use to predict'}
       ],
       problems:[
-        {q:'A right triangle has legs 6 and 8. Find the hypotenuse.',opts:['10','14','√50','100'],ans:0,fb:'6² + 8² = 36 + 64 = 100 = c². c = √100 = 10'},
-        {q:'A right triangle has legs 5 and 12. Find the hypotenuse.',opts:['13','17','√17','169'],ans:0,fb:'5² + 12² = 25 + 144 = 169 = c². c = √169 = 13'},
-        {q:'Hypotenuse = 10, one leg = 6. Find the other leg.',opts:['8','4','16','√136'],ans:0,fb:'6² + b² = 10². 36 + b² = 100. b² = 64. b = 8'},
-        {q:'Is a triangle with sides 8, 15, 17 a right triangle?',opts:['Yes','No','Cannot tell','Only if it looks like one'],ans:0,fb:'8² + 15² = 64 + 225 = 289 = 17². Yes, it\'s a right triangle!'},
-        {q:'What is the diagonal of a square with side length 5?',opts:['5','5√2 ≈ 7.07','10','25'],ans:1,fb:'Legs are both 5. c² = 5²+5² = 50. c = √50 = 5√2 ≈ 7.07'}
+        {q:'In a class of 40, 24 prefer online learning. What is the relative frequency?',opts:['60%','40%','24%','16%'],ans:0,fb:'24 ÷ 40 = 0.60 = 60%'},
+        {q:'A line of best fit that slopes upward shows a ___ correlation.',opts:['Negative','No','Positive','Perfect'],ans:2,fb:'Upward slope = as x increases, y increases = positive correlation.'},
+        {q:'A line of best fit that slopes downward shows:',opts:['Positive correlation','No correlation','Negative correlation','Perfect correlation'],ans:2,fb:'Downward slope means as x increases, y decreases = negative correlation.'},
+        {q:'Using a line of best fit to predict a value WITHIN the data range is called:',opts:['Extrapolation','Interpolation','Calculation','Estimation'],ans:1,fb:'Interpolation = predicting within the data range. Extrapolation = predicting outside the range.'},
+        {q:'A two-way table shows 15 boys and 25 girls surveyed. Total = 40. Relative frequency of boys?',opts:['15%','37.5%','25%','40%'],ans:1,fb:'15 ÷ 40 = 0.375 = 37.5%'}
+      ]
+    }}
+  ]},
+  {id:7,ico:'📐',title:'Pythagorean Theorem',sub:'Right triangles, finding missing sides',lessons:[
+    {title:'The Pythagorean Theorem',meta:'a² + b² = c² · 5 problems',content:{
+      heading:'Pythagorean Theorem',
+      intro:'In any <strong>right triangle</strong>, the square of the hypotenuse equals the sum of the squares of the two legs: <strong>a² + b² = c²</strong>. The hypotenuse (c) is always the longest side, opposite the right angle.',
+      rule:'a and b = legs (shorter sides) | c = hypotenuse (longest side, opposite the right angle)',
+      examples:[
+        {label:'Find c: a = 6, b = 8',eq:'6² + 8² = c²',steps:['36 + 64 = c²','100 = c²','c = √100'],res:'c = 10'},
+        {label:'Find b: a = 9, c = 15',eq:'9² + b² = 15²',steps:['81 + b² = 225','b² = 144','b = √144'],res:'b = 12'}
+      ],
+      problems:[
+        {q:'A right triangle has legs 3 and 4. Find the hypotenuse.',opts:['5','7','25','√7'],ans:0,fb:'3² + 4² = 9 + 16 = 25. √25 = 5'},
+        {q:'A right triangle has legs 5 and 12. Find the hypotenuse.',opts:['13','17','7','169'],ans:0,fb:'5² + 12² = 25 + 144 = 169. √169 = 13'},
+        {q:'Hypotenuse = 17, one leg = 8. Find the other leg.',opts:['15','9','25','√353'],ans:0,fb:'8² + b² = 17². 64 + b² = 289. b² = 225. b = 15'},
+        {q:'Is a triangle with sides 7, 24, 25 a right triangle?',opts:['Yes','No','Cannot tell','Only sometimes'],ans:0,fb:'7² + 24² = 49 + 576 = 625 = 25². Yes, it is a right triangle!'},
+        {q:'A ladder 10 ft long leans against a wall. Its base is 6 ft from the wall. How high does it reach?',opts:['8 ft','4 ft','16 ft','√136 ft'],ans:0,fb:'6² + h² = 10². 36 + h² = 100. h² = 64. h = 8 ft'}
+      ]
+    }},
+    {title:'Applying the Pythagorean Theorem',meta:'Word problems and real-world use · 5 problems',content:{
+      heading:'Applying the Pythagorean Theorem',
+      intro:'The Pythagorean Theorem applies to any situation involving a right angle — distance, ramps, diagonals, and more. Draw a diagram and identify the legs and hypotenuse.',
+      rule:'Always identify: which sides are legs (a, b) and which is the hypotenuse (c). The hypotenuse is ALWAYS opposite the right angle.',
+      examples:[
+        {label:'Diagonal of a rectangle 6 by 8',eq:'6² + 8² = d²',steps:['36 + 64 = 100','d = √100'],res:'Diagonal = 10'},
+        {label:'Distance between (0,0) and (3,4)',eq:'d² = 3² + 4²',steps:['d² = 9 + 16 = 25','d = 5'],res:'Distance = 5 units'}
+      ],
+      problems:[
+        {q:'A rectangle is 9 cm by 12 cm. Find the length of its diagonal.',opts:['15 cm','21 cm','√225 cm','3 cm'],ans:0,fb:'9² + 12² = 81 + 144 = 225. √225 = 15 cm'},
+        {q:'Find the distance between (0,0) and (0,8).',opts:['8','0','64','4'],ans:0,fb:'The points are on the y-axis. Distance = |8 − 0| = 8 (or use: √(0²+8²) = 8)'},
+        {q:'A 13-foot ramp reaches a platform 5 ft off the ground. How far from the building does the ramp start?',opts:['12 ft','8 ft','18 ft','10 ft'],ans:0,fb:'5² + b² = 13². 25 + b² = 169. b² = 144. b = 12 ft'},
+        {q:'The hypotenuse of a right triangle is always:',opts:['The shortest side','Opposite the right angle','Adjacent to the right angle','Equal to a leg'],ans:1,fb:'The hypotenuse is always opposite (across from) the right angle and is the longest side.'},
+        {q:'A square has a diagonal of 10. What is its side length?',opts:['5','5√2 ≈ 7.07','√10','10'],ans:1,fb:'s² + s² = 10². 2s² = 100. s² = 50. s = √50 = 5√2 ≈ 7.07'}
       ]
     }}
   ]}
 ];
 
-// State
 let cur={unit:null,lesson:null,qIdx:0,score:0,answered:false};
 const progress={};
 UNITS.forEach(u=>u.lessons.forEach((l,li)=>progress[`${u.id}-${li}`]=0));
 
 function totalProblems(){return UNITS.reduce((a,u)=>a+u.lessons.reduce((b,l)=>b+l.content.problems.length,0),0);}
 function totalDone(){return Object.values(progress).reduce((a,v)=>a+v,0);}
-function updateGlobal(){const pct=Math.round(totalDone()/totalProblems()*100);document.getElementById('globalBar').style.width=pct+'%';document.getElementById('globalPct').textContent=pct+'%';}
+function updateGlobal(){const pct=Math.round(totalDone()/totalProblems()*100);document.getElementById('globalBar').style.width=pct+'%';document.getElementById('globalPct').textContent=pct+'%';try{localStorage.setItem('a1progress',JSON.stringify(progress));}catch(e){}}
 
 function goHome(){cur={unit:null,lesson:null,qIdx:0,score:0,answered:false};render();}
 
 function render(){
   const app=document.getElementById('main');
-  if(cur.unit===null){renderHome(app);}
-  else if(cur.lesson===null){renderSection(app);}
-  else{renderLesson(app);}
+  if(cur.unit===null)renderHome(app);
+  else if(cur.lesson===null)renderSection(app);
+  else renderLesson(app);
   updateGlobal();
 }
 
@@ -452,9 +449,9 @@ function renderHome(app){
   app.innerHTML=`
   <div class="hero">
     <h1>Master <em>Algebra 1</em><br>One Concept at a Time</h1>
-    <p>8 units · 16 lessons · 80 practice problems with instant feedback</p>
+    <p>8 sections · 16 lessons · 80 practice problems with instant feedback</p>
     <div class="stats">
-      <div class="stat"><span class="n">8</span><span class="l">Units</span></div>
+      <div class="stat"><span class="n">8</span><span class="l">Sections</span></div>
       <div class="stat"><span class="n">80</span><span class="l">Problems</span></div>
       <div class="stat"><span class="n">${done}</span><span class="l">Completed</span></div>
     </div>
@@ -464,7 +461,7 @@ function renderHome(app){
     const uTotal=u.lessons.reduce((a,l)=>a+l.content.problems.length,0);
     const pct=uTotal?Math.round(uDone/uTotal*100):0;
     return`<div class="scard" onclick="openUnit(${u.id})">
-      <div class="unit">Unit ${u.id+1}</div>
+      <div class="unit">Section ${u.id+1}</div>
       <div class="ico">${u.ico}</div>
       <div class="title">${u.title}</div>
       <div class="sub">${u.sub}</div>
@@ -479,15 +476,14 @@ function renderSection(app){
   const u=UNITS[cur.unit];
   app.innerHTML=`
   <div class="secview">
-    <button class="back" onclick="goHome()">← All Units</button>
+    <button class="back" onclick="goHome()">← All Sections</button>
     <div class="sechdr" data-ico="${u.ico}">
-      <div class="badge">Unit ${u.id+1}</div>
+      <div class="badge">Section ${u.id+1}</div>
       <h2>${u.title}</h2>
       <p>${u.sub}</p>
     </div>
     <div class="llist">${u.lessons.map((l,li)=>{
-      const done=progress[`${u.id}-${li}`];
-      const total=l.content.problems.length;
+      const done=progress[`${u.id}-${li}`],total=l.content.problems.length;
       return`<div class="litem" onclick="openLesson(${li})">
         <div class="lnum">${done===total&&total>0?'✓':li+1}</div>
         <div class="linfo"><div class="lname">${l.title}</div><div class="lmeta">${l.meta} · ${done}/${total} done</div></div>
@@ -503,16 +499,13 @@ function renderLesson(app){
   const u=UNITS[cur.unit],l=u.lessons[cur.lesson],c=l.content;
   const done=progress[`${cur.unit}-${cur.lesson}`],total=c.problems.length;
   app.innerHTML=`
-  <div class="crumb">
-    <a onclick="goHome()">Home</a> › <a onclick="openUnit(${cur.unit})">${u.title}</a> › ${l.title}
-  </div>
+  <div class="crumb"><a onclick="goHome()">Home</a> › <a onclick="openUnit(${cur.unit})">${u.title}</a> › ${l.title}</div>
   <div class="lview">
     <div class="lcontent">
       <h2>${c.heading}</h2>
       <p>${c.intro}</p>
       <div class="rbox">${c.rule}</div>
-      ${c.examples.map(e=>`
-      <div class="ebox">
+      ${c.examples.map(e=>`<div class="ebox">
         <div class="elabel">${e.label}</div>
         <div class="eq">${e.eq}</div>
         ${e.steps.map(s=>`<div class="step">→ ${s}</div>`).join('')}
@@ -531,7 +524,7 @@ function renderLesson(app){
         <h3>🎉 Section Complete!</h3>
         <div class="score" id="scoreDisplay"></div>
         <p id="scoreMsg"></p>
-        <button class="done-back" onclick="openUnit(${cur.unit})">← Back to Unit</button>
+        <button class="done-back" onclick="openUnit(${cur.unit})">← Back to Section</button>
       </div>
     </div>
   </div>`;
@@ -539,32 +532,30 @@ function renderLesson(app){
 }
 
 function renderQ(){
-  const u=UNITS[cur.unit],l=u.lessons[cur.lesson],c=l.content;
+  const c=UNITS[cur.unit].lessons[cur.lesson].content;
   if(cur.qIdx>=c.problems.length){
     document.getElementById('qzone').style.display='none';
-    const dc=document.getElementById('doneCard');
-    dc.classList.add('show');
+    const dc=document.getElementById('doneCard');dc.classList.add('show');
     const pct=Math.round(cur.score/c.problems.length*100);
     document.getElementById('scoreDisplay').textContent=pct+'%';
-    document.getElementById('scoreMsg').textContent=pct>=80?'Great job! You\'ve mastered this lesson.':pct>=60?'Good effort! Review the explanations and try again.':'Keep practicing — you\'ve got this!';
+    document.getElementById('scoreMsg').textContent=pct>=80?'Great job! You have mastered this lesson.':pct>=60?'Good effort! Review the explanations and try again.':'Keep practicing — you\'ve got this!';
     return;
   }
   const p=c.problems[cur.qIdx];
   document.getElementById('qzone').innerHTML=`
-    <div class="qcard" id="qcard">
-      <div class="qtag">Question ${cur.qIdx+1} of ${c.problems.length}</div>
-      <div class="qtext">${p.q}</div>
-      <div class="opts">${p.opts.map((o,i)=>`<button class="opt" onclick="answer(${i})" id="opt${i}">${o}</button>`).join('')}</div>
-      <div class="feedback" id="fb"></div>
-      <button class="nextbtn" id="nextBtn" onclick="nextQ()">${cur.qIdx+1<c.problems.length?'Next Question →':'See Results'}</button>
-    </div>`;
+  <div class="qcard" id="qcard">
+    <div class="qtag">Question ${cur.qIdx+1} of ${c.problems.length}</div>
+    <div class="qtext">${p.q}</div>
+    <div class="opts">${p.opts.map((o,i)=>`<button class="opt" onclick="answer(${i})" id="opt${i}">${o}</button>`).join('')}</div>
+    <div class="feedback" id="fb"></div>
+    <button class="nextbtn" id="nextBtn" onclick="nextQ()">${cur.qIdx+1<c.problems.length?'Next Question →':'See Results'}</button>
+  </div>`;
 }
 
 function answer(i){
   if(cur.answered)return;
   cur.answered=true;
-  const u=UNITS[cur.unit],l=u.lessons[cur.lesson],c=l.content;
-  const p=c.problems[cur.qIdx];
+  const p=UNITS[cur.unit].lessons[cur.lesson].content.problems[cur.qIdx];
   const correct=i===p.ans;
   if(correct)cur.score++;
   document.getElementById('opt'+i).classList.add(correct?'correct':'wrong');
@@ -576,21 +567,13 @@ function answer(i){
   document.getElementById('nextBtn').classList.add('show');
   progress[`${cur.unit}-${cur.lesson}`]=cur.qIdx+1;
   updateGlobal();
-  const pb=document.getElementById('pbar');
-  if(pb)pb.style.width=((cur.qIdx+1)/c.problems.length*100)+'%';
-  const pc=document.getElementById('pcount');
-  if(pc)pc.textContent=`${cur.qIdx+1} of ${c.problems.length} completed`;
+  const pb=document.getElementById('pbar');if(pb)pb.style.width=((cur.qIdx+1)/p.opts.length*100)+'%';
+  const pc=document.getElementById('pcount');if(pc)pc.textContent=`${cur.qIdx+1} of ${UNITS[cur.unit].lessons[cur.lesson].content.problems.length} completed`;
 }
 
 function nextQ(){cur.qIdx++;cur.answered=false;renderQ();}
 
-// Load saved progress
-try{const s=localStorage.getItem('a1progress');if(s){const p=JSON.parse(s);Object.assign(progress,p);}}catch(e){}
-
-// Save on change
-const origUpdateGlobal=updateGlobal;
-window.updateGlobal=function(){origUpdateGlobal();try{localStorage.setItem('a1progress',JSON.stringify(progress));}catch(e){}};
-
+try{const s=localStorage.getItem('a1progress');if(s)Object.assign(progress,JSON.parse(s));}catch(e){}
 render();
 </script>
 </body>
