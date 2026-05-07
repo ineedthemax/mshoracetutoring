@@ -8,9 +8,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { mockBundle } from "@/lib/mock-courses";
-import { Lock, FileText, CheckCircle, Star, ArrowLeft, BookOpen } from "lucide-react";
+import { Lock, FileText, CheckCircle, Star, ArrowLeft, BookOpen, Zap } from "lucide-react";
 import { createPublicClient } from "@/lib/supabase/public";
 import { CourseCheckoutButton } from "@/components/CourseCheckoutButton";
+
+const INTERACTIVE_COURSES: Record<string, string> = {
+  "pre-algebra-mastery": "/pre-algebra-course.html",
+  "algebra-1-mastery": "/algebra1-course.html",
+};
 
 export default async function CourseDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -34,6 +39,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
   const allLessons = lessons ?? [];
   const freeLessons = allLessons.filter((l: { is_free_preview: boolean }) => l.is_free_preview);
   const paidLessons = allLessons.filter((l: { is_free_preview: boolean }) => !l.is_free_preview);
+  const interactiveUrl = INTERACTIVE_COURSES[slug];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -104,6 +110,25 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
           {/* Sidebar */}
           <div className="md:col-span-1">
             <div className="sticky top-6 space-y-4">
+
+              {/* Interactive Course Banner */}
+              {interactiveUrl && (
+                <div className="bg-gradient-to-br from-violet-600 to-violet-800 rounded-2xl p-5 text-white">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Zap className="w-4 h-4 text-yellow-300" />
+                    <span className="text-xs font-bold text-yellow-300 uppercase tracking-wider">Interactive Course</span>
+                  </div>
+                  <p className="text-sm text-violet-100 mb-4">
+                    Try the full interactive version — lessons, worked examples, and instant-feedback practice problems.
+                  </p>
+                  <a href={interactiveUrl} target="_blank" rel="noopener noreferrer">
+                    <button className="w-full bg-white text-violet-700 font-bold py-2.5 rounded-xl text-sm hover:bg-violet-50 transition-colors flex items-center justify-center gap-2">
+                      <Zap className="w-4 h-4" /> Launch Interactive Course
+                    </button>
+                  </a>
+                </div>
+              )}
+
               <Card className="border-violet-200 shadow-md">
                 <CardContent className="p-6">
                   <div className="text-center mb-4">
