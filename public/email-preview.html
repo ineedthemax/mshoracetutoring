@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Email Preview — MsHorace Tutoring</title>
+<title>Redesigned Email Preview — MsHorace Tutoring</title>
 <style>
   body { background: #e5e7eb; font-family: sans-serif; margin: 0; padding: 24px; }
-  h1 { text-align: center; color: #1f2937; margin-bottom: 8px; font-size: 22px; }
-  .subtitle { text-align: center; color: #6b7280; margin-bottom: 32px; font-size: 14px; }
+  h1 { text-align: center; color: #1f2937; margin-bottom: 4px; font-size: 22px; }
+  .subtitle { text-align: center; color: #6b7280; margin-bottom: 28px; font-size: 14px; }
   .tabs { display: flex; gap: 8px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
   .tab { padding: 8px 20px; border-radius: 8px; border: 2px solid #d1d5db; background: white; cursor: pointer; font-size: 13px; font-weight: 600; color: #6b7280; transition: all .2s; }
   .tab.active { border-color: #7c3aed; background: #7c3aed; color: white; }
   .email-wrap { display: none; max-width: 640px; margin: 0 auto; }
   .email-wrap.show { display: block; }
-  .label { text-center; background: #7c3aed; color: white; text-align: center; padding: 8px; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; border-radius: 8px 8px 0 0; }
+  .label { background: #7c3aed; color: white; text-align: center; padding: 8px; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; border-radius: 8px 8px 0 0; }
 </style>
 </head>
 <body>
-<h1>📧 Current Email Designs</h1>
-<p class="subtitle">Click each tab to preview the emails currently being sent</p>
+<h1>✨ Redesigned Emails</h1>
+<p class="subtitle">Logo added · Stenita's photo on reports · Progress bar · Branded footer</p>
 
 <div class="tabs">
   <div class="tab active" onclick="show(0)">1. Booking Confirmation</div>
@@ -27,153 +27,173 @@
   <div class="tab" onclick="show(3)">4. Contact Form</div>
 </div>
 
-<!-- Email 1: Booking Confirmation -->
+<!-- EMAIL 1: Booking Confirmation -->
 <div class="email-wrap show" id="email0">
 <div class="label">Email 1 — Booking Confirmation (sent to parent after payment)</div>
-<div style="max-width:600px;margin:0 auto;background:#fff;border-radius:0 0 16px 16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
-  <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:32px;text-align:center;">
-    <h1 style="color:#fff;margin:0;font-size:24px;font-weight:700;">Booking Confirmed!</h1>
-    <p style="color:#ddd6fe;margin:6px 0 0;font-size:14px;">MsHorace Tutoring</p>
+<div style="background:#fff;border-radius:0 0 16px 16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+  <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
+    <img src="/Logo.png" alt="MsHorace Tutoring" width="110" style="display:block;margin:0 auto 8px;" />
+    <p style="color:#ddd6fe;margin:0;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600;">Booking Confirmed!</p>
   </div>
-  <div style="padding:28px 32px 0;text-align:center;">
+  <div style="padding:24px 32px 0;text-align:center;">
     <div style="display:inline-block;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:50px;padding:8px 20px;">
-      <span style="color:#16a34a;font-weight:600;font-size:14px;">Payment Received - $75</span>
+      <span style="color:#16a34a;font-weight:700;font-size:14px;">Payment Received - $75</span>
     </div>
   </div>
   <div style="padding:24px 32px 0;">
-    <h2 style="margin:0 0 16px;font-size:18px;color:#1f2937;">Session Details</h2>
+    <h2 style="margin:0 0 16px;font-size:16px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;">Session Details</h2>
     <table style="width:100%;border-collapse:collapse;">
       <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;width:40%;">Session Type</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">60-Minute 1-on-1 Session</td></tr>
       <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Subject</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">Algebra 1</td></tr>
       <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Grade Level</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">9th Grade</td></tr>
-      <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Date</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">2026-05-12</td></tr>
+      <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Date</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">May 15, 2026</td></tr>
       <tr><td style="padding:10px 0;color:#6b7280;font-size:14px;">Time</td><td style="padding:10px 0;color:#111827;font-size:14px;font-weight:600;">10:00 AM Eastern Time</td></tr>
     </table>
   </div>
-  <div style="margin:24px 32px 0;background:#f5f3ff;border-radius:12px;padding:20px;">
-    <p style="margin:0 0 8px;font-size:13px;font-weight:600;color:#5b21b6;text-transform:uppercase;letter-spacing:0.05em;">Your Zoom Link</p>
-    <p style="margin:0 0 12px;color:#374151;font-size:14px;">Click the button below at your session time to join:</p>
-    <a href="#" style="display:inline-block;background:#7c3aed;color:#fff;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;">Join Zoom Meeting</a>
+  <div style="margin:20px 32px 0;background:#f5f3ff;border-radius:12px;padding:20px;">
+    <p style="margin:0 0 6px;font-size:11px;font-weight:700;color:#5b21b6;text-transform:uppercase;letter-spacing:0.08em;">Your Zoom Link</p>
+    <p style="margin:0 0 14px;color:#374151;font-size:14px;">Click the button at your session time to join:</p>
+    <a href="#" style="display:inline-block;background:#7c3aed;color:#fff;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;">Join Zoom Meeting</a>
   </div>
-  <div style="padding:24px 32px 0;">
-    <h3 style="margin:0 0 10px;font-size:15px;font-weight:600;color:#1f2937;">What to Expect</h3>
-    <ul style="margin:0;padding-left:20px;color:#6b7280;font-size:14px;line-height:1.8;">
+  <div style="padding:20px 32px 28px;">
+    <h3 style="margin:0 0 10px;font-size:14px;font-weight:700;color:#1f2937;">What to Expect</h3>
+    <ul style="margin:0;padding-left:20px;color:#6b7280;font-size:14px;line-height:1.9;">
       <li>Join the Zoom link a few minutes early</li>
       <li>Have any homework, notes, or questions ready</li>
       <li>You will receive a session report by email after the session</li>
+      <li>Need to reschedule? Email us 24+ hours before your session</li>
     </ul>
   </div>
-  <div style="margin:32px 0 0;padding:24px 32px;border-top:1px solid #f3f4f6;text-align:center;">
-    <p style="margin:0;color:#9ca3af;font-size:13px;">Questions? Reply to this email or reach out at <a href="mailto:MsHoraceTutoring06@gmail.com" style="color:#7c3aed;">MsHoraceTutoring06@gmail.com</a></p>
-    <p style="margin:8px 0 0;color:#d1d5db;font-size:12px;">MsHorace Tutoring - White Plains, Maryland - mshoracetutoring.com</p>
+  <div style="background:#f5f3ff;padding:24px 32px;text-align:center;">
+    <img src="/Logo.png" alt="MsHorace Tutoring" width="100" style="display:block;margin:0 auto 12px;" />
+    <p style="margin:0 0 4px;color:#6b7280;font-size:13px;">Questions? Call <a href="tel:2272206227" style="color:#7c3aed;">(227) 220-6227</a> or email <a href="mailto:MsHoraceTutoring06@gmail.com" style="color:#7c3aed;">MsHoraceTutoring06@gmail.com</a></p>
+    <p style="margin:0;color:#9ca3af;font-size:12px;">MsHorace Tutoring · White Plains, Maryland · mshoracetutoring.com</p>
   </div>
 </div>
 </div>
 
-<!-- Email 2: Session Report -->
+<!-- EMAIL 2: Session Report -->
 <div class="email-wrap" id="email1">
 <div class="label">Email 2 — Session Report (you send after each session)</div>
-<div style="max-width:600px;margin:0 auto;background:#fff;border-radius:0 0 16px 16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
-  <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:32px 32px 24px;text-align:center;">
-    <h1 style="color:#fff;margin:0;font-size:24px;font-weight:700;">MsHorace Tutoring</h1>
-    <p style="color:#ddd6fe;margin:6px 0 0;font-size:14px;">Session Progress Report</p>
+<div style="background:#fff;border-radius:0 0 16px 16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+  <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
+    <img src="/Logo.png" alt="MsHorace Tutoring" width="110" style="display:block;margin:0 auto 8px;" />
+    <p style="color:#ddd6fe;margin:0;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600;">Session Progress Report</p>
   </div>
-  <div style="padding:28px 32px 0;">
-    <h2 style="margin:0 0 4px;font-size:20px;color:#1f2937;">Jordan Campbell</h2>
-    <p style="margin:0;color:#6b7280;font-size:14px;">Algebra 1 &nbsp;·&nbsp; 1-on-1 &nbsp;·&nbsp; May 12, 2026</p>
-  </div>
-  <div style="margin:24px 32px 0;background:#f5f3ff;border-radius:12px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
-    <span style="color:#5b21b6;font-weight:600;font-size:14px;">Confidence Score</span>
-    <span style="font-size:28px;font-weight:800;color:#7c3aed;">82<span style="font-size:16px;">%</span></span>
+  <!-- Tutor photo strip -->
+  <div style="background:#faf5ff;padding:14px 32px;border-bottom:1px solid #ede9fe;display:flex;align-items:center;gap:12px;">
+    <img src="/stenita-horace.jpg" alt="Ms. Horace" width="48" height="48" style="border-radius:50%;object-fit:cover;border:2px solid #7c3aed;display:block;flex-shrink:0;" />
+    <div>
+      <p style="margin:0;font-size:13px;font-weight:700;color:#5b21b6;">Ms. Stenita Horace</p>
+      <p style="margin:2px 0 0;font-size:12px;color:#7c3aed;">Math Tutor · Pre-Algebra & Algebra 1</p>
+    </div>
   </div>
   <div style="padding:24px 32px 0;">
-    <h3 style="margin:0 0 10px;font-size:13px;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:0.05em;">Topics Covered</h3>
-    <p style="margin:0;color:#374151;font-size:15px;line-height:1.6;">Slope-intercept form, graphing linear equations, identifying slope and y-intercept</p>
+    <h2 style="margin:0 0 4px;font-size:22px;color:#1f2937;font-weight:700;">Jordan Campbell</h2>
+    <p style="margin:0;color:#6b7280;font-size:14px;">Algebra 1 · 1-on-1 · May 15, 2026</p>
   </div>
-  <div style="margin:20px 32px 0;background:#f0fdf4;border-left:4px solid #22c55e;border-radius:0 10px 10px 0;padding:14px 18px;">
-    <p style="margin:0 0 4px;font-size:12px;font-weight:600;color:#15803d;text-transform:uppercase;letter-spacing:0.05em;">Win This Session</p>
-    <p style="margin:0;color:#166534;font-size:14px;line-height:1.6;">Jordan correctly identified slope and y-intercept on 9 out of 10 problems independently. Huge improvement from last week!</p>
-  </div>
-  <div style="margin:16px 32px 0;background:#fef9f0;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 18px;">
-    <p style="margin:0 0 4px;font-size:12px;font-weight:600;color:#92400e;text-transform:uppercase;letter-spacing:0.05em;">Areas to Keep Working On</p>
-    <p style="margin:0;color:#78350f;font-size:14px;line-height:1.6;">Graphing from standard form — needs more practice converting to slope-intercept first.</p>
+  <!-- Confidence score with progress bar -->
+  <div style="margin:20px 32px 0;background:#f5f3ff;border-radius:12px;padding:16px 20px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <p style="margin:0;color:#5b21b6;font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:0.05em;">Confidence Score</p>
+      <span style="font-size:30px;font-weight:800;color:#16a34a;">82<span style="font-size:16px;">%</span></span>
+    </div>
+    <div style="margin-top:10px;background:#e9d5ff;border-radius:99px;height:8px;overflow:hidden;">
+      <div style="width:82%;background:#22c55e;height:8px;border-radius:99px;"></div>
+    </div>
   </div>
   <div style="padding:20px 32px 0;">
-    <h3 style="margin:0 0 6px;font-size:13px;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:0.05em;">Homework Assigned</h3>
+    <h3 style="margin:0 0 8px;font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.08em;">Topics Covered</h3>
+    <p style="margin:0;color:#374151;font-size:15px;line-height:1.6;">Slope-intercept form, graphing linear equations, identifying slope and y-intercept</p>
+  </div>
+  <div style="margin:16px 32px 0;background:#f0fdf4;border-left:4px solid #22c55e;border-radius:0 10px 10px 0;padding:14px 18px;">
+    <p style="margin:0 0 5px;font-size:11px;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:0.08em;">Win This Session</p>
+    <p style="margin:0;color:#166534;font-size:14px;line-height:1.6;">Jordan correctly identified slope and y-intercept on 9 out of 10 problems independently. Huge improvement from last week!</p>
+  </div>
+  <div style="margin:12px 32px 0;background:#fef9f0;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 18px;">
+    <p style="margin:0 0 5px;font-size:11px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:0.08em;">Areas to Keep Working On</p>
+    <p style="margin:0;color:#78350f;font-size:14px;line-height:1.6;">Graphing from standard form needs more practice converting to slope-intercept first.</p>
+  </div>
+  <div style="padding:16px 32px 0;">
+    <h3 style="margin:0 0 6px;font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.08em;">Homework Assigned</h3>
     <p style="margin:0;color:#374151;font-size:14px;line-height:1.6;">Worksheet pages 4-6, problems 1-15</p>
   </div>
-  <div style="margin:20px 32px 0;background:#f5f3ff;border-radius:12px;padding:16px 20px;">
-    <p style="margin:0 0 6px;font-size:12px;font-weight:600;color:#5b21b6;text-transform:uppercase;letter-spacing:0.05em;">Recommended Next Step</p>
+  <div style="margin:16px 32px 0;background:#f5f3ff;border-radius:12px;padding:16px 20px;">
+    <p style="margin:0 0 6px;font-size:11px;font-weight:700;color:#5b21b6;text-transform:uppercase;letter-spacing:0.08em;">Recommended Next Step</p>
     <p style="margin:0;color:#374151;font-size:14px;line-height:1.6;">Practice graphing from standard form. Next session we will move to writing equations of lines.</p>
   </div>
-  <div style="margin:32px 0 0;padding:24px 32px;border-top:1px solid #f3f4f6;text-align:center;">
-    <p style="margin:0;color:#9ca3af;font-size:13px;">Questions? Reply to this email or reach out at <a href="mailto:MsHoraceTutoring06@gmail.com" style="color:#7c3aed;">MsHoraceTutoring06@gmail.com</a></p>
-    <p style="margin:8px 0 0;color:#d1d5db;font-size:12px;">MsHorace Tutoring &nbsp;·&nbsp; White Plains, Maryland &nbsp;·&nbsp; mshoracetutoring.com</p>
+  <div style="background:#f5f3ff;padding:24px 32px;margin-top:24px;text-align:center;">
+    <img src="/Logo.png" alt="MsHorace Tutoring" width="100" style="display:block;margin:0 auto 12px;" />
+    <p style="margin:0 0 4px;color:#6b7280;font-size:13px;">Questions? Call <a href="tel:2272206227" style="color:#7c3aed;">(227) 220-6227</a> or email <a href="mailto:MsHoraceTutoring06@gmail.com" style="color:#7c3aed;">MsHoraceTutoring06@gmail.com</a></p>
+    <p style="margin:0;color:#9ca3af;font-size:12px;">MsHorace Tutoring · White Plains, Maryland · mshoracetutoring.com</p>
   </div>
 </div>
 </div>
 
-<!-- Email 3: Digital Product -->
+<!-- EMAIL 3: Digital Product -->
 <div class="email-wrap" id="email2">
 <div class="label">Email 3 — Digital Product Purchase (instant PDF delivery)</div>
-<div style="max-width:600px;margin:0 auto;background:#fff;border-radius:0 0 16px 16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
-  <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:32px;text-align:center;">
-    <h1 style="color:#fff;margin:0;font-size:22px;font-weight:700;">Your Download is Ready!</h1>
-    <p style="color:#ddd6fe;margin:6px 0 0;font-size:14px;">MsHorace Tutoring</p>
+<div style="background:#fff;border-radius:0 0 16px 16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+  <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
+    <img src="/Logo.png" alt="MsHorace Tutoring" width="110" style="display:block;margin:0 auto 8px;" />
+    <p style="color:#ddd6fe;margin:0;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600;">Your Download is Ready!</p>
   </div>
-  <div style="padding:28px 32px 0;">
+  <div style="padding:28px 32px;">
     <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px 18px;margin-bottom:24px;text-align:center;">
-      <p style="margin:0;color:#16a34a;font-weight:600;font-size:15px;">Payment received - $9</p>
+      <p style="margin:0;color:#16a34a;font-weight:700;font-size:15px;">Payment Received - $9</p>
     </div>
-    <h2 style="margin:0 0 8px;font-size:18px;color:#1f2937;">You purchased:</h2>
+    <h2 style="margin:0 0 8px;font-size:16px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;">You purchased:</h2>
     <div style="background:#f5f3ff;border-radius:12px;padding:16px 20px;margin-bottom:24px;">
-      <p style="margin:0;font-size:16px;font-weight:700;color:#5b21b6;">Pre-Algebra Practice Packet</p>
+      <p style="margin:0;font-size:18px;font-weight:700;color:#5b21b6;">Pre-Algebra Practice Packet</p>
     </div>
     <div style="text-align:center;margin-bottom:24px;">
-      <p style="margin:0 0 12px;color:#374151;font-size:14px;">Click the button below to download your PDF:</p>
-      <a href="#" style="display:inline-block;background:#7c3aed;color:#fff;padding:14px 32px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;">Download PDF Now</a>
-      <p style="margin:12px 0 0;color:#9ca3af;font-size:12px;">This link expires in 7 days. Save your PDF after downloading.</p>
+      <p style="margin:0 0 14px;color:#374151;font-size:14px;line-height:1.6;">Your PDF is ready to download. Click the button below:</p>
+      <a href="#" style="display:inline-block;background:#7c3aed;color:#fff;padding:14px 36px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;">Download PDF Now</a>
+      <p style="margin:12px 0 0;color:#9ca3af;font-size:12px;">Link expires in 7 days. Save your PDF after downloading.</p>
     </div>
-    <p style="color:#6b7280;font-size:14px;">Questions? Reply to this email or reach out at <a href="mailto:MsHoraceTutoring06@gmail.com" style="color:#7c3aed;">MsHoraceTutoring06@gmail.com</a> or <a href="tel:2272206227" style="color:#7c3aed;">(227) 220-6227</a>.</p>
   </div>
-  <div style="padding:16px 32px;border-top:1px solid #f3f4f6;margin-top:24px;text-align:center;">
-    <p style="margin:0;color:#d1d5db;font-size:12px;">MsHorace Tutoring - White Plains, Maryland - mshoracetutoring.com</p>
+  <div style="background:#f5f3ff;padding:24px 32px;text-align:center;">
+    <img src="/Logo.png" alt="MsHorace Tutoring" width="100" style="display:block;margin:0 auto 12px;" />
+    <p style="margin:0 0 4px;color:#6b7280;font-size:13px;">Questions? Call <a href="tel:2272206227" style="color:#7c3aed;">(227) 220-6227</a> or email <a href="mailto:MsHoraceTutoring06@gmail.com" style="color:#7c3aed;">MsHoraceTutoring06@gmail.com</a></p>
+    <p style="margin:0;color:#9ca3af;font-size:12px;">MsHorace Tutoring · White Plains, Maryland · mshoracetutoring.com</p>
   </div>
 </div>
 </div>
 
-<!-- Email 4: Contact Form -->
+<!-- EMAIL 4: Contact Form -->
 <div class="email-wrap" id="email3">
 <div class="label">Email 4 — Contact Form (sent to you when someone messages)</div>
-<div style="max-width:600px;margin:0 auto;background:#fff;border-radius:0 0 16px 16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
-  <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px;text-align:center;">
-    <h1 style="color:#fff;margin:0;font-size:20px;font-weight:700;">New Contact Form Message</h1>
-    <p style="color:#ddd6fe;margin:6px 0 0;font-size:13px;">MsHorace Tutoring Website</p>
+<div style="background:#fff;border-radius:0 0 16px 16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+  <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
+    <img src="/Logo.png" alt="MsHorace Tutoring" width="110" style="display:block;margin:0 auto 8px;" />
+    <p style="color:#ddd6fe;margin:0;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600;">New Website Message</p>
   </div>
   <div style="padding:28px 32px;">
     <table style="width:100%;border-collapse:collapse;">
-      <tr><td style="padding:8px 0;font-size:13px;color:#9ca3af;font-weight:600;width:120px;">FROM</td><td style="padding:8px 0;font-size:14px;color:#111827;">Lisa Campbell</td></tr>
-      <tr><td style="padding:8px 0;font-size:13px;color:#9ca3af;font-weight:600;">EMAIL</td><td style="padding:8px 0;font-size:14px;color:#7c3aed;">lisa@email.com</td></tr>
-      <tr><td style="padding:8px 0;font-size:13px;color:#9ca3af;font-weight:600;">SUBJECT</td><td style="padding:8px 0;font-size:14px;color:#111827;">Question about booking</td></tr>
+      <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:11px;color:#9ca3af;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;width:100px;">From</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:15px;color:#111827;font-weight:600;">Lisa Campbell</td></tr>
+      <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:11px;color:#9ca3af;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Email</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:14px;"><a href="mailto:lisa@email.com" style="color:#7c3aed;font-weight:600;">lisa@email.com</a></td></tr>
+      <tr><td style="padding:10px 0;font-size:11px;color:#9ca3af;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Subject</td><td style="padding:10px 0;font-size:14px;color:#111827;">Question about booking</td></tr>
     </table>
-    <div style="margin-top:20px;background:#f5f3ff;border-radius:12px;padding:16px 20px;">
-      <p style="margin:0 0 8px;font-size:12px;font-weight:600;color:#5b21b6;text-transform:uppercase;letter-spacing:0.05em;">Message</p>
-      <p style="margin:0;color:#374151;font-size:14px;line-height:1.7;">Hi! I saw your website and I am interested in booking a tutoring session for my daughter who is in 8th grade and struggling with Pre-Algebra. Can you tell me more about availability?</p>
+    <div style="margin-top:20px;background:#f5f3ff;border-radius:12px;padding:18px 20px;">
+      <p style="margin:0 0 10px;font-size:11px;font-weight:700;color:#5b21b6;text-transform:uppercase;letter-spacing:0.08em;">Message</p>
+      <p style="margin:0;color:#374151;font-size:14px;line-height:1.8;">Hi! I saw your website and I am interested in booking a tutoring session for my daughter who is in 8th grade and struggling with Pre-Algebra. Can you tell me more about availability?</p>
     </div>
     <div style="margin-top:24px;text-align:center;">
-      <a href="mailto:lisa@email.com" style="display:inline-block;background:#7c3aed;color:#fff;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;">Reply to Lisa</a>
+      <a href="mailto:lisa@email.com" style="display:inline-block;background:#7c3aed;color:#fff;padding:13px 32px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;">Reply to Lisa</a>
     </div>
   </div>
-  <div style="padding:16px 32px;border-top:1px solid #f3f4f6;text-align:center;">
-    <p style="margin:0;color:#d1d5db;font-size:12px;">MsHorace Tutoring &nbsp;·&nbsp; mshoracetutoring.com</p>
+  <div style="background:#f5f3ff;padding:20px 32px;text-align:center;">
+    <img src="/Logo.png" alt="MsHorace Tutoring" width="100" style="display:block;margin:0 auto 10px;" />
+    <p style="margin:0;color:#9ca3af;font-size:12px;">MsHorace Tutoring · White Plains, Maryland · mshoracetutoring.com</p>
   </div>
 </div>
 </div>
 
 <script>
-function show(i) {
-  document.querySelectorAll('.email-wrap').forEach((e,idx) => e.classList.toggle('show', idx===i));
-  document.querySelectorAll('.tab').forEach((t,idx) => t.classList.toggle('active', idx===i));
+function show(i){
+  document.querySelectorAll('.email-wrap').forEach((e,idx)=>e.classList.toggle('show',idx===i));
+  document.querySelectorAll('.tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));
+  window.scrollTo(0,160);
 }
 </script>
 </body>

@@ -425,12 +425,13 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
-                name: "Lisa Campbell",
-                role: "Parent · 9th Grader",
-                text: "Ms. Horace completely turned my daughter's confidence around. She went from dreading Algebra to actually enjoying it. The session reports after every class keep me in the loop every week.",
+                name: "Mkiyah Gonzalez",
+                role: "Student · Verified Google Review",
+                text: "Ms. Horace as my math tutor has been an incredible experience for me. My confidence in math has significantly improved, and I've seen amazing results while in class with her help. I highly recommend her to anyone looking for a knowledgeable and supportive tutor!",
                 stars: 5,
-                initial: "LC",
-                color: "bg-violet-100 text-violet-700",
+                initial: "MG",
+                color: "bg-yellow-100 text-yellow-700",
+                verified: true,
               },
               {
                 name: "Kezia Thompson",
@@ -439,6 +440,7 @@ export default function HomePage() {
                 stars: 5,
                 initial: "KT",
                 color: "bg-blue-100 text-blue-700",
+                verified: false,
               },
               {
                 name: "Renee Williams",
@@ -447,14 +449,22 @@ export default function HomePage() {
                 stars: 5,
                 initial: "RW",
                 color: "bg-green-100 text-green-700",
+                verified: false,
               },
             ].map((t) => (
-              <Card key={t.name} className="hover:shadow-md transition-shadow">
+              <Card key={t.name} className={`hover:shadow-md transition-shadow ${t.verified ? 'border-yellow-200 ring-1 ring-yellow-200' : ''}`}>
                 <CardContent className="p-6">
-                  <div className="flex gap-0.5 mb-4">
-                    {[1,2,3,4,5].map(i => (
-                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                    ))}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex gap-0.5">
+                      {[1,2,3,4,5].map(i => (
+                        <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                      ))}
+                    </div>
+                    {t.verified && (
+                      <span className="flex items-center gap-1 text-xs font-semibold text-green-700 bg-green-50 border border-green-200 px-2 py-0.5 rounded-full">
+                        <CheckCircle className="w-3 h-3" /> Google Review
+                      </span>
+                    )}
                   </div>
                   <p className="text-gray-600 text-sm leading-relaxed mb-6 italic">&ldquo;{t.text}&rdquo;</p>
                   <div className="flex items-center gap-3">
