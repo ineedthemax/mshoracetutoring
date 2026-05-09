@@ -14,7 +14,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { mockBundle } from "@/lib/mock-courses";
+import Image from "next/image";
 import { BookOpen, FileText, Star, Zap, CheckCircle, Lock, Download, ShoppingCart } from "lucide-react";
+
+const COURSE_IMAGES: Record<string, string> = {
+  "Pre-Algebra": "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&h=240&fit=crop",
+  "Algebra 1":   "https://images.unsplash.com/photo-1635372722656-389f87a941b7?w=600&h=240&fit=crop",
+};
 import { CourseCheckoutButton } from "@/components/CourseCheckoutButton";
 import { DigitalProductButton } from "@/components/DigitalProductButton";
 import { createPublicClient } from "@/lib/supabase/public";
@@ -131,11 +137,28 @@ export default async function CoursesPage() {
               const freeLessons = freeCountMap[course.id] ?? 0;
               return (
                 <Card key={course.id} className="overflow-hidden hover:shadow-md transition-shadow">
-                  <div className="bg-gradient-to-br from-violet-100 to-violet-200 h-36 flex items-center justify-center">
-                    <div className="text-center">
-                      <BookOpen className="w-10 h-10 text-violet-600 mx-auto mb-2" />
-                      <span className="text-sm font-semibold text-violet-700">{course.subject}</span>
-                    </div>
+                  <div className="relative h-44 overflow-hidden">
+                    {COURSE_IMAGES[course.subject] ? (
+                      <>
+                        <Image
+                          src={COURSE_IMAGES[course.subject]}
+                          alt={course.title}
+                          fill
+                          className="object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-violet-900/70 to-violet-600/30" />
+                        <div className="absolute bottom-0 left-0 right-0 p-4">
+                          <span className="text-white font-bold text-lg">{course.subject}</span>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="bg-gradient-to-br from-violet-100 to-violet-200 h-full flex items-center justify-center">
+                        <div className="text-center">
+                          <BookOpen className="w-10 h-10 text-violet-600 mx-auto mb-2" />
+                          <span className="text-sm font-semibold text-violet-700">{course.subject}</span>
+                        </div>
+                      </div>
+                    )}
                   </div>
                   <CardContent className="p-5">
                     <Badge variant="outline" className="mb-2 text-xs">{course.grade_level}</Badge>
