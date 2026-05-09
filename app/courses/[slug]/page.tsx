@@ -119,7 +119,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
                     <span className="text-xs font-bold text-yellow-300 uppercase tracking-wider">Interactive Course</span>
                   </div>
                   <p className="text-sm text-violet-100 mb-4">
-                    Try the full interactive version — lessons, worked examples, and instant-feedback practice problems.
+                    Try the full interactive version - lessons, worked examples, and instant-feedback practice problems.
                   </p>
                   <a href={interactiveUrl} target="_blank" rel="noopener noreferrer">
                     <button className="w-full bg-white text-violet-700 font-bold py-2.5 rounded-xl text-sm hover:bg-violet-50 transition-colors flex items-center justify-center gap-2">

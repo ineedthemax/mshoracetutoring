@@ -32,8 +32,8 @@ export const mockStudents = [
 ];
 
 export const mockGroupClasses = [
-  { id: "g1", title: "Pre-Algebra Group Class", subject: "Pre-Algebra", grade: "6th-8th Grade", date: "2026-05-03", time: "10:00 AM", duration: 90, capacity: 10, enrolled: 3, price: 25, description: "Small group session covering key Pre-Algebra concepts — fractions, integers, one-step equations, and more. Great for reinforcement and review.", zoomUrl: "https://us06web.zoom.us/j/83897527262?pwd=3PK8eBvZaVlzUR8jlmI5jL5BKHvzD2.1", status: "open" },
-  { id: "g2", title: "Algebra 1 Group Class", subject: "Algebra 1", grade: "8th-9th Grade", date: "2026-05-10", time: "11:00 AM", duration: 90, capacity: 10, enrolled: 4, price: 25, description: "Small group session focused on Algebra 1 topics — linear equations, inequalities, graphing, and systems. Collaborative problem solving with direct guidance.", zoomUrl: "https://us06web.zoom.us/j/83897527262?pwd=3PK8eBvZaVlzUR8jlmI5jL5BKHvzD2.1", status: "open" },
+  { id: "g1", title: "Pre-Algebra Group Class", subject: "Pre-Algebra", grade: "6th-8th Grade", date: "2026-05-03", time: "10:00 AM", duration: 90, capacity: 10, enrolled: 3, price: 25, description: "Small group session covering key Pre-Algebra concepts - fractions, integers, one-step equations, and more. Great for reinforcement and review.", zoomUrl: "https://us06web.zoom.us/j/83897527262?pwd=3PK8eBvZaVlzUR8jlmI5jL5BKHvzD2.1", status: "open" },
+  { id: "g2", title: "Algebra 1 Group Class", subject: "Algebra 1", grade: "8th-9th Grade", date: "2026-05-10", time: "11:00 AM", duration: 90, capacity: 10, enrolled: 4, price: 25, description: "Small group session focused on Algebra 1 topics - linear equations, inequalities, graphing, and systems. Collaborative problem solving with direct guidance.", zoomUrl: "https://us06web.zoom.us/j/83897527262?pwd=3PK8eBvZaVlzUR8jlmI5jL5BKHvzD2.1", status: "open" },
 ];
 
 export const mockProgressReports = [

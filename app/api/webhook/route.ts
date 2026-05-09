@@ -5,6 +5,14 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
+const EMAIL_FOOTER = `
+  <div style="background:#f5f3ff;padding:24px 32px;text-align:center;">
+    <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="100" style="display:block;margin:0 auto 12px;" />
+    <p style="margin:0 0 4px;color:#6b7280;font-size:13px;">Questions? Call <a href="tel:2272206227" style="color:#7c3aed;">(227) 220-6227</a> or email <a href="mailto:MsHoraceTutoring06@gmail.com" style="color:#7c3aed;">MsHoraceTutoring06@gmail.com</a></p>
+    <p style="margin:0;color:#9ca3af;font-size:12px;">MsHorace Tutoring &nbsp;·&nbsp; White Plains, Maryland &nbsp;·&nbsp; <a href="https://mshoracetutoring.com" style="color:#7c3aed;">mshoracetutoring.com</a></p>
+  </div>
+`;
+
 // Map product keys to Supabase Storage file paths
 const DIGITAL_PRODUCT_FILES: Record<string, string> = {
   "pre-algebra-practice":   "Practice Problems/PreAlgebra_Practice_Packet.pdf",
@@ -73,48 +81,44 @@ export async function POST(request: Request) {
         from: "MsHorace Tutoring <onboarding@resend.dev>",
         to: [buyerEmail],
         replyTo: "MsHoraceTutoring06@gmail.com",
-        subject: `Your Download: ${productName}`,
+        subject: `Your Download is Ready - ${productName}`,
         html: `
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8"></head>
-<body style="margin:0;padding:0;background:#f9f9f9;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
-  <div style="max-width:600px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#f3f4f6;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+<div style="max-width:600px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
 
-    <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:32px;text-align:center;">
-      <h1 style="color:#fff;margin:0;font-size:22px;font-weight:700;">Your Download is Ready!</h1>
-      <p style="color:#ddd6fe;margin:6px 0 0;font-size:14px;">MsHorace Tutoring</p>
-    </div>
-
-    <div style="padding:28px 32px;">
-      <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px 18px;margin-bottom:24px;text-align:center;">
-        <p style="margin:0;color:#16a34a;font-weight:600;font-size:15px;">Payment received - $${((session.amount_total ?? 0) / 100).toFixed(0)}</p>
-      </div>
-
-      <h2 style="margin:0 0 8px;font-size:18px;color:#1f2937;">You purchased:</h2>
-      <div style="background:#f5f3ff;border-radius:12px;padding:16px 20px;margin-bottom:24px;">
-        <p style="margin:0;font-size:16px;font-weight:700;color:#5b21b6;">${productName}</p>
-      </div>
-
-      ${downloadUrl ? `
-      <div style="text-align:center;margin-bottom:24px;">
-        <p style="margin:0 0 12px;color:#374151;font-size:14px;">Click the button below to download your PDF:</p>
-        <a href="${downloadUrl}" style="display:inline-block;background:#7c3aed;color:#fff;padding:14px 32px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;">Download PDF Now</a>
-        <p style="margin:12px 0 0;color:#9ca3af;font-size:12px;">This link expires in 7 days. Save your PDF after downloading.</p>
-      </div>
-      ` : `
-      <div style="background:#fef9f0;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 18px;margin-bottom:24px;">
-        <p style="margin:0;color:#78350f;font-size:14px;">Your download link will be emailed to you at <strong>${buyerEmail}</strong> shortly. If you don't receive it within 1 hour, please contact us.</p>
-      </div>
-      `}
-
-      <p style="color:#6b7280;font-size:14px;">Questions? Reply to this email or reach out at <a href="mailto:MsHoraceTutoring06@gmail.com" style="color:#7c3aed;">MsHoraceTutoring06@gmail.com</a> or <a href="tel:2272206227" style="color:#7c3aed;">(227) 220-6227</a>.</p>
-    </div>
-
-    <div style="padding:16px 32px;border-top:1px solid #f3f4f6;text-align:center;">
-      <p style="margin:0;color:#d1d5db;font-size:12px;">MsHorace Tutoring - White Plains, Maryland - mshoracetutoring.com</p>
-    </div>
+  <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
+    <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="110" style="display:block;margin:0 auto 8px;" />
+    <p style="color:#ddd6fe;margin:0;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600;">Your Download is Ready!</p>
   </div>
+
+  <div style="padding:28px 32px;">
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px 18px;margin-bottom:24px;text-align:center;">
+      <p style="margin:0;color:#16a34a;font-weight:700;font-size:15px;">Payment Received - $${((session.amount_total ?? 0) / 100).toFixed(0)}</p>
+    </div>
+
+    <h2 style="margin:0 0 8px;font-size:16px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;">You purchased:</h2>
+    <div style="background:#f5f3ff;border-radius:12px;padding:16px 20px;margin-bottom:24px;">
+      <p style="margin:0;font-size:18px;font-weight:700;color:#5b21b6;">${productName}</p>
+    </div>
+
+    ${downloadUrl ? `
+    <div style="text-align:center;margin-bottom:24px;">
+      <p style="margin:0 0 14px;color:#374151;font-size:14px;line-height:1.6;">Your PDF is ready to download. Click the button below:</p>
+      <a href="${downloadUrl}" style="display:inline-block;background:#7c3aed;color:#fff;padding:14px 36px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;">Download PDF Now</a>
+      <p style="margin:12px 0 0;color:#9ca3af;font-size:12px;">Link expires in 7 days. Save your PDF after downloading.</p>
+    </div>
+    ` : `
+    <div style="background:#fef9f0;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 18px;margin-bottom:24px;">
+      <p style="margin:0;color:#78350f;font-size:14px;">Your download will be sent to <strong>${buyerEmail}</strong> within 1 hour.</p>
+    </div>
+    `}
+  </div>
+
+  ${EMAIL_FOOTER}
+</div>
 </body>
 </html>`,
       });
@@ -168,73 +172,51 @@ export async function POST(request: Request) {
       html: `
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-<body style="margin:0;padding:0;background:#f9f9f9;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
-  <div style="max-width:600px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#f3f4f6;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+<div style="max-width:600px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
 
-    <!-- Header -->
-    <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:32px;text-align:center;">
-      <h1 style="color:#fff;margin:0;font-size:24px;font-weight:700;">Booking Confirmed!</h1>
-      <p style="color:#ddd6fe;margin:6px 0 0;font-size:14px;">MsHorace Tutoring</p>
+  <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
+    <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="110" style="display:block;margin:0 auto 8px;" />
+    <p style="color:#ddd6fe;margin:0;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600;">Booking Confirmed!</p>
+  </div>
+
+  <div style="padding:24px 32px 0;text-align:center;">
+    <div style="display:inline-block;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:50px;padding:8px 20px;">
+      <span style="color:#16a34a;font-weight:700;font-size:14px;">Payment Received - $${amountDollars}</span>
     </div>
+  </div>
 
-    <!-- Confirmation badge -->
-    <div style="padding:28px 32px 0;text-align:center;">
-      <div style="display:inline-block;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:50px;padding:8px 20px;">
-        <span style="color:#16a34a;font-weight:600;font-size:14px;">Payment Received - $${amountDollars}</span>
-      </div>
-    </div>
+  <div style="padding:24px 32px 0;">
+    <h2 style="margin:0 0 16px;font-size:16px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;">Session Details</h2>
+    <table style="width:100%;border-collapse:collapse;">
+      <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;width:40%;">Session Type</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${sessionLabel}</td></tr>
+      <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Subject</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${meta.subject}</td></tr>
+      <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Grade Level</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${meta.gradeLevel}</td></tr>
+      <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Date</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${meta.date}</td></tr>
+      <tr><td style="padding:10px 0;color:#6b7280;font-size:14px;">Time</td><td style="padding:10px 0;color:#111827;font-size:14px;font-weight:600;">${meta.time} Eastern Time</td></tr>
+    </table>
+  </div>
 
-    <!-- Session Details -->
-    <div style="padding:24px 32px 0;">
-      <h2 style="margin:0 0 16px;font-size:18px;color:#1f2937;">Session Details</h2>
-      <table style="width:100%;border-collapse:collapse;">
-        <tr>
-          <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;width:40%;">Session Type</td>
-          <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${sessionLabel}</td>
-        </tr>
-        <tr>
-          <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Subject</td>
-          <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${meta.subject}</td>
-        </tr>
-        <tr>
-          <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Grade Level</td>
-          <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${meta.gradeLevel}</td>
-        </tr>
-        <tr>
-          <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Date</td>
-          <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${meta.date}</td>
-        </tr>
-        <tr>
-          <td style="padding:10px 0;color:#6b7280;font-size:14px;">Time</td>
-          <td style="padding:10px 0;color:#111827;font-size:14px;font-weight:600;">${meta.time} Eastern Time</td>
-        </tr>
-      </table>
-    </div>
+  <div style="margin:20px 32px 0;background:#f5f3ff;border-radius:12px;padding:20px;">
+    <p style="margin:0 0 6px;font-size:11px;font-weight:700;color:#5b21b6;text-transform:uppercase;letter-spacing:0.08em;">Your Zoom Link</p>
+    <p style="margin:0 0 14px;color:#374151;font-size:14px;">Click the button at your session time to join:</p>
+    <a href="${zoomUrl}" style="display:inline-block;background:#7c3aed;color:#fff;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;">Join Zoom Meeting</a>
+  </div>
 
-    <!-- Zoom Link -->
-    <div style="margin:24px 32px 0;background:#f5f3ff;border-radius:12px;padding:20px;">
-      <p style="margin:0 0 8px;font-size:13px;font-weight:600;color:#5b21b6;text-transform:uppercase;letter-spacing:0.05em;">Your Zoom Link</p>
-      <p style="margin:0 0 12px;color:#374151;font-size:14px;">Click the button below at your session time to join:</p>
-      <a href="${zoomUrl}" style="display:inline-block;background:#7c3aed;color:#fff;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;">Join Zoom Meeting</a>
-    </div>
+  <div style="padding:20px 32px 28px;">
+    <h3 style="margin:0 0 10px;font-size:14px;font-weight:700;color:#1f2937;">What to Expect</h3>
+    <ul style="margin:0;padding-left:20px;color:#6b7280;font-size:14px;line-height:1.9;">
+      <li>Join the Zoom link a few minutes early</li>
+      <li>Have any homework, notes, or questions ready</li>
+      <li>You will receive a session report by email after the session</li>
+      <li>Need to reschedule? Email us 24+ hours before your session</li>
+    </ul>
+  </div>
 
-    <!-- What to expect -->
-    <div style="padding:24px 32px 0;">
-      <h3 style="margin:0 0 10px;font-size:15px;font-weight:600;color:#1f2937;">What to Expect</h3>
-      <ul style="margin:0;padding-left:20px;color:#6b7280;font-size:14px;line-height:1.8;">
-        <li>Join the Zoom link a few minutes early</li>
-        <li>Have any homework, notes, or questions ready</li>
-        <li>You will receive a session report by email after the session</li>
-        <li>Need to reschedule? Email us 24+ hours before your session</li>
-      </ul>
-    </div>
+  ${EMAIL_FOOTER}
 
-    <!-- Footer -->
-    <div style="margin:32px 0 0;padding:24px 32px;border-top:1px solid #f3f4f6;text-align:center;">
-      <p style="margin:0;color:#9ca3af;font-size:13px;">Questions? Reply to this email or reach out at <a href="mailto:MsHoraceTutoring06@gmail.com" style="color:#7c3aed;">MsHoraceTutoring06@gmail.com</a></p>
-      <p style="margin:8px 0 0;color:#9ca3af;font-size:13px;"><a href="tel:2272206227" style="color:#7c3aed;">(227) 220-6227</a></p>
-      <p style="margin:8px 0 0;color:#d1d5db;font-size:12px;">MsHorace Tutoring - White Plains, Maryland - mshoracetutoring.com</p>
+  <div style="padding:0;text-align:center;"><!-- spacer -->
     </div>
 
   </div>
