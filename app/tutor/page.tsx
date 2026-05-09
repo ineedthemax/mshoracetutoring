@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { mockTutor, mockAvailability, mockPricing } from "@/lib/mock-data";
+import Image from "next/image";
 import { Star, CheckCircle, Clock, BookOpen } from "lucide-react";
 
 const testimonials = [
@@ -23,8 +24,8 @@ export default function TutorPage() {
         <Card className="overflow-hidden">
           <div className="bg-gradient-to-r from-violet-600 to-violet-800 px-8 pt-8 pb-16 flex items-start justify-between">
             <div className="flex items-center gap-4">
-              <div className="w-20 h-20 bg-violet-200 rounded-2xl border-4 border-white/30 shadow-lg flex items-center justify-center flex-shrink-0">
-                <span className="text-2xl font-bold text-violet-700">SH</span>
+              <div className="w-20 h-20 rounded-2xl border-4 border-white/30 shadow-lg overflow-hidden flex-shrink-0">
+                <Image src="/stenita-horace.jpg" alt="Stenita Horace" width={80} height={80} className="w-full h-full object-cover object-top" />
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-white">{mockTutor.name}</h1>

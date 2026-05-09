@@ -11,6 +11,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { mockTutor } from "@/lib/mock-data";
+import Image from "next/image";
 import { CheckCircle, Heart, Lightbulb, Target, Users } from "lucide-react";
 
 const values = [
@@ -28,8 +29,8 @@ export default function AboutPage() {
       {/* Hero */}
       <section className="bg-gradient-to-br from-violet-900 to-violet-700 text-white py-20 px-4">
         <div className="max-w-3xl mx-auto text-center">
-          <div className="w-24 h-24 bg-violet-300 rounded-full mx-auto mb-6 flex items-center justify-center">
-            <span className="text-3xl font-bold text-violet-800">SH</span>
+          <div className="w-28 h-28 rounded-full mx-auto mb-6 overflow-hidden border-4 border-white/30 shadow-xl">
+            <Image src="/stenita-horace.jpg" alt="Stenita Horace" width={112} height={112} className="w-full h-full object-cover object-top" />
           </div>
           <h1 className="text-4xl font-bold mb-4">{mockTutor.name}</h1>
           <p className="text-violet-100 text-xl">{mockTutor.title}</p>
@@ -53,10 +54,10 @@ export default function AboutPage() {
       <section className="bg-gray-50 py-16 px-4">
         <div className="max-w-3xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="bg-gradient-to-br from-violet-100 to-violet-200 rounded-2xl aspect-square flex items-center justify-center">
+            <div className="bg-gradient-to-br from-violet-100 to-violet-200 rounded-2xl aspect-square flex items-center justify-center overflow-hidden">
               <div className="text-center p-8">
-                <div className="w-20 h-20 bg-violet-300 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-2xl font-bold text-violet-700">SH</span>
+                <div className="w-40 h-40 rounded-full mx-auto mb-4 overflow-hidden border-4 border-violet-300 shadow-lg">
+                  <Image src="/stenita-horace.jpg" alt="Stenita Horace" width={160} height={160} className="w-full h-full object-cover object-top" />
                 </div>
                 <p className="text-violet-700 font-medium">Stenita Horace</p>
                 <p className="text-violet-500 text-sm mt-1">6+ years · 900+ students</p>
