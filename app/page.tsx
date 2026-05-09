@@ -283,12 +283,12 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="w-full aspect-square max-w-sm mx-auto bg-gradient-to-br from-violet-100 to-violet-200 rounded-2xl flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-24 h-24 bg-violet-300 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-3xl font-bold text-violet-700">SH</span>
+              <div className="w-full aspect-square max-w-sm mx-auto bg-gradient-to-br from-violet-100 to-violet-200 rounded-2xl overflow-hidden flex items-center justify-center">
+                <div className="text-center p-6">
+                  <div className="w-40 h-40 rounded-full mx-auto mb-4 overflow-hidden border-4 border-violet-300 shadow-lg">
+                    <Image src="/stenita-horace.jpg" alt="Stenita Horace" width={160} height={160} className="w-full h-full object-cover object-top" />
                   </div>
-                  <p className="text-violet-600 font-medium">Stenita Horace</p>
+                  <p className="text-violet-700 font-semibold text-lg">Stenita Horace</p>
                   <p className="text-violet-500 text-sm">Math Tutor</p>
                 </div>
               </div>
