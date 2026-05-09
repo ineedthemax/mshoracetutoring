@@ -119,6 +119,27 @@ export function DashboardSidebar({ role }: SidebarProps) {
           })}
         </nav>
 
+        {/* Preview as (admin only) */}
+        {role === "admin" && (
+          <div className="px-4 pb-3">
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Preview As</p>
+            <div className="flex gap-2">
+              <Link
+                href="/parent"
+                className="flex-1 text-center py-2 rounded-xl text-xs font-semibold bg-blue-50 text-blue-600 hover:bg-blue-100 border border-blue-200 transition-colors"
+              >
+                👨‍👩‍👧 Parent
+              </Link>
+              <Link
+                href="/student"
+                className="flex-1 text-center py-2 rounded-xl text-xs font-semibold bg-violet-50 text-violet-600 hover:bg-violet-100 border border-violet-200 transition-colors"
+              >
+                🎒 Student
+              </Link>
+            </div>
+          </div>
+        )}
+
         {/* Bottom user area */}
         <div className="p-4 border-t border-gray-100">
           <div className="flex items-center gap-3 mb-3">

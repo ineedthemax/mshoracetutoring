@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { DashboardSidebar } from "@/components/layout/DashboardSidebar";
+import { PreviewBanner } from "@/components/PreviewBanner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -32,8 +33,12 @@ export default async function ParentDashboard() {
 
   const parentName = user?.user_metadata?.name ?? "there";
 
+  const isAdmin = user?.user_metadata?.role === "admin";
+
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-50 flex-col">
+      {isAdmin && <PreviewBanner role="parent" />}
+      <div className="flex flex-1">
       <DashboardSidebar role="parent" />
       <main className="md:ml-64 flex-1 p-4 md:p-8 pt-18 md:pt-8 pb-20 md:pb-8">
         {/* Header */}
@@ -164,6 +169,7 @@ export default async function ParentDashboard() {
           </CardContent>
         </Card>
       </main>
+      </div>
     </div>
   );
 }

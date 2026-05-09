@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { DashboardSidebar } from "@/components/layout/DashboardSidebar";
+import { PreviewBanner } from "@/components/PreviewBanner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -32,8 +33,12 @@ export default async function StudentDashboard() {
   const lastReport = reports?.[0];
   const studentName = user?.user_metadata?.name ?? "there";
 
+  const isAdmin = user?.user_metadata?.role === "admin";
+
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-50 flex-col">
+      {isAdmin && <PreviewBanner role="student" />}
+      <div className="flex flex-1">
       <DashboardSidebar role="student" />
       <main className="md:ml-64 flex-1 p-4 md:p-8 pt-18 md:pt-8 pb-20 md:pb-8">
         <div className="mb-8">
@@ -142,6 +147,7 @@ export default async function StudentDashboard() {
           </Card>
         </div>
       </main>
+      </div>
     </div>
   );
 }
