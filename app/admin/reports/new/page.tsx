@@ -1,15 +1,15 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Send, CheckCircle } from "lucide-react";
+import { ArrowLeft, Send, CheckCircle, Sparkles, Loader2 } from "lucide-react";
 
 export default function NewReportPage() {
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [quickNotes, setQuickNotes] = useState("");
   const [form, setForm] = useState({
     studentName: "",
     parentEmail: "",
@@ -26,6 +26,44 @@ export default function NewReportPage() {
 
   function update(field: string, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
+  }
+
+  async function handleAIGenerate() {
+    if (!form.studentName || !quickNotes.trim()) {
+      alert("Please enter the student name and your quick notes first.");
+      return;
+    }
+    setAiLoading(true);
+    try {
+      const res = await fetch("/api/ai/generate-report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          studentName: form.studentName,
+          subject: form.subject,
+          sessionType: form.sessionType,
+          sessionDate: form.sessionDate,
+          quickNotes,
+        }),
+      });
+      const data = await res.json();
+      if (data.report) {
+        setForm(prev => ({
+          ...prev,
+          topicsCovered: data.report.topicsCovered || prev.topicsCovered,
+          wins: data.report.wins || prev.wins,
+          areasToImprove: data.report.areasToImprove || prev.areasToImprove,
+          homeworkAssigned: data.report.homeworkAssigned || prev.homeworkAssigned,
+          nextStep: data.report.nextStep || prev.nextStep,
+        }));
+      } else {
+        alert("AI could not generate the report. Please fill in manually.");
+      }
+    } catch {
+      alert("Something went wrong with AI generation.");
+    } finally {
+      setAiLoading(false);
+    }
   }
 
   async function handleSend() {
@@ -61,7 +99,7 @@ export default function NewReportPage() {
         <h1 className="text-2xl font-bold text-gray-900 mb-2">Report Sent!</h1>
         <p className="text-gray-500 mb-6">The session report was emailed to <strong>{form.parentEmail}</strong>.</p>
         <div className="flex gap-3 justify-center">
-          <Button onClick={() => { setSent(false); setForm({ ...form, studentName: "", parentEmail: "", topicsCovered: "", wins: "", areasToImprove: "", homeworkAssigned: "", nextStep: "" }); }}>
+          <Button onClick={() => { setSent(false); setQuickNotes(""); setForm({ ...form, studentName: "", parentEmail: "", topicsCovered: "", wins: "", areasToImprove: "", homeworkAssigned: "", nextStep: "" }); }}>
             Write Another Report
           </Button>
           <Link href="/admin/reports">
@@ -81,7 +119,7 @@ export default function NewReportPage() {
       <h1 className="text-2xl font-bold text-gray-900 mb-6">New Session Report</h1>
 
       <div className="space-y-5">
-        {/* Student & Session Info */}
+        {/* Session Info */}
         <Card>
           <CardContent className="p-6 space-y-4">
             <h2 className="font-semibold text-gray-900">Session Info</h2>
@@ -126,10 +164,40 @@ export default function NewReportPage() {
           </CardContent>
         </Card>
 
-        {/* Report Content */}
+        {/* AI Generator */}
+        <Card className="border-violet-200 bg-gradient-to-br from-violet-50 to-white">
+          <CardContent className="p-6 space-y-3">
+            <div className="flex items-center gap-2 mb-1">
+              <Sparkles className="w-5 h-5 text-violet-600" />
+              <h2 className="font-semibold text-gray-900">AI Report Generator</h2>
+              <span className="text-xs bg-violet-100 text-violet-700 px-2 py-0.5 rounded-full font-medium">New</span>
+            </div>
+            <p className="text-sm text-gray-500">Jot down quick bullet points from the session and AI will write the full report for you. You can edit anything after.</p>
+            <textarea
+              value={quickNotes}
+              onChange={e => setQuickNotes(e.target.value)}
+              rows={4}
+              placeholder={`e.g.\n- covered slope and y-intercept\n- she got 8/10 right on her own by the end\n- still mixing up positive/negative slope\n- assigned worksheet pages 5-6\n- next: graphing from standard form`}
+              className="w-full border border-violet-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 resize-none bg-white"
+            />
+            <Button
+              onClick={handleAIGenerate}
+              disabled={aiLoading || !quickNotes.trim()}
+              className="w-full bg-violet-600 hover:bg-violet-700 flex items-center justify-center gap-2"
+            >
+              {aiLoading ? (
+                <><Loader2 className="w-4 h-4 animate-spin" /> Generating Report...</>
+              ) : (
+                <><Sparkles className="w-4 h-4" /> Generate Report with AI</>
+              )}
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Report Details */}
         <Card>
           <CardContent className="p-6 space-y-4">
-            <h2 className="font-semibold text-gray-900">Report Details</h2>
+            <h2 className="font-semibold text-gray-900">Report Details <span className="text-xs text-gray-400 font-normal ml-1">(auto-filled by AI or edit manually)</span></h2>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Topics Covered *</label>
               <input value={form.topicsCovered} onChange={e => update("topicsCovered", e.target.value)}
@@ -139,7 +207,7 @@ export default function NewReportPage() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Win This Session *</label>
               <textarea value={form.wins} onChange={e => update("wins", e.target.value)}
-                rows={2} placeholder="What did the student do well? What clicked?"
+                rows={3} placeholder="What did the student do well? What clicked?"
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 resize-none" />
             </div>
             <div>

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, Calendar, TrendingUp, CreditCard, BookOpen, Upload,
-  History, Users, FileText, BarChart2, User, LogOut, Clock,
+  History, Users, FileText, BarChart2, User, LogOut, Clock, Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -25,6 +25,7 @@ const navItems = {
     { label: "Dashboard", href: "/student", icon: LayoutDashboard },
     { label: "My Sessions", href: "/student/sessions", icon: Calendar },
     { label: "My Courses", href: "/student/courses", icon: BookOpen },
+    { label: "AI Homework Help", href: "/student/homework-help", icon: Sparkles },
     { label: "Homework", href: "/student/homework", icon: Upload },
     { label: "History", href: "/student/history", icon: History },
   ],
@@ -65,7 +66,7 @@ const mobileNavItems = {
     { label: "Home", href: "/student", icon: LayoutDashboard },
     { label: "Sessions", href: "/student/sessions", icon: Calendar },
     { label: "Courses", href: "/student/courses", icon: BookOpen },
-    { label: "Homework", href: "/student/homework", icon: Upload },
+    { label: "AI Help", href: "/student/homework-help", icon: Sparkles },
   ],
   admin: [
     { label: "Home", href: "/admin", icon: LayoutDashboard },
