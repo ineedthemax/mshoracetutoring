@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
+import { createClient } from "@/lib/supabase/server";
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! });
 
@@ -29,6 +30,13 @@ IMPORTANT:
 - Use emojis occasionally to keep it friendly (not too many)`;
 
 export async function POST(req: NextRequest) {
+  // Auth guard — must be logged in (student, parent, or admin)
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const { messages } = await req.json();
 

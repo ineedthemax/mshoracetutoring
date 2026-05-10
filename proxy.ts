@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function proxy(request: NextRequest) {
+  const { pathname } = request.nextUrl;
   let supabaseResponse = NextResponse.next({ request });
 
   const supabase = createServerClient(
@@ -24,14 +25,42 @@ export async function proxy(request: NextRequest) {
   );
 
   const { data: { user } } = await supabase.auth.getUser();
+  const role = user?.user_metadata?.role as string | undefined;
 
-  const { pathname } = request.nextUrl;
+  // ── /admin — must be logged in AND have role=admin ──
+  if (pathname.startsWith("/admin")) {
+    if (!user) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+    if (role !== "admin") {
+      const dest = role === "student" ? "/student" : "/parent";
+      return NextResponse.redirect(new URL(dest, request.url));
+    }
+  }
 
-  const protectedPaths = ["/parent", "/student", "/admin"];
-  const isProtected = protectedPaths.some((p) => pathname.startsWith(p));
+  // ── /parent — must be logged in; students get bounced to /student ──
+  if (pathname.startsWith("/parent")) {
+    if (!user) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+    if (role === "student") {
+      return NextResponse.redirect(new URL("/student", request.url));
+    }
+  }
 
-  if (isProtected && !user) {
-    return NextResponse.redirect(new URL("/login", request.url));
+  // ── /student — must be logged in ──
+  if (pathname.startsWith("/student")) {
+    if (!user) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+  }
+
+  // ── Redirect already-logged-in users away from /login and /signup ──
+  if ((pathname === "/login" || pathname === "/signup") && user) {
+    const dest =
+      role === "admin" ? "/admin" :
+      role === "student" ? "/student" : "/parent";
+    return NextResponse.redirect(new URL(dest, request.url));
   }
 
   return supabaseResponse;
