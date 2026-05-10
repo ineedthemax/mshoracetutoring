@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { DashboardSidebar } from "@/components/layout/DashboardSidebar";
 import { PreviewBanner } from "@/components/PreviewBanner";
+import { WelcomeChecklist } from "@/components/WelcomeChecklist";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -41,6 +42,9 @@ export default async function ParentDashboard() {
       <div className="flex flex-1">
       <DashboardSidebar role="parent" />
       <main className="md:ml-64 flex-1 p-4 md:p-8 pt-18 md:pt-8 pb-20 md:pb-8">
+        {/* Welcome checklist */}
+        <WelcomeChecklist role="parent" hasSessions={allSessions.length > 0} hasReports={!!(reports && reports.length > 0)} />
+
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>

@@ -322,6 +322,82 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Sample Session Report */}
+      <section className="bg-white py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <Badge className="mb-3 bg-violet-100 text-violet-700 border-0">After Every Session</Badge>
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">Here's exactly what you'll receive</h2>
+            <p className="text-gray-500 text-lg max-w-2xl mx-auto">Every session ends with a detailed report sent straight to your inbox. No guessing. No "I don't know what they covered." Full visibility, every time.</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            {/* Sample report card */}
+            <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-lg">
+              {/* Header */}
+              <div className="bg-gradient-to-r from-violet-600 to-violet-800 px-6 py-5">
+                <div className="flex items-center gap-3 mb-3">
+                  <Image src="/Logo.png" alt="MsHorace Tutoring" width={70} height={28} className="h-7 w-auto" />
+                  <span className="text-violet-200 text-xs font-semibold uppercase tracking-wider">Session Report</span>
+                </div>
+                <h3 className="text-white font-bold text-lg">Jordan Campbell</h3>
+                <p className="text-violet-200 text-sm">Algebra 1 · 1-on-1 · May 15, 2026</p>
+              </div>
+              {/* Confidence score */}
+              <div className="px-6 py-4 bg-violet-50 border-b border-violet-100">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-semibold text-violet-700 uppercase tracking-wide text-xs">Confidence Score</span>
+                  <span className="text-2xl font-bold text-green-600">82%</span>
+                </div>
+                <div className="h-2 bg-violet-100 rounded-full overflow-hidden">
+                  <div className="h-2 bg-green-500 rounded-full" style={{width:"82%"}} />
+                </div>
+              </div>
+              {/* Body */}
+              <div className="px-6 py-4 space-y-4">
+                <div>
+                  <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Topics Covered</p>
+                  <p className="text-sm text-gray-700">Slope-intercept form, graphing linear equations, identifying slope and y-intercept from an equation.</p>
+                </div>
+                <div className="bg-green-50 border-l-4 border-green-500 rounded-r-xl p-3">
+                  <p className="text-xs font-bold text-green-700 uppercase tracking-wide mb-1">Win This Session</p>
+                  <p className="text-sm text-green-800">Jordan correctly identified slope and y-intercept on 9 out of 10 problems independently. Huge improvement from last week!</p>
+                </div>
+                <div className="bg-amber-50 border-l-4 border-amber-400 rounded-r-xl p-3">
+                  <p className="text-xs font-bold text-amber-700 uppercase tracking-wide mb-1">Keep Working On</p>
+                  <p className="text-sm text-amber-800">Graphing from standard form. Will practice converting to slope-intercept form first.</p>
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Recommended Next Step</p>
+                  <p className="text-sm text-gray-700">Practice writing equations from two points. Next session: graphing systems of equations.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Value points */}
+            <div className="space-y-6">
+              {[
+                { icon: "📊", title: "Confidence Score Every Session", desc: "A 0-100 score so you can track real growth over time - not just whether they showed up. Watch the number climb as the weeks go on." },
+                { icon: "🏆", title: "Wins Highlighted Every Time", desc: "Every report starts with what your student did well. Progress gets celebrated before problems are discussed." },
+                { icon: "📚", title: "Homework + Next Step Included", desc: "You always know exactly what was assigned and what Ms. Horace recommends focusing on before the next session." },
+                { icon: "📬", title: "Delivered to Your Inbox", desc: "Reports arrive automatically after every session. No app to check, no portal to log into. Just an email." },
+              ].map((item) => (
+                <div key={item.title} className="flex gap-4">
+                  <div className="text-2xl flex-shrink-0">{item.icon}</div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 mb-1">{item.title}</h3>
+                    <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+              <Link href="/book">
+                <Button className="mt-2">Book a Session - See It for Real</Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Parent trust section */}
       <section className="bg-gray-50 py-20 px-4">
         <div className="max-w-5xl mx-auto">

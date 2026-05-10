@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { DashboardSidebar } from "@/components/layout/DashboardSidebar";
 import { PreviewBanner } from "@/components/PreviewBanner";
+import { WelcomeChecklist } from "@/components/WelcomeChecklist";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -41,6 +42,9 @@ export default async function StudentDashboard() {
       <div className="flex flex-1">
       <DashboardSidebar role="student" />
       <main className="md:ml-64 flex-1 p-4 md:p-8 pt-18 md:pt-8 pb-20 md:pb-8">
+        {/* Welcome checklist */}
+        <WelcomeChecklist role="student" hasSessions={allSessions.length > 0} hasReports={!!lastReport} />
+
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900">Welcome back, {studentName}!</h1>
           <p className="text-gray-500 text-sm mt-1">Here&apos;s what&apos;s coming up and where you left off.</p>
