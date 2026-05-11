@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { GoogleReviews } from "@/components/GoogleReviews";
 import { mockTutor, mockPricing } from "@/lib/mock-data";
 import {
   Users, Star, TrendingUp, Award, BookOpen, Video, FileText,
@@ -490,74 +491,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="bg-white py-20 px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <Badge className="mb-3 bg-violet-100 text-violet-700 border-0">What Families Are Saying</Badge>
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">Real results from real students</h2>
-            <p className="text-gray-500">Hear from the parents and students who&apos;ve worked with Ms. Horace.</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                name: "Mkiyah Gonzalez",
-                role: "Student · Verified Google Review",
-                text: "Ms. Horace as my math tutor has been an incredible experience for me. My confidence in math has significantly improved, and I've seen amazing results while in class with her help. I highly recommend her to anyone looking for a knowledgeable and supportive tutor!",
-                stars: 5,
-                initial: "MG",
-                color: "bg-yellow-100 text-yellow-700",
-                verified: true,
-              },
-              {
-                name: "Kezia Thompson",
-                role: "8th Grade Student",
-                text: "I used to freeze up on tests but now I actually understand what I'm doing. Ms. Horace breaks everything down so it makes sense. My grade went from a D to a B in one semester.",
-                stars: 5,
-                initial: "KT",
-                color: "bg-blue-100 text-blue-700",
-                verified: false,
-              },
-              {
-                name: "Renee Williams",
-                role: "Parent · 9th Grader",
-                text: "I appreciate how Ms. Horace explains everything step-by-step. My daughter finally understands math concepts she's been struggling with for years. Worth every dollar.",
-                stars: 5,
-                initial: "RW",
-                color: "bg-green-100 text-green-700",
-                verified: false,
-              },
-            ].map((t) => (
-              <Card key={t.name} className={`hover:shadow-md transition-shadow ${t.verified ? 'border-yellow-200 ring-1 ring-yellow-200' : ''}`}>
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex gap-0.5">
-                      {[1,2,3,4,5].map(i => (
-                        <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                      ))}
-                    </div>
-                    {t.verified && (
-                      <span className="flex items-center gap-1 text-xs font-semibold text-green-700 bg-green-50 border border-green-200 px-2 py-0.5 rounded-full">
-                        <CheckCircle className="w-3 h-3" /> Google Review
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-6 italic">&ldquo;{t.text}&rdquo;</p>
-                  <div className="flex items-center gap-3">
-                    <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold ${t.color}`}>
-                      {t.initial}
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-gray-900">{t.name}</p>
-                      <p className="text-xs text-gray-400">{t.role}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Live Google Reviews */}
+      <GoogleReviews />
 
       {/* Google Review CTA */}
       <section className="bg-violet-600 py-16 px-4">
