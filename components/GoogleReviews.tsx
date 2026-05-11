@@ -161,7 +161,7 @@ export async function GoogleReviews() {
         {/* See all link */}
         <div className="text-center mt-8">
           <a
-            href="https://www.google.com/maps/place/MsHoraceTutoring/@38.6214401,-76.9105131,17z"
+            href="https://www.google.com/maps/place/MsHoraceTutoring/@38.6214401,-76.913088,17z/data=!3m1!4b1!4m6!3m5!1s0x89b7a1c13c687af7:0x35a4299364cda514!8m2!3d38.6214401!4d-76.9105131!16s%2Fg%2F11z9xt4xzz?entry=ttu&g_ep=EgoyMDI2MDUwNi4wIKXMDSoASAFQAw%3D%3D"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm font-semibold text-violet-600 hover:text-violet-800 transition-colors"
