@@ -3,38 +3,40 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 interface GoogleReview {
-  author_name: string;
   rating: number;
-  text: string;
-  relative_time_description: string;
-  profile_photo_url?: string;
+  text?: { text: string };
+  relativePublishTimeDescription: string;
+  authorAttribution: {
+    displayName: string;
+    photoUri?: string;
+  };
 }
 
 interface PlaceDetails {
   rating: number;
-  user_ratings_total: number;
-  reviews: GoogleReview[];
+  userRatingCount: number;
+  reviews?: GoogleReview[];
 }
 
-// Hardcoded fallback shown when API key is not set or fetch fails
+// Fallback shown while API key is not set or fetch fails
 const FALLBACK_REVIEWS: GoogleReview[] = [
   {
-    author_name: "Mkiyah Gonzalez",
     rating: 5,
-    text: "Ms. Horace as my math tutor has been an incredible experience for me. My confidence in math has significantly improved, and I've seen amazing results while in class with her help. I highly recommend her to anyone looking for a knowledgeable and supportive tutor!",
-    relative_time_description: "a month ago",
+    text: { text: "Ms. Horace makes math easier to understand!! Never thought I would get it, but she makes math simple and now I have more confidence in my skills! She's very patient and thorough. Highly recommend Ms. Horace 10/10!!" },
+    relativePublishTimeDescription: "in the last week",
+    authorAttribution: { displayName: "Mari Judge" },
   },
   {
-    author_name: "Kezia Thompson",
     rating: 5,
-    text: "I used to freeze up on tests but now I actually understand what I'm doing. Ms. Horace breaks everything down so it makes sense. My grade went from a D to a B in one semester.",
-    relative_time_description: "2 months ago",
+    text: { text: "Ms. Horace as my math tutor has been an incredible experience for me. My confidence in math has significantly improved, and I've seen amazing results while in class with her help. I highly recommend her to anyone looking for a knowledgeable and supportive tutor!" },
+    relativePublishTimeDescription: "in the last week",
+    authorAttribution: { displayName: "Mkiyah Gonzalez" },
   },
   {
-    author_name: "Renee Williams",
     rating: 5,
-    text: "I appreciate how Ms. Horace explains everything step-by-step. My daughter finally understands math concepts she's been struggling with for years. Worth every dollar.",
-    relative_time_description: "3 months ago",
+    text: { text: "Ms. Horace is an amazing tutor. Very knowledgeable and patient. Those who are and have been tutored by her have shown growth and confidence in their academics. I highly recommend her!" },
+    relativePublishTimeDescription: "in the last week",
+    authorAttribution: { displayName: "Brooke Demby" },
   },
 ];
 
@@ -42,22 +44,23 @@ async function fetchGoogleReviews(): Promise<{ place: PlaceDetails | null; live:
   const apiKey = process.env.GOOGLE_MAPS_API_KEY;
   const placeId = "ChIJ93poPMGht4kRFKXNZJMppDU";
 
-  if (!apiKey) {
-    return { place: null, live: false };
-  }
+  if (!apiKey) return { place: null, live: false };
 
   try {
     const res = await fetch(
-      `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=name,rating,user_ratings_total,reviews&key=${apiKey}`,
-      { next: { revalidate: 86400 } } // cache for 24 hours
+      `https://places.googleapis.com/v1/places/${placeId}`,
+      {
+        headers: {
+          "X-Goog-Api-Key": apiKey,
+          "X-Goog-FieldMask": "displayName,rating,userRatingCount,reviews",
+        },
+        next: { revalidate: 86400 }, // cache 24 hours
+      }
     );
 
     if (!res.ok) return { place: null, live: false };
-
-    const data = await res.json();
-    if (data.status !== "OK" || !data.result) return { place: null, live: false };
-
-    return { place: data.result as PlaceDetails, live: true };
+    const data: PlaceDetails = await res.json();
+    return { place: data, live: true };
   } catch {
     return { place: null, live: false };
   }
@@ -78,21 +81,23 @@ const AVATAR_COLORS = [
 export async function GoogleReviews() {
   const { place, live } = await fetchGoogleReviews();
 
+  // Filter out reviews with no text, take top 3
   const reviews = (live && place?.reviews?.length)
-    ? place.reviews.filter(r => r.text?.trim().length > 20).slice(0, 3)
+    ? place.reviews.filter(r => r.text?.text && r.text.text.trim().length > 20).slice(0, 3)
     : FALLBACK_REVIEWS;
 
-  const overallRating = live && place ? place.rating : 4.9;
-  const totalReviews = live && place ? place.user_ratings_total : 0;
+  const overallRating = live && place ? place.rating : 5.0;
+  const totalReviews = live && place ? place.userRatingCount : 0;
 
   return (
     <section className="bg-white py-20 px-4">
       <div className="max-w-5xl mx-auto">
+
         {/* Header */}
         <div className="text-center mb-12">
           <Badge className="mb-3 bg-violet-100 text-violet-700 border-0">What Families Are Saying</Badge>
           <h2 className="text-3xl font-bold text-gray-900 mb-3">Real results from real students</h2>
-          <div className="flex items-center justify-center gap-2 mt-3">
+          <div className="flex items-center justify-center gap-2 mt-3 flex-wrap">
             <div className="flex gap-0.5">
               {[1,2,3,4,5].map(i => (
                 <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
@@ -103,19 +108,18 @@ export async function GoogleReviews() {
               <span className="text-sm text-gray-400">({totalReviews} Google reviews)</span>
             )}
             {live && (
-              <span className="flex items-center gap-1 text-xs font-semibold text-green-700 bg-green-50 border border-green-200 px-2 py-1 rounded-full ml-1">
+              <span className="flex items-center gap-1 text-xs font-semibold text-green-700 bg-green-50 border border-green-200 px-2 py-1 rounded-full">
                 <CheckCircle className="w-3 h-3" /> Live from Google
               </span>
             )}
           </div>
         </div>
 
-        {/* Review cards */}
+        {/* Cards */}
         <div className="grid md:grid-cols-3 gap-6">
           {reviews.map((review, i) => (
-            <Card key={`${review.author_name}-${i}`} className="border-yellow-200 ring-1 ring-yellow-100 hover:shadow-md transition-shadow">
+            <Card key={i} className="border-yellow-200 ring-1 ring-yellow-100 hover:shadow-md transition-shadow">
               <CardContent className="p-6">
-                {/* Stars + badge */}
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex gap-0.5">
                     {Array.from({ length: review.rating }).map((_, s) => (
@@ -127,28 +131,26 @@ export async function GoogleReviews() {
                   </span>
                 </div>
 
-                {/* Review text */}
                 <p className="text-gray-600 text-sm leading-relaxed mb-6 italic line-clamp-5">
-                  &ldquo;{review.text}&rdquo;
+                  &ldquo;{review.text?.text}&rdquo;
                 </p>
 
-                {/* Author */}
                 <div className="flex items-center gap-3">
-                  {review.profile_photo_url ? (
+                  {review.authorAttribution.photoUri ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
-                      src={review.profile_photo_url}
-                      alt={review.author_name}
+                      src={review.authorAttribution.photoUri}
+                      alt={review.authorAttribution.displayName}
                       className="w-9 h-9 rounded-full object-cover"
                     />
                   ) : (
                     <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold ${AVATAR_COLORS[i % AVATAR_COLORS.length]}`}>
-                      {initials(review.author_name)}
+                      {initials(review.authorAttribution.displayName)}
                     </div>
                   )}
                   <div>
-                    <p className="text-sm font-semibold text-gray-900">{review.author_name}</p>
-                    <p className="text-xs text-gray-400">{review.relative_time_description}</p>
+                    <p className="text-sm font-semibold text-gray-900">{review.authorAttribution.displayName}</p>
+                    <p className="text-xs text-gray-400">{review.relativePublishTimeDescription}</p>
                   </div>
                 </div>
               </CardContent>
@@ -156,7 +158,7 @@ export async function GoogleReviews() {
           ))}
         </div>
 
-        {/* See all reviews link */}
+        {/* See all link */}
         <div className="text-center mt-8">
           <a
             href="https://www.google.com/maps/place/MsHoraceTutoring/@38.6214401,-76.9105131,17z"
