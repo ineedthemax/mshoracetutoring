@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { createClient } from "@/lib/supabase/server";
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
@@ -13,6 +14,13 @@ const FOOTER = `
 `;
 
 export async function POST(req: NextRequest) {
+  // Auth guard — admin only
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user || user.user_metadata?.role !== "admin") {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const {
     studentName,
     parentEmail,
@@ -62,13 +70,11 @@ export async function POST(req: NextRequest) {
 <body style="margin:0;padding:0;background:#f3f4f6;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
 <div style="max-width:600px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
 
-  <!-- Header with logo -->
   <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
     <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="110" style="margin-bottom:8px;display:block;margin-left:auto;margin-right:auto;" />
     <p style="color:#ddd6fe;margin:0;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600;">Session Progress Report</p>
   </div>
 
-  <!-- Tutor intro strip with photo -->
   <div style="background:#faf5ff;padding:16px 32px;display:table;width:100%;box-sizing:border-box;border-bottom:1px solid #ede9fe;">
     <div style="display:table-cell;vertical-align:middle;width:56px;">
       <img src="https://mshoracetutoring.com/stenita-horace.jpg" alt="Ms. Horace" width="48" height="48" style="border-radius:50%;object-fit:cover;border:2px solid #7c3aed;display:block;" />
@@ -79,13 +85,11 @@ export async function POST(req: NextRequest) {
     </div>
   </div>
 
-  <!-- Student info -->
   <div style="padding:24px 32px 0;">
     <h2 style="margin:0 0 4px;font-size:22px;color:#1f2937;font-weight:700;">${studentName}</h2>
     <p style="margin:0;color:#6b7280;font-size:14px;">${subject} &nbsp;·&nbsp; ${sessionType} &nbsp;·&nbsp; ${sessionDate}</p>
   </div>
 
-  <!-- Confidence score with progress bar -->
   <div style="margin:20px 32px 0;background:#f5f3ff;border-radius:12px;padding:16px 20px;">
     <div style="display:table;width:100%;">
       <div style="display:table-cell;vertical-align:middle;">
@@ -96,35 +100,30 @@ export async function POST(req: NextRequest) {
       </div>
     </div>
     <div style="margin-top:10px;background:#e9d5ff;border-radius:99px;height:8px;overflow:hidden;">
-      <div style="width:${score}%;background:${scoreBarColor};height:8px;border-radius:99px;transition:width 0.5s;"></div>
+      <div style="width:${score}%;background:${scoreBarColor};height:8px;border-radius:99px;"></div>
     </div>
   </div>
 
-  <!-- Topics covered -->
   <div style="padding:20px 32px 0;">
     <h3 style="margin:0 0 8px;font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.08em;">Topics Covered</h3>
     <p style="margin:0;color:#374151;font-size:15px;line-height:1.6;">${topicsCovered}</p>
   </div>
 
-  <!-- Win -->
   <div style="margin:16px 32px 0;background:#f0fdf4;border-left:4px solid #22c55e;border-radius:0 10px 10px 0;padding:14px 18px;">
     <p style="margin:0 0 5px;font-size:11px;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:0.08em;">Win This Session</p>
     <p style="margin:0;color:#166534;font-size:14px;line-height:1.6;">${wins}</p>
   </div>
 
-  <!-- Areas to improve -->
   <div style="margin:12px 32px 0;background:#fef9f0;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 18px;">
     <p style="margin:0 0 5px;font-size:11px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:0.08em;">Areas to Keep Working On</p>
     <p style="margin:0;color:#78350f;font-size:14px;line-height:1.6;">${areasToImprove}</p>
   </div>
 
-  <!-- Homework -->
   <div style="padding:16px 32px 0;">
     <h3 style="margin:0 0 6px;font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.08em;">Homework Assigned</h3>
     <p style="margin:0;color:#374151;font-size:14px;line-height:1.6;">${homeworkAssigned || "None assigned"}</p>
   </div>
 
-  <!-- Next step -->
   <div style="margin:16px 32px 0;background:#f5f3ff;border-radius:12px;padding:16px 20px;">
     <p style="margin:0 0 6px;font-size:11px;font-weight:700;color:#5b21b6;text-transform:uppercase;letter-spacing:0.08em;">Recommended Next Step</p>
     <p style="margin:0;color:#374151;font-size:14px;line-height:1.6;">${nextStep}</p>
