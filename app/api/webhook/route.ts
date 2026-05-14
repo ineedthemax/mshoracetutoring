@@ -13,14 +13,13 @@ const EMAIL_FOOTER = `
   </div>
 `;
 
-// Map product keys to Supabase Storage file paths
 const DIGITAL_PRODUCT_FILES: Record<string, string> = {
-  "pre-algebra-practice":   "Practice Problems/PreAlgebra_Practice_Packet.pdf",
-  "algebra1-practice":      "Practice Problems/AlgebraI_Practice_Packet.pdf",
-  "pre-algebra-study-guide":"Study Guide/PreAlgebra_Study_Guide.pdf",
-  "algebra1-study-guide":   "Study Guide/AlgebraI_Study_Guide.pdf",
-  "pre-algebra-exam-prep":  "Exam Prep/PreAlgebra_Exam_Prep.pdf",
-  "algebra1-exam-prep":     "Exam Prep/AlgebraI_Exam_Prep.pdf",
+  "pre-algebra-practice":    "Practice Problems/PreAlgebra_Practice_Packet.pdf",
+  "algebra1-practice":       "Practice Problems/AlgebraI_Practice_Packet.pdf",
+  "pre-algebra-study-guide": "Study Guide/PreAlgebra_Study_Guide.pdf",
+  "algebra1-study-guide":    "Study Guide/AlgebraI_Study_Guide.pdf",
+  "pre-algebra-exam-prep":   "Exam Prep/PreAlgebra_Exam_Prep.pdf",
+  "algebra1-exam-prep":      "Exam Prep/AlgebraI_Exam_Prep.pdf",
 };
 
 const ZOOM_LINKS: Record<string, string> = {
@@ -35,6 +34,27 @@ const SESSION_LABELS: Record<string, string> = {
   "group":   "Group Class Session",
 };
 
+// Alert Stenita immediately if anything goes wrong
+async function alertAdmin(subject: string, details: string) {
+  try {
+    await resend.emails.send({
+      from: "MsHorace Tutoring <onboarding@resend.dev>",
+      to: ["MsHoraceTutoring06@gmail.com"],
+      subject: `⚠️ Action Needed: ${subject}`,
+      html: `
+        <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;">
+          <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:12px;padding:20px;margin-bottom:20px;">
+            <h2 style="color:#dc2626;margin:0 0 8px;">⚠️ ${subject}</h2>
+            <p style="color:#7f1d1d;margin:0;font-size:14px;white-space:pre-wrap;">${details}</p>
+          </div>
+          <p style="color:#6b7280;font-size:13px;">Log in to your <a href="https://mshoracetutoring.com/admin" style="color:#7c3aed;">admin dashboard</a> to take action.</p>
+        </div>`,
+    });
+  } catch {
+    // Don't let alert failure break anything
+  }
+}
+
 export async function POST(request: Request) {
   const body = await request.text();
   const sig = request.headers.get("stripe-signature")!;
@@ -42,7 +62,8 @@ export async function POST(request: Request) {
   let event;
   try {
     event = stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
-  } catch {
+  } catch (err: any) {
+    await alertAdmin("Webhook Signature Failed", `A payment webhook arrived but failed signature verification.\n\nError: ${err?.message}\n\nThis could mean someone is sending fake requests, or the webhook secret is misconfigured.`);
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
@@ -51,22 +72,28 @@ export async function POST(request: Request) {
     const meta = session.metadata ?? {};
     const admin = createAdminClient();
 
-    // --- Digital Product Purchase ---
+    // ─── Digital Product Purchase ───────────────────────────────────────
     if (meta.type === "digital_product") {
-      const buyerEmail = session.customer_email ?? meta.buyerEmail ?? "";
+      const buyerEmail = session.customer_details?.email ?? session.customer_email ?? meta.buyerEmail ?? "";
       const productName = meta.productName ?? "Study Resource";
       const filePath = DIGITAL_PRODUCT_FILES[meta.productKey];
 
-      // Generate a signed download URL valid for 7 days
+      // Step 1: Always save to DB first regardless of email outcome
       let downloadUrl = "";
+      let signedUrlError = null;
+
       if (filePath) {
-        const { data: signedData } = await admin.storage
+        const { data: signedData, error } = await admin.storage
           .from("digital-products")
-          .createSignedUrl(filePath, 60 * 60 * 24 * 7); // 7 days
-        downloadUrl = signedData?.signedUrl ?? "";
+          .createSignedUrl(filePath, 60 * 60 * 24 * 7);
+        if (error) {
+          signedUrlError = error.message;
+        } else {
+          downloadUrl = signedData?.signedUrl ?? "";
+        }
       }
 
-      await admin.from("digital_purchases").insert({
+      const { error: dbError } = await admin.from("digital_purchases").insert({
         buyer_email: buyerEmail,
         product_key: meta.productKey,
         product_name: productName,
@@ -77,7 +104,31 @@ export async function POST(request: Request) {
         download_sent: !!downloadUrl,
       });
 
-      await resend.emails.send({
+      if (dbError) {
+        await alertAdmin(
+          "Digital Purchase Not Recorded",
+          `A customer paid for ${productName} but the purchase was NOT saved to the database.\n\nCustomer: ${buyerEmail}\nAmount: $${((session.amount_total ?? 0) / 100).toFixed(2)}\nStripe Session: ${session.id}\nDB Error: ${dbError.message}`
+        );
+      }
+
+      // Step 2: Send delivery email — alert if it fails
+      if (!buyerEmail) {
+        await alertAdmin(
+          "Digital Purchase — No Email Address",
+          `A customer paid $${((session.amount_total ?? 0) / 100).toFixed(2)} for ${productName} but no email address was captured.\n\nStripe Session: ${session.id}\nProduct Key: ${meta.productKey}\n\nManually resend from the admin dashboard.`
+        );
+        return NextResponse.json({ received: true });
+      }
+
+      if (signedUrlError || !downloadUrl) {
+        await alertAdmin(
+          "Digital Purchase — Download Link Failed",
+          `Could not generate a download link for ${productName}.\n\nCustomer: ${buyerEmail}\nStripe Session: ${session.id}\nError: ${signedUrlError ?? "No URL returned"}\n\nManually resend from the admin dashboard.`
+        );
+        return NextResponse.json({ received: true });
+      }
+
+      const { error: emailError } = await resend.emails.send({
         from: "MsHorace Tutoring <onboarding@resend.dev>",
         to: [buyerEmail],
         replyTo: "MsHoraceTutoring06@gmail.com",
@@ -88,52 +139,53 @@ export async function POST(request: Request) {
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
 <body style="margin:0;padding:0;background:#f3f4f6;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
 <div style="max-width:600px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
-
   <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
     <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="110" style="display:block;margin:0 auto 8px;" />
     <p style="color:#ddd6fe;margin:0;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600;">Your Download is Ready!</p>
   </div>
-
   <div style="padding:28px 32px;">
     <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px 18px;margin-bottom:24px;text-align:center;">
       <p style="margin:0;color:#16a34a;font-weight:700;font-size:15px;">Payment Received - $${((session.amount_total ?? 0) / 100).toFixed(0)}</p>
     </div>
-
-    <h2 style="margin:0 0 8px;font-size:16px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;">You purchased:</h2>
     <div style="background:#f5f3ff;border-radius:12px;padding:16px 20px;margin-bottom:24px;">
       <p style="margin:0;font-size:18px;font-weight:700;color:#5b21b6;">${productName}</p>
     </div>
-
-    ${downloadUrl ? `
     <div style="text-align:center;margin-bottom:24px;">
       <p style="margin:0 0 14px;color:#374151;font-size:14px;line-height:1.6;">Your PDF is ready to download. Click the button below:</p>
       <a href="${downloadUrl}" style="display:inline-block;background:#7c3aed;color:#fff;padding:14px 36px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;">Download PDF Now</a>
       <p style="margin:12px 0 0;color:#9ca3af;font-size:12px;">Link expires in 7 days. Save your PDF after downloading.</p>
     </div>
-    ` : `
-    <div style="background:#fef9f0;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:14px 18px;margin-bottom:24px;">
-      <p style="margin:0;color:#78350f;font-size:14px;">Your download will be sent to <strong>${buyerEmail}</strong> within 1 hour.</p>
-    </div>
-    `}
   </div>
-
   ${EMAIL_FOOTER}
 </div>
 </body>
 </html>`,
       });
 
+      if (emailError) {
+        await alertAdmin(
+          "Digital Purchase — Delivery Email Failed",
+          `The purchase was saved but the delivery email failed to send.\n\nCustomer: ${buyerEmail}\nProduct: ${productName}\nStripe Session: ${session.id}\nEmail Error: ${emailError.message}\n\nManually resend from the admin dashboard.`
+        );
+      } else {
+        // Mark email as sent in DB
+        await admin.from("digital_purchases")
+          .update({ download_sent: true })
+          .eq("stripe_session_id", session.id);
+      }
+
       return NextResponse.json({ received: true });
     }
 
+    // ─── Session Booking ────────────────────────────────────────────────
     const zoomUrl = ZOOM_LINKS[meta.sessionType] ?? ZOOM_LINKS["solo-60"];
     const sessionLabel = SESSION_LABELS[meta.sessionType] ?? "Tutoring Session";
-    const parentEmail = meta.parentEmail ?? session.customer_email;
-    const parentName = meta.parentName ?? "Parent";
+    const parentEmail = meta.parentEmail ?? session.customer_details?.email ?? session.customer_email;
+    const parentName = meta.parentName ?? session.customer_details?.name ?? "Parent";
     const amountDollars = ((session.amount_total ?? 0) / 100).toFixed(0);
 
-    // Save booking to sessions table
-    await admin.from("sessions").insert({
+    // Step 1: Save booking to DB
+    const { error: sessionDbError } = await admin.from("sessions").insert({
       parent_email: parentEmail,
       parent_name: parentName,
       subject: meta.subject ?? "",
@@ -155,7 +207,14 @@ export async function POST(request: Request) {
         meta.sessionType === "group" ? 90 : 60,
     });
 
-    // Save to payments table
+    if (sessionDbError) {
+      await alertAdmin(
+        "Booking Not Recorded",
+        `A customer paid for a session but it was NOT saved to the database.\n\nParent: ${parentName} (${parentEmail})\nSubject: ${meta.subject}\nDate: ${meta.date} at ${meta.time}\nAmount: $${amountDollars}\nStripe Session: ${session.id}\nError: ${sessionDbError.message}`
+      );
+    }
+
+    // Step 2: Save to payments table
     await admin.from("payments").upsert({
       amount_cents: session.amount_total,
       status: "succeeded",
@@ -163,8 +222,16 @@ export async function POST(request: Request) {
       stripe_payment_intent_id: session.payment_intent,
     }, { onConflict: "stripe_checkout_session_id" });
 
-    // Send booking confirmation email to parent
-    await resend.emails.send({
+    // Step 3: Send confirmation email
+    if (!parentEmail) {
+      await alertAdmin(
+        "Booking — No Email Address",
+        `A session was booked but no parent email was captured.\n\nSubject: ${meta.subject}\nDate: ${meta.date}\nStripe Session: ${session.id}`
+      );
+      return NextResponse.json({ received: true });
+    }
+
+    const { error: emailError } = await resend.emails.send({
       from: "MsHorace Tutoring <onboarding@resend.dev>",
       to: [parentEmail],
       replyTo: "MsHoraceTutoring06@gmail.com",
@@ -175,18 +242,15 @@ export async function POST(request: Request) {
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
 <body style="margin:0;padding:0;background:#f3f4f6;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
 <div style="max-width:600px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
-
   <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
     <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="110" style="display:block;margin:0 auto 8px;" />
     <p style="color:#ddd6fe;margin:0;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600;">Booking Confirmed!</p>
   </div>
-
   <div style="padding:24px 32px 0;text-align:center;">
     <div style="display:inline-block;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:50px;padding:8px 20px;">
       <span style="color:#16a34a;font-weight:700;font-size:14px;">Payment Received - $${amountDollars}</span>
     </div>
   </div>
-
   <div style="padding:24px 32px 0;">
     <h2 style="margin:0 0 16px;font-size:16px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;">Session Details</h2>
     <table style="width:100%;border-collapse:collapse;">
@@ -197,13 +261,11 @@ export async function POST(request: Request) {
       <tr><td style="padding:10px 0;color:#6b7280;font-size:14px;">Time</td><td style="padding:10px 0;color:#111827;font-size:14px;font-weight:600;">${meta.time} Eastern Time</td></tr>
     </table>
   </div>
-
   <div style="margin:20px 32px 0;background:#f5f3ff;border-radius:12px;padding:20px;">
     <p style="margin:0 0 6px;font-size:11px;font-weight:700;color:#5b21b6;text-transform:uppercase;letter-spacing:0.08em;">Your Zoom Link</p>
     <p style="margin:0 0 14px;color:#374151;font-size:14px;">Click the button at your session time to join:</p>
     <a href="${zoomUrl}" style="display:inline-block;background:#7c3aed;color:#fff;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;">Join Zoom Meeting</a>
   </div>
-
   <div style="padding:20px 32px 28px;">
     <h3 style="margin:0 0 10px;font-size:14px;font-weight:700;color:#1f2937;">What to Expect</h3>
     <ul style="margin:0;padding-left:20px;color:#6b7280;font-size:14px;line-height:1.9;">
@@ -213,17 +275,18 @@ export async function POST(request: Request) {
       <li>Need to reschedule? Email us 24+ hours before your session</li>
     </ul>
   </div>
-
   ${EMAIL_FOOTER}
-
-  <div style="padding:0;text-align:center;"><!-- spacer -->
-    </div>
-
-  </div>
+</div>
 </body>
-</html>
-      `,
+</html>`,
     });
+
+    if (emailError) {
+      await alertAdmin(
+        "Booking Confirmation Email Failed",
+        `The session was saved but the confirmation email failed to send.\n\nParent: ${parentName} (${parentEmail})\nSubject: ${meta.subject}\nDate: ${meta.date} at ${meta.time}\nZoom: ${zoomUrl}\nEmail Error: ${emailError.message}`
+      );
+    }
   }
 
   return NextResponse.json({ received: true });

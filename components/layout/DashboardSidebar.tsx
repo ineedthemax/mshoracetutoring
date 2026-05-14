@@ -37,6 +37,7 @@ const navItems = {
     { label: "Reports", href: "/admin/reports", icon: FileText },
     { label: "Groups", href: "/admin/groups", icon: BarChart2 },
     { label: "Payments", href: "/admin/payments", icon: CreditCard },
+    { label: "Purchases", href: "/admin/purchases", icon: BarChart2 },
     { label: "Availability", href: "/admin/availability", icon: Clock },
     { label: "Profile", href: "/admin/profile", icon: User },
   ],
