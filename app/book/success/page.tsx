@@ -2,10 +2,12 @@ import Link from "next/link";
 import { CheckCircle, Video, Calendar, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { MetaPixelPurchase } from "@/components/MetaPixelPurchase";
 
 export default function BookingSuccessPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+      <MetaPixelPurchase value={75} />
       <div className="max-w-lg w-full">
         <Card>
           <CardContent className="pt-10 pb-10 px-8 text-center">
