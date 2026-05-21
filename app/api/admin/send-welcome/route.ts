@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
   const roleLabel = role === "student" ? "Student" : "Parent";
 
   const { error } = await resend.emails.send({
-    from: "MsHorace Tutoring <onboarding@resend.dev>",
+    from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
     to: [email],
     replyTo: "MsHoraceTutoring06@gmail.com",
     subject: `Welcome to MsHorace Tutoring — Your Login is Ready`,

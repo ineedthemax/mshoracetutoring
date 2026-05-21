@@ -38,7 +38,7 @@ const SESSION_LABELS: Record<string, string> = {
 async function alertAdmin(subject: string, details: string) {
   try {
     await resend.emails.send({
-      from: "MsHorace Tutoring <onboarding@resend.dev>",
+      from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
       to: ["MsHoraceTutoring06@gmail.com"],
       subject: `⚠️ Action Needed: ${subject}`,
       html: `
@@ -129,7 +129,7 @@ export async function POST(request: Request) {
       }
 
       const { error: emailError } = await resend.emails.send({
-        from: "MsHorace Tutoring <onboarding@resend.dev>",
+        from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
         to: [buyerEmail],
         replyTo: "MsHoraceTutoring06@gmail.com",
         subject: `Your Download is Ready - ${productName}`,
@@ -232,7 +232,7 @@ export async function POST(request: Request) {
     }
 
     const { error: emailError } = await resend.emails.send({
-      from: "MsHorace Tutoring <onboarding@resend.dev>",
+      from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
       to: [parentEmail],
       replyTo: "MsHoraceTutoring06@gmail.com",
       subject: `Booking Confirmed - ${meta.subject} on ${meta.date}`,

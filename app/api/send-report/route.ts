@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
   const scoreBarColor = score >= 80 ? "#22c55e" : score >= 60 ? "#f59e0b" : "#ef4444";
 
   const { error } = await resend.emails.send({
-    from: "MsHorace Tutoring <onboarding@resend.dev>",
+    from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
     to: [parentEmail],
     replyTo: "MsHoraceTutoring06@gmail.com",
     subject: `Session Report - ${studentName} | ${subject} | ${sessionDate}`,

@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
   const downloadUrl = signedData.signedUrl;
 
   const { error: emailError } = await resend.emails.send({
-    from: "MsHorace Tutoring <onboarding@resend.dev>",
+    from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
     to: [buyerEmail],
     replyTo: "MsHoraceTutoring06@gmail.com",
     subject: `Your Download is Ready - ${productName}`,
