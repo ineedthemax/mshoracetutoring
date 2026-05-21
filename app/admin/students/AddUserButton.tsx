@@ -55,11 +55,17 @@ export function AddUserButton() {
 
       // Send welcome email if checked
       if (form.sendWelcome) {
-        await fetch("/api/admin/send-welcome", {
+        const emailRes = await fetch("/api/admin/send-welcome", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name: form.name, email: form.email, password: form.password, role: form.role }),
         });
+        if (!emailRes.ok) {
+          const emailData = await emailRes.json();
+          // Account was created but email failed — show warning not error
+          console.warn("Welcome email failed:", emailData.error);
+          setError(`Account created, but welcome email failed: ${emailData.error}. You can resend it manually.`);
+        }
       }
 
       setDone(true);
