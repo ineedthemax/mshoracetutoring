@@ -1,14 +1,70 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
-export async function POST(req: NextRequest) {
-  const { name, email, subject, message } = await req.json();
+// Strip HTML tags to prevent XSS in emails
+function sanitize(str: string): string {
+  return str.replace(/<[^>]*>/g, "").trim().slice(0, 2000);
+}
 
+// Rate limit: max 3 contact form submissions per IP per hour
+async function isRateLimited(ip: string): Promise<boolean> {
+  try {
+    const admin = createAdminClient();
+    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+
+    const { count } = await admin
+      .from("contact_submissions")
+      .select("*", { count: "exact", head: true })
+      .eq("ip_address", ip)
+      .gte("created_at", oneHourAgo);
+
+    return (count ?? 0) >= 3;
+  } catch {
+    return false; // Don't block if check fails
+  }
+}
+
+async function logSubmission(ip: string, email: string) {
+  try {
+    const admin = createAdminClient();
+    await admin.from("contact_submissions").insert({ ip_address: ip, email });
+  } catch {}
+}
+
+export async function POST(req: NextRequest) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+
+  // Rate limit check
+  if (await isRateLimited(ip)) {
+    return NextResponse.json(
+      { error: "Too many messages. Please wait an hour before trying again." },
+      { status: 429 }
+    );
+  }
+
+  const body = await req.json();
+  const name    = sanitize(body.name    ?? "");
+  const email   = sanitize(body.email   ?? "");
+  const subject = sanitize(body.subject ?? "");
+  const message = sanitize(body.message ?? "");
+
+  // Basic email format check
   if (!name || !email || !message) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
+  }
+
+  // Honeypot field — bots fill this, humans don't see it
+  if (body.website) {
+    return NextResponse.json({ success: true }); // Silently drop bot submissions
+  }
+
+  await logSubmission(ip, email);
 
   const { error } = await resend.emails.send({
     from: "MsHorace Tutoring <hello@mshoracetutoring.com>",

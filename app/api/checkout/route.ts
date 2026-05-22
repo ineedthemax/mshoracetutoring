@@ -1,9 +1,21 @@
 import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 
+function sanitize(str: string, max = 200): string {
+  return String(str ?? "").replace(/<[^>]*>/g, "").trim().slice(0, max);
+}
+
 export async function POST(request: Request) {
   try {
-    const { sessionType, subject, gradeLevel, duration, date, time, parentName, parentEmail } = await request.json();
+    const body = await request.json();
+    const sessionType = sanitize(body.sessionType);
+    const subject     = sanitize(body.subject);
+    const gradeLevel  = sanitize(body.gradeLevel);
+    const duration    = sanitize(body.duration);
+    const date        = sanitize(body.date);
+    const time        = sanitize(body.time);
+    const parentName  = sanitize(body.parentName);
+    const parentEmail = sanitize(body.parentEmail);
 
     const priceMap: Record<string, number> = {
       "30-min": 4000,
