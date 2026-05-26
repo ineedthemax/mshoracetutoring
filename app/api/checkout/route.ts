@@ -55,7 +55,7 @@ export async function POST(request: Request) {
         parentName,
         parentEmail,
       },
-      success_url: `${baseUrl}/book/success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${baseUrl}/book/success?session_id={CHECKOUT_SESSION_ID}&type=${sessionType}`,
       cancel_url: `${baseUrl}/book?cancelled=1`,
     });
 

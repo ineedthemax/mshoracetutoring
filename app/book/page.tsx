@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { mockAvailability } from "@/lib/mock-data";
 import { CheckCircle, Video, Clock, Users, ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { MetaPixelInitiateCheckout } from "@/components/MetaPixelPurchase";
 
 const gradeLevels = ["6th Grade", "7th Grade", "8th Grade", "9th Grade"];
 
@@ -45,6 +46,16 @@ export default function BookPage() {
 
   async function handleCheckout() {
     setPayError("");
+    // Fire InitiateCheckout before redirecting to Stripe
+    if (typeof window !== "undefined" && (window as any).fbq) {
+      (window as any).fbq("track", "InitiateCheckout", {
+        currency: "USD",
+        value: selectedSession?.price ?? 75,
+        content_name: selectedSession?.label ?? "Tutoring Session",
+        content_category: "tutoring_session",
+        num_items: 1,
+      });
+    }
     startTransition(async () => {
       const durationKey = sessionType === "solo-30" ? "30-min" : sessionType === "solo-60" ? "60-min" : "group";
       const res = await fetch("/api/checkout", {

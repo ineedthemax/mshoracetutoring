@@ -10,6 +10,7 @@ import { PublicNav } from "@/components/layout/PublicNav";
 import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { MetaPixelViewContent } from "@/components/MetaPixelPurchase";
 import { Button } from "@/components/ui/button";
 import { mockPricing } from "@/lib/mock-data";
 import { CheckCircle, CreditCard } from "lucide-react";
@@ -26,6 +27,7 @@ const faqs = [
 export default function PricingPage() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <MetaPixelViewContent contentName="Pricing Page" value={75} />
       <PublicNav />
 
       {/* Hero */}
