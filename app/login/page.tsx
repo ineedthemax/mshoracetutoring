@@ -34,21 +34,6 @@ export default function LoginPage() {
 
         <Card>
           <CardContent className="pt-6">
-            <div className="flex bg-gray-100 rounded-xl p-1 mb-6">
-              {(["parent", "student"] as const).map((r) => (
-                <button
-                  key={r}
-                  type="button"
-                  onClick={() => setRole(r)}
-                  className={cn(
-                    "flex-1 py-2 rounded-lg text-sm font-medium transition-all capitalize",
-                    role === r ? "bg-white text-violet-700 shadow-sm" : "text-gray-500 hover:text-gray-700"
-                  )}
-                >
-                  {r}
-                </button>
-              ))}
-            </div>
 
             <form onSubmit={handleSubmit} className="space-y-4 mb-4">
               <input type="hidden" name="role" value={role} />
@@ -81,7 +66,7 @@ export default function LoginPage() {
               )}
 
               <Button type="submit" className="w-full" disabled={isPending}>
-                {isPending ? "Signing in…" : `Sign In as ${role === "parent" ? "Parent" : "Student"}`}
+                {isPending ? "Signing in…" : "Sign In"}
               </Button>
             </form>
 
