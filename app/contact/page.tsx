@@ -22,6 +22,13 @@ export default function ContactPage() {
       });
       if (res.ok) {
         setSubmitted(true);
+        // Fire Lead event — contact form submission is a qualified lead
+        if (typeof window !== "undefined" && (window as any).fbq) {
+          (window as any).fbq("track", "Lead", {
+            content_name: "Contact Form",
+            content_category: "tutoring_inquiry",
+          });
+        }
       } else {
         alert("Failed to send message. Please try again.");
       }
