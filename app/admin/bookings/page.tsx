@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Video, Calendar } from "lucide-react";
+import { CreateBookingButton } from "./CreateBookingButton";
 
 export const dynamic = "force-dynamic";
 
@@ -18,9 +19,12 @@ export default async function BookingsPage() {
 
   return (
     <div className="p-8 max-w-6xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Bookings</h1>
-        <p className="text-gray-500 text-sm mt-1">{allSessions.length} total sessions on record.</p>
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Bookings</h1>
+          <p className="text-gray-500 text-sm mt-1">{allSessions.length} total sessions on record.</p>
+        </div>
+        <CreateBookingButton />
       </div>
 
       {allSessions.length === 0 ? (
