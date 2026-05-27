@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
     session_time: displayTime,
     zoom_join_url: zoomUrl,
     price_cents: SESSION_PRICES[sessionType] ?? 7500,
-    payment_status: "manual",
+    payment_status: "paid",
     status: "upcoming",
     duration_minutes: DURATIONS[sessionType] ?? 60,
     scheduled_at: new Date(`${sessionDate}T${sessionTime}`).toISOString(),
