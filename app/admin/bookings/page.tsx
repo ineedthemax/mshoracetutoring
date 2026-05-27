@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Video, Calendar } from "lucide-react";
 import { CreateBookingButton } from "./CreateBookingButton";
+import { EditBookingButton } from "./EditBookingButton";
 
 export const dynamic = "force-dynamic";
 
@@ -47,7 +48,8 @@ export default async function BookingsPage() {
                     <th className="px-6 py-4 font-medium">Type</th>
                     <th className="px-6 py-4 font-medium">Price</th>
                     <th className="px-6 py-4 font-medium">Status</th>
-                    <th className="px-6 py-4 font-medium">Actions</th>
+                    <th className="px-6 py-4 font-medium">Zoom</th>
+                    <th className="px-6 py-4 font-medium">Edit</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-50">
@@ -83,6 +85,20 @@ export default async function BookingsPage() {
                         ) : (
                           <span className="text-xs text-gray-300">—</span>
                         )}
+                      </td>
+                      <td className="px-6 py-4">
+                        <EditBookingButton session={{
+                          id: s.id,
+                          parent_name: s.parent_name,
+                          parent_email: s.parent_email,
+                          subject: s.subject,
+                          grade_level: s.grade_level,
+                          session_type: s.session_type,
+                          session_date: s.session_date,
+                          session_time: s.session_time,
+                          status: s.status,
+                          price_cents: s.price_cents,
+                        }} />
                       </td>
                     </tr>
                   ))}
