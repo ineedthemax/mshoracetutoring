@@ -40,19 +40,31 @@ export async function POST(req: NextRequest) {
   }
 
   const admin = createAdminClient();
-  await admin.from("session_reports").insert({
+
+  // topics_covered is a text[] array — convert string to array
+  const topicsArray = topicsCovered
+    ? topicsCovered.split(",").map((t: string) => t.trim()).filter(Boolean)
+    : [];
+
+  const { error: dbError } = await admin.from("session_reports").insert({
     student_name: studentName,
     parent_email: parentEmail,
     subject,
     session_type: sessionType,
-    session_date: sessionDate,
-    topics_covered: topicsCovered,
+    session_date: sessionDate || null,
+    topics_covered: topicsArray,
     wins,
     areas_to_improve: areasToImprove,
-    confidence_score: confidenceScore,
+    confidence_score: parseInt(confidenceScore) || null,
+    student_confidence: parseInt(confidenceScore) || null,
     homework_assigned: homeworkAssigned,
     recommended_next_step: nextStep,
   });
+
+  if (dbError) {
+    console.error("Report DB error:", dbError.message);
+    // Don't block email — still send even if DB save fails
+  }
 
   const score = parseInt(confidenceScore) || 0;
   const scoreColor = score >= 80 ? "#16a34a" : score >= 60 ? "#d97706" : "#dc2626";

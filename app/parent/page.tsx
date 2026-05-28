@@ -143,7 +143,11 @@ export default async function ParentDashboard() {
                     </div>
                   )}
                   {latestReport.topics_covered && (
-                    <p className="text-xs text-gray-400 mt-2">Topics: {latestReport.topics_covered}</p>
+                    <p className="text-xs text-gray-400 mt-2">
+                      Topics: {Array.isArray(latestReport.topics_covered)
+                        ? latestReport.topics_covered.join(", ")
+                        : latestReport.topics_covered}
+                    </p>
                   )}
                 </div>
               ) : (
