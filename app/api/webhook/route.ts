@@ -287,6 +287,58 @@ export async function POST(request: Request) {
         `The session was saved but the confirmation email failed to send.\n\nParent: ${parentName} (${parentEmail})\nSubject: ${meta.subject}\nDate: ${meta.date} at ${meta.time}\nZoom: ${zoomUrl}\nEmail Error: ${emailError.message}`
       );
     }
+
+    // Step 4: Also send Zoom link email to linked student
+    try {
+      const { data: { users } } = await admin.auth.admin.listUsers({ perPage: 200 });
+      const linkedStudent = users.find(u =>
+        u.user_metadata?.role === "student" &&
+        u.user_metadata?.parent_email?.toLowerCase() === parentEmail?.toLowerCase()
+      );
+      if (linkedStudent?.email) {
+        const studentName = linkedStudent.user_metadata?.name ?? "there";
+        const formattedDate = meta.date
+          ? new Date(meta.date).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })
+          : meta.date;
+        await resend.emails.send({
+          from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
+          to: [linkedStudent.email],
+          replyTo: "MsHoraceTutoring06@gmail.com",
+          subject: `Your ${meta.subject} Session is Booked! 🎉`,
+          html: `<!DOCTYPE html><html><head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#f3f4f6;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+<div style="max-width:600px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+  <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
+    <img src="https://mshoracetutoring.com/Logo.png" width="110" style="display:block;margin:0 auto 8px;" />
+    <p style="color:#ddd6fe;margin:0;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Your Session is Booked! 🎉</p>
+  </div>
+  <div style="padding:24px 32px;">
+    <p style="margin:0 0 20px;font-size:15px;color:#374151;">Hi <strong>${studentName}</strong>, you have a tutoring session coming up with Ms. Horace. Get ready to level up! 💪</p>
+    <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
+      <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;width:40%;">Subject</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${meta.subject}</td></tr>
+      <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Date</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${formattedDate}</td></tr>
+      <tr><td style="padding:10px 0;color:#6b7280;font-size:14px;">Time</td><td style="padding:10px 0;color:#111827;font-size:14px;font-weight:600;">${meta.time} Eastern Time</td></tr>
+    </table>
+    <div style="background:#f5f3ff;border-radius:12px;padding:20px;margin-bottom:20px;">
+      <p style="margin:0 0 12px;font-size:13px;font-weight:700;color:#5b21b6;text-transform:uppercase;letter-spacing:0.05em;">Your Zoom Link</p>
+      <a href="${zoomUrl}" style="display:inline-block;background:#7c3aed;color:#fff;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;">Join Zoom Meeting</a>
+    </div>
+    <div style="background:#f0fdf4;border-left:4px solid #22c55e;border-radius:0 10px 10px 0;padding:14px 18px;">
+      <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#15803d;">Quick Tips</p>
+      <ul style="margin:0;padding-left:18px;color:#166534;font-size:13px;line-height:1.8;">
+        <li>Join a few minutes early to test your audio/video</li>
+        <li>Have your notes, textbook, or homework ready</li>
+        <li>Write down any questions you want to ask</li>
+      </ul>
+    </div>
+  </div>
+  ${EMAIL_FOOTER}
+</div></body></html>`,
+        });
+      }
+    } catch {
+      // Student email is best-effort — don't fail the webhook if it errors
+    }
   }
 
   return NextResponse.json({ received: true });

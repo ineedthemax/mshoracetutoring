@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY!);
+import { sendSessionEmails } from "@/lib/sendSessionEmails";
 
 const ZOOM_LINKS: Record<string, string> = {
   "solo-30": "https://us06web.zoom.us/j/86054653309?pwd=bmSKYvXlsHnIFi5eSTvqOW7LR2vzM7.1",
@@ -71,46 +69,15 @@ export async function POST(req: NextRequest) {
   }
 
   if (sendEmail) {
-    const formattedDate = new Date(sessionDate).toLocaleDateString("en-US", {
-      weekday: "long", month: "long", day: "numeric", year: "numeric"
-    });
-
-    await resend.emails.send({
-      from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
-      to: [parentEmail],
-      replyTo: "MsHoraceTutoring06@gmail.com",
-      subject: `Session Confirmed - ${subject} on ${formattedDate}`,
-      html: `
-<!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
-<body style="margin:0;padding:0;background:#f3f4f6;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
-<div style="max-width:600px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
-  <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
-    <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="110" style="display:block;margin:0 auto 8px;" />
-    <p style="color:#ddd6fe;margin:0;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Session Confirmed!</p>
-  </div>
-  <div style="padding:24px 32px;">
-    <h2 style="margin:0 0 16px;font-size:16px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;">Session Details</h2>
-    <table style="width:100%;border-collapse:collapse;">
-      <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;width:40%;">Type</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${SESSION_LABELS[sessionType]}</td></tr>
-      <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Subject</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${subject}</td></tr>
-      <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Date</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${formattedDate}</td></tr>
-      <tr><td style="padding:10px 0;color:#6b7280;font-size:14px;">Time</td><td style="padding:10px 0;color:#111827;font-size:14px;font-weight:600;">${displayTime} Eastern Time</td></tr>
-    </table>
-  </div>
-  <div style="margin:0 32px 20px;background:#f5f3ff;border-radius:12px;padding:20px;">
-    <p style="margin:0 0 12px;font-size:13px;font-weight:700;color:#5b21b6;text-transform:uppercase;letter-spacing:0.05em;">Your Zoom Link</p>
-    <a href="${zoomUrl}" style="display:inline-block;background:#7c3aed;color:#fff;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;">Join Zoom Meeting</a>
-  </div>
-  ${notes ? `<div style="margin:0 32px 20px;background:#fef9f0;border-left:4px solid #f59e0b;padding:12px 16px;border-radius:0 10px 10px 0;"><p style="margin:0;color:#78350f;font-size:14px;">${notes}</p></div>` : ""}
-  <div style="background:#f5f3ff;padding:24px 32px;text-align:center;">
-    <img src="https://mshoracetutoring.com/Logo.png" width="100" style="display:block;margin:0 auto 12px;" />
-    <p style="margin:0;color:#6b7280;font-size:13px;">Questions? Call <a href="tel:2272206227" style="color:#7c3aed;">(227) 220-6227</a></p>
-  </div>
-</div>
-</body>
-</html>`,
+    await sendSessionEmails({
+      parentName,
+      parentEmail,
+      subject,
+      sessionType,
+      sessionDate,
+      sessionTime: displayTime,
+      zoomUrl,
+      notes,
     });
   }
 
