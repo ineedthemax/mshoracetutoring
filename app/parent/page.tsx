@@ -38,7 +38,7 @@ export default async function ParentDashboard() {
     <div className="flex min-h-screen bg-[#f8f8fb] flex-col">
       {isAdmin && <PreviewBanner role="parent" />}
       <div className="flex flex-1">
-        <DashboardSidebar role="parent" />
+        <DashboardSidebar role="parent" userName={parentName} />
         <main className="md:ml-64 flex-1 p-4 md:p-6 pt-18 md:pt-6 pb-20 md:pb-6 max-w-5xl">
 
           {/* Welcome checklist */}

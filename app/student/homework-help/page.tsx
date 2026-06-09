@@ -1,10 +1,26 @@
+"use client";
+import { useEffect, useState } from "react";
 import { DashboardSidebar } from "@/components/layout/DashboardSidebar";
 import { Sparkles, Clock } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
 export default function HomeworkHelpPage() {
+  const [studentName, setStudentName] = useState("Student");
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user?.user_metadata?.name) {
+        setStudentName(user.user_metadata.name);
+      }
+    };
+    fetchUser();
+  }, []);
+
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <DashboardSidebar role="student" />
+      <DashboardSidebar role="student" userName={studentName} />
       <main className="md:ml-64 flex-1 flex items-center justify-center p-6 pt-20 md:pt-6">
         <div className="text-center max-w-md">
           <div className="w-20 h-20 bg-violet-100 rounded-full flex items-center justify-center mx-auto mb-6">

@@ -1,10 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DashboardSidebar } from "@/components/layout/DashboardSidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Upload, FileText, Clock } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
 const previousUploads = [
   { name: "quadratic_practice_set.pdf", topic: "Quadratic Formula", session: "Apr 21 session", date: "Apr 22, 2026", status: "reviewed" },
@@ -17,10 +18,22 @@ export default function HomeworkPage() {
   const [topic, setTopic] = useState("");
   const [sessionRef, setSessionRef] = useState("");
   const [notes, setNotes] = useState("");
+  const [studentName, setStudentName] = useState("Student");
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user?.user_metadata?.name) {
+        setStudentName(user.user_metadata.name);
+      }
+    };
+    fetchUser();
+  }, []);
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <DashboardSidebar role="student" />
+      <DashboardSidebar role="student" userName={studentName} />
       <main className="md:ml-64 flex-1 p-4 md:p-8 pt-18 md:pt-8 pb-20 md:pb-8">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900">Upload Homework</h1>

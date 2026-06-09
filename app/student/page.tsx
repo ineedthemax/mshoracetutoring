@@ -40,7 +40,7 @@ export default async function StudentDashboard() {
     <div className="flex min-h-screen bg-gray-50 flex-col">
       {isAdmin && <PreviewBanner role="student" />}
       <div className="flex flex-1">
-      <DashboardSidebar role="student" />
+      <DashboardSidebar role="student" userName={studentName} />
       <main className="md:ml-64 flex-1 p-4 md:p-8 pt-18 md:pt-8 pb-20 md:pb-8">
         {/* Welcome checklist */}
         <WelcomeChecklist role="student" hasSessions={allSessions.length > 0} hasReports={!!lastReport} />

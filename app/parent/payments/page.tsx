@@ -23,9 +23,11 @@ export default async function ParentPaymentsPage() {
     .filter(p => p.payment_status === "paid")
     .reduce((a, p) => a + (p.price_cents ?? 0), 0) / 100;
 
+  const parentName = user?.user_metadata?.name ?? "Parent";
+
   return (
     <div className="flex min-h-screen bg-[#f8f8fb]">
-      <DashboardSidebar role="parent" />
+      <DashboardSidebar role="parent" userName={parentName} />
       <main className="md:ml-64 flex-1 p-4 md:p-6 pt-18 md:pt-6 pb-20 md:pb-6 max-w-5xl">
         <div className="mb-6">
           <h1 className="text-xl font-bold text-gray-900">Payments</h1>

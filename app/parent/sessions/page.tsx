@@ -26,6 +26,7 @@ type Session = {
 export default function ParentSessionsPage() {
   const [filter, setFilter] = useState<FilterType>("all");
   const [sessions, setSessions] = useState<Session[]>([]);
+  const [parentName, setParentName] = useState("Parent");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -33,6 +34,8 @@ export default function ParentSessionsPage() {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
+
+      setParentName(user.user_metadata?.name ?? "Parent");
 
       const { data } = await supabase
         .from("sessions")
@@ -52,7 +55,7 @@ export default function ParentSessionsPage() {
 
   return (
     <div className="flex min-h-screen bg-[#f8f8fb]">
-      <DashboardSidebar role="parent" />
+      <DashboardSidebar role="parent" userName={parentName} />
       <main className="md:ml-64 flex-1 p-4 md:p-6 pt-18 md:pt-6 pb-20 md:pb-6 max-w-5xl">
         <div className="mb-6">
           <h1 className="text-xl font-bold text-gray-900">Sessions</h1>

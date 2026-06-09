@@ -11,6 +11,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 interface SidebarProps {
   role: "parent" | "student" | "admin";
+  userName?: string;
 }
 
 const navItems = {
@@ -78,11 +79,12 @@ const mobileNavItems = {
   ],
 };
 
-export function DashboardSidebar({ role }: SidebarProps) {
+export function DashboardSidebar({ role, userName }: SidebarProps) {
   const pathname = usePathname();
   const items = navItems[role];
   const mobileItems = mobileNavItems[role];
-  const user = roleUsers[role];
+  const defaultUser = roleUsers[role];
+  const user = userName ? { ...defaultUser, name: userName } : defaultUser;
 
   const isActive = (href: string) =>
     pathname === href || (href.length > 6 && pathname.startsWith(href));
