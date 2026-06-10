@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Users } from "lucide-react";
+import { GrantCourseButton } from "./GrantCourseButton";
 
 interface UserRow {
   id: string;
@@ -70,6 +71,7 @@ export function StudentsTable({ users }: { users: UserRow[] }) {
                   <th className="px-5 py-4 font-medium">Sessions</th>
                   <th className="px-5 py-4 font-medium">Upcoming</th>
                   <th className="px-5 py-4 font-medium">Joined</th>
+                  <th className="px-5 py-4 font-medium">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
@@ -130,6 +132,9 @@ export function StudentsTable({ users }: { users: UserRow[] }) {
                       </td>
                       <td className="px-5 py-4 text-gray-400 text-xs">
                         {new Date(u.joined).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                      </td>
+                      <td className="px-5 py-4">
+                        {!isParent && <GrantCourseButton studentId={u.id} studentName={u.name} />}
                       </td>
                     </tr>
                   );
