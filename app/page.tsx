@@ -18,34 +18,34 @@ export default function HomePage() {
     <div className="min-h-screen">
       <PublicNav />
 
-      {/* Summer urgency banner */}
+      {/* Back to School urgency banner */}
       <div className="bg-amber-500 text-white text-center py-3 px-4 text-sm font-semibold">
-        🌞 Summer 2026 spots are filling fast limited availability for June, July &amp; August. <Link href="/book" className="underline ml-1">Reserve your slot now →</Link>
+        📚 Back to School 2026 enrollment open. Get your student ready now. <Link href="/book" className="underline ml-1">Reserve your slot now →</Link>
       </div>
 
       {/* Hero */}
       <section className="bg-gradient-to-br from-violet-900 via-violet-800 to-violet-600 text-white py-24 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-white/20 text-white border-0 mb-6">
-            <Flame className="w-4 h-4 mr-2 text-amber-300" /> Summer 2026 Enrollment Open
+            <Flame className="w-4 h-4 mr-2 text-amber-300" /> Back to School 2026 Enrollment Open
           </span>
           <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-            Don&apos;t let summer{" "}
-            <span className="text-amber-300">erase</span>{" "}
-            a whole year of math.
+            Start the school year{" "}
+            <span className="text-amber-300">confident</span>{" "}
+            and prepared.
           </h1>
           <p className="text-lg md:text-xl text-violet-100 mb-10 max-w-2xl mx-auto">
-            Summer is the best time to close skill gaps, get ahead for next year, and build the confidence your student needs before school starts again. Based in White Plains, Maryland serving students online via Zoom nationwide.
+            Get ahead before school starts with expert 1-on-1 math tutoring. Build confidence, master key concepts, and arrive on day one ready to succeed. Based in White Plains, Maryland serving students online via Zoom nationwide.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/book">
               <button className="bg-amber-400 text-gray-900 font-bold px-8 py-4 rounded-xl hover:bg-amber-300 transition-colors text-base">
-                Book a Summer Session
+                Book a Session Now
               </button>
             </Link>
             <Link href="/groups">
               <button className="border-2 border-white text-white font-semibold px-8 py-4 rounded-xl hover:bg-white/10 transition-colors text-base">
-                View Summer Group Classes
+                View Group Classes
               </button>
             </Link>
           </div>
@@ -114,24 +114,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Summer offer cards */}
+      {/* Back to School offer cards */}
       <section className="bg-amber-50 py-20 px-4 border-b border-amber-100">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <Badge className="mb-4 bg-amber-500 text-white border-0">Summer 2026 Offers</Badge>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Pick your summer plan</h2>
-            <p className="text-gray-500 text-lg">Flexible options built around your student&apos;s summer schedule.</p>
+            <Badge className="mb-4 bg-amber-500 text-white border-0">Back to School Offers</Badge>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Back to School Plans</h2>
+            <p className="text-gray-500 text-lg">Flexible options to get your student ready for success this year.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 icon: Zap,
                 badge: "Most Popular",
-                title: "Summer Boost Pack",
-                subtitle: "8 sessions · save 13%",
-                price: "$522",
-                original: "$600",
-                desc: "Perfect for students who want to get ahead or recover before the new school year. 8 sessions scheduled at your pace all summer.",
+                title: "Back to School Pack",
+                subtitle: "8 sessions · 1-on-1",
+                price: "$600",
+                original: null,
+                desc: "Perfect for students who want to build confidence and get ready for the new school year. 8 sessions scheduled at your pace.",
                 cta: "Get the Pack",
                 highlight: true,
               },
@@ -189,25 +189,25 @@ export default function HomePage() {
       <section className="bg-gray-50 py-20 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Summer is when students fall behind or pull ahead.</h2>
-            <p className="text-gray-500 text-lg">Which one will your student be in September?</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Before school starts, get your student ready.</h2>
+            <p className="text-gray-500 text-lg">Which student will walk into class in September?</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 icon: Brain,
-                title: "\"They forgot everything from last year\"",
-                desc: "Summer learning loss is real studies show students can lose up to 2 months of math skills over summer. A few sessions a week keeps their mind sharp and ready."
+                title: "\"They struggled last year and I don't want that again\"",
+                desc: "Gaps from last year don't go away on their own. A few focused sessions now fill holes in understanding before school starts. No pressure, just clarity."
               },
               {
                 icon: Calculator,
-                title: "\"They struggled all year and I don't want that again\"",
-                desc: "Summer is the perfect reset. No pressure, no grades just time to actually understand the concepts that got skipped over during the school year."
+                title: "\"They want to feel more confident in math\"",
+                desc: "Confidence matters more than you think. Students who start strong stay strong. A few sessions now prove they can do this."
               },
               {
                 icon: Target,
-                title: "\"They want to be ahead when school starts\"",
-                desc: "Students who preview next year's material in summer start the school year with confidence. We cover Pre-Algebra and Algebra 1 at their pace."
+                title: "\"They want to be ahead from day one\"",
+                desc: "Students who preview next year's material start the school year ahead of the curve. We cover Pre-Algebra and Algebra 1 at their pace."
               },
             ].map((item) => (
               <Card key={item.title} className="p-6">
@@ -232,7 +232,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-5 gap-6">
             {[
               { step: 1, icon: BookOpen, title: "Book Online", desc: "Pick your subject, grade, and session type. Choose a day and time that works." },
-              { step: 2, icon: DollarSign, title: "Pay Securely", desc: "Stripe-powered checkout. Single sessions or save with summer packages." },
+              { step: 2, icon: DollarSign, title: "Pay Securely", desc: "Stripe-powered checkout. Single sessions or save with packages." },
               { step: 3, icon: Video, title: "Get Zoom Link", desc: "Receive your confirmation and Zoom link instantly by email." },
               { step: 4, icon: Lightbulb, title: "Live Session", desc: "Interactive live session screen sharing, digital whiteboard, guided problems." },
               { step: 5, icon: FileText, title: "Progress Report", desc: "Parents receive a written report with topics covered, wins, and next steps." },
@@ -250,7 +250,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Summer subjects */}
+      {/* Subjects we teach */}
       <section className="bg-violet-50 py-20 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
@@ -409,8 +409,8 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-6">
             {[
               { icon: FileText, title: "Written Report After Every Session", desc: "Topics covered, what clicked, skill gaps identified, homework assigned, and the recommended next step delivered to your inbox after each session." },
-              { icon: TrendingUp, title: "Confidence Score Tracking", desc: "We rate student confidence 0–100 each session so you can see real growth over the summer not just whether they showed up." },
-              { icon: Video, title: "Live Zoom Sessions", desc: "All sessions run on Zoom. You can observe any session at any time. Transparent, safe, and flexible around your family's summer schedule." },
+              { icon: TrendingUp, title: "Confidence Score Tracking", desc: "We rate student confidence 0–100 each session so you can see real progress, not just whether they showed up." },
+              { icon: Video, title: "Live Zoom Sessions", desc: "All sessions run on Zoom. You can observe any session at any time. Transparent, safe, and flexible around your schedule." },
             ].map((feature) => (
               <Card key={feature.title} className="p-6">
                 <CardContent className="p-0">
@@ -431,7 +431,7 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Simple, Transparent Pricing</h2>
-            <p className="text-gray-500">No hidden fees. Pay per session or save with summer packages.</p>
+            <p className="text-gray-500">No hidden fees. Pay per session or save with packages.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6 mb-8">
             {mockPricing.slice(0, 3).map((plan) => (
@@ -470,15 +470,15 @@ export default function HomePage() {
         <div className="max-w-3xl mx-auto text-center">
           <Calendar className="w-12 h-12 text-white mx-auto mb-4" />
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Summer goes fast. Math gaps don&apos;t fix themselves.
+            Back to school is coming. Math gaps don&apos;t fix themselves.
           </h2>
           <p className="text-amber-100 text-lg mb-8">
-            June, July, and August slots are limited. Families who book early get the best time slots and the most sessions before school starts.
+            Spots are limited before the school year starts. Book now to guarantee the time slot and prepare your student for success.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/book">
               <button className="bg-white text-amber-600 font-bold px-8 py-4 rounded-xl hover:bg-amber-50 transition-colors text-base">
-                Book a Summer Session
+                Book a Session Now
               </button>
             </Link>
             <Link href="/groups">
@@ -487,7 +487,7 @@ export default function HomePage() {
               </button>
             </Link>
           </div>
-          <p className="text-amber-200 text-sm mt-6">Starting at $25 · Flexible summer scheduling · Cancel anytime</p>
+          <p className="text-amber-200 text-sm mt-6">Starting at $25 · Flexible scheduling · Cancel anytime</p>
         </div>
       </section>
 
