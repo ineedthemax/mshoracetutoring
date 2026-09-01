@@ -122,40 +122,29 @@ export default function HomePage() {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Back to School Plans</h2>
             <p className="text-gray-500 text-lg">Flexible options to get your student ready for success this year.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-6">
             {[
               {
                 icon: Zap,
-                badge: "Most Popular",
-                title: "Back to School Pack",
-                subtitle: "8 sessions · 1-on-1",
+                badge: "First Grading Period",
+                title: "The Foundation Pack",
+                subtitle: "4 sessions · $75/session",
+                price: "$300",
+                original: null,
+                desc: "4 live 1-on-1 Zoom sessions (60 min each). Valid 60 days. Perfect to get ahead of the first grading period.",
+                cta: "Get Started",
+                highlight: false,
+              },
+              {
+                icon: Flame,
+                badge: "Best Value",
+                title: "The 8-Session Pack",
+                subtitle: "8 sessions · $75/session",
                 price: "$600",
                 original: null,
-                desc: "Perfect for students who want to build confidence and get ready for the new school year. 8 sessions scheduled at your pace.",
+                desc: "8 live 1-on-1 Zoom sessions (60 min each). Valid 90 days. Build real, lasting confidence in math.",
                 cta: "Get the Pack",
                 highlight: true,
-              },
-              {
-                icon: Users,
-                badge: "Best Value",
-                title: "Group Review Classes",
-                subtitle: "3–10 students per class",
-                price: "$25",
-                original: null,
-                desc: "Weekly small group sessions covering Pre-Algebra and Algebra 1. Affordable, social, and still highly effective.",
-                cta: "Browse Classes",
-                highlight: false,
-              },
-              {
-                icon: BookOpen,
-                badge: "Self-Paced",
-                title: "Digital Courses",
-                subtitle: "Pre-Algebra & Algebra 1",
-                price: "$197",
-                original: null,
-                desc: "PDF-based self-paced courses your student can work through anytime. Step-by-step lessons, practice problems, and answer keys included.",
-                cta: "View Courses",
-                highlight: false,
               },
             ].map((offer) => (
               <Card key={offer.title} className={`p-6 relative ${offer.highlight ? "border-amber-400 shadow-lg ring-1 ring-amber-400" : ""}`}>
