@@ -148,7 +148,7 @@ export default function HomePage() {
                 highlight: true,
                 packageType: "8-session",
               },
-            ].map((offer: any) => (
+            ].map((offer) => (
               <Card key={offer.title} className={`p-6 relative ${offer.highlight ? "border-amber-400 shadow-lg ring-1 ring-amber-400" : ""}`}>
                 {offer.badge && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
@@ -436,9 +436,6 @@ export default function HomePage() {
                   <h3 className="font-semibold text-gray-900 text-lg mb-1">{plan.name}</h3>
                   <p className="text-gray-400 text-sm mb-4">{plan.description}</p>
                   <div className="text-4xl font-bold text-violet-600 mb-1">${plan.price}</div>
-                  {"originalPrice" in plan && plan.originalPrice && (
-                    <div className="text-sm text-gray-400 line-through mb-4">${plan.originalPrice}</div>
-                  )}
                   <Link href="/book" className="block mt-6">
                     <Button className="w-full" variant={plan.name === "60-Min Session" ? "default" : "outline"}>
                       Book Now

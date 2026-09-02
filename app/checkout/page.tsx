@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function CheckoutPage() {
+function CheckoutForm() {
   const searchParams = useSearchParams();
   const type = searchParams.get("type") || "4-session";
   const [email, setEmail] = useState("");
@@ -73,5 +73,13 @@ export default function CheckoutPage() {
         </Link>
       </div>
     </div>
+  );
+}
+
+export default function CheckoutPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 py-20 px-4" />}>
+      <CheckoutForm />
+    </Suspense>
   );
 }

@@ -83,23 +83,20 @@ export default function PricingPage() {
         <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">Session Packages Save More</h2>
         <div className="grid md:grid-cols-2 gap-6 mb-12">
           {mockPricing.filter(p => p.type === "package").map((plan) => {
-            const savings = "originalPrice" in plan && plan.originalPrice ? plan.originalPrice - plan.price : 0;
-            const savingsPct = "originalPrice" in plan && plan.originalPrice ? Math.round((savings / plan.originalPrice) * 100) : 0;
             return (
               <Card key={plan.id} className="p-6">
                 <CardContent className="p-0">
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="font-bold text-gray-900 text-xl">{plan.name}</h3>
-                    <Badge variant="success">Save {savingsPct}%</Badge>
                   </div>
                   <p className="text-gray-500 text-sm mb-4">{plan.description}</p>
                   <div className="flex items-baseline gap-3 mb-1">
                     <span className="text-4xl font-bold text-violet-600">${plan.price}</span>
                   </div>
                   <p className="text-gray-400 text-xs mb-6">
-                    {"sessions" in plan ? `$${Math.round(plan.price / (plan.sessions || 1))}/session · Valid 90 days` : ""}
+                    {"sessions" in plan ? `$${Math.round(plan.price / (plan.sessions || 1))}/session` : ""}
                   </p>
-                  <Link href="/book">
+                  <Link href={`/checkout?type=${"sessions" in plan && plan.sessions === 8 ? "8-session" : "4-session"}`}>
                     <Button className="w-full">Buy Package</Button>
                   </Link>
                 </CardContent>
