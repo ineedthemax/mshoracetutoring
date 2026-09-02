@@ -95,9 +95,6 @@ export default function PricingPage() {
                   <p className="text-gray-500 text-sm mb-4">{plan.description}</p>
                   <div className="flex items-baseline gap-3 mb-1">
                     <span className="text-4xl font-bold text-violet-600">${plan.price}</span>
-                    {"originalPrice" in plan && plan.originalPrice && (
-                      <span className="text-gray-400 line-through text-lg">${plan.originalPrice}</span>
-                    )}
                   </div>
                   <p className="text-gray-400 text-xs mb-6">
                     {"sessions" in plan ? `$${Math.round(plan.price / (plan.sessions || 1))}/session · Valid 90 days` : ""}
