@@ -134,6 +134,7 @@ export default function HomePage() {
                 desc: "4 live 1-on-1 Zoom sessions (60 min each). Valid 60 days. Perfect to get ahead of the first grading period.",
                 cta: "Get Started",
                 highlight: false,
+                packageType: "4-session",
               },
               {
                 icon: Flame,
@@ -145,6 +146,7 @@ export default function HomePage() {
                 desc: "8 live 1-on-1 Zoom sessions (60 min each). Valid 90 days. Build real, lasting confidence in math.",
                 cta: "Get the Pack",
                 highlight: true,
+                packageType: "8-session",
               },
             ].map((offer) => (
               <Card key={offer.title} className={`p-6 relative ${offer.highlight ? "border-amber-400 shadow-lg ring-1 ring-amber-400" : ""}`}>
@@ -162,7 +164,7 @@ export default function HomePage() {
                   <div className={`text-4xl font-bold mb-1 ${offer.highlight ? "text-amber-500" : "text-violet-600"}`}>{offer.price}</div>
                   {offer.original && <div className="text-sm text-gray-400 line-through mb-3">{offer.original}</div>}
                   <p className="text-sm text-gray-500 leading-relaxed mb-6">{offer.desc}</p>
-                  <Link href={offer.cta === "View Courses" ? "/courses" : "/book"} className="block">
+                  <Link href={offer.packageType ? `/checkout?type=${offer.packageType}` : "/book"} className="block">
                     <Button className={`w-full ${offer.highlight ? "bg-amber-500 hover:bg-amber-600 text-white" : ""}`} variant={offer.highlight ? "default" : "outline"}>
                       {offer.cta}
                     </Button>
