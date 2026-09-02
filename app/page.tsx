@@ -148,7 +148,7 @@ export default function HomePage() {
                 highlight: true,
                 packageType: "8-session",
               },
-            ].map((offer) => (
+            ].map((offer: any) => (
               <Card key={offer.title} className={`p-6 relative ${offer.highlight ? "border-amber-400 shadow-lg ring-1 ring-amber-400" : ""}`}>
                 {offer.badge && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
