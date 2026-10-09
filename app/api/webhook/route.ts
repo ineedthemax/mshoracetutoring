@@ -34,6 +34,20 @@ const SESSION_LABELS: Record<string, string> = {
   "group":   "Group Class Session",
 };
 
+// Notify Stenita of a successful booking or purchase
+async function notifyAdmin(subject: string, html: string) {
+  try {
+    await resend.emails.send({
+      from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
+      to: ["MsHoraceTutoring06@gmail.com"],
+      subject,
+      html,
+    });
+  } catch {
+    // Best-effort — don't let notification failure break the webhook
+  }
+}
+
 // Alert Stenita immediately if anything goes wrong
 async function alertAdmin(subject: string, details: string) {
   try {
@@ -172,6 +186,94 @@ export async function POST(request: Request) {
         await admin.from("digital_purchases")
           .update({ download_sent: true })
           .eq("stripe_session_id", session.id);
+
+        // Notify Ms. Horace of the sale
+        await notifyAdmin(
+          `💰 New Digital Sale: ${productName}`,
+          `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;">
+            <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:20px;margin-bottom:20px;">
+              <h2 style="color:#16a34a;margin:0 0 8px;">💰 New Digital Sale</h2>
+              <p style="color:#166534;margin:0;font-size:14px;">Someone just purchased a digital product.</p>
+            </div>
+            <table style="width:100%;border-collapse:collapse;font-size:14px;">
+              <tr><td style="padding:8px 0;color:#6b7280;width:40%;">Product</td><td style="padding:8px 0;color:#111827;font-weight:600;">${productName}</td></tr>
+              <tr><td style="padding:8px 0;color:#6b7280;">Amount</td><td style="padding:8px 0;color:#111827;font-weight:600;">$${((session.amount_total ?? 0) / 100).toFixed(2)}</td></tr>
+              <tr><td style="padding:8px 0;color:#6b7280;">Buyer</td><td style="padding:8px 0;color:#111827;font-weight:600;">${buyerEmail}</td></tr>
+              <tr><td style="padding:8px 0;color:#6b7280;">Time</td><td style="padding:8px 0;color:#111827;">${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })} ET</td></tr>
+            </table>
+            <p style="margin:20px 0 0;font-size:13px;color:#6b7280;">Delivery email was sent automatically. <a href="https://mshoracetutoring.com/admin" style="color:#7c3aed;">View dashboard →</a></p>
+          </div>`
+        );
+      }
+
+      return NextResponse.json({ received: true });
+    }
+
+    // ─── Package / Bundle Purchase ──────────────────────────────────────
+    if (meta.packageType) {
+      const buyerEmail = session.customer_details?.email ?? session.customer_email ?? meta.parentEmail ?? "";
+      const amountPaid = ((session.amount_total ?? 0) / 100).toFixed(2);
+      const packageNames: Record<string, string> = {
+        "4-session":    "First Grading Period Pack (4 sessions)",
+        "8-session":    "8-Session Pack",
+        "grade-rescue": "Grade Rescue Pack (3 sessions)",
+        "monthly":      "Weekly Rhythm Monthly Pack",
+        "family-pack":  '"Two Kids" Family Pack',
+        "group-pass":   "Group Class Semester Pass",
+      };
+      const packageLabel = packageNames[meta.packageType] ?? meta.packageType;
+      const isInstallment = meta.paymentOption === "plan";
+      const installmentNote = isInstallment
+        ? `<tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;width:40%;">Payment Type</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#d97706;font-weight:600;">Installment 1 of 2 — Second payment auto-charges in 30 days</td></tr>`
+        : `<tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;width:40%;">Payment Type</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;">Paid in Full</td></tr>`;
+
+      await notifyAdmin(
+        `🎉 New Bundle Purchase: ${packageLabel}`,
+        `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;">
+          <div style="background:#fef9c3;border:1px solid #fde68a;border-radius:12px;padding:20px;margin-bottom:20px;">
+            <h2 style="color:#92400e;margin:0 0 8px;">🎉 New Bundle Purchase</h2>
+            <p style="color:#78350f;margin:0;font-size:14px;">A parent just purchased a session package.</p>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:14px;">
+            <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;width:40%;">Package</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-weight:600;">${packageLabel}</td></tr>
+            ${installmentNote}
+            <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Amount Charged</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#16a34a;font-weight:700;">$${amountPaid}</td></tr>
+            <tr><td style="padding:8px 0;color:#6b7280;">Buyer Email</td><td style="padding:8px 0;color:#111827;">${buyerEmail}</td></tr>
+          </table>
+          <p style="margin:20px 0 0;font-size:13px;color:#6b7280;">Sessions are ready to schedule. <a href="https://mshoracetutoring.com/admin" style="color:#7c3aed;">View dashboard →</a></p>
+        </div>`
+      );
+
+      // Send confirmation to parent
+      if (buyerEmail) {
+        await resend.emails.send({
+          from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
+          to: [buyerEmail],
+          replyTo: "MsHoraceTutoring06@gmail.com",
+          subject: `Your ${packageLabel} is confirmed! 🎉`,
+          html: `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#f3f4f6;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+<div style="max-width:600px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+  <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
+    <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="110" style="display:block;margin:0 auto 8px;" />
+    <p style="color:#ddd6fe;margin:0;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600;">Package Confirmed!</p>
+  </div>
+  <div style="padding:28px 32px;">
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px 18px;margin-bottom:24px;text-align:center;">
+      <p style="margin:0;color:#16a34a;font-weight:700;font-size:15px;">Payment Received — $${amountPaid}</p>
+    </div>
+    <div style="background:#f5f3ff;border-radius:12px;padding:16px 20px;margin-bottom:20px;">
+      <p style="margin:0 0 4px;font-size:11px;font-weight:700;color:#5b21b6;text-transform:uppercase;letter-spacing:0.08em;">Your Package</p>
+      <p style="margin:0;font-size:18px;font-weight:700;color:#1f2937;">${packageLabel}</p>
+      ${isInstallment ? `<p style="margin:8px 0 0;font-size:13px;color:#d97706;font-weight:600;">Installment plan: second payment auto-charges in 30 days.</p>` : ""}
+    </div>
+    <p style="color:#374151;font-size:14px;line-height:1.7;margin:0 0 20px;">All your sessions are ready to schedule. Ms. Horace will be in touch to set up your first session — keep an eye on your inbox!</p>
+    <p style="color:#374151;font-size:14px;line-height:1.7;margin:0;">Questions? Reply to this email or text us at <a href="tel:2272206227" style="color:#7c3aed;">(227) 220-6227</a>.</p>
+  </div>
+  ${EMAIL_FOOTER}
+</div>
+</body></html>`,
+        });
       }
 
       return NextResponse.json({ received: true });
@@ -285,6 +387,28 @@ export async function POST(request: Request) {
       await alertAdmin(
         "Booking Confirmation Email Failed",
         `The session was saved but the confirmation email failed to send.\n\nParent: ${parentName} (${parentEmail})\nSubject: ${meta.subject}\nDate: ${meta.date} at ${meta.time}\nZoom: ${zoomUrl}\nEmail Error: ${emailError.message}`
+      );
+    } else {
+      // Notify Ms. Horace of the new booking
+      await notifyAdmin(
+        `📅 New Booking: ${meta.subject} on ${meta.date}`,
+        `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;">
+          <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:20px;margin-bottom:20px;">
+            <h2 style="color:#5b21b6;margin:0 0 8px;">📅 New Session Booked</h2>
+            <p style="color:#6d28d9;margin:0;font-size:14px;">A parent just completed checkout for a tutoring session.</p>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:14px;">
+            <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;width:40%;">Parent</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-weight:600;">${parentName}</td></tr>
+            <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Email</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;">${parentEmail}</td></tr>
+            <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Subject</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-weight:600;">${meta.subject}</td></tr>
+            <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Grade</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;">${meta.gradeLevel}</td></tr>
+            <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Session Type</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;">${sessionLabel}</td></tr>
+            <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Date</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-weight:600;">${meta.date}</td></tr>
+            <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Time</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-weight:600;">${meta.time} ET</td></tr>
+            <tr><td style="padding:8px 0;color:#6b7280;">Amount Paid</td><td style="padding:8px 0;color:#16a34a;font-weight:700;">$${amountDollars}</td></tr>
+          </table>
+          <p style="margin:20px 0 0;font-size:13px;color:#6b7280;">Confirmation email sent to parent automatically. <a href="https://mshoracetutoring.com/admin" style="color:#7c3aed;">View dashboard →</a></p>
+        </div>`
       );
     }
 
