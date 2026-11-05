@@ -3,32 +3,32 @@ import { stripe } from "@/lib/stripe";
 
 const DIGITAL_PRODUCTS: Record<string, { name: string; priceCents: number; desc: string }> = {
   "pre-algebra-practice": {
-    name: "Pre-Algebra Practice Packet",
-    priceCents: 900,
-    desc: "50+ problems covering fractions, decimals, integers, and basic equations with full answer key.",
-  },
-  "algebra1-practice": {
     name: "Algebra 1 Practice Packet",
     priceCents: 900,
     desc: "50+ problems covering linear equations, inequalities, graphing, and systems with full answer key.",
   },
-  "pre-algebra-study-guide": {
-    name: "Pre-Algebra Study Guide",
-    priceCents: 700,
-    desc: "Quick-reference formula sheet and concept breakdown for all major Pre-Algebra topics.",
+  "algebra1-practice": {
+    name: "Pre-Algebra Practice Packet",
+    priceCents: 900,
+    desc: "50+ problems covering fractions, decimals, integers, and basic equations with full answer key.",
   },
-  "algebra1-study-guide": {
+  "pre-algebra-study-guide": {
     name: "Algebra 1 Study Guide",
     priceCents: 700,
     desc: "Quick-reference formula sheet and concept breakdown for all major Algebra 1 topics.",
   },
+  "algebra1-study-guide": {
+    name: "Pre-Algebra Study Guide",
+    priceCents: 700,
+    desc: "Quick-reference formula sheet and concept breakdown for all major Pre-Algebra topics.",
+  },
   "pre-algebra-exam-prep": {
-    name: "Pre-Algebra Exam Prep",
+    name: "Algebra 1 Exam Prep",
     priceCents: 1200,
     desc: "Full-length practice test with answer key designed to mirror real classroom assessments.",
   },
   "algebra1-exam-prep": {
-    name: "Algebra 1 Exam Prep",
+    name: "Pre-Algebra Exam Prep",
     priceCents: 1200,
     desc: "Full-length practice test with answer key designed to mirror real classroom assessments.",
   },

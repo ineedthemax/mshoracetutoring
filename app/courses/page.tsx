@@ -194,8 +194,8 @@ export default async function CoursesPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
               {
-                title: "Pre-Algebra Practice Packet",
-                desc: "50+ problems covering fractions, decimals, integers, and basic equations with full answer key.",
+                title: "Algebra 1 Practice Packet",
+                desc: "50+ problems covering linear equations, inequalities, graphing, and systems with full answer key.",
                 price: "$9",
                 color: "bg-violet-50",
                 iconColor: "text-violet-600",
@@ -203,8 +203,8 @@ export default async function CoursesPage() {
                 productKey: "pre-algebra-practice",
               },
               {
-                title: "Algebra 1 Practice Packet",
-                desc: "50+ problems covering linear equations, inequalities, graphing, and systems with full answer key.",
+                title: "Pre-Algebra Practice Packet",
+                desc: "50+ problems covering fractions, decimals, integers, and basic equations with full answer key.",
                 price: "$9",
                 color: "bg-blue-50",
                 iconColor: "text-blue-600",
@@ -212,8 +212,8 @@ export default async function CoursesPage() {
                 productKey: "algebra1-practice",
               },
               {
-                title: "Pre-Algebra Study Guide",
-                desc: "Quick-reference formula sheet and concept breakdown for all major Pre-Algebra topics.",
+                title: "Algebra 1 Study Guide",
+                desc: "Quick-reference formula sheet and concept breakdown for all major Algebra 1 topics.",
                 price: "$7",
                 color: "bg-violet-50",
                 iconColor: "text-violet-600",
@@ -221,8 +221,8 @@ export default async function CoursesPage() {
                 productKey: "pre-algebra-study-guide",
               },
               {
-                title: "Algebra 1 Study Guide",
-                desc: "Quick-reference formula sheet and concept breakdown for all major Algebra 1 topics.",
+                title: "Pre-Algebra Study Guide",
+                desc: "Quick-reference formula sheet and concept breakdown for all major Pre-Algebra topics.",
                 price: "$7",
                 color: "bg-blue-50",
                 iconColor: "text-blue-600",
@@ -230,7 +230,7 @@ export default async function CoursesPage() {
                 productKey: "algebra1-study-guide",
               },
               {
-                title: "Pre-Algebra Exam Prep",
+                title: "Algebra 1 Exam Prep",
                 desc: "Full-length practice test with answer key - designed to mirror real classroom assessments.",
                 price: "$12",
                 color: "bg-violet-50",
@@ -239,7 +239,7 @@ export default async function CoursesPage() {
                 productKey: "pre-algebra-exam-prep",
               },
               {
-                title: "Algebra 1 Exam Prep",
+                title: "Pre-Algebra Exam Prep",
                 desc: "Full-length practice test with answer key - designed to mirror real classroom assessments.",
                 price: "$12",
                 color: "bg-blue-50",
