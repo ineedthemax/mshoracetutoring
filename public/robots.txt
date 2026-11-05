@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Block admin and API routes
+Disallow: /admin
+Disallow: /api/
+Disallow: /book/success
+Disallow: /checkout
+
+Sitemap: https://mshoracetutoring.com/sitemap.xml

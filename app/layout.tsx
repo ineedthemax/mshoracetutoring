@@ -15,26 +15,52 @@ export const metadata: Metadata = {
   description:
     "Expert 1-on-1 math tutoring for Pre-Algebra and Algebra 1 students in White Plains, Maryland and online via Zoom. 6+ years experience, 900+ students helped. Book a session today.",
   keywords: [
-    "math tutor White Plains Maryland",
-    "math tutor Maryland",
+    // Brand
+    "MsHorace tutoring",
+    "Stenita Horace tutor",
+    "MsHorace math tutor",
+    // Subject
     "Pre-Algebra tutor",
     "Algebra 1 tutor",
-    "online math tutor",
+    "online Pre-Algebra tutor",
+    "online Algebra 1 tutor",
     "middle school math tutor",
     "math tutor 6th grade",
     "math tutor 7th grade",
     "math tutor 8th grade",
     "math tutor 9th grade",
+    // Local — Maryland
+    "math tutor White Plains Maryland",
+    "math tutor Charles County Maryland",
+    "math tutor Southern Maryland",
+    "math tutor Waldorf Maryland",
+    "math tutor La Plata Maryland",
+    "math tutor Clinton Maryland",
+    "math tutor Fort Washington Maryland",
+    "math tutor Upper Marlboro Maryland",
+    "math tutor Prince George's County Maryland",
+    "math tutor Bowie Maryland",
+    "math tutor Largo Maryland",
+    "math tutor Accokeek Maryland",
+    "math tutor Brandywine Maryland",
+    // Local — Northern Virginia
+    "math tutor Alexandria Virginia",
+    "math tutor Arlington Virginia",
+    "math tutor Woodbridge Virginia",
+    "math tutor Manassas Virginia",
+    "math tutor Fairfax Virginia",
+    "math tutor Dale City Virginia",
+    "math tutor Springfield Virginia",
+    "math tutor Northern Virginia",
+    // Local — DC Metro
+    "math tutor Washington DC",
+    "math tutor DC Metro area",
+    "math tutor near me",
+    // Format
+    "online math tutor",
     "virtual math tutoring",
     "Zoom math tutoring",
-    "online Pre-Algebra tutor",
-    "online Algebra 1 tutor",
     "affordable math tutor",
-    "math tutor near me",
-    "MsHorace tutoring",
-    "Stenita Horace tutor",
-    "Charles County math tutor",
-    "Southern Maryland math tutor",
     "math help for middle school",
     "improve math grades",
     "math tutoring sessions online",
@@ -108,7 +134,23 @@ const jsonLd = {
     addressCountry: "US",
   },
   areaServed: [
-    { "@type": "State", name: "Maryland" },
+    { "@type": "City", name: "White Plains", containedInPlace: { "@type": "State", name: "Maryland" } },
+    { "@type": "City", name: "Waldorf", containedInPlace: { "@type": "State", name: "Maryland" } },
+    { "@type": "City", name: "La Plata", containedInPlace: { "@type": "State", name: "Maryland" } },
+    { "@type": "City", name: "Clinton", containedInPlace: { "@type": "State", name: "Maryland" } },
+    { "@type": "City", name: "Fort Washington", containedInPlace: { "@type": "State", name: "Maryland" } },
+    { "@type": "City", name: "Accokeek", containedInPlace: { "@type": "State", name: "Maryland" } },
+    { "@type": "City", name: "Brandywine", containedInPlace: { "@type": "State", name: "Maryland" } },
+    { "@type": "City", name: "Upper Marlboro", containedInPlace: { "@type": "State", name: "Maryland" } },
+    { "@type": "City", name: "Bowie", containedInPlace: { "@type": "State", name: "Maryland" } },
+    { "@type": "City", name: "Largo", containedInPlace: { "@type": "State", name: "Maryland" } },
+    { "@type": "City", name: "Alexandria", containedInPlace: { "@type": "State", name: "Virginia" } },
+    { "@type": "City", name: "Arlington", containedInPlace: { "@type": "State", name: "Virginia" } },
+    { "@type": "City", name: "Woodbridge", containedInPlace: { "@type": "State", name: "Virginia" } },
+    { "@type": "City", name: "Manassas", containedInPlace: { "@type": "State", name: "Virginia" } },
+    { "@type": "City", name: "Dale City", containedInPlace: { "@type": "State", name: "Virginia" } },
+    { "@type": "City", name: "Springfield", containedInPlace: { "@type": "State", name: "Virginia" } },
+    { "@type": "City", name: "Washington", containedInPlace: { "@type": "State", name: "DC" } },
     { "@type": "Country", name: "United States" },
   ],
   serviceType: ["Pre-Algebra Tutoring", "Algebra 1 Tutoring", "Online Tutoring"],
@@ -186,6 +228,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {/* llms.txt — helps AI search engines (Perplexity, ChatGPT, etc.) understand the site */}
+        <link rel="llms-txt" href="https://mshoracetutoring.com/llms.txt" />
       </head>
       <body className={`${inter.className} bg-gray-50`}>
         {children}
