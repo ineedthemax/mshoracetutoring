@@ -3,7 +3,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, Users, DollarSign, BookOpen, ArrowRight, Clock, Plus } from "lucide-react";
+import { Calendar, Users, DollarSign, BookOpen, ArrowRight, Clock, Plus, Gift, Stethoscope, FileText, ExternalLink } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -59,6 +59,29 @@ export default async function AdminDashboard() {
             <Button size="sm"><Plus className="w-4 h-4 mr-2" />New Report</Button>
           </Link>
         </div>
+      </div>
+
+      {/* Quick Links - Landing Pages */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+        {[
+          { label: "Gift a Session", href: "/gift", icon: Gift, color: "text-pink-600", bg: "bg-pink-50", ext: true },
+          { label: "Free Diagnostic", href: "/diagnostic", icon: Stethoscope, color: "text-blue-600", bg: "bg-blue-50", ext: true },
+          { label: "Group Waitlist", href: "/groups", icon: Users, color: "text-emerald-600", bg: "bg-emerald-50", ext: true },
+          { label: "Send Report", href: "/admin/session-report", icon: FileText, color: "text-violet-600", bg: "bg-violet-50", ext: false },
+        ].map((item) => (
+          <Link key={item.href} href={item.href} target={item.ext ? "_blank" : undefined} rel={item.ext ? "noopener noreferrer" : undefined}>
+            <div className="bg-white border border-gray-100 rounded-xl p-4 hover:border-violet-200 hover:shadow-sm transition-all flex items-center gap-3">
+              <div className={`w-9 h-9 ${item.bg} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                <item.icon className={`w-4 h-4 ${item.color}`} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-gray-900 truncate">{item.label}</p>
+                <p className="text-xs text-gray-400">{item.ext ? "Live page" : "Admin tool"}</p>
+              </div>
+              {item.ext && <ExternalLink className="w-3 h-3 text-gray-300 flex-shrink-0" />}
+            </div>
+          </Link>
+        ))}
       </div>
 
       {/* Stats */}

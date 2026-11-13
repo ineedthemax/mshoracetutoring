@@ -36,7 +36,7 @@ const SAMPLE_DETAILS: Record<number, { what: string; practice: string }> = {
 };
 
 export function LessonPreviewCards({ freeLessons, paidLessons, previewDescription }: Props) {
-  const [openLesson, setOpenLesson] = useState<string | null>(freeLessons[0]?.id ?? null);
+  const [openLesson, setOpenLesson] = useState<string | null>("all");
   const [showAll, setShowAll] = useState(false);
 
   const visiblePaid = showAll ? paidLessons : paidLessons.slice(0, 4);
@@ -61,7 +61,7 @@ export function LessonPreviewCards({ freeLessons, paidLessons, previewDescriptio
               const Icon = LESSON_ICONS[idx % LESSON_ICONS.length];
               const colorClass = LESSON_COLORS[idx % LESSON_COLORS.length];
               const details = SAMPLE_DETAILS[idx + 1] ?? SAMPLE_DETAILS[1];
-              const isOpen = openLesson === lesson.id;
+              const isOpen = openLesson === "all" || openLesson === lesson.id;
 
               return (
                 <div
@@ -71,7 +71,7 @@ export function LessonPreviewCards({ freeLessons, paidLessons, previewDescriptio
                 >
                   {/* Header row */}
                   <button
-                    onClick={() => setOpenLesson(isOpen ? null : lesson.id)}
+                    onClick={() => setOpenLesson(openLesson === lesson.id ? null : lesson.id)}
                     className="w-full flex items-center gap-4 p-4 text-left"
                   >
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${colorClass}`}>
