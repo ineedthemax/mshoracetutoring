@@ -4,8 +4,9 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Gift } from "lucide-react";
 
-export default function GiftSuccessPage({ searchParams }: { searchParams: { recipient?: string } }) {
-  const recipient = searchParams.recipient || "your recipient";
+export default async function GiftSuccessPage({ searchParams }: { searchParams: Promise<{ recipient?: string }> }) {
+  const { recipient: recipientParam } = await searchParams;
+  const recipient = recipientParam || "your recipient";
 
   return (
     <div className="min-h-screen bg-gray-50">
