@@ -19,24 +19,23 @@ export default function HomePage() {
     <div className="min-h-screen">
       <PublicNav />
 
-      {/* Back to School urgency banner */}
-      <div className="bg-amber-500 text-white text-center py-3 px-4 text-sm font-semibold">
-        📚 Back to School 2026 enrollment open. Get your student ready now. <Link href="/book" className="underline ml-1">Reserve your slot now →</Link>
+      {/* Fall urgency banner */}
+      <div className="bg-violet-700 text-white text-center py-3 px-4 text-sm font-semibold">
+        📊 Report cards are coming. Don't wait — book a session before grades are locked in. <Link href="/book" className="underline ml-1">Book now →</Link>
       </div>
 
       {/* Hero */}
       <section className="bg-gradient-to-br from-violet-900 via-violet-800 to-violet-600 text-white py-24 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-white/20 text-white border-0 mb-6">
-            <Flame className="w-4 h-4 mr-2 text-amber-300" /> Back to School 2026 Enrollment Open
+            <TrendingUp className="w-4 h-4 mr-2 text-amber-300" /> Fall 2026 · Grading Period in Progress
           </span>
           <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-            Start the school year{" "}
-            <span className="text-amber-300">confident</span>{" "}
-            and prepared.
+            Turn this grading period{" "}
+            <span className="text-amber-300">around.</span>
           </h1>
           <p className="text-lg md:text-xl text-violet-100 mb-10 max-w-2xl mx-auto">
-            Get ahead before school starts with expert 1-on-1 math tutoring. Build confidence, master key concepts, and arrive on day one ready to succeed. Based in White Plains, Maryland serving students online via Zoom nationwide.
+            Expert 1-on-1 math tutoring for grades 6–9. If your student is struggling with Pre-Algebra or Algebra 1 right now, the best time to act is before report cards are locked in. Based in White Plains, Maryland — sessions online via Zoom nationwide.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/book">
@@ -115,58 +114,70 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Back to School offer cards */}
-      <section className="bg-amber-50 py-20 px-4 border-b border-amber-100">
+      {/* Fall offer cards */}
+      <section className="bg-violet-50 py-20 px-4 border-b border-violet-100">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <Badge className="mb-4 bg-amber-500 text-white border-0">Back to School Offers</Badge>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Back to School Plans</h2>
-            <p className="text-gray-500 text-lg">Flexible options to get your student ready for success this year.</p>
+            <Badge className="mb-4 bg-violet-600 text-white border-0">Fall 2026 Plans</Badge>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">The right plan for where your student is right now</h2>
+            <p className="text-gray-500 text-lg">Whether they need to catch up or stay ahead — we have a plan for that.</p>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 icon: Zap,
-                badge: "First Grading Period",
-                title: "The Foundation Pack",
-                subtitle: "4 sessions · $75/session",
-                price: "$300",
+                badge: "Quick Fix",
+                title: "Grade Rescue Pack",
+                subtitle: "3 sessions · $65/session",
+                price: "$195",
                 original: null,
-                desc: "4 live 1-on-1 Zoom sessions (60 min each). Valid 60 days. Perfect to get ahead of the first grading period.",
-                cta: "Get Started",
+                desc: "3 focused 60-min sessions targeting exactly what's dragging the grade down. Best for students who just got a rough report card.",
+                cta: "Start Now",
                 highlight: false,
-                packageType: "4-session",
+                packageType: "grade-rescue",
               },
               {
-                icon: Flame,
-                badge: "Best Value",
+                icon: TrendingUp,
+                badge: "Most Popular",
                 title: "The 8-Session Pack",
                 subtitle: "8 sessions · $75/session",
                 price: "$600",
                 original: null,
-                desc: "8 live 1-on-1 Zoom sessions (60 min each). Valid 90 days. Build real, lasting confidence in math.",
+                desc: "8 live 1-on-1 Zoom sessions (60 min each). Valid 90 days. The best option for real, lasting improvement this semester.",
                 cta: "Get the Pack",
                 highlight: true,
                 packageType: "8-session",
               },
+              {
+                icon: Calendar,
+                badge: "Stay Consistent",
+                title: "Monthly Pack",
+                subtitle: "4 sessions/month · $65/session",
+                price: "$260/mo",
+                original: null,
+                desc: "Weekly sessions every month. The most effective way to build consistency and see steady grade improvement all semester.",
+                cta: "Go Monthly",
+                highlight: false,
+                packageType: "monthly",
+              },
             ].map((offer) => (
-              <Card key={offer.title} className={`p-6 relative ${offer.highlight ? "border-amber-400 shadow-lg ring-1 ring-amber-400" : ""}`}>
+              <Card key={offer.title} className={`p-6 relative ${offer.highlight ? "border-violet-400 shadow-lg ring-1 ring-violet-400" : ""}`}>
                 {offer.badge && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <Badge className={`border-0 text-xs px-3 py-1 ${offer.highlight ? "bg-amber-500 text-white" : "bg-violet-600 text-white"}`}>{offer.badge}</Badge>
+                    <Badge className={`border-0 text-xs px-3 py-1 ${offer.highlight ? "bg-violet-600 text-white" : "bg-gray-700 text-white"}`}>{offer.badge}</Badge>
                   </div>
                 )}
                 <CardContent className="p-0 text-center">
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4 ${offer.highlight ? "bg-amber-100" : "bg-violet-100"}`}>
-                    <offer.icon className={`w-6 h-6 ${offer.highlight ? "text-amber-600" : "text-violet-600"}`} />
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4 ${offer.highlight ? "bg-violet-100" : "bg-gray-100"}`}>
+                    <offer.icon className={`w-6 h-6 ${offer.highlight ? "text-violet-600" : "text-gray-600"}`} />
                   </div>
                   <h3 className="font-bold text-gray-900 text-lg mb-1">{offer.title}</h3>
                   <p className="text-gray-400 text-sm mb-3">{offer.subtitle}</p>
-                  <div className={`text-4xl font-bold mb-1 ${offer.highlight ? "text-amber-500" : "text-violet-600"}`}>{offer.price}</div>
+                  <div className={`text-4xl font-bold mb-1 ${offer.highlight ? "text-violet-600" : "text-gray-800"}`}>{offer.price}</div>
                   {offer.original && <div className="text-sm text-gray-400 line-through mb-3">{offer.original}</div>}
                   <p className="text-sm text-gray-500 leading-relaxed mb-6">{offer.desc}</p>
                   <Link href={offer.packageType ? `/checkout?type=${offer.packageType}` : "/book"} className="block">
-                    <Button className={`w-full ${offer.highlight ? "bg-amber-500 hover:bg-amber-600 text-white" : ""}`} variant={offer.highlight ? "default" : "outline"}>
+                    <Button className={`w-full ${offer.highlight ? "bg-violet-600 hover:bg-violet-700 text-white" : ""}`} variant={offer.highlight ? "default" : "outline"}>
                       {offer.cta}
                     </Button>
                   </Link>
@@ -181,25 +192,25 @@ export default function HomePage() {
       <section className="bg-gray-50 py-20 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Before school starts, get your student ready.</h2>
-            <p className="text-gray-500 text-lg">Which student will walk into class in September?</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">We're 3 months into the school year. Here's what parents are calling about.</h2>
+            <p className="text-gray-500 text-lg">Which one sounds like your student?</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 icon: Brain,
-                title: "\"They struggled last year and I don't want that again\"",
-                desc: "Gaps from last year don't go away on their own. A few focused sessions now fill holes in understanding before school starts. No pressure, just clarity."
+                title: "\"Their grade dropped and I don't know why\"",
+                desc: "A single missing concept can snowball fast in math. We find the gap, fix it, and get them back on track before the second grading period closes."
               },
               {
                 icon: Calculator,
-                title: "\"They want to feel more confident in math\"",
-                desc: "Confidence matters more than you think. Students who start strong stay strong. A few sessions now prove they can do this."
+                title: "\"They understand it in class but bomb the tests\"",
+                desc: "That's a practice and confidence issue — not an intelligence issue. We drill exactly the problem types that show up on their tests until it clicks."
               },
               {
                 icon: Target,
-                title: "\"They want to be ahead from day one\"",
-                desc: "Students who preview next year's material start the school year ahead of the curve. We cover Pre-Algebra and Algebra 1 at their pace."
+                title: "\"They're keeping up but I want to make sure it sticks\"",
+                desc: "Preventative tutoring is the smartest move. Students who reinforce concepts weekly stay ahead and go into semester exams confident."
               },
             ].map((item) => (
               <Card key={item.title} className="p-6">
@@ -455,14 +466,14 @@ export default function HomePage() {
       </section>
 
       {/* Urgency CTA */}
-      <section className="bg-gradient-to-br from-amber-500 to-orange-500 py-20 px-4">
+      <section className="bg-gradient-to-br from-violet-700 to-violet-500 py-20 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <Calendar className="w-12 h-12 text-white mx-auto mb-4" />
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Back to school is coming. Math gaps don&apos;t fix themselves.
+            The second grading period is already underway. Don&apos;t wait for the next report card.
           </h2>
-          <p className="text-amber-100 text-lg mb-8">
-            Spots are limited before the school year starts. Book now to guarantee the time slot and prepare your student for success.
+          <p className="text-violet-100 text-lg mb-8">
+            Most students see real improvement in 3–4 sessions. Spots are limited — book now to lock in a consistent weekly time.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/book">
@@ -476,7 +487,7 @@ export default function HomePage() {
               </button>
             </Link>
           </div>
-          <p className="text-amber-200 text-sm mt-6">Starting at $25 · Flexible scheduling · Cancel anytime</p>
+          <p className="text-violet-200 text-sm mt-6">Starting at $25 · Flexible scheduling · Cancel anytime</p>
         </div>
       </section>
 

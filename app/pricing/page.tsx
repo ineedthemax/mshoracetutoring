@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Math Tutoring Prices & Plans | MsHorace Tutoring",
-  description: "Affordable online math tutoring starting at $25. 30-min sessions $40, 60-min $75, group classes $25. Flexible payment plans and back-to-school bundles available.",
+  description: "Affordable online math tutoring starting at $25. 30-min sessions $40, 60-min $75, group classes $25. Flexible payment plans and fall semester bundles available.",
 };
 
 import Link from "next/link";
