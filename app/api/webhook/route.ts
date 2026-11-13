@@ -316,12 +316,20 @@ export async function POST(request: Request) {
       );
     }
 
-    // Step 2: Save to payments table
+    // Step 2: Save to payments table — look up the session row we just inserted
+    // so we can link session_id (FK) for the payments dashboard
+    const { data: savedSession } = await admin
+      .from("sessions")
+      .select("id")
+      .eq("stripe_session_id", session.id)
+      .maybeSingle();
+
     await admin.from("payments").upsert({
       amount_cents: session.amount_total,
       status: "succeeded",
       stripe_checkout_session_id: session.id,
       stripe_payment_intent_id: session.payment_intent,
+      session_id: savedSession?.id ?? null,
     }, { onConflict: "stripe_checkout_session_id" });
 
     // Step 3: Send confirmation email
