@@ -3,7 +3,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, Users, DollarSign, BookOpen, ArrowRight, Clock, Plus, Gift, Stethoscope, FileText, ExternalLink } from "lucide-react";
+import { Calendar, Users, DollarSign, BookOpen, ArrowRight, Clock, Plus, Gift, Stethoscope, ExternalLink } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -67,7 +67,6 @@ export default async function AdminDashboard() {
           { label: "Gift a Session", href: "/gift", icon: Gift, color: "text-pink-600", bg: "bg-pink-50", ext: true },
           { label: "Free Diagnostic", href: "/diagnostic", icon: Stethoscope, color: "text-blue-600", bg: "bg-blue-50", ext: true },
           { label: "Group Waitlist", href: "/groups", icon: Users, color: "text-emerald-600", bg: "bg-emerald-50", ext: true },
-          { label: "Send Report", href: "/admin/session-report", icon: FileText, color: "text-violet-600", bg: "bg-violet-50", ext: false },
         ].map((item) => (
           <Link key={item.href} href={item.href} target={item.ext ? "_blank" : undefined} rel={item.ext ? "noopener noreferrer" : undefined}>
             <div className="bg-white border border-gray-100 rounded-xl p-4 hover:border-violet-200 hover:shadow-sm transition-all flex items-center gap-3">
