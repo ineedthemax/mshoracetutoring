@@ -100,7 +100,7 @@ export default function PricingPage() {
 
         {/* Bundles */}
         <div className="mb-6 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Back-to-School Bundle Packages</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">Fall Semester Bundle Packages</h2>
           <p className="text-gray-500">Save more when you commit. Every bundle includes personalized session notes and WhatsApp check-ins.</p>
         </div>
 
