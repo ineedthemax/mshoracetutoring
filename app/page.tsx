@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { GoogleReviews } from "@/components/GoogleReviews";
+import { LeadCaptureForm } from "@/components/LeadCaptureForm";
 import { mockTutor, mockPricing } from "@/lib/mock-data";
 import {
   Users, Star, TrendingUp, Award, BookOpen, Video, FileText,
@@ -476,6 +477,37 @@ export default function HomePage() {
             </Link>
           </div>
           <p className="text-amber-200 text-sm mt-6">Starting at $25 · Flexible scheduling · Cancel anytime</p>
+        </div>
+      </section>
+
+      {/* Lead Capture Section */}
+      <section className="bg-white py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <Badge className="mb-4 bg-violet-100 text-violet-700 border-0">Not ready to book yet?</Badge>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Get a free math assessment for your student</h2>
+              <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+                Fill out the form and Ms. Horace will reach out within 24 hours to discuss your student's needs, goals, and how she can help.
+              </p>
+              <ul className="space-y-3">
+                {[
+                  "No obligation — just a friendly conversation",
+                  "Personalized recommendation for your student",
+                  "Learn exactly what sessions would cover",
+                  "Find out if group classes would be a better fit",
+                ].map(item => (
+                  <li key={item} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-violet-500 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700 text-sm">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <LeadCaptureForm source="homepage" cta="Request Free Assessment" />
+            </div>
+          </div>
         </div>
       </section>
 

@@ -32,6 +32,7 @@ const navItems = {
   ],
   admin: [
     { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
+    { label: "Leads", href: "/admin/leads", icon: TrendingUp },
     { label: "Bookings", href: "/admin/bookings", icon: Calendar },
     { label: "Students", href: "/admin/students", icon: Users },
     { label: "Courses", href: "/admin/courses", icon: BookOpen },

@@ -8,6 +8,7 @@ export const metadata: Metadata = {
 import Link from "next/link";
 import { PublicNav } from "@/components/layout/PublicNav";
 import { Footer } from "@/components/layout/Footer";
+import { LeadCaptureForm } from "@/components/LeadCaptureForm";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MetaPixelViewContent } from "@/components/MetaPixelPurchase";
@@ -239,6 +240,17 @@ export default function PricingPage() {
               </CardContent>
             </Card>
           ))}
+        </div>
+      </section>
+
+      {/* Lead Capture Banner */}
+      <section className="bg-violet-50 py-16 px-4">
+        <div className="max-w-2xl mx-auto text-center mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Not sure which plan is right?</h2>
+          <p className="text-gray-500">Tell us about your student and Ms. Horace will give you a personalized recommendation.</p>
+        </div>
+        <div className="max-w-lg mx-auto">
+          <LeadCaptureForm source="pricing-page" cta="Get a Personalized Recommendation" />
         </div>
       </section>
 
