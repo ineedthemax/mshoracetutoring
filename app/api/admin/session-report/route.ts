@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     await resend.emails.send({
       from: FROM,
       to: parentEmail,
-      subject: `${studentName}'s Session Report — ${formattedDate}`,
+      subject: `${studentName}'s Session Report - ${formattedDate}`,
       html: `
 <!DOCTYPE html>
 <html>

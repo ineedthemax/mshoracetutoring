@@ -128,7 +128,7 @@ export async function POST(request: Request) {
       // Step 2: Send delivery email — alert if it fails
       if (!buyerEmail) {
         await alertAdmin(
-          "Digital Purchase — No Email Address",
+          "Digital Purchase - No Email Address",
           `A customer paid $${((session.amount_total ?? 0) / 100).toFixed(2)} for ${productName} but no email address was captured.\n\nStripe Session: ${session.id}\nProduct Key: ${meta.productKey}\n\nManually resend from the admin dashboard.`
         );
         return NextResponse.json({ received: true });
@@ -136,7 +136,7 @@ export async function POST(request: Request) {
 
       if (signedUrlError || !downloadUrl) {
         await alertAdmin(
-          "Digital Purchase — Download Link Failed",
+          "Digital Purchase - Download Link Failed",
           `Could not generate a download link for ${productName}.\n\nCustomer: ${buyerEmail}\nStripe Session: ${session.id}\nError: ${signedUrlError ?? "No URL returned"}\n\nManually resend from the admin dashboard.`
         );
         return NextResponse.json({ received: true });
@@ -178,7 +178,7 @@ export async function POST(request: Request) {
 
       if (emailError) {
         await alertAdmin(
-          "Digital Purchase — Delivery Email Failed",
+          "Digital Purchase - Delivery Email Failed",
           `The purchase was saved but the delivery email failed to send.\n\nCustomer: ${buyerEmail}\nProduct: ${productName}\nStripe Session: ${session.id}\nEmail Error: ${emailError.message}\n\nManually resend from the admin dashboard.`
         );
       } else {
@@ -224,7 +224,7 @@ export async function POST(request: Request) {
       const packageLabel = packageNames[meta.packageType] ?? meta.packageType;
       const isInstallment = meta.paymentOption === "plan";
       const installmentNote = isInstallment
-        ? `<tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;width:40%;">Payment Type</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#d97706;font-weight:600;">Installment 1 of 2 — Second payment auto-charges in 30 days</td></tr>`
+        ? `<tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;width:40%;">Payment Type</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#d97706;font-weight:600;">Installment 1 of 2 - Second payment auto-charges in 30 days</td></tr>`
         : `<tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;width:40%;">Payment Type</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;">Paid in Full</td></tr>`;
 
       await notifyAdmin(
@@ -260,14 +260,14 @@ export async function POST(request: Request) {
   </div>
   <div style="padding:28px 32px;">
     <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px 18px;margin-bottom:24px;text-align:center;">
-      <p style="margin:0;color:#16a34a;font-weight:700;font-size:15px;">Payment Received — $${amountPaid}</p>
+      <p style="margin:0;color:#16a34a;font-weight:700;font-size:15px;">Payment Received - $${amountPaid}</p>
     </div>
     <div style="background:#f5f3ff;border-radius:12px;padding:16px 20px;margin-bottom:20px;">
       <p style="margin:0 0 4px;font-size:11px;font-weight:700;color:#5b21b6;text-transform:uppercase;letter-spacing:0.08em;">Your Package</p>
       <p style="margin:0;font-size:18px;font-weight:700;color:#1f2937;">${packageLabel}</p>
       ${isInstallment ? `<p style="margin:8px 0 0;font-size:13px;color:#d97706;font-weight:600;">Installment plan: second payment auto-charges in 30 days.</p>` : ""}
     </div>
-    <p style="color:#374151;font-size:14px;line-height:1.7;margin:0 0 20px;">All your sessions are ready to schedule. Ms. Horace will be in touch to set up your first session — keep an eye on your inbox!</p>
+    <p style="color:#374151;font-size:14px;line-height:1.7;margin:0 0 20px;">All your sessions are ready to schedule. Ms. Horace will be in touch to set up your first session - keep an eye on your inbox!</p>
     <p style="color:#374151;font-size:14px;line-height:1.7;margin:0;">Questions? Reply to this email or text us at <a href="tel:2272206227" style="color:#7c3aed;">(227) 220-6227</a>.</p>
   </div>
   ${EMAIL_FOOTER}
@@ -335,7 +335,7 @@ export async function POST(request: Request) {
     // Step 3: Send confirmation email
     if (!parentEmail) {
       await alertAdmin(
-        "Booking — No Email Address",
+        "Booking - No Email Address",
         `A session was booked but no parent email was captured.\n\nSubject: ${meta.subject}\nDate: ${meta.date}\nStripe Session: ${session.id}`
       );
       return NextResponse.json({ received: true });

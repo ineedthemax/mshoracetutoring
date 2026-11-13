@@ -52,16 +52,16 @@ export async function GET(req: NextRequest) {
   <div style="padding:28px 32px;">
     <p style="margin:0 0 16px;font-size:16px;color:#111827;">Hey <strong>${firstName}</strong>,</p>
     <p style="margin:0 0 16px;font-size:14px;color:#374151;line-height:1.7;">I wanted to follow up and see if you still have questions about getting your student set up with tutoring.</p>
-    <p style="margin:0 0 16px;font-size:14px;color:#374151;line-height:1.7;">A lot of parents reach out when they're worried but then hesitate — totally understandable. Here's what I always tell them: <strong>the sooner we address gaps, the easier it is to close them.</strong></p>
+    <p style="margin:0 0 16px;font-size:14px;color:#374151;line-height:1.7;">A lot of parents reach out when they're worried but then hesitate - totally understandable. Here's what I always tell them: <strong>the sooner we address gaps, the easier it is to close them.</strong></p>
     <div style="background:#faf5ff;border-left:4px solid #7c3aed;padding:16px 20px;border-radius:0 8px 8px 0;margin:0 0 24px;">
       <p style="margin:0;font-size:14px;color:#374151;line-height:1.7;font-style:italic;">"My daughter went from a D to a B+ in one semester. Ms. Horace made everything click."</p>
-      <p style="margin:8px 0 0;font-size:12px;color:#9ca3af;">— Parent in Waldorf, MD</p>
+      <p style="margin:8px 0 0;font-size:12px;color:#9ca3af;">- Parent in Waldorf, MD</p>
     </div>
     <div style="text-align:center;margin-bottom:24px;">
       <a href="https://mshoracetutoring.com/book" style="display:inline-block;background:#7c3aed;color:#fff;padding:14px 36px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;">Book a Session →</a>
     </div>
     <p style="margin:0 0 8px;font-size:14px;color:#374151;">Not ready to book? Browse our <a href="https://mshoracetutoring.com/pricing" style="color:#7c3aed;font-weight:600;">affordable packages</a> starting at $25/session, or grab a <a href="https://mshoracetutoring.com/courses" style="color:#7c3aed;font-weight:600;">practice packet</a> for $7 to see how I teach.</p>
-    <p style="margin:16px 0 0;font-size:14px;color:#374151;">— Stenita (Ms. Horace)</p>
+    <p style="margin:16px 0 0;font-size:14px;color:#374151;">- Stenita (Ms. Horace)</p>
   </div>
   ${EMAIL_FOOTER}
 </div>
@@ -108,10 +108,10 @@ export async function GET(req: NextRequest) {
   </div>
   <div style="padding:28px 32px;">
     <p style="margin:0 0 16px;font-size:16px;color:#111827;">Hi <strong>${firstName}</strong>,</p>
-    <p style="margin:0 0 16px;font-size:14px;color:#374151;line-height:1.7;">I'll keep this short — this is my last follow-up. I don't want to be in your inbox if you're not interested.</p>
-    <p style="margin:0 0 16px;font-size:14px;color:#374151;line-height:1.7;">But if math is still a struggle for your student, I want you to know the door is always open. You can book anytime at the link below — no pressure, no sales call.</p>
+    <p style="margin:0 0 16px;font-size:14px;color:#374151;line-height:1.7;">I'll keep this short - this is my last follow-up. I don't want to be in your inbox if you're not interested.</p>
+    <p style="margin:0 0 16px;font-size:14px;color:#374151;line-height:1.7;">But if math is still a struggle for your student, I want you to know the door is always open. You can book anytime at the link below - no pressure, no sales call.</p>
     <div style="background:#fef3c7;border-radius:12px;padding:20px 24px;margin:0 0 24px;">
-      <p style="margin:0 0 8px;font-size:14px;font-weight:700;color:#92400e;">💡 Before you go — a free resource:</p>
+      <p style="margin:0 0 8px;font-size:14px;font-weight:700;color:#92400e;">💡 Before you go - a free resource:</p>
       <p style="margin:0;font-size:14px;color:#78350f;line-height:1.7;">Our digital practice packets ($7) are a great low-commitment way to see how I break down math concepts. Many families start there before booking sessions.</p>
     </div>
     <div style="text-align:center;margin-bottom:24px;">
@@ -119,7 +119,7 @@ export async function GET(req: NextRequest) {
       <a href="https://mshoracetutoring.com/courses" style="display:inline-block;background:#f5f3ff;color:#7c3aed;padding:14px 36px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;border:2px solid #ddd6fe;">Get a Packet</a>
     </div>
     <p style="margin:16px 0 0;font-size:14px;color:#374151;">Wishing your student a great school year. 🎓</p>
-    <p style="margin:8px 0 0;font-size:14px;color:#374151;">— Stenita (Ms. Horace)</p>
+    <p style="margin:8px 0 0;font-size:14px;color:#374151;">- Stenita (Ms. Horace)</p>
   </div>
   ${EMAIL_FOOTER}
 </div>

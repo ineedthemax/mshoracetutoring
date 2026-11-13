@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
     to: [email],
     replyTo: "MsHoraceTutoring06@gmail.com",
-    subject: `Welcome to MsHorace Tutoring — Your Login is Ready`,
+    subject: `Welcome to MsHorace Tutoring - Your Login is Ready`,
     html: `
 <!DOCTYPE html>
 <html>
@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
   <div style="padding:28px 32px;">
     <h2 style="margin:0 0 6px;font-size:20px;font-weight:700;color:#1f2937;">Hi ${name}! 👋</h2>
     <p style="margin:0 0 24px;color:#6b7280;font-size:14px;line-height:1.6;">
-      Your ${roleLabel} account has been created. Here are your login details — please keep these safe.
+      Your ${roleLabel} account has been created. Here are your login details - please keep these safe.
     </p>
 
     <div style="background:#f5f3ff;border-radius:12px;padding:20px 24px;margin-bottom:24px;">

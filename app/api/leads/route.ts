@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
     // Email 1: Welcome + free resource (sent immediately)
     const firstName = name.split(" ")[0];
     const subjectLine = grade || subject
-      ? `${grade ? `${grade} ` : ""}${subject || "Math"} help for ${firstName} — here's what to do next`
+      ? `${grade ? `${grade} ` : ""}${subject || "Math"} help for ${firstName} - here's what to do next`
       : `Thanks for reaching out, ${firstName}!`;
 
     await resend.emails.send({
@@ -76,13 +76,13 @@ export async function POST(req: NextRequest) {
   </div>
   <div style="padding:28px 32px;">
     <p style="margin:0 0 16px;font-size:16px;color:#111827;">Hi <strong>${firstName}</strong>,</p>
-    <p style="margin:0 0 16px;font-size:14px;color:#374151;line-height:1.7;">Thanks for reaching out! I'm Stenita — Ms. Horace — and I help ${grade ? `${grade} ` : ""}students go from confused to confident in math.</p>
+    <p style="margin:0 0 16px;font-size:14px;color:#374151;line-height:1.7;">Thanks for reaching out! I'm Stenita - Ms. Horace - and I help ${grade ? `${grade} ` : ""}students go from confused to confident in math.</p>
     ${grade || subject ? `<p style="margin:0 0 16px;font-size:14px;color:#374151;line-height:1.7;">I saw you're looking for help with <strong>${subject || "math"}${grade ? ` (${grade})` : ""}</strong>. That's exactly my specialty.</p>` : ""}
     <div style="background:#f5f3ff;border-radius:12px;padding:20px 24px;margin:0 0 24px;">
       <p style="margin:0 0 8px;font-size:13px;font-weight:700;color:#5b21b6;text-transform:uppercase;letter-spacing:0.08em;">Here's what happens next</p>
       <ol style="margin:0;padding-left:20px;color:#374151;font-size:14px;line-height:2;">
         <li>Browse available session times and book whenever you're ready</li>
-        <li>Your child gets a personalized session — no cookie-cutter lessons</li>
+        <li>Your child gets a personalized session - no cookie-cutter lessons</li>
         <li>After every session you get a written progress report</li>
       </ol>
     </div>
@@ -90,8 +90,8 @@ export async function POST(req: NextRequest) {
       <a href="https://mshoracetutoring.com/book" style="display:inline-block;background:#7c3aed;color:#fff;padding:14px 36px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;">Book a Session →</a>
     </div>
     <p style="margin:0 0 8px;font-size:14px;color:#374151;line-height:1.7;">Not ready to commit yet? No pressure. You can also check out our <a href="https://mshoracetutoring.com/pricing" style="color:#7c3aed;font-weight:600;">session packages</a> or <a href="https://mshoracetutoring.com/courses" style="color:#7c3aed;font-weight:600;">affordable study resources</a> starting at $7.</p>
-    <p style="margin:16px 0 0;font-size:14px;color:#374151;">Questions? Just reply to this email — I read every one.</p>
-    <p style="margin:16px 0 0;font-size:14px;color:#374151;">— Stenita (Ms. Horace)</p>
+    <p style="margin:16px 0 0;font-size:14px;color:#374151;">Questions? Just reply to this email - I read every one.</p>
+    <p style="margin:16px 0 0;font-size:14px;color:#374151;">- Stenita (Ms. Horace)</p>
   </div>
   ${EMAIL_FOOTER}
 </div>
