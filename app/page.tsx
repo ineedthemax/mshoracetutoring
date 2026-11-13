@@ -21,7 +21,7 @@ export default function HomePage() {
 
       {/* Fall urgency banner */}
       <div className="bg-violet-700 text-white text-center py-3 px-4 text-sm font-semibold">
-        📊 Report cards are coming. Don't wait - book a session before grades are locked in. <Link href="/book" className="underline ml-1">Book now →</Link>
+         Report cards are coming. Don't wait - book a session before grades are locked in. <Link href="/book" className="underline ml-1">Book now →</Link>
       </div>
 
       {/* Hero */}
@@ -59,7 +59,7 @@ export default function HomePage() {
           {[
             { icon: Users, label: "Students Helped", value: "900+" },
             { icon: Award, label: "Years Experience", value: "6+ Years" },
-            { icon: Star, label: "Average Rating", value: "4.9★" },
+            { icon: Star, label: "Average Rating", value: "4.9" },
             { icon: TrendingUp, label: "Return Rate", value: "95%" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
