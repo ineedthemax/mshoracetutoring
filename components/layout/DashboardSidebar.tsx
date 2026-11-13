@@ -4,7 +4,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, Calendar, TrendingUp, CreditCard, BookOpen, Upload,
-  History, Users, FileText, BarChart2, User, LogOut, Clock, Sparkles,
+  History, Users, FileText, BarChart2, User, LogOut, Clock, Sparkles, MessageSquare,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -37,6 +37,7 @@ const navItems = {
     { label: "Students", href: "/admin/students", icon: Users },
     { label: "Courses", href: "/admin/courses", icon: BookOpen },
     { label: "Reports", href: "/admin/reports", icon: FileText },
+    { label: "Send Report", href: "/admin/session-report", icon: MessageSquare },
     { label: "Groups", href: "/admin/groups", icon: BarChart2 },
     { label: "Payments", href: "/admin/payments", icon: CreditCard },
     { label: "Purchases", href: "/admin/purchases", icon: BarChart2 },

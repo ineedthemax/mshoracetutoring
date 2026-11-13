@@ -11,6 +11,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { LeadCaptureForm } from "@/components/LeadCaptureForm";
 import { mockGroupClasses } from "@/lib/mock-data";
 import { Users, Clock, Calendar } from "lucide-react";
 
@@ -123,6 +124,17 @@ export default function GroupsPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Waitlist Section */}
+      <section className="bg-violet-50 py-16 px-4">
+        <div className="max-w-2xl mx-auto text-center mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Join the Group Class Waitlist</h2>
+          <p className="text-gray-500">Classes fill fast. Drop your info and we will reach out as soon as a spot opens up in your student&apos;s grade level.</p>
+        </div>
+        <div className="max-w-lg mx-auto">
+          <LeadCaptureForm source="group-waitlist" cta="Join the Waitlist" />
         </div>
       </section>
 
