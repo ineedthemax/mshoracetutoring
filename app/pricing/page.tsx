@@ -35,11 +35,11 @@ const faqs = [
   },
   {
     q: "Do you offer discounts for multiple children?",
-    a: "Yes — the Two Kids Family Pack gives you 8 sessions for $490, saving $110 compared to booking two separate 4-session packs.",
+    a: "Yes - the Two Kids Family Pack gives you 8 sessions for $490, saving $110 compared to booking two separate 4-session packs.",
   },
   {
     q: "How do group class prices work?",
-    a: "Group class prices are per student per session. A 75-minute group session is $25/student (max 4 students per class). The Group Class Semester Pass gives you 6 sessions for $150 — saving $25 vs. pay-as-you-go.",
+    a: "Group class prices are per student per session. A 75-minute group session is $25/student (max 4 students per class). The Group Class Semester Pass gives you 6 sessions for $150 - saving $25 vs. pay-as-you-go.",
   },
 ];
 
@@ -165,7 +165,7 @@ export default function PricingPage() {
             <div className="flex-1 text-center md:text-left">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Payment Plans Available</h2>
               <p className="text-gray-500 mb-4">
-                Don&apos;t let the upfront cost hold you back. Split your purchase into 2 easy payments — no interest, no hidden fees. All sessions are released immediately on your first payment.
+                Don&apos;t let the upfront cost hold you back. Split your purchase into 2 easy payments - no interest, no hidden fees. All sessions are released immediately on your first payment.
               </p>
               <div className="grid sm:grid-cols-3 gap-3">
                 {[

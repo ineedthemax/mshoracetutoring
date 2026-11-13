@@ -21,7 +21,7 @@ export default function HomePage() {
 
       {/* Fall urgency banner */}
       <div className="bg-violet-700 text-white text-center py-3 px-4 text-sm font-semibold">
-        📊 Report cards are coming. Don't wait — book a session before grades are locked in. <Link href="/book" className="underline ml-1">Book now →</Link>
+        📊 Report cards are coming. Don't wait - book a session before grades are locked in. <Link href="/book" className="underline ml-1">Book now →</Link>
       </div>
 
       {/* Hero */}
@@ -35,7 +35,7 @@ export default function HomePage() {
             <span className="text-amber-300">around.</span>
           </h1>
           <p className="text-lg md:text-xl text-violet-100 mb-10 max-w-2xl mx-auto">
-            Expert 1-on-1 math tutoring for grades 6–9. If your student is struggling with Pre-Algebra or Algebra 1 right now, the best time to act is before report cards are locked in. Based in White Plains, Maryland — sessions online via Zoom nationwide.
+            Expert 1-on-1 math tutoring for grades 6–9. If your student is struggling with Pre-Algebra or Algebra 1 right now, the best time to act is before report cards are locked in. Based in White Plains, Maryland - sessions online via Zoom nationwide.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/book">
@@ -120,7 +120,7 @@ export default function HomePage() {
           <div className="text-center mb-12">
             <Badge className="mb-4 bg-violet-600 text-white border-0">Fall 2026 Plans</Badge>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">The right plan for where your student is right now</h2>
-            <p className="text-gray-500 text-lg">Whether they need to catch up or stay ahead — we have a plan for that.</p>
+            <p className="text-gray-500 text-lg">Whether they need to catch up or stay ahead - we have a plan for that.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
@@ -205,7 +205,7 @@ export default function HomePage() {
               {
                 icon: Calculator,
                 title: "\"They understand it in class but bomb the tests\"",
-                desc: "That's a practice and confidence issue — not an intelligence issue. We drill exactly the problem types that show up on their tests until it clicks."
+                desc: "That's a practice and confidence issue - not an intelligence issue. We drill exactly the problem types that show up on their tests until it clicks."
               },
               {
                 icon: Target,
@@ -473,7 +473,7 @@ export default function HomePage() {
             The second grading period is already underway. Don&apos;t wait for the next report card.
           </h2>
           <p className="text-violet-100 text-lg mb-8">
-            Most students see real improvement in 3–4 sessions. Spots are limited — book now to lock in a consistent weekly time.
+            Most students see real improvement in 3–4 sessions. Spots are limited - book now to lock in a consistent weekly time.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/book">
@@ -503,7 +503,7 @@ export default function HomePage() {
               </p>
               <ul className="space-y-3">
                 {[
-                  "No obligation — just a friendly conversation",
+                  "No obligation - just a friendly conversation",
                   "Personalized recommendation for your student",
                   "Learn exactly what sessions would cover",
                   "Find out if group classes would be a better fit",
