@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 const GRADES = [
-  "5th Grade", "6th Grade", "7th Grade", "8th Grade", "9th Grade", "10th Grade+"
+  "6th Grade", "7th Grade", "8th Grade", "9th Grade"
 ];
 const SUBJECTS = ["Pre-Algebra", "Algebra 1", "Both / Not Sure"];
 
