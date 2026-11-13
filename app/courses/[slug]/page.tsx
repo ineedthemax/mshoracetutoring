@@ -8,9 +8,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { mockBundle } from "@/lib/mock-courses";
-import { Lock, FileText, CheckCircle, Star, ArrowLeft, BookOpen, Zap } from "lucide-react";
+import { FileText, CheckCircle, Star, ArrowLeft, BookOpen, Zap } from "lucide-react";
 import { createPublicClient } from "@/lib/supabase/public";
 import { CourseCheckoutButton } from "@/components/CourseCheckoutButton";
+import { LessonPreviewCards } from "@/components/LessonPreviewCards";
 
 const INTERACTIVE_COURSES: Record<string, string> = {
   "pre-algebra-mastery": "/pre-algebra-course.html",
@@ -63,48 +64,11 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
               </div>
             </div>
 
-            {/* Free Preview Lessons */}
-            {freeLessons.length > 0 && (
-              <Card className="mb-4">
-                <CardContent className="p-6">
-                  <h2 className="font-bold text-gray-900 text-lg mb-1">Free Preview Lessons</h2>
-                  <p className="text-sm text-gray-500 mb-4">{course.preview_description}</p>
-                  <div className="space-y-2">
-                    {freeLessons.map((lesson: { id: string; lesson_order: number; title: string }) => (
-                      <div key={lesson.id} className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-xl">
-                        <div className="flex items-center gap-3">
-                          <div className="w-7 h-7 bg-green-100 rounded-lg flex items-center justify-center text-xs font-bold text-green-700">
-                            {lesson.lesson_order}
-                          </div>
-                          <span className="text-sm font-medium text-gray-900">{lesson.title}</span>
-                        </div>
-                        <Badge variant="success">Free</Badge>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Paid Lessons */}
-            <Card>
-              <CardContent className="p-6">
-                <h2 className="font-bold text-gray-900 text-lg mb-4">Full Course Curriculum</h2>
-                <div className="space-y-2">
-                  {paidLessons.map((lesson: { id: string; lesson_order: number; title: string }) => (
-                    <div key={lesson.id} className="flex items-center justify-between p-3 bg-gray-50 border border-gray-200 rounded-xl">
-                      <div className="flex items-center gap-3">
-                        <div className="w-7 h-7 bg-gray-100 rounded-lg flex items-center justify-center text-xs font-bold text-gray-500">
-                          {lesson.lesson_order}
-                        </div>
-                        <span className="text-sm text-gray-600">{lesson.title}</span>
-                      </div>
-                      <Lock className="w-4 h-4 text-gray-300" />
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            <LessonPreviewCards
+              freeLessons={freeLessons}
+              paidLessons={paidLessons}
+              previewDescription={course.preview_description}
+            />
           </div>
 
           {/* Sidebar */}
