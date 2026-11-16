@@ -24,6 +24,7 @@ const sessionTypes = [
   { id: "solo-30", label: "1-on-1 (30 min)", price: 40, icon: Clock, desc: "Quick focused help on one topic" },
   { id: "solo-60", label: "1-on-1 (60 min)", price: 75, icon: Video, desc: "Deep dive into concepts and practice", popular: true },
   { id: "group", label: "Group Class", price: 25, icon: Users, desc: "3-10 students, exam prep and review" },
+  { id: "free-consultation", label: "Free Consultation (15 min)", price: 0, icon: Video, desc: "Meet Ms. Horace & see if it's a great fit — no charge", free: true },
 ];
 
 const steps = ["Grade", "Subject", "Session Type", "Date & Time", "Your Info", "Payment", "Confirmed"];
@@ -40,6 +41,7 @@ export default function BookPage() {
   const [isPending, startTransition] = useTransition();
   const [payError, setPayError] = useState("");
   const selectedSession = sessionTypes.find(s => s.id === sessionType);
+  const isFreeConsultation = sessionType === "free-consultation";
 
   const next = () => setStep(s => s + 1);
   const back = () => setStep(s => s - 1);
@@ -78,6 +80,30 @@ export default function BookPage() {
     });
   }
 
+  async function handleFreeBook() {
+    setPayError("");
+    startTransition(async () => {
+      const res = await fetch("/api/book-free", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          parentName: form.name,
+          parentEmail: form.email,
+          subject,
+          gradeLevel: grade,
+          date: selectedDay,
+          time: selectedSlot,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setPayError(data.error || "Booking failed. Please try again.");
+        return;
+      }
+      setStep(6);
+    });
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <PublicNav />
@@ -86,23 +112,40 @@ export default function BookPage() {
         {/* Step indicator */}
         {step < 6 && (
           <div className="mb-10">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-sm text-gray-500">Step {step + 1} of 6</span>
-              <span className="text-sm font-medium text-violet-600">{steps[step]}</span>
-            </div>
-            <div className="h-2 bg-gray-200 rounded-full">
-              <div
-                className="h-2 bg-violet-600 rounded-full transition-all duration-300"
-                style={{ width: `${((step + 1) / 6) * 100}%` }}
-              />
-            </div>
-            <div className="flex justify-between mt-2">
-              {steps.slice(0, 6).map((s, i) => (
-                <span key={s} className={cn("text-xs", i <= step ? "text-violet-600 font-medium" : "text-gray-300")}>
-                  {i + 1}
-                </span>
-              ))}
-            </div>
+            {isFreeConsultation ? (
+              <>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm text-gray-500">Step {step + 1} of 5</span>
+                  <span className="text-sm font-medium text-green-600">{steps[step]}</span>
+                </div>
+                <div className="h-2 bg-gray-200 rounded-full">
+                  <div
+                    className="h-2 bg-green-500 rounded-full transition-all duration-300"
+                    style={{ width: `${((step + 1) / 5) * 100}%` }}
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm text-gray-500">Step {step + 1} of 6</span>
+                  <span className="text-sm font-medium text-violet-600">{steps[step]}</span>
+                </div>
+                <div className="h-2 bg-gray-200 rounded-full">
+                  <div
+                    className="h-2 bg-violet-600 rounded-full transition-all duration-300"
+                    style={{ width: `${((step + 1) / 6) * 100}%` }}
+                  />
+                </div>
+                <div className="flex justify-between mt-2">
+                  {steps.slice(0, 6).map((s, i) => (
+                    <span key={s} className={cn("text-xs", i <= step ? "text-violet-600 font-medium" : "text-gray-300")}>
+                      {i + 1}
+                    </span>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         )}
 
@@ -176,7 +219,7 @@ export default function BookPage() {
               <h2 className="text-2xl font-bold text-gray-900 mb-2">What type of session?</h2>
               <p className="text-gray-500 mb-6">Choose the format that works best for you.</p>
               <div className="space-y-3 mb-8">
-                {sessionTypes.map((s) => (
+                {sessionTypes.filter(s => !s.free).map((s) => (
                   <button
                     key={s.id}
                     onClick={() => setSessionType(s.id)}
@@ -200,6 +243,37 @@ export default function BookPage() {
                       </div>
                     </div>
                     <div className="text-xl font-bold text-violet-600">${s.price}</div>
+                  </button>
+                ))}
+                <div className="flex items-center gap-3 my-2">
+                  <div className="flex-1 h-px bg-gray-200" />
+                  <span className="text-xs text-gray-400 font-medium">or</span>
+                  <div className="flex-1 h-px bg-gray-200" />
+                </div>
+                {sessionTypes.filter(s => s.free).map((s) => (
+                  <button
+                    key={s.id}
+                    onClick={() => setSessionType(s.id)}
+                    className={cn(
+                      "w-full flex items-center justify-between p-4 rounded-xl border-2 text-left transition-all",
+                      sessionType === s.id
+                        ? "border-green-600 bg-green-50"
+                        : "border-dashed border-gray-300 hover:border-green-400"
+                    )}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                        <s.icon className="w-5 h-5 text-green-600" />
+                      </div>
+                      <div>
+                        <div className="font-medium text-gray-900 flex items-center gap-2">
+                          {s.label}
+                          <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Free</span>
+                        </div>
+                        <div className="text-sm text-gray-500">{s.desc}</div>
+                      </div>
+                    </div>
+                    <div className="text-xl font-bold text-green-600">FREE</div>
                   </button>
                 ))}
               </div>
@@ -301,14 +375,43 @@ export default function BookPage() {
                   </select>
                 </div>
               </div>
-              <div className="flex gap-3">
-                <Button variant="outline" onClick={back} className="flex-1">
-                  <ArrowLeft className="w-4 h-4 mr-2" /> Back
-                </Button>
-                <Button onClick={next} disabled={!form.name || !form.email} className="flex-1">
-                  Continue <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </div>
+
+              {payError && (
+                <p className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg mb-4">{payError}</p>
+              )}
+
+              {isFreeConsultation ? (
+                <>
+                  <div className="bg-green-50 border border-green-200 rounded-xl p-4 mb-4 flex items-center gap-3">
+                    <span className="text-2xl">🎉</span>
+                    <div>
+                      <p className="text-sm font-medium text-gray-900">No payment needed</p>
+                      <p className="text-xs text-gray-500">Your free 15-minute consultation will be confirmed instantly.</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <Button variant="outline" onClick={back} className="flex-1" disabled={isPending}>
+                      <ArrowLeft className="w-4 h-4 mr-2" /> Back
+                    </Button>
+                    <Button
+                      onClick={handleFreeBook}
+                      disabled={!form.name || !form.email || isPending}
+                      className="flex-1 bg-green-600 hover:bg-green-700"
+                    >
+                      {isPending ? "Booking..." : "Book Free Consultation →"}
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <div className="flex gap-3">
+                  <Button variant="outline" onClick={back} className="flex-1">
+                    <ArrowLeft className="w-4 h-4 mr-2" /> Back
+                  </Button>
+                  <Button onClick={next} disabled={!form.name || !form.email} className="flex-1">
+                    Continue <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </div>
+              )}
             </CardContent>
           </Card>
         )}
