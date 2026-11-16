@@ -7,22 +7,22 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const SUBJECT_PRODUCTS: Record<string, { name: string; slug: string; price: string; description: string }> = {
   "pre-algebra": {
+    name: "Pre-Algebra Mastery PDF Course",
+    slug: "pre-algebra-mastery",
+    price: "$197",
+    description: "15 PDF lessons with worked examples and full answer keys - everything to keep the momentum going independently.",
+  },
+  "algebra 1": {
     name: "Algebra I Mastery PDF Course",
     slug: "algebra-1-mastery",
     price: "$197",
     description: "15 PDF lessons covering every Algebra I concept with step-by-step walkthroughs and practice problems.",
   },
-  "algebra 1": {
-    name: "Pre-Algebra Mastery PDF Course",
-    slug: "pre-algebra-mastery",
-    price: "$197",
-    description: "15 PDF lessons with worked examples and full answer keys - everything to keep the momentum going independently.",
-  },
   "algebra i": {
-    name: "Pre-Algebra Mastery PDF Course",
-    slug: "pre-algebra-mastery",
+    name: "Algebra I Mastery PDF Course",
+    slug: "algebra-1-mastery",
     price: "$197",
-    description: "15 PDF lessons with worked examples and full answer keys - everything to keep the momentum going independently.",
+    description: "15 PDF lessons covering every Algebra I concept with step-by-step walkthroughs and practice problems.",
   },
 };
 
