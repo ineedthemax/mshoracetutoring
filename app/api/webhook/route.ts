@@ -6,480 +6,480 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
 const EMAIL_FOOTER = `
-  <div style="background:#f5f3ff;padding:24px 32px;text-align:center;">
-    <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="100" style="display:block;margin:0 auto 12px;" />
-    <p style="margin:0 0 4px;color:#6b7280;font-size:13px;">Questions? Call <a href="tel:2272206227" style="color:#7c3aed;">(227) 220-6227</a> or email <a href="mailto:MsHoraceTutoring06@gmail.com" style="color:#7c3aed;">MsHoraceTutoring06@gmail.com</a></p>
-    <p style="margin:0;color:#9ca3af;font-size:12px;">MsHorace Tutoring &nbsp;·&nbsp; White Plains, Maryland &nbsp;·&nbsp; <a href="https://mshoracetutoring.com" style="color:#7c3aed;">mshoracetutoring.com</a></p>
-  </div>
+ <div style="background:#f5f3ff;padding:24px 32px;text-align:center;">
+ <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="100" style="display:block;margin:0 auto 12px;" />
+ <p style="margin:0 0 4px;color:#6b7280;font-size:13px;">Questions? Call <a href="tel:2272206227" style="color:#7c3aed;">(227) 220-6227</a> or email <a href="mailto:MsHoraceTutoring06@gmail.com" style="color:#7c3aed;">MsHoraceTutoring06@gmail.com</a></p>
+ <p style="margin:0;color:#9ca3af;font-size:12px;">MsHorace Tutoring &nbsp;·&nbsp; White Plains, Maryland &nbsp;·&nbsp; <a href="https://mshoracetutoring.com" style="color:#7c3aed;">mshoracetutoring.com</a></p>
+ </div>
 `;
 
 const DIGITAL_PRODUCT_FILES: Record<string, string> = {
-  "pre-algebra-practice":    "Practice Problems/PreAlgebra_Practice_Packet.pdf",
-  "algebra1-practice":       "Practice Problems/AlgebraI_Practice_Packet.pdf",
-  "pre-algebra-study-guide": "Study Guide/PreAlgebra_Study_Guide.pdf",
-  "algebra1-study-guide":    "Study Guide/AlgebraI_Study_Guide.pdf",
-  "pre-algebra-exam-prep":   "Exam Prep/PreAlgebra_Exam_Prep.pdf",
-  "algebra1-exam-prep":      "Exam Prep/AlgebraI_Exam_Prep.pdf",
+ "pre-algebra-practice": "Practice Problems/PreAlgebra_Practice_Packet.pdf",
+ "algebra1-practice": "Practice Problems/AlgebraI_Practice_Packet.pdf",
+ "pre-algebra-study-guide": "Study Guide/PreAlgebra_Study_Guide.pdf",
+ "algebra1-study-guide": "Study Guide/AlgebraI_Study_Guide.pdf",
+ "pre-algebra-exam-prep": "Exam Prep/PreAlgebra_Exam_Prep.pdf",
+ "algebra1-exam-prep": "Exam Prep/AlgebraI_Exam_Prep.pdf",
 };
 
 const ZOOM_LINKS: Record<string, string> = {
-  "solo-30": "https://us06web.zoom.us/j/86054653309?pwd=bmSKYvXlsHnIFi5eSTvqOW7LR2vzM7.1",
-  "solo-60": "https://us06web.zoom.us/j/83084805570?pwd=oWTi3ifrieiuhsNK8MgMjWxqanocgJ.1",
-  "group":   "https://us06web.zoom.us/j/83897527262?pwd=3PK8eBvZaVlzUR8jlmI5jL5BKHvzD2.1",
+ "solo-30": "https://us06web.zoom.us/j/86054653309?pwd=bmSKYvXlsHnIFi5eSTvqOW7LR2vzM7.1",
+ "solo-60": "https://us06web.zoom.us/j/83084805570?pwd=oWTi3ifrieiuhsNK8MgMjWxqanocgJ.1",
+ "group": "https://us06web.zoom.us/j/83897527262?pwd=3PK8eBvZaVlzUR8jlmI5jL5BKHvzD2.1",
 };
 
 const SESSION_LABELS: Record<string, string> = {
-  "solo-30": "30-Minute 1-on-1 Session",
-  "solo-60": "60-Minute 1-on-1 Session",
-  "group":   "Group Class Session",
+ "solo-30": "30-Minute 1-on-1 Session",
+ "solo-60": "60-Minute 1-on-1 Session",
+ "group": "Group Class Session",
 };
 
 // Notify Stenita of a successful booking or purchase
 async function notifyAdmin(subject: string, html: string) {
-  try {
-    await resend.emails.send({
-      from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
-      to: ["MsHoraceTutoring06@gmail.com"],
-      subject,
-      html,
-    });
-  } catch {
-    // Best-effort — don't let notification failure break the webhook
-  }
+ try {
+ await resend.emails.send({
+ from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
+ to: ["MsHoraceTutoring06@gmail.com"],
+ subject,
+ html,
+ });
+ } catch {
+ // Best-effort — don't let notification failure break the webhook
+ }
 }
 
 // Alert Stenita immediately if anything goes wrong
 async function alertAdmin(subject: string, details: string) {
-  try {
-    await resend.emails.send({
-      from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
-      to: ["MsHoraceTutoring06@gmail.com"],
-      subject: `⚠️ Action Needed: ${subject}`,
-      html: `
-        <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;">
-          <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:12px;padding:20px;margin-bottom:20px;">
-            <h2 style="color:#dc2626;margin:0 0 8px;">⚠️ ${subject}</h2>
-            <p style="color:#7f1d1d;margin:0;font-size:14px;white-space:pre-wrap;">${details}</p>
-          </div>
-          <p style="color:#6b7280;font-size:13px;">Log in to your <a href="https://mshoracetutoring.com/admin" style="color:#7c3aed;">admin dashboard</a> to take action.</p>
-        </div>`,
-    });
-  } catch {
-    // Don't let alert failure break anything
-  }
+ try {
+ await resend.emails.send({
+ from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
+ to: ["MsHoraceTutoring06@gmail.com"],
+ subject: ` Action Needed: ${subject}`,
+ html: `
+ <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;">
+ <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:12px;padding:20px;margin-bottom:20px;">
+ <h2 style="color:#dc2626;margin:0 0 8px;"> ${subject}</h2>
+ <p style="color:#7f1d1d;margin:0;font-size:14px;white-space:pre-wrap;">${details}</p>
+ </div>
+ <p style="color:#6b7280;font-size:13px;">Log in to your <a href="https://mshoracetutoring.com/admin" style="color:#7c3aed;">admin dashboard</a> to take action.</p>
+ </div>`,
+ });
+ } catch {
+ // Don't let alert failure break anything
+ }
 }
 
 export async function POST(request: Request) {
-  const body = await request.text();
-  const sig = request.headers.get("stripe-signature")!;
+ const body = await request.text();
+ const sig = request.headers.get("stripe-signature")!;
 
-  let event;
-  try {
-    event = stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
-  } catch (err: any) {
-    await alertAdmin("Webhook Signature Failed", `A payment webhook arrived but failed signature verification.\n\nError: ${err?.message}\n\nThis could mean someone is sending fake requests, or the webhook secret is misconfigured.`);
-    return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
-  }
+ let event;
+ try {
+ event = stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
+ } catch (err: any) {
+ await alertAdmin("Webhook Signature Failed", `A payment webhook arrived but failed signature verification.\n\nError: ${err?.message}\n\nThis could mean someone is sending fake requests, or the webhook secret is misconfigured.`);
+ return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
+ }
 
-  if (event.type === "checkout.session.completed") {
-    const session = event.data.object as any;
-    const meta = session.metadata ?? {};
-    const admin = createAdminClient();
+ if (event.type === "checkout.session.completed") {
+ const session = event.data.object as any;
+ const meta = session.metadata ?? {};
+ const admin = createAdminClient();
 
-    // ─── Digital Product Purchase ───────────────────────────────────────
-    if (meta.type === "digital_product") {
-      const buyerEmail = session.customer_details?.email ?? session.customer_email ?? meta.buyerEmail ?? "";
-      const productName = meta.productName ?? "Study Resource";
-      const filePath = DIGITAL_PRODUCT_FILES[meta.productKey];
+ // ─── Digital Product Purchase ───────────────────────────────────────
+ if (meta.type === "digital_product") {
+ const buyerEmail = session.customer_details?.email ?? session.customer_email ?? meta.buyerEmail ?? "";
+ const productName = meta.productName ?? "Study Resource";
+ const filePath = DIGITAL_PRODUCT_FILES[meta.productKey];
 
-      // Step 1: Always save to DB first regardless of email outcome
-      let downloadUrl = "";
-      let signedUrlError = null;
+ // Step 1: Always save to DB first regardless of email outcome
+ let downloadUrl = "";
+ let signedUrlError = null;
 
-      if (filePath) {
-        const { data: signedData, error } = await admin.storage
-          .from("digital-products")
-          .createSignedUrl(filePath, 60 * 60 * 24 * 7);
-        if (error) {
-          signedUrlError = error.message;
-        } else {
-          downloadUrl = signedData?.signedUrl ?? "";
-        }
-      }
+ if (filePath) {
+ const { data: signedData, error } = await admin.storage
+ .from("digital-products")
+ .createSignedUrl(filePath, 60 * 60 * 24 * 7);
+ if (error) {
+ signedUrlError = error.message;
+ } else {
+ downloadUrl = signedData?.signedUrl ?? "";
+ }
+ }
 
-      const { error: dbError } = await admin.from("digital_purchases").insert({
-        buyer_email: buyerEmail,
-        product_key: meta.productKey,
-        product_name: productName,
-        amount_cents: session.amount_total,
-        stripe_session_id: session.id,
-        stripe_payment_intent_id: session.payment_intent,
-        status: "paid",
-        download_sent: !!downloadUrl,
-      });
+ const { error: dbError } = await admin.from("digital_purchases").insert({
+ buyer_email: buyerEmail,
+ product_key: meta.productKey,
+ product_name: productName,
+ amount_cents: session.amount_total,
+ stripe_session_id: session.id,
+ stripe_payment_intent_id: session.payment_intent,
+ status: "paid",
+ download_sent: !!downloadUrl,
+ });
 
-      if (dbError) {
-        await alertAdmin(
-          "Digital Purchase Not Recorded",
-          `A customer paid for ${productName} but the purchase was NOT saved to the database.\n\nCustomer: ${buyerEmail}\nAmount: $${((session.amount_total ?? 0) / 100).toFixed(2)}\nStripe Session: ${session.id}\nDB Error: ${dbError.message}`
-        );
-      }
+ if (dbError) {
+ await alertAdmin(
+ "Digital Purchase Not Recorded",
+ `A customer paid for ${productName} but the purchase was NOT saved to the database.\n\nCustomer: ${buyerEmail}\nAmount: $${((session.amount_total ?? 0) / 100).toFixed(2)}\nStripe Session: ${session.id}\nDB Error: ${dbError.message}`
+ );
+ }
 
-      // Step 2: Send delivery email — alert if it fails
-      if (!buyerEmail) {
-        await alertAdmin(
-          "Digital Purchase - No Email Address",
-          `A customer paid $${((session.amount_total ?? 0) / 100).toFixed(2)} for ${productName} but no email address was captured.\n\nStripe Session: ${session.id}\nProduct Key: ${meta.productKey}\n\nManually resend from the admin dashboard.`
-        );
-        return NextResponse.json({ received: true });
-      }
+ // Step 2: Send delivery email — alert if it fails
+ if (!buyerEmail) {
+ await alertAdmin(
+ "Digital Purchase - No Email Address",
+ `A customer paid $${((session.amount_total ?? 0) / 100).toFixed(2)} for ${productName} but no email address was captured.\n\nStripe Session: ${session.id}\nProduct Key: ${meta.productKey}\n\nManually resend from the admin dashboard.`
+ );
+ return NextResponse.json({ received: true });
+ }
 
-      if (signedUrlError || !downloadUrl) {
-        await alertAdmin(
-          "Digital Purchase - Download Link Failed",
-          `Could not generate a download link for ${productName}.\n\nCustomer: ${buyerEmail}\nStripe Session: ${session.id}\nError: ${signedUrlError ?? "No URL returned"}\n\nManually resend from the admin dashboard.`
-        );
-        return NextResponse.json({ received: true });
-      }
+ if (signedUrlError || !downloadUrl) {
+ await alertAdmin(
+ "Digital Purchase - Download Link Failed",
+ `Could not generate a download link for ${productName}.\n\nCustomer: ${buyerEmail}\nStripe Session: ${session.id}\nError: ${signedUrlError ?? "No URL returned"}\n\nManually resend from the admin dashboard.`
+ );
+ return NextResponse.json({ received: true });
+ }
 
-      const { error: emailError } = await resend.emails.send({
-        from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
-        to: [buyerEmail],
-        replyTo: "MsHoraceTutoring06@gmail.com",
-        subject: `Your Download is Ready - ${productName}`,
-        html: `
+ const { error: emailError } = await resend.emails.send({
+ from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
+ to: [buyerEmail],
+ replyTo: "MsHoraceTutoring06@gmail.com",
+ subject: `Your Download is Ready - ${productName}`,
+ html: `
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
 <body style="margin:0;padding:0;background:#f3f4f6;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
 <div style="max-width:600px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
-  <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
-    <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="110" style="display:block;margin:0 auto 8px;" />
-    <p style="color:#ddd6fe;margin:0;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600;">Your Download is Ready!</p>
-  </div>
-  <div style="padding:28px 32px;">
-    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px 18px;margin-bottom:24px;text-align:center;">
-      <p style="margin:0;color:#16a34a;font-weight:700;font-size:15px;">Payment Received - $${((session.amount_total ?? 0) / 100).toFixed(0)}</p>
-    </div>
-    <div style="background:#f5f3ff;border-radius:12px;padding:16px 20px;margin-bottom:24px;">
-      <p style="margin:0;font-size:18px;font-weight:700;color:#5b21b6;">${productName}</p>
-    </div>
-    <div style="text-align:center;margin-bottom:24px;">
-      <p style="margin:0 0 14px;color:#374151;font-size:14px;line-height:1.6;">Your PDF is ready to download. Click the button below:</p>
-      <a href="${downloadUrl}" style="display:inline-block;background:#7c3aed;color:#fff;padding:14px 36px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;">Download PDF Now</a>
-      <p style="margin:12px 0 0;color:#9ca3af;font-size:12px;">Link expires in 7 days. Save your PDF after downloading.</p>
-    </div>
-  </div>
-  ${EMAIL_FOOTER}
+ <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
+ <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="110" style="display:block;margin:0 auto 8px;" />
+ <p style="color:#ddd6fe;margin:0;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600;">Your Download is Ready!</p>
+ </div>
+ <div style="padding:28px 32px;">
+ <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px 18px;margin-bottom:24px;text-align:center;">
+ <p style="margin:0;color:#16a34a;font-weight:700;font-size:15px;">Payment Received - $${((session.amount_total ?? 0) / 100).toFixed(0)}</p>
+ </div>
+ <div style="background:#f5f3ff;border-radius:12px;padding:16px 20px;margin-bottom:24px;">
+ <p style="margin:0;font-size:18px;font-weight:700;color:#5b21b6;">${productName}</p>
+ </div>
+ <div style="text-align:center;margin-bottom:24px;">
+ <p style="margin:0 0 14px;color:#374151;font-size:14px;line-height:1.6;">Your PDF is ready to download. Click the button below:</p>
+ <a href="${downloadUrl}" style="display:inline-block;background:#7c3aed;color:#fff;padding:14px 36px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;">Download PDF Now</a>
+ <p style="margin:12px 0 0;color:#9ca3af;font-size:12px;">Link expires in 7 days. Save your PDF after downloading.</p>
+ </div>
+ </div>
+ ${EMAIL_FOOTER}
 </div>
 </body>
 </html>`,
-      });
+ });
 
-      if (emailError) {
-        await alertAdmin(
-          "Digital Purchase - Delivery Email Failed",
-          `The purchase was saved but the delivery email failed to send.\n\nCustomer: ${buyerEmail}\nProduct: ${productName}\nStripe Session: ${session.id}\nEmail Error: ${emailError.message}\n\nManually resend from the admin dashboard.`
-        );
-      } else {
-        // Mark email as sent in DB
-        await admin.from("digital_purchases")
-          .update({ download_sent: true })
-          .eq("stripe_session_id", session.id);
+ if (emailError) {
+ await alertAdmin(
+ "Digital Purchase - Delivery Email Failed",
+ `The purchase was saved but the delivery email failed to send.\n\nCustomer: ${buyerEmail}\nProduct: ${productName}\nStripe Session: ${session.id}\nEmail Error: ${emailError.message}\n\nManually resend from the admin dashboard.`
+ );
+ } else {
+ // Mark email as sent in DB
+ await admin.from("digital_purchases")
+ .update({ download_sent: true })
+ .eq("stripe_session_id", session.id);
 
-        // Notify Ms. Horace of the sale
-        await notifyAdmin(
-          `💰 New Digital Sale: ${productName}`,
-          `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;">
-            <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:20px;margin-bottom:20px;">
-              <h2 style="color:#16a34a;margin:0 0 8px;">💰 New Digital Sale</h2>
-              <p style="color:#166534;margin:0;font-size:14px;">Someone just purchased a digital product.</p>
-            </div>
-            <table style="width:100%;border-collapse:collapse;font-size:14px;">
-              <tr><td style="padding:8px 0;color:#6b7280;width:40%;">Product</td><td style="padding:8px 0;color:#111827;font-weight:600;">${productName}</td></tr>
-              <tr><td style="padding:8px 0;color:#6b7280;">Amount</td><td style="padding:8px 0;color:#111827;font-weight:600;">$${((session.amount_total ?? 0) / 100).toFixed(2)}</td></tr>
-              <tr><td style="padding:8px 0;color:#6b7280;">Buyer</td><td style="padding:8px 0;color:#111827;font-weight:600;">${buyerEmail}</td></tr>
-              <tr><td style="padding:8px 0;color:#6b7280;">Time</td><td style="padding:8px 0;color:#111827;">${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })} ET</td></tr>
-            </table>
-            <p style="margin:20px 0 0;font-size:13px;color:#6b7280;">Delivery email was sent automatically. <a href="https://mshoracetutoring.com/admin" style="color:#7c3aed;">View dashboard →</a></p>
-          </div>`
-        );
-      }
+ // Notify Ms. Horace of the sale
+ await notifyAdmin(
+ ` New Digital Sale: ${productName}`,
+ `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;">
+ <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:20px;margin-bottom:20px;">
+ <h2 style="color:#16a34a;margin:0 0 8px;"> New Digital Sale</h2>
+ <p style="color:#166534;margin:0;font-size:14px;">Someone just purchased a digital product.</p>
+ </div>
+ <table style="width:100%;border-collapse:collapse;font-size:14px;">
+ <tr><td style="padding:8px 0;color:#6b7280;width:40%;">Product</td><td style="padding:8px 0;color:#111827;font-weight:600;">${productName}</td></tr>
+ <tr><td style="padding:8px 0;color:#6b7280;">Amount</td><td style="padding:8px 0;color:#111827;font-weight:600;">$${((session.amount_total ?? 0) / 100).toFixed(2)}</td></tr>
+ <tr><td style="padding:8px 0;color:#6b7280;">Buyer</td><td style="padding:8px 0;color:#111827;font-weight:600;">${buyerEmail}</td></tr>
+ <tr><td style="padding:8px 0;color:#6b7280;">Time</td><td style="padding:8px 0;color:#111827;">${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })} ET</td></tr>
+ </table>
+ <p style="margin:20px 0 0;font-size:13px;color:#6b7280;">Delivery email was sent automatically. <a href="https://mshoracetutoring.com/admin" style="color:#7c3aed;">View dashboard →</a></p>
+ </div>`
+ );
+ }
 
-      return NextResponse.json({ received: true });
-    }
+ return NextResponse.json({ received: true });
+ }
 
-    // ─── Package / Bundle Purchase ──────────────────────────────────────
-    if (meta.packageType) {
-      const buyerEmail = session.customer_details?.email ?? session.customer_email ?? meta.parentEmail ?? "";
-      const amountPaid = ((session.amount_total ?? 0) / 100).toFixed(2);
-      const packageNames: Record<string, string> = {
-        "4-session":    "First Grading Period Pack (4 sessions)",
-        "8-session":    "8-Session Pack",
-        "grade-rescue": "Grade Rescue Pack (3 sessions)",
-        "monthly":      "Weekly Rhythm Monthly Pack",
-        "family-pack":  '"Two Kids" Family Pack',
-        "group-pass":   "Group Class Semester Pass",
-      };
-      const packageLabel = packageNames[meta.packageType] ?? meta.packageType;
-      const isInstallment = meta.paymentOption === "plan";
-      const installmentNote = isInstallment
-        ? `<tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;width:40%;">Payment Type</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#d97706;font-weight:600;">Installment 1 of 2 - Second payment auto-charges in 30 days</td></tr>`
-        : `<tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;width:40%;">Payment Type</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;">Paid in Full</td></tr>`;
+ // ─── Package / Bundle Purchase ──────────────────────────────────────
+ if (meta.packageType) {
+ const buyerEmail = session.customer_details?.email ?? session.customer_email ?? meta.parentEmail ?? "";
+ const amountPaid = ((session.amount_total ?? 0) / 100).toFixed(2);
+ const packageNames: Record<string, string> = {
+ "4-session": "First Grading Period Pack (4 sessions)",
+ "8-session": "8-Session Pack",
+ "grade-rescue": "Grade Rescue Pack (3 sessions)",
+ "monthly": "Weekly Rhythm Monthly Pack",
+ "family-pack": '"Two Kids" Family Pack',
+ "group-pass": "Group Class Semester Pass",
+ };
+ const packageLabel = packageNames[meta.packageType] ?? meta.packageType;
+ const isInstallment = meta.paymentOption === "plan";
+ const installmentNote = isInstallment
+ ? `<tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;width:40%;">Payment Type</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#d97706;font-weight:600;">Installment 1 of 2 - Second payment auto-charges in 30 days</td></tr>`
+ : `<tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;width:40%;">Payment Type</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;">Paid in Full</td></tr>`;
 
-      await notifyAdmin(
-        `🎉 New Bundle Purchase: ${packageLabel}`,
-        `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;">
-          <div style="background:#fef9c3;border:1px solid #fde68a;border-radius:12px;padding:20px;margin-bottom:20px;">
-            <h2 style="color:#92400e;margin:0 0 8px;">🎉 New Bundle Purchase</h2>
-            <p style="color:#78350f;margin:0;font-size:14px;">A parent just purchased a session package.</p>
-          </div>
-          <table style="width:100%;border-collapse:collapse;font-size:14px;">
-            <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;width:40%;">Package</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-weight:600;">${packageLabel}</td></tr>
-            ${installmentNote}
-            <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Amount Charged</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#16a34a;font-weight:700;">$${amountPaid}</td></tr>
-            <tr><td style="padding:8px 0;color:#6b7280;">Buyer Email</td><td style="padding:8px 0;color:#111827;">${buyerEmail}</td></tr>
-          </table>
-          <p style="margin:20px 0 0;font-size:13px;color:#6b7280;">Sessions are ready to schedule. <a href="https://mshoracetutoring.com/admin" style="color:#7c3aed;">View dashboard →</a></p>
-        </div>`
-      );
+ await notifyAdmin(
+ ` New Bundle Purchase: ${packageLabel}`,
+ `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;">
+ <div style="background:#fef9c3;border:1px solid #fde68a;border-radius:12px;padding:20px;margin-bottom:20px;">
+ <h2 style="color:#92400e;margin:0 0 8px;"> New Bundle Purchase</h2>
+ <p style="color:#78350f;margin:0;font-size:14px;">A parent just purchased a session package.</p>
+ </div>
+ <table style="width:100%;border-collapse:collapse;font-size:14px;">
+ <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;width:40%;">Package</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-weight:600;">${packageLabel}</td></tr>
+ ${installmentNote}
+ <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Amount Charged</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#16a34a;font-weight:700;">$${amountPaid}</td></tr>
+ <tr><td style="padding:8px 0;color:#6b7280;">Buyer Email</td><td style="padding:8px 0;color:#111827;">${buyerEmail}</td></tr>
+ </table>
+ <p style="margin:20px 0 0;font-size:13px;color:#6b7280;">Sessions are ready to schedule. <a href="https://mshoracetutoring.com/admin" style="color:#7c3aed;">View dashboard →</a></p>
+ </div>`
+ );
 
-      // Send confirmation to parent
-      if (buyerEmail) {
-        await resend.emails.send({
-          from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
-          to: [buyerEmail],
-          replyTo: "MsHoraceTutoring06@gmail.com",
-          subject: `Your ${packageLabel} is confirmed! 🎉`,
-          html: `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+ // Send confirmation to parent
+ if (buyerEmail) {
+ await resend.emails.send({
+ from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
+ to: [buyerEmail],
+ replyTo: "MsHoraceTutoring06@gmail.com",
+ subject: `Your ${packageLabel} is confirmed! `,
+ html: `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
 <body style="margin:0;padding:0;background:#f3f4f6;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
 <div style="max-width:600px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
-  <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
-    <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="110" style="display:block;margin:0 auto 8px;" />
-    <p style="color:#ddd6fe;margin:0;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600;">Package Confirmed!</p>
-  </div>
-  <div style="padding:28px 32px;">
-    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px 18px;margin-bottom:24px;text-align:center;">
-      <p style="margin:0;color:#16a34a;font-weight:700;font-size:15px;">Payment Received - $${amountPaid}</p>
-    </div>
-    <div style="background:#f5f3ff;border-radius:12px;padding:16px 20px;margin-bottom:20px;">
-      <p style="margin:0 0 4px;font-size:11px;font-weight:700;color:#5b21b6;text-transform:uppercase;letter-spacing:0.08em;">Your Package</p>
-      <p style="margin:0;font-size:18px;font-weight:700;color:#1f2937;">${packageLabel}</p>
-      ${isInstallment ? `<p style="margin:8px 0 0;font-size:13px;color:#d97706;font-weight:600;">Installment plan: second payment auto-charges in 30 days.</p>` : ""}
-    </div>
-    <p style="color:#374151;font-size:14px;line-height:1.7;margin:0 0 20px;">All your sessions are ready to schedule. Ms. Horace will be in touch to set up your first session - keep an eye on your inbox!</p>
-    <p style="color:#374151;font-size:14px;line-height:1.7;margin:0;">Questions? Reply to this email or text us at <a href="tel:2272206227" style="color:#7c3aed;">(227) 220-6227</a>.</p>
-  </div>
-  ${EMAIL_FOOTER}
+ <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
+ <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="110" style="display:block;margin:0 auto 8px;" />
+ <p style="color:#ddd6fe;margin:0;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600;">Package Confirmed!</p>
+ </div>
+ <div style="padding:28px 32px;">
+ <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px 18px;margin-bottom:24px;text-align:center;">
+ <p style="margin:0;color:#16a34a;font-weight:700;font-size:15px;">Payment Received - $${amountPaid}</p>
+ </div>
+ <div style="background:#f5f3ff;border-radius:12px;padding:16px 20px;margin-bottom:20px;">
+ <p style="margin:0 0 4px;font-size:11px;font-weight:700;color:#5b21b6;text-transform:uppercase;letter-spacing:0.08em;">Your Package</p>
+ <p style="margin:0;font-size:18px;font-weight:700;color:#1f2937;">${packageLabel}</p>
+ ${isInstallment ? `<p style="margin:8px 0 0;font-size:13px;color:#d97706;font-weight:600;">Installment plan: second payment auto-charges in 30 days.</p>` : ""}
+ </div>
+ <p style="color:#374151;font-size:14px;line-height:1.7;margin:0 0 20px;">All your sessions are ready to schedule. Ms. Horace will be in touch to set up your first session - keep an eye on your inbox!</p>
+ <p style="color:#374151;font-size:14px;line-height:1.7;margin:0;">Questions? Reply to this email or text us at <a href="tel:2272206227" style="color:#7c3aed;">(227) 220-6227</a>.</p>
+ </div>
+ ${EMAIL_FOOTER}
 </div>
 </body></html>`,
-        });
-      }
+ });
+ }
 
-      return NextResponse.json({ received: true });
-    }
+ return NextResponse.json({ received: true });
+ }
 
-    // ─── Session Booking ────────────────────────────────────────────────
-    const zoomUrl = ZOOM_LINKS[meta.sessionType] ?? ZOOM_LINKS["solo-60"];
-    const sessionLabel = SESSION_LABELS[meta.sessionType] ?? "Tutoring Session";
-    const parentEmail = meta.parentEmail ?? session.customer_details?.email ?? session.customer_email;
-    const parentName = meta.parentName ?? session.customer_details?.name ?? "Parent";
-    const amountDollars = ((session.amount_total ?? 0) / 100).toFixed(0);
+ // ─── Session Booking ────────────────────────────────────────────────
+ const zoomUrl = ZOOM_LINKS[meta.sessionType] ?? ZOOM_LINKS["solo-60"];
+ const sessionLabel = SESSION_LABELS[meta.sessionType] ?? "Tutoring Session";
+ const parentEmail = meta.parentEmail ?? session.customer_details?.email ?? session.customer_email;
+ const parentName = meta.parentName ?? session.customer_details?.name ?? "Parent";
+ const amountDollars = ((session.amount_total ?? 0) / 100).toFixed(0);
 
-    // Step 1: Save booking to DB
-    const { error: sessionDbError } = await admin.from("sessions").insert({
-      parent_email: parentEmail,
-      parent_name: parentName,
-      subject: meta.subject ?? "",
-      grade_level: meta.gradeLevel ?? "",
-      session_type: meta.sessionType ?? "solo-60",
-      session_date: meta.date ?? null,
-      session_time: meta.time ?? "",
-      zoom_join_url: zoomUrl,
-      price_cents: session.amount_total,
-      payment_status: "paid",
-      stripe_payment_id: session.payment_intent,
-      stripe_session_id: session.id,
-      status: "upcoming",
-      scheduled_at: meta.date && meta.time
-        ? new Date(`${meta.date}T${convertTo24hr(meta.time)}`).toISOString()
-        : new Date().toISOString(),
-      duration_minutes:
-        meta.sessionType === "solo-30" ? 30 :
-        meta.sessionType === "group" ? 90 : 60,
-    });
+ // Step 1: Save booking to DB
+ const { error: sessionDbError } = await admin.from("sessions").insert({
+ parent_email: parentEmail,
+ parent_name: parentName,
+ subject: meta.subject ?? "",
+ grade_level: meta.gradeLevel ?? "",
+ session_type: meta.sessionType ?? "solo-60",
+ session_date: meta.date ?? null,
+ session_time: meta.time ?? "",
+ zoom_join_url: zoomUrl,
+ price_cents: session.amount_total,
+ payment_status: "paid",
+ stripe_payment_id: session.payment_intent,
+ stripe_session_id: session.id,
+ status: "upcoming",
+ scheduled_at: meta.date && meta.time
+ ? new Date(`${meta.date}T${convertTo24hr(meta.time)}`).toISOString()
+ : new Date().toISOString(),
+ duration_minutes:
+ meta.sessionType === "solo-30" ? 30 :
+ meta.sessionType === "group" ? 90 : 60,
+ });
 
-    if (sessionDbError) {
-      await alertAdmin(
-        "Booking Not Recorded",
-        `A customer paid for a session but it was NOT saved to the database.\n\nParent: ${parentName} (${parentEmail})\nSubject: ${meta.subject}\nDate: ${meta.date} at ${meta.time}\nAmount: $${amountDollars}\nStripe Session: ${session.id}\nError: ${sessionDbError.message}`
-      );
-    }
+ if (sessionDbError) {
+ await alertAdmin(
+ "Booking Not Recorded",
+ `A customer paid for a session but it was NOT saved to the database.\n\nParent: ${parentName} (${parentEmail})\nSubject: ${meta.subject}\nDate: ${meta.date} at ${meta.time}\nAmount: $${amountDollars}\nStripe Session: ${session.id}\nError: ${sessionDbError.message}`
+ );
+ }
 
-    // Step 2: Save to payments table — look up the session row we just inserted
-    // so we can link session_id (FK) for the payments dashboard
-    const { data: savedSession } = await admin
-      .from("sessions")
-      .select("id")
-      .eq("stripe_session_id", session.id)
-      .maybeSingle();
+ // Step 2: Save to payments table — look up the session row we just inserted
+ // so we can link session_id (FK) for the payments dashboard
+ const { data: savedSession } = await admin
+ .from("sessions")
+ .select("id")
+ .eq("stripe_session_id", session.id)
+ .maybeSingle();
 
-    await admin.from("payments").upsert({
-      amount_cents: session.amount_total,
-      status: "succeeded",
-      stripe_checkout_session_id: session.id,
-      stripe_payment_intent_id: session.payment_intent,
-      session_id: savedSession?.id ?? null,
-    }, { onConflict: "stripe_checkout_session_id" });
+ await admin.from("payments").upsert({
+ amount_cents: session.amount_total,
+ status: "succeeded",
+ stripe_checkout_session_id: session.id,
+ stripe_payment_intent_id: session.payment_intent,
+ session_id: savedSession?.id ?? null,
+ }, { onConflict: "stripe_checkout_session_id" });
 
-    // Step 3: Send confirmation email
-    if (!parentEmail) {
-      await alertAdmin(
-        "Booking - No Email Address",
-        `A session was booked but no parent email was captured.\n\nSubject: ${meta.subject}\nDate: ${meta.date}\nStripe Session: ${session.id}`
-      );
-      return NextResponse.json({ received: true });
-    }
+ // Step 3: Send confirmation email
+ if (!parentEmail) {
+ await alertAdmin(
+ "Booking - No Email Address",
+ `A session was booked but no parent email was captured.\n\nSubject: ${meta.subject}\nDate: ${meta.date}\nStripe Session: ${session.id}`
+ );
+ return NextResponse.json({ received: true });
+ }
 
-    const { error: emailError } = await resend.emails.send({
-      from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
-      to: [parentEmail],
-      replyTo: "MsHoraceTutoring06@gmail.com",
-      subject: `Booking Confirmed - ${meta.subject} on ${meta.date}`,
-      html: `
+ const { error: emailError } = await resend.emails.send({
+ from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
+ to: [parentEmail],
+ replyTo: "MsHoraceTutoring06@gmail.com",
+ subject: `Booking Confirmed - ${meta.subject} on ${meta.date}`,
+ html: `
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
 <body style="margin:0;padding:0;background:#f3f4f6;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
 <div style="max-width:600px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
-  <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
-    <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="110" style="display:block;margin:0 auto 8px;" />
-    <p style="color:#ddd6fe;margin:0;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600;">Booking Confirmed!</p>
-  </div>
-  <div style="padding:24px 32px 0;text-align:center;">
-    <div style="display:inline-block;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:50px;padding:8px 20px;">
-      <span style="color:#16a34a;font-weight:700;font-size:14px;">Payment Received - $${amountDollars}</span>
-    </div>
-  </div>
-  <div style="padding:24px 32px 0;">
-    <h2 style="margin:0 0 16px;font-size:16px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;">Session Details</h2>
-    <table style="width:100%;border-collapse:collapse;">
-      <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;width:40%;">Session Type</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${sessionLabel}</td></tr>
-      <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Subject</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${meta.subject}</td></tr>
-      <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Grade Level</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${meta.gradeLevel}</td></tr>
-      <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Date</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${meta.date}</td></tr>
-      <tr><td style="padding:10px 0;color:#6b7280;font-size:14px;">Time</td><td style="padding:10px 0;color:#111827;font-size:14px;font-weight:600;">${meta.time} Eastern Time</td></tr>
-    </table>
-  </div>
-  <div style="margin:20px 32px 0;background:#f5f3ff;border-radius:12px;padding:20px;">
-    <p style="margin:0 0 6px;font-size:11px;font-weight:700;color:#5b21b6;text-transform:uppercase;letter-spacing:0.08em;">Your Zoom Link</p>
-    <p style="margin:0 0 14px;color:#374151;font-size:14px;">Click the button at your session time to join:</p>
-    <a href="${zoomUrl}" style="display:inline-block;background:#7c3aed;color:#fff;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;">Join Zoom Meeting</a>
-  </div>
-  <div style="padding:20px 32px 28px;">
-    <h3 style="margin:0 0 10px;font-size:14px;font-weight:700;color:#1f2937;">What to Expect</h3>
-    <ul style="margin:0;padding-left:20px;color:#6b7280;font-size:14px;line-height:1.9;">
-      <li>Join the Zoom link a few minutes early</li>
-      <li>Have any homework, notes, or questions ready</li>
-      <li>You will receive a session report by email after the session</li>
-      <li>Need to reschedule? Email us 24+ hours before your session</li>
-    </ul>
-  </div>
-  ${EMAIL_FOOTER}
+ <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
+ <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="110" style="display:block;margin:0 auto 8px;" />
+ <p style="color:#ddd6fe;margin:0;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600;">Booking Confirmed!</p>
+ </div>
+ <div style="padding:24px 32px 0;text-align:center;">
+ <div style="display:inline-block;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:50px;padding:8px 20px;">
+ <span style="color:#16a34a;font-weight:700;font-size:14px;">Payment Received - $${amountDollars}</span>
+ </div>
+ </div>
+ <div style="padding:24px 32px 0;">
+ <h2 style="margin:0 0 16px;font-size:16px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;">Session Details</h2>
+ <table style="width:100%;border-collapse:collapse;">
+ <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;width:40%;">Session Type</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${sessionLabel}</td></tr>
+ <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Subject</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${meta.subject}</td></tr>
+ <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Grade Level</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${meta.gradeLevel}</td></tr>
+ <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Date</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${meta.date}</td></tr>
+ <tr><td style="padding:10px 0;color:#6b7280;font-size:14px;">Time</td><td style="padding:10px 0;color:#111827;font-size:14px;font-weight:600;">${meta.time} Eastern Time</td></tr>
+ </table>
+ </div>
+ <div style="margin:20px 32px 0;background:#f5f3ff;border-radius:12px;padding:20px;">
+ <p style="margin:0 0 6px;font-size:11px;font-weight:700;color:#5b21b6;text-transform:uppercase;letter-spacing:0.08em;">Your Zoom Link</p>
+ <p style="margin:0 0 14px;color:#374151;font-size:14px;">Click the button at your session time to join:</p>
+ <a href="${zoomUrl}" style="display:inline-block;background:#7c3aed;color:#fff;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;">Join Zoom Meeting</a>
+ </div>
+ <div style="padding:20px 32px 28px;">
+ <h3 style="margin:0 0 10px;font-size:14px;font-weight:700;color:#1f2937;">What to Expect</h3>
+ <ul style="margin:0;padding-left:20px;color:#6b7280;font-size:14px;line-height:1.9;">
+ <li>Join the Zoom link a few minutes early</li>
+ <li>Have any homework, notes, or questions ready</li>
+ <li>You will receive a session report by email after the session</li>
+ <li>Need to reschedule? Email us 24+ hours before your session</li>
+ </ul>
+ </div>
+ ${EMAIL_FOOTER}
 </div>
 </body>
 </html>`,
-    });
+ });
 
-    if (emailError) {
-      await alertAdmin(
-        "Booking Confirmation Email Failed",
-        `The session was saved but the confirmation email failed to send.\n\nParent: ${parentName} (${parentEmail})\nSubject: ${meta.subject}\nDate: ${meta.date} at ${meta.time}\nZoom: ${zoomUrl}\nEmail Error: ${emailError.message}`
-      );
-    } else {
-      // Notify Ms. Horace of the new booking
-      await notifyAdmin(
-        `📅 New Booking: ${meta.subject} on ${meta.date}`,
-        `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;">
-          <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:20px;margin-bottom:20px;">
-            <h2 style="color:#5b21b6;margin:0 0 8px;">📅 New Session Booked</h2>
-            <p style="color:#6d28d9;margin:0;font-size:14px;">A parent just completed checkout for a tutoring session.</p>
-          </div>
-          <table style="width:100%;border-collapse:collapse;font-size:14px;">
-            <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;width:40%;">Parent</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-weight:600;">${parentName}</td></tr>
-            <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Email</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;">${parentEmail}</td></tr>
-            <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Subject</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-weight:600;">${meta.subject}</td></tr>
-            <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Grade</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;">${meta.gradeLevel}</td></tr>
-            <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Session Type</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;">${sessionLabel}</td></tr>
-            <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Date</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-weight:600;">${meta.date}</td></tr>
-            <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Time</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-weight:600;">${meta.time} ET</td></tr>
-            <tr><td style="padding:8px 0;color:#6b7280;">Amount Paid</td><td style="padding:8px 0;color:#16a34a;font-weight:700;">$${amountDollars}</td></tr>
-          </table>
-          <p style="margin:20px 0 0;font-size:13px;color:#6b7280;">Confirmation email sent to parent automatically. <a href="https://mshoracetutoring.com/admin" style="color:#7c3aed;">View dashboard →</a></p>
-        </div>`
-      );
-    }
+ if (emailError) {
+ await alertAdmin(
+ "Booking Confirmation Email Failed",
+ `The session was saved but the confirmation email failed to send.\n\nParent: ${parentName} (${parentEmail})\nSubject: ${meta.subject}\nDate: ${meta.date} at ${meta.time}\nZoom: ${zoomUrl}\nEmail Error: ${emailError.message}`
+ );
+ } else {
+ // Notify Ms. Horace of the new booking
+ await notifyAdmin(
+ ` New Booking: ${meta.subject} on ${meta.date}`,
+ `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;">
+ <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:20px;margin-bottom:20px;">
+ <h2 style="color:#5b21b6;margin:0 0 8px;"> New Session Booked</h2>
+ <p style="color:#6d28d9;margin:0;font-size:14px;">A parent just completed checkout for a tutoring session.</p>
+ </div>
+ <table style="width:100%;border-collapse:collapse;font-size:14px;">
+ <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;width:40%;">Parent</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-weight:600;">${parentName}</td></tr>
+ <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Email</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;">${parentEmail}</td></tr>
+ <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Subject</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-weight:600;">${meta.subject}</td></tr>
+ <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Grade</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;">${meta.gradeLevel}</td></tr>
+ <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Session Type</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;">${sessionLabel}</td></tr>
+ <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Date</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-weight:600;">${meta.date}</td></tr>
+ <tr><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;">Time</td><td style="padding:8px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-weight:600;">${meta.time} ET</td></tr>
+ <tr><td style="padding:8px 0;color:#6b7280;">Amount Paid</td><td style="padding:8px 0;color:#16a34a;font-weight:700;">$${amountDollars}</td></tr>
+ </table>
+ <p style="margin:20px 0 0;font-size:13px;color:#6b7280;">Confirmation email sent to parent automatically. <a href="https://mshoracetutoring.com/admin" style="color:#7c3aed;">View dashboard →</a></p>
+ </div>`
+ );
+ }
 
-    // Step 4: Also send Zoom link email to linked student
-    try {
-      const { data: { users } } = await admin.auth.admin.listUsers({ perPage: 200 });
-      const linkedStudent = users.find(u =>
-        u.user_metadata?.role === "student" &&
-        u.user_metadata?.parent_email?.toLowerCase() === parentEmail?.toLowerCase()
-      );
-      if (linkedStudent?.email) {
-        const studentName = linkedStudent.user_metadata?.name ?? "there";
-        const formattedDate = meta.date
-          ? new Date(meta.date).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })
-          : meta.date;
-        await resend.emails.send({
-          from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
-          to: [linkedStudent.email],
-          replyTo: "MsHoraceTutoring06@gmail.com",
-          subject: `Your ${meta.subject} Session is Booked! 🎉`,
-          html: `<!DOCTYPE html><html><head><meta charset="utf-8"></head>
+ // Step 4: Also send Zoom link email to linked student
+ try {
+ const { data: { users } } = await admin.auth.admin.listUsers({ perPage: 200 });
+ const linkedStudent = users.find(u =>
+ u.user_metadata?.role === "student" &&
+ u.user_metadata?.parent_email?.toLowerCase() === parentEmail?.toLowerCase()
+ );
+ if (linkedStudent?.email) {
+ const studentName = linkedStudent.user_metadata?.name ?? "there";
+ const formattedDate = meta.date
+ ? new Date(meta.date).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })
+ : meta.date;
+ await resend.emails.send({
+ from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
+ to: [linkedStudent.email],
+ replyTo: "MsHoraceTutoring06@gmail.com",
+ subject: `Your ${meta.subject} Session is Booked! `,
+ html: `<!DOCTYPE html><html><head><meta charset="utf-8"></head>
 <body style="margin:0;padding:0;background:#f3f4f6;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
 <div style="max-width:600px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
-  <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
-    <img src="https://mshoracetutoring.com/Logo.png" width="110" style="display:block;margin:0 auto 8px;" />
-    <p style="color:#ddd6fe;margin:0;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Your Session is Booked! 🎉</p>
-  </div>
-  <div style="padding:24px 32px;">
-    <p style="margin:0 0 20px;font-size:15px;color:#374151;">Hi <strong>${studentName}</strong>, you have a tutoring session coming up with Ms. Horace. Get ready to level up! 💪</p>
-    <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
-      <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;width:40%;">Subject</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${meta.subject}</td></tr>
-      <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Date</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${formattedDate}</td></tr>
-      <tr><td style="padding:10px 0;color:#6b7280;font-size:14px;">Time</td><td style="padding:10px 0;color:#111827;font-size:14px;font-weight:600;">${meta.time} Eastern Time</td></tr>
-    </table>
-    <div style="background:#f5f3ff;border-radius:12px;padding:20px;margin-bottom:20px;">
-      <p style="margin:0 0 12px;font-size:13px;font-weight:700;color:#5b21b6;text-transform:uppercase;letter-spacing:0.05em;">Your Zoom Link</p>
-      <a href="${zoomUrl}" style="display:inline-block;background:#7c3aed;color:#fff;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;">Join Zoom Meeting</a>
-    </div>
-    <div style="background:#f0fdf4;border-left:4px solid #22c55e;border-radius:0 10px 10px 0;padding:14px 18px;">
-      <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#15803d;">Quick Tips</p>
-      <ul style="margin:0;padding-left:18px;color:#166534;font-size:13px;line-height:1.8;">
-        <li>Join a few minutes early to test your audio/video</li>
-        <li>Have your notes, textbook, or homework ready</li>
-        <li>Write down any questions you want to ask</li>
-      </ul>
-    </div>
-  </div>
-  ${EMAIL_FOOTER}
+ <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
+ <img src="https://mshoracetutoring.com/Logo.png" width="110" style="display:block;margin:0 auto 8px;" />
+ <p style="color:#ddd6fe;margin:0;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Your Session is Booked! </p>
+ </div>
+ <div style="padding:24px 32px;">
+ <p style="margin:0 0 20px;font-size:15px;color:#374151;">Hi <strong>${studentName}</strong>, you have a tutoring session coming up with Ms. Horace. Get ready to level up! </p>
+ <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
+ <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;width:40%;">Subject</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${meta.subject}</td></tr>
+ <tr><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:14px;">Date</td><td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#111827;font-size:14px;font-weight:600;">${formattedDate}</td></tr>
+ <tr><td style="padding:10px 0;color:#6b7280;font-size:14px;">Time</td><td style="padding:10px 0;color:#111827;font-size:14px;font-weight:600;">${meta.time} Eastern Time</td></tr>
+ </table>
+ <div style="background:#f5f3ff;border-radius:12px;padding:20px;margin-bottom:20px;">
+ <p style="margin:0 0 12px;font-size:13px;font-weight:700;color:#5b21b6;text-transform:uppercase;letter-spacing:0.05em;">Your Zoom Link</p>
+ <a href="${zoomUrl}" style="display:inline-block;background:#7c3aed;color:#fff;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;">Join Zoom Meeting</a>
+ </div>
+ <div style="background:#f0fdf4;border-left:4px solid #22c55e;border-radius:0 10px 10px 0;padding:14px 18px;">
+ <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#15803d;">Quick Tips</p>
+ <ul style="margin:0;padding-left:18px;color:#166534;font-size:13px;line-height:1.8;">
+ <li>Join a few minutes early to test your audio/video</li>
+ <li>Have your notes, textbook, or homework ready</li>
+ <li>Write down any questions you want to ask</li>
+ </ul>
+ </div>
+ </div>
+ ${EMAIL_FOOTER}
 </div></body></html>`,
-        });
-      }
-    } catch {
-      // Student email is best-effort — don't fail the webhook if it errors
-    }
-  }
+ });
+ }
+ } catch {
+ // Student email is best-effort — don't fail the webhook if it errors
+ }
+ }
 
-  return NextResponse.json({ received: true });
+ return NextResponse.json({ received: true });
 }
 
 function convertTo24hr(time: string): string {
-  const [timePart, modifier] = time.split(" ");
-  let [hours, minutes] = timePart.split(":").map(Number);
-  if (modifier === "PM" && hours !== 12) hours += 12;
-  if (modifier === "AM" && hours === 12) hours = 0;
-  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:00`;
+ const [timePart, modifier] = time.split(" ");
+ let [hours, minutes] = timePart.split(":").map(Number);
+ if (modifier === "PM" && hours !== 12) hours += 12;
+ if (modifier === "AM" && hours === 12) hours = 0;
+ return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:00`;
 }

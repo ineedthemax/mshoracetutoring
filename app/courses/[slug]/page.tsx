@@ -14,159 +14,159 @@ import { CourseCheckoutButton } from "@/components/CourseCheckoutButton";
 import { LessonPreviewCards } from "@/components/LessonPreviewCards";
 
 const INTERACTIVE_COURSES: Record<string, string> = {
-  "pre-algebra-mastery": "/pre-algebra-course.html",
-  "algebra-1-mastery": "/algebra1-course.html",
+ "pre-algebra-mastery": "/pre-algebra-course.html",
+ "algebra-1-mastery": "/algebra1-course.html",
 };
 
 export default async function CourseDetailPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const supabase = createPublicClient();
+ const { slug } = await params;
+ const supabase = createPublicClient();
 
-  const { data: course } = await supabase
-    .from("courses")
-    .select("*")
-    .eq("slug", slug)
-    .eq("is_published", true)
-    .single();
+ const { data: course } = await supabase
+ .from("courses")
+ .select("*")
+ .eq("slug", slug)
+ .eq("is_published", true)
+ .single();
 
-  if (!course) notFound();
+ if (!course) notFound();
 
-  const { data: lessons } = await supabase
-    .from("lessons")
-    .select("*")
-    .eq("course_id", course.id)
-    .order("lesson_order");
+ const { data: lessons } = await supabase
+ .from("lessons")
+ .select("*")
+ .eq("course_id", course.id)
+ .order("lesson_order");
 
-  const allLessons = lessons ?? [];
-  const freeLessons = allLessons.filter((l: { is_free_preview: boolean }) => l.is_free_preview);
-  const paidLessons = allLessons.filter((l: { is_free_preview: boolean }) => !l.is_free_preview);
-  const interactiveUrl = INTERACTIVE_COURSES[slug];
+ const allLessons = lessons ?? [];
+ const freeLessons = allLessons.filter((l: { is_free_preview: boolean }) => l.is_free_preview);
+ const paidLessons = allLessons.filter((l: { is_free_preview: boolean }) => !l.is_free_preview);
+ const interactiveUrl = INTERACTIVE_COURSES[slug];
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <PublicNav />
+ return (
+ <div className="min-h-screen bg-gray-50">
+ <PublicNav />
 
-      <div className="max-w-5xl mx-auto px-4 py-12">
-        <Link href="/courses" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-violet-600 mb-8">
-          <ArrowLeft className="w-4 h-4" /> Back to Courses
-        </Link>
+ <div className="max-w-5xl mx-auto px-4 py-12">
+ <Link href="/courses" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-violet-600 mb-8">
+ <ArrowLeft className="w-4 h-4" /> Back to Courses
+ </Link>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {/* Main content */}
-          <div className="md:col-span-2">
-            <div className="bg-gradient-to-br from-violet-600 to-violet-800 rounded-2xl p-8 text-white mb-6">
-              <Badge className="mb-3 bg-white/20 text-white border-0">{course.grade_level}</Badge>
-              <h1 className="text-3xl font-bold mb-3">{course.title}</h1>
-              <p className="text-violet-100 leading-relaxed">{course.description}</p>
-              <div className="flex items-center gap-4 mt-4 text-sm text-violet-200">
-                <span className="flex items-center gap-1"><FileText className="w-4 h-4" /> {course.total_lessons} PDF lessons</span>
-                <span className="flex items-center gap-1"><Star className="w-4 h-4" /> {freeLessons.length} free previews</span>
-              </div>
-            </div>
+ <div className="grid md:grid-cols-3 gap-8">
+ {/* Main content */}
+ <div className="md:col-span-2">
+ <div className="bg-gradient-to-br from-violet-600 to-violet-800 rounded-2xl p-8 text-white mb-6">
+ <Badge className="mb-3 bg-white/20 text-white border-0">{course.grade_level}</Badge>
+ <h1 className="text-3xl font-bold mb-3">{course.title}</h1>
+ <p className="text-violet-100 leading-relaxed">{course.description}</p>
+ <div className="flex items-center gap-4 mt-4 text-sm text-violet-200">
+ <span className="flex items-center gap-1"><FileText className="w-4 h-4" /> {course.total_lessons} PDF lessons</span>
+ <span className="flex items-center gap-1"><Star className="w-4 h-4" /> {freeLessons.length} free previews</span>
+ </div>
+ </div>
 
-            <LessonPreviewCards
-              freeLessons={freeLessons}
-              paidLessons={paidLessons}
-              previewDescription={course.preview_description}
-            />
-          </div>
+ <LessonPreviewCards
+ freeLessons={freeLessons}
+ paidLessons={paidLessons}
+ previewDescription={course.preview_description}
+ />
+ </div>
 
-          {/* Sidebar */}
-          <div className="md:col-span-1">
-            <div className="sticky top-6 space-y-4">
+ {/* Sidebar */}
+ <div className="md:col-span-1">
+ <div className="sticky top-6 space-y-4">
 
-              {/* Interactive Course Banner */}
-              {interactiveUrl && (
-                <div className="bg-gradient-to-br from-violet-600 to-violet-800 rounded-2xl p-5 text-white">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Zap className="w-4 h-4 text-yellow-300" />
-                    <span className="text-xs font-bold text-yellow-300 uppercase tracking-wider">Interactive Course</span>
-                  </div>
-                  <p className="text-sm text-violet-100 mb-4">
-                    Try the full interactive version - lessons, worked examples, and instant-feedback practice problems.
-                  </p>
-                  <a href={interactiveUrl} target="_blank" rel="noopener noreferrer">
-                    <button className="w-full bg-white text-violet-700 font-bold py-2.5 rounded-xl text-sm hover:bg-violet-50 transition-colors flex items-center justify-center gap-2">
-                      <Zap className="w-4 h-4" /> Launch Interactive Course
-                    </button>
-                  </a>
-                </div>
-              )}
+ {/* Interactive Course Banner */}
+ {interactiveUrl && (
+ <div className="bg-gradient-to-br from-violet-600 to-violet-800 rounded-2xl p-5 text-white">
+ <div className="flex items-center gap-2 mb-2">
+ <Zap className="w-4 h-4 text-yellow-300" />
+ <span className="text-xs font-bold text-yellow-300 uppercase tracking-wider">Interactive Course</span>
+ </div>
+ <p className="text-sm text-violet-100 mb-4">
+ Try the full interactive version - lessons, worked examples, and instant-feedback practice problems.
+ </p>
+ <a href={interactiveUrl} target="_blank" rel="noopener noreferrer">
+ <button className="w-full bg-white text-violet-700 font-bold py-2.5 rounded-xl text-sm hover:bg-violet-50 transition-colors flex items-center justify-center gap-2">
+ <Zap className="w-4 h-4" /> Launch Interactive Course
+ </button>
+ </a>
+ </div>
+ )}
 
-              <Card className="border-violet-200 shadow-md">
-                <CardContent className="p-6">
-                  <div className="text-center mb-4">
-                    <div className="text-4xl font-bold text-violet-600 mb-1">${(course.price_cents / 100).toFixed(0)}</div>
-                    <p className="text-sm text-gray-400">Lifetime access · All PDFs included</p>
-                  </div>
+ <Card className="border-violet-200 shadow-md">
+ <CardContent className="p-6">
+ <div className="text-center mb-4">
+ <div className="text-4xl font-bold text-violet-600 mb-1">${(course.price_cents / 100).toFixed(0)}</div>
+ <p className="text-sm text-gray-400">Lifetime access · All PDFs included</p>
+ </div>
 
-                  {/* Pay in full */}
-                  <CourseCheckoutButton
-                    label={`Pay in Full $${(course.price_cents / 100).toFixed(0)}`}
-                    courseId={slug === "pre-algebra-mastery" ? "c1" : "c2"}
-                    productName={course.title}
-                    className="w-full mb-3"
-                  />
+ {/* Pay in full */}
+ <CourseCheckoutButton
+ label={`Pay in Full $${(course.price_cents / 100).toFixed(0)}`}
+ courseId={slug === "pre-algebra-mastery" ? "c1" : "c2"}
+ productName={course.title}
+ className="w-full mb-3"
+ />
 
-                  {/* Divider */}
-                  <div className="flex items-center gap-2 my-3">
-                    <div className="flex-1 h-px bg-gray-200" />
-                    <span className="text-xs text-gray-400">or</span>
-                    <div className="flex-1 h-px bg-gray-200" />
-                  </div>
+ {/* Divider */}
+ <div className="flex items-center gap-2 my-3">
+ <div className="flex-1 h-px bg-gray-200" />
+ <span className="text-xs text-gray-400">or</span>
+ <div className="flex-1 h-px bg-gray-200" />
+ </div>
 
-                  {/* Installment option */}
-                  <div className="bg-violet-50 border border-violet-200 rounded-xl p-4 mb-3">
-                    <p className="text-sm font-semibold text-violet-700 mb-1">Pay in 2 Installments</p>
-                    <p className="text-xs text-gray-500 mb-3">$99 today, then $99 in 30 days</p>
-                    <CourseCheckoutButton
-                      label="Start for $99/mo"
-                      courseId={slug === "pre-algebra-mastery" ? "c1" : "c2"}
-                      planKey="course-2pay"
-                      productName={course.title}
-                      variant="outline"
-                      className="w-full border-violet-300 text-violet-600 hover:bg-violet-100 text-sm"
-                    />
-                  </div>
-                  <div className="space-y-2 text-sm">
-                    {[
-                      `${course.total_lessons} PDF lesson files`,
-                      "Full answer keys included",
-                      "Lifetime access after purchase",
-                      "Works on any device",
-                    ].map((item) => (
-                      <div key={item} className="flex items-center gap-2 text-gray-600">
-                        <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                        {item}
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+ {/* Installment option */}
+ <div className="bg-violet-50 border border-violet-200 rounded-xl p-4 mb-3">
+ <p className="text-sm font-semibold text-violet-700 mb-1">Pay in 2 Installments</p>
+ <p className="text-xs text-gray-500 mb-3">$99 today, then $99 in 30 days</p>
+ <CourseCheckoutButton
+ label="Start for $99/mo"
+ courseId={slug === "pre-algebra-mastery" ? "c1" : "c2"}
+ planKey="course-2pay"
+ productName={course.title}
+ variant="outline"
+ className="w-full border-violet-300 text-violet-600 hover:bg-violet-100 text-sm"
+ />
+ </div>
+ <div className="space-y-2 text-sm">
+ {[
+ `${course.total_lessons} PDF lesson files`,
+ "Full answer keys included",
+ "Lifetime access after purchase",
+ "Works on any device",
+ ].map((item) => (
+ <div key={item} className="flex items-center gap-2 text-gray-600">
+ <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+ {item}
+ </div>
+ ))}
+ </div>
+ </CardContent>
+ </Card>
 
-              {/* Bundle upsell */}
-              <Card className="border-amber-300 bg-amber-50">
-                <CardContent className="p-5">
-                  <div className="flex items-center gap-2 mb-2">
-                    <BookOpen className="w-4 h-4 text-amber-600" />
-                    <span className="text-sm font-bold text-amber-700">Better deal</span>
-                  </div>
-                  <p className="text-sm text-gray-700 mb-3">
-                    Get both courses Pre-Algebra and Algebra 1 for <strong>${mockBundle.price}</strong>.
-                  </p>
-                  <Link href="/courses">
-                    <Button size="sm" variant="outline" className="w-full border-amber-400 text-amber-700 hover:bg-amber-100">
-                      View Bundle
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </div>
+ {/* Bundle upsell */}
+ <Card className="border-amber-300 bg-amber-50">
+ <CardContent className="p-5">
+ <div className="flex items-center gap-2 mb-2">
+ <BookOpen className="w-4 h-4 text-amber-600" />
+ <span className="text-sm font-bold text-amber-700">Better deal</span>
+ </div>
+ <p className="text-sm text-gray-700 mb-3">
+ Get both courses Pre-Algebra and Algebra 1 for <strong>${mockBundle.price}</strong>.
+ </p>
+ <Link href="/courses">
+ <Button size="sm" variant="outline" className="w-full border-amber-400 text-amber-700 hover:bg-amber-100">
+ View Bundle
+ </Button>
+ </Link>
+ </CardContent>
+ </Card>
+ </div>
+ </div>
+ </div>
+ </div>
 
-      <Footer />
-    </div>
-  );
+ <Footer />
+ </div>
+ );
 }

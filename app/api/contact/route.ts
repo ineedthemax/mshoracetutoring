@@ -6,121 +6,121 @@ const resend = new Resend(process.env.RESEND_API_KEY!);
 
 // Strip HTML tags to prevent XSS in emails
 function sanitize(str: string): string {
-  return str.replace(/<[^>]*>/g, "").trim().slice(0, 2000);
+ return str.replace(/<[^>]*>/g, "").trim().slice(0, 2000);
 }
 
 // Rate limit: max 3 contact form submissions per IP per hour
 async function isRateLimited(ip: string): Promise<boolean> {
-  try {
-    const admin = createAdminClient();
-    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+ try {
+ const admin = createAdminClient();
+ const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
 
-    const { count } = await admin
-      .from("contact_submissions")
-      .select("*", { count: "exact", head: true })
-      .eq("ip_address", ip)
-      .gte("created_at", oneHourAgo);
+ const { count } = await admin
+ .from("contact_submissions")
+ .select("*", { count: "exact", head: true })
+ .eq("ip_address", ip)
+ .gte("created_at", oneHourAgo);
 
-    return (count ?? 0) >= 3;
-  } catch {
-    return false; // Don't block if check fails
-  }
+ return (count ?? 0) >= 3;
+ } catch {
+ return false; // Don't block if check fails
+ }
 }
 
 async function logSubmission(ip: string, email: string) {
-  try {
-    const admin = createAdminClient();
-    await admin.from("contact_submissions").insert({ ip_address: ip, email });
-  } catch {}
+ try {
+ const admin = createAdminClient();
+ await admin.from("contact_submissions").insert({ ip_address: ip, email });
+ } catch {}
 }
 
 export async function POST(req: NextRequest) {
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+ const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
 
-  // Rate limit check
-  if (await isRateLimited(ip)) {
-    return NextResponse.json(
-      { error: "Too many messages. Please wait an hour before trying again." },
-      { status: 429 }
-    );
-  }
+ // Rate limit check
+ if (await isRateLimited(ip)) {
+ return NextResponse.json(
+ { error: "Too many messages. Please wait an hour before trying again." },
+ { status: 429 }
+ );
+ }
 
-  const body = await req.json();
-  const name    = sanitize(body.name    ?? "");
-  const email   = sanitize(body.email   ?? "");
-  const subject = sanitize(body.subject ?? "");
-  const message = sanitize(body.message ?? "");
+ const body = await req.json();
+ const name = sanitize(body.name ?? "");
+ const email = sanitize(body.email ?? "");
+ const subject = sanitize(body.subject ?? "");
+ const message = sanitize(body.message ?? "");
 
-  // Basic email format check
-  if (!name || !email || !message) {
-    return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
-  }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
-  }
+ // Basic email format check
+ if (!name || !email || !message) {
+ return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+ }
+ if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+ return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
+ }
 
-  // Honeypot field — bots fill this, humans don't see it
-  if (body.website) {
-    return NextResponse.json({ success: true }); // Silently drop bot submissions
-  }
+ // Honeypot field — bots fill this, humans don't see it
+ if (body.website) {
+ return NextResponse.json({ success: true }); // Silently drop bot submissions
+ }
 
-  await logSubmission(ip, email);
+ await logSubmission(ip, email);
 
-  const { error } = await resend.emails.send({
-    from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
-    to: ["MsHoraceTutoring06@gmail.com"],
-    replyTo: email,
-    subject: `New Message from ${name}: ${subject || "General Inquiry"}`,
-    html: `
+ const { error } = await resend.emails.send({
+ from: "MsHorace Tutoring <hello@mshoracetutoring.com>",
+ to: ["MsHoraceTutoring06@gmail.com"],
+ replyTo: email,
+ subject: `New Message from ${name}: ${subject || "General Inquiry"}`,
+ html: `
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
 <body style="margin:0;padding:0;background:#f3f4f6;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
 <div style="max-width:600px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
 
-  <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
-    <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="110" style="display:block;margin:0 auto 8px;" />
-    <p style="color:#ddd6fe;margin:0;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600;">New Website Message</p>
-  </div>
+ <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px 22px;text-align:center;">
+ <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="110" style="display:block;margin:0 auto 8px;" />
+ <p style="color:#ddd6fe;margin:0;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;font-weight:600;">New Website Message</p>
+ </div>
 
-  <div style="padding:28px 32px;">
-    <table style="width:100%;border-collapse:collapse;">
-      <tr>
-        <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:11px;color:#9ca3af;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;width:100px;">From</td>
-        <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:15px;color:#111827;font-weight:600;">${name}</td>
-      </tr>
-      <tr>
-        <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:11px;color:#9ca3af;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Email</td>
-        <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:14px;"><a href="mailto:${email}" style="color:#7c3aed;font-weight:600;">${email}</a></td>
-      </tr>
-      <tr>
-        <td style="padding:10px 0;font-size:11px;color:#9ca3af;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Subject</td>
-        <td style="padding:10px 0;font-size:14px;color:#111827;">${subject || "General Inquiry"}</td>
-      </tr>
-    </table>
+ <div style="padding:28px 32px;">
+ <table style="width:100%;border-collapse:collapse;">
+ <tr>
+ <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:11px;color:#9ca3af;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;width:100px;">From</td>
+ <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:15px;color:#111827;font-weight:600;">${name}</td>
+ </tr>
+ <tr>
+ <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:11px;color:#9ca3af;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Email</td>
+ <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:14px;"><a href="mailto:${email}" style="color:#7c3aed;font-weight:600;">${email}</a></td>
+ </tr>
+ <tr>
+ <td style="padding:10px 0;font-size:11px;color:#9ca3af;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Subject</td>
+ <td style="padding:10px 0;font-size:14px;color:#111827;">${subject || "General Inquiry"}</td>
+ </tr>
+ </table>
 
-    <div style="margin-top:20px;background:#f5f3ff;border-radius:12px;padding:18px 20px;">
-      <p style="margin:0 0 10px;font-size:11px;font-weight:700;color:#5b21b6;text-transform:uppercase;letter-spacing:0.08em;">Message</p>
-      <p style="margin:0;color:#374151;font-size:14px;line-height:1.8;white-space:pre-wrap;">${message}</p>
-    </div>
+ <div style="margin-top:20px;background:#f5f3ff;border-radius:12px;padding:18px 20px;">
+ <p style="margin:0 0 10px;font-size:11px;font-weight:700;color:#5b21b6;text-transform:uppercase;letter-spacing:0.08em;">Message</p>
+ <p style="margin:0;color:#374151;font-size:14px;line-height:1.8;white-space:pre-wrap;">${message}</p>
+ </div>
 
-    <div style="margin-top:24px;text-align:center;">
-      <a href="mailto:${email}" style="display:inline-block;background:#7c3aed;color:#fff;padding:13px 32px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;">Reply to ${name}</a>
-    </div>
-  </div>
+ <div style="margin-top:24px;text-align:center;">
+ <a href="mailto:${email}" style="display:inline-block;background:#7c3aed;color:#fff;padding:13px 32px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;">Reply to ${name}</a>
+ </div>
+ </div>
 
-  <div style="background:#f5f3ff;padding:20px 32px;text-align:center;">
-    <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="100" style="display:block;margin:0 auto 10px;" />
-    <p style="margin:0;color:#9ca3af;font-size:12px;">MsHorace Tutoring &nbsp;·&nbsp; White Plains, Maryland &nbsp;·&nbsp; <a href="https://mshoracetutoring.com" style="color:#7c3aed;">mshoracetutoring.com</a></p>
-  </div>
+ <div style="background:#f5f3ff;padding:20px 32px;text-align:center;">
+ <img src="https://mshoracetutoring.com/Logo.png" alt="MsHorace Tutoring" width="100" style="display:block;margin:0 auto 10px;" />
+ <p style="margin:0;color:#9ca3af;font-size:12px;">MsHorace Tutoring &nbsp;·&nbsp; White Plains, Maryland &nbsp;·&nbsp; <a href="https://mshoracetutoring.com" style="color:#7c3aed;">mshoracetutoring.com</a></p>
+ </div>
 </div>
 </body>
 </html>`,
-  });
+ });
 
-  if (error) {
-    return NextResponse.json({ error: "Failed to send message" }, { status: 500 });
-  }
+ if (error) {
+ return NextResponse.json({ error: "Failed to send message" }, { status: 500 });
+ }
 
-  return NextResponse.json({ success: true });
+ return NextResponse.json({ success: true });
 }

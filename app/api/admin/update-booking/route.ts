@@ -6,342 +6,342 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const SUBJECT_PRODUCTS: Record<string, { name: string; slug: string; price: string; description: string }> = {
-  "pre-algebra": {
-    name: "Pre-Algebra Mastery PDF Course",
-    slug: "pre-algebra-mastery",
-    price: "$197",
-    description: "15 PDF lessons with worked examples and full answer keys - everything to keep the momentum going independently.",
-  },
-  "algebra 1": {
-    name: "Algebra I Mastery PDF Course",
-    slug: "algebra-1-mastery",
-    price: "$197",
-    description: "15 PDF lessons covering every Algebra I concept with step-by-step walkthroughs and practice problems.",
-  },
-  "algebra i": {
-    name: "Algebra I Mastery PDF Course",
-    slug: "algebra-1-mastery",
-    price: "$197",
-    description: "15 PDF lessons covering every Algebra I concept with step-by-step walkthroughs and practice problems.",
-  },
+ "pre-algebra": {
+ name: "Pre-Algebra Mastery PDF Course",
+ slug: "pre-algebra-mastery",
+ price: "$197",
+ description: "15 PDF lessons with worked examples and full answer keys - everything to keep the momentum going independently.",
+ },
+ "algebra 1": {
+ name: "Algebra I Mastery PDF Course",
+ slug: "algebra-1-mastery",
+ price: "$197",
+ description: "15 PDF lessons covering every Algebra I concept with step-by-step walkthroughs and practice problems.",
+ },
+ "algebra i": {
+ name: "Algebra I Mastery PDF Course",
+ slug: "algebra-1-mastery",
+ price: "$197",
+ description: "15 PDF lessons covering every Algebra I concept with step-by-step walkthroughs and practice problems.",
+ },
 };
 
 function getProductForSubject(subject: string) {
-  if (!subject) return null;
-  const lower = subject.toLowerCase();
-  for (const [key, val] of Object.entries(SUBJECT_PRODUCTS)) {
-    if (lower.includes(key)) return val;
-  }
-  return null;
+ if (!subject) return null;
+ const lower = subject.toLowerCase();
+ for (const [key, val] of Object.entries(SUBJECT_PRODUCTS)) {
+ if (lower.includes(key)) return val;
+ }
+ return null;
 }
 
 // EMAIL 1: Sent mid-pack (every 2nd session) — pushes digital/supplemental products
 async function sendMidPackEmail(
-  parentEmail: string, parentName: string, studentName: string,
-  subject: string, completedCount: number
+ parentEmail: string, parentName: string, studentName: string,
+ subject: string, completedCount: number
 ) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://mshoracetutoring.com";
-  const firstName = (parentName || parentEmail).split(" ")[0];
-  const studentFirst = (studentName || "your student").split(" ")[0];
-  const product = getProductForSubject(subject);
+ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://mshoracetutoring.com";
+ const firstName = (parentName || parentEmail).split(" ")[0];
+ const studentFirst = (studentName || "your student").split(" ")[0];
+ const product = getProductForSubject(subject);
 
-  const html = `
+ const html = `
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#f9fafb;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <div style="max-width:560px;margin:40px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);">
+ <div style="max-width:560px;margin:40px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);">
 
-    <div style="background:linear-gradient(135deg,#7c3aed,#6d28d9);padding:28px 32px;">
-      <p style="margin:0;font-size:13px;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;">Ms. Horace Tutoring</p>
-      <h1 style="margin:8px 0 0;font-size:22px;font-weight:800;color:#fff;">${studentFirst} is building real momentum</h1>
-    </div>
+ <div style="background:linear-gradient(135deg,#7c3aed,#6d28d9);padding:28px 32px;">
+ <p style="margin:0;font-size:13px;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;">Ms. Horace Tutoring</p>
+ <h1 style="margin:8px 0 0;font-size:22px;font-weight:800;color:#fff;">${studentFirst} is building real momentum</h1>
+ </div>
 
-    <div style="padding:28px 32px;">
-      <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 16px;">Hi ${firstName},</p>
-      <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 16px;">
-        ${studentFirst} just completed session ${completedCount} and I can see the progress - I wanted to reach out while the momentum is high.
-      </p>
-      <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 20px;">
-        One of the best things a student can do between sessions is practice with the right materials. I put together digital resources specifically designed to reinforce what we cover together - so the work doesn't stop when the session ends.
-      </p>
+ <div style="padding:28px 32px;">
+ <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 16px;">Hi ${firstName},</p>
+ <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 16px;">
+ ${studentFirst} just completed session ${completedCount} and I can see the progress - I wanted to reach out while the momentum is high.
+ </p>
+ <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 20px;">
+ One of the best things a student can do between sessions is practice with the right materials. I put together digital resources specifically designed to reinforce what we cover together - so the work doesn't stop when the session ends.
+ </p>
 
-      ${product ? `
-      <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:20px;margin:20px 0;">
-        <p style="font-size:12px;font-weight:700;color:#7c3aed;text-transform:uppercase;letter-spacing:0.06em;margin:0 0 6px;">Perfect for ${studentFirst}</p>
-        <p style="font-size:17px;font-weight:700;color:#1f2937;margin:0 0 8px;">${product.name}</p>
-        <p style="font-size:14px;color:#6b7280;line-height:1.5;margin:0 0 16px;">${product.description}</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;">
-          <a href="${baseUrl}/courses/${product.slug}" style="display:inline-block;background:#7c3aed;color:#fff;font-weight:700;font-size:14px;padding:11px 22px;border-radius:8px;text-decoration:none;">
-            Get the Course - ${product.price}
-          </a>
-          <a href="${baseUrl}/courses" style="display:inline-block;background:#fff;color:#7c3aed;font-weight:600;font-size:14px;padding:11px 22px;border-radius:8px;text-decoration:none;border:1px solid #ddd6fe;">
-            Browse All
-          </a>
-        </div>
-      </div>` : `
-      <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:20px;margin:20px 0;">
-        <p style="font-size:14px;color:#6b7280;line-height:1.5;margin:0 0 16px;">Browse our library of PDF courses and practice packs - each one built around exactly what students need between sessions.</p>
-        <a href="${baseUrl}/courses" style="display:inline-block;background:#7c3aed;color:#fff;font-weight:700;font-size:14px;padding:11px 22px;border-radius:8px;text-decoration:none;">
-          Browse Digital Resources
-        </a>
-      </div>`}
+ ${product ? `
+ <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:20px;margin:20px 0;">
+ <p style="font-size:12px;font-weight:700;color:#7c3aed;text-transform:uppercase;letter-spacing:0.06em;margin:0 0 6px;">Perfect for ${studentFirst}</p>
+ <p style="font-size:17px;font-weight:700;color:#1f2937;margin:0 0 8px;">${product.name}</p>
+ <p style="font-size:14px;color:#6b7280;line-height:1.5;margin:0 0 16px;">${product.description}</p>
+ <div style="display:flex;gap:12px;flex-wrap:wrap;">
+ <a href="${baseUrl}/courses/${product.slug}" style="display:inline-block;background:#7c3aed;color:#fff;font-weight:700;font-size:14px;padding:11px 22px;border-radius:8px;text-decoration:none;">
+ Get the Course - ${product.price}
+ </a>
+ <a href="${baseUrl}/courses" style="display:inline-block;background:#fff;color:#7c3aed;font-weight:600;font-size:14px;padding:11px 22px;border-radius:8px;text-decoration:none;border:1px solid #ddd6fe;">
+ Browse All
+ </a>
+ </div>
+ </div>` : `
+ <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:20px;margin:20px 0;">
+ <p style="font-size:14px;color:#6b7280;line-height:1.5;margin:0 0 16px;">Browse our library of PDF courses and practice packs - each one built around exactly what students need between sessions.</p>
+ <a href="${baseUrl}/courses" style="display:inline-block;background:#7c3aed;color:#fff;font-weight:700;font-size:14px;padding:11px 22px;border-radius:8px;text-decoration:none;">
+ Browse Digital Resources
+ </a>
+ </div>`}
 
-      <p style="font-size:14px;color:#6b7280;line-height:1.6;margin:16px 0 0;">
-        Any questions, just reply here. Happy to recommend what fits ${studentFirst} best.
-      </p>
-      <p style="font-size:14px;color:#374151;margin:20px 0 0;font-weight:600;">- Ms. Horace</p>
-    </div>
+ <p style="font-size:14px;color:#6b7280;line-height:1.6;margin:16px 0 0;">
+ Any questions, just reply here. Happy to recommend what fits ${studentFirst} best.
+ </p>
+ <p style="font-size:14px;color:#374151;margin:20px 0 0;font-weight:600;">- Ms. Horace</p>
+ </div>
 
-    <div style="background:#f9fafb;padding:16px 32px;border-top:1px solid #f3f4f6;">
-      <p style="margin:0;font-size:12px;color:#9ca3af;text-align:center;">Ms. Horace Tutoring - Virtual Math &amp; Science Tutoring</p>
-    </div>
-  </div>
+ <div style="background:#f9fafb;padding:16px 32px;border-top:1px solid #f3f4f6;">
+ <p style="margin:0;font-size:12px;color:#9ca3af;text-align:center;">Ms. Horace Tutoring - Virtual Math &amp; Science Tutoring</p>
+ </div>
+ </div>
 </body>
 </html>`;
 
-  await resend.emails.send({
-    from: "Ms. Horace <noreply@mshoracetutoring.com>",
-    to: [parentEmail],
-    subject: `${studentFirst} is ${completedCount} sessions in - resources to keep the momentum`,
-    html,
-    text: `Hi ${firstName}, ${studentFirst} just completed session ${completedCount}! Check out our digital practice resources to keep the progress going between sessions: ${baseUrl}/courses - Ms. Horace`,
-  });
+ await resend.emails.send({
+ from: "Ms. Horace <noreply@mshoracetutoring.com>",
+ to: [parentEmail],
+ subject: `${studentFirst} is ${completedCount} sessions in - resources to keep the momentum`,
+ html,
+ text: `Hi ${firstName}, ${studentFirst} just completed session ${completedCount}! Check out our digital practice resources to keep the progress going between sessions: ${baseUrl}/courses - Ms. Horace`,
+ });
 }
 
 // EMAIL 2: Sent after the LAST session (no upcoming sessions remaining) — pushes the full course
 async function sendEndOfSessionsEmail(
-  parentEmail: string, parentName: string, studentName: string,
-  subject: string, completedCount: number
+ parentEmail: string, parentName: string, studentName: string,
+ subject: string, completedCount: number
 ) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://mshoracetutoring.com";
-  const firstName = (parentName || parentEmail).split(" ")[0];
-  const studentFirst = (studentName || "your student").split(" ")[0];
-  const product = getProductForSubject(subject);
+ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://mshoracetutoring.com";
+ const firstName = (parentName || parentEmail).split(" ")[0];
+ const studentFirst = (studentName || "your student").split(" ")[0];
+ const product = getProductForSubject(subject);
 
-  const html = `
+ const html = `
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#f9fafb;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <div style="max-width:560px;margin:40px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);">
+ <div style="max-width:560px;margin:40px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);">
 
-    <div style="background:linear-gradient(135deg,#059669,#047857);padding:28px 32px;">
-      <p style="margin:0;font-size:13px;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;">Ms. Horace Tutoring</p>
-      <h1 style="margin:8px 0 0;font-size:22px;font-weight:800;color:#fff;">${studentFirst} completed all ${completedCount} sessions!</h1>
-    </div>
+ <div style="background:linear-gradient(135deg,#059669,#047857);padding:28px 32px;">
+ <p style="margin:0;font-size:13px;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;">Ms. Horace Tutoring</p>
+ <h1 style="margin:8px 0 0;font-size:22px;font-weight:800;color:#fff;">${studentFirst} completed all ${completedCount} sessions!</h1>
+ </div>
 
-    <div style="padding:28px 32px;">
-      <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 16px;">Hi ${firstName},</p>
-      <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 16px;">
-        ${studentFirst} just wrapped up their last session - and I'm genuinely proud of the work they put in. It has been a pleasure working with them.
-      </p>
-      <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 20px;">
-        Now comes the important part: keeping that progress. Students who finish tutoring but don't have a structured way to practice on their own tend to slide back within a few weeks. The full course is built exactly for this - so ${studentFirst} can keep going independently with the same approach we used in our sessions.
-      </p>
+ <div style="padding:28px 32px;">
+ <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 16px;">Hi ${firstName},</p>
+ <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 16px;">
+ ${studentFirst} just wrapped up their last session - and I'm genuinely proud of the work they put in. It has been a pleasure working with them.
+ </p>
+ <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 20px;">
+ Now comes the important part: keeping that progress. Students who finish tutoring but don't have a structured way to practice on their own tend to slide back within a few weeks. The full course is built exactly for this - so ${studentFirst} can keep going independently with the same approach we used in our sessions.
+ </p>
 
-      ${product ? `
-      <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:20px;margin:20px 0;">
-        <p style="font-size:12px;font-weight:700;color:#059669;text-transform:uppercase;letter-spacing:0.06em;margin:0 0 6px;">Continue the journey</p>
-        <p style="font-size:17px;font-weight:700;color:#1f2937;margin:0 0 8px;">${product.name}</p>
-        <p style="font-size:14px;color:#6b7280;line-height:1.5;margin:0 0 16px;">${product.description}</p>
-        <a href="${baseUrl}/courses/${product.slug}" style="display:inline-block;background:#059669;color:#fff;font-weight:700;font-size:14px;padding:12px 24px;border-radius:8px;text-decoration:none;">
-          Get the Full Course - ${product.price}
-        </a>
-      </div>` : `
-      <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:20px;margin:20px 0;">
-        <p style="font-size:14px;color:#6b7280;line-height:1.5;margin:0 0 16px;">Browse our full library of PDF courses to keep the learning going after sessions.</p>
-        <a href="${baseUrl}/courses" style="display:inline-block;background:#059669;color:#fff;font-weight:700;font-size:14px;padding:12px 24px;border-radius:8px;text-decoration:none;">
-          Browse Courses
-        </a>
-      </div>`}
+ ${product ? `
+ <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:20px;margin:20px 0;">
+ <p style="font-size:12px;font-weight:700;color:#059669;text-transform:uppercase;letter-spacing:0.06em;margin:0 0 6px;">Continue the journey</p>
+ <p style="font-size:17px;font-weight:700;color:#1f2937;margin:0 0 8px;">${product.name}</p>
+ <p style="font-size:14px;color:#6b7280;line-height:1.5;margin:0 0 16px;">${product.description}</p>
+ <a href="${baseUrl}/courses/${product.slug}" style="display:inline-block;background:#059669;color:#fff;font-weight:700;font-size:14px;padding:12px 24px;border-radius:8px;text-decoration:none;">
+ Get the Full Course - ${product.price}
+ </a>
+ </div>` : `
+ <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:20px;margin:20px 0;">
+ <p style="font-size:14px;color:#6b7280;line-height:1.5;margin:0 0 16px;">Browse our full library of PDF courses to keep the learning going after sessions.</p>
+ <a href="${baseUrl}/courses" style="display:inline-block;background:#059669;color:#fff;font-weight:700;font-size:14px;padding:12px 24px;border-radius:8px;text-decoration:none;">
+ Browse Courses
+ </a>
+ </div>`}
 
-      <div style="background:#fafafa;border:1px solid #f3f4f6;border-radius:12px;padding:16px 20px;margin:20px 0;">
-        <p style="font-size:13px;font-weight:700;color:#374151;margin:0 0 6px;">Want to continue working together?</p>
-        <p style="font-size:13px;color:#6b7280;margin:0 0 12px;">Book another package anytime - I'd love to keep working with ${studentFirst}.</p>
-        <a href="${baseUrl}/book" style="display:inline-block;background:#fff;color:#7c3aed;font-weight:600;font-size:13px;padding:9px 18px;border-radius:8px;text-decoration:none;border:1px solid #ddd6fe;">
-          Book More Sessions
-        </a>
-      </div>
+ <div style="background:#fafafa;border:1px solid #f3f4f6;border-radius:12px;padding:16px 20px;margin:20px 0;">
+ <p style="font-size:13px;font-weight:700;color:#374151;margin:0 0 6px;">Want to continue working together?</p>
+ <p style="font-size:13px;color:#6b7280;margin:0 0 12px;">Book another package anytime - I'd love to keep working with ${studentFirst}.</p>
+ <a href="${baseUrl}/book" style="display:inline-block;background:#fff;color:#7c3aed;font-weight:600;font-size:13px;padding:9px 18px;border-radius:8px;text-decoration:none;border:1px solid #ddd6fe;">
+ Book More Sessions
+ </a>
+ </div>
 
-      <p style="font-size:14px;color:#374151;margin:20px 0 0;font-weight:600;">- Ms. Horace</p>
-    </div>
+ <p style="font-size:14px;color:#374151;margin:20px 0 0;font-weight:600;">- Ms. Horace</p>
+ </div>
 
-    <div style="background:#f9fafb;padding:16px 32px;border-top:1px solid #f3f4f6;">
-      <p style="margin:0;font-size:12px;color:#9ca3af;text-align:center;">Ms. Horace Tutoring - Virtual Math &amp; Science Tutoring</p>
-    </div>
-  </div>
+ <div style="background:#f9fafb;padding:16px 32px;border-top:1px solid #f3f4f6;">
+ <p style="margin:0;font-size:12px;color:#9ca3af;text-align:center;">Ms. Horace Tutoring - Virtual Math &amp; Science Tutoring</p>
+ </div>
+ </div>
 </body>
 </html>`;
 
-  await resend.emails.send({
-    from: "Ms. Horace <noreply@mshoracetutoring.com>",
-    to: [parentEmail],
-    subject: `${studentFirst} finished their sessions - here's how to keep the progress`,
-    html,
-    text: `Hi ${firstName}, ${studentFirst} just wrapped up their last session - amazing work! To keep the progress going, check out the full course: ${baseUrl}/courses. And if you'd like to book more sessions, we'd love to have them back: ${baseUrl}/book - Ms. Horace`,
-  });
+ await resend.emails.send({
+ from: "Ms. Horace <noreply@mshoracetutoring.com>",
+ to: [parentEmail],
+ subject: `${studentFirst} finished their sessions - here's how to keep the progress`,
+ html,
+ text: `Hi ${firstName}, ${studentFirst} just wrapped up their last session - amazing work! To keep the progress going, check out the full course: ${baseUrl}/courses. And if you'd like to book more sessions, we'd love to have them back: ${baseUrl}/book - Ms. Horace`,
+ });
 }
 
 // EMAIL 3: Sent when 1 session remains AND 7+ completed — loyalty renewal offer
 async function sendRenewalEmail(
-  parentEmail: string, parentName: string, studentName: string,
-  subject: string, completedCount: number
+ parentEmail: string, parentName: string, studentName: string,
+ subject: string, completedCount: number
 ) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://mshoracetutoring.com";
-  const firstName = (parentName || parentEmail).split(" ")[0];
-  const studentFirst = (studentName || "your student").split(" ")[0];
+ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://mshoracetutoring.com";
+ const firstName = (parentName || parentEmail).split(" ")[0];
+ const studentFirst = (studentName || "your student").split(" ")[0];
 
-  const html = `
+ const html = `
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#f9fafb;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <div style="max-width:560px;margin:40px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);">
+ <div style="max-width:560px;margin:40px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);">
 
-    <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px;">
-      <p style="margin:0;font-size:13px;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;">Ms. Horace Tutoring</p>
-      <h1 style="margin:8px 0 0;font-size:22px;font-weight:800;color:#fff;">${studentFirst} has one session left — keep the momentum going</h1>
-    </div>
+ <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px;">
+ <p style="margin:0;font-size:13px;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;">Ms. Horace Tutoring</p>
+ <h1 style="margin:8px 0 0;font-size:22px;font-weight:800;color:#fff;">${studentFirst} has one session left — keep the momentum going</h1>
+ </div>
 
-    <div style="padding:28px 32px;">
-      <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 16px;">Hi ${firstName},</p>
-      <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 16px;">
-        ${studentFirst} has completed ${completedCount} sessions with me — that kind of consistency is exactly what builds real results. You have one session left in your current pack.
-      </p>
-      <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 20px;">
-        I'd love to keep working with ${studentFirst}. As a returning family, I'm holding a spot for you at a loyalty rate before you have to rebook from scratch.
-      </p>
+ <div style="padding:28px 32px;">
+ <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 16px;">Hi ${firstName},</p>
+ <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 16px;">
+ ${studentFirst} has completed ${completedCount} sessions with me — that kind of consistency is exactly what builds real results. You have one session left in your current pack.
+ </p>
+ <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 20px;">
+ I'd love to keep working with ${studentFirst}. As a returning family, I'm holding a spot for you at a loyalty rate before you have to rebook from scratch.
+ </p>
 
-      <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:20px;margin:20px 0;">
-        <p style="font-size:12px;font-weight:700;color:#7c3aed;text-transform:uppercase;letter-spacing:0.06em;margin:0 0 8px;">Loyalty Renewal Offer</p>
-        <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:4px;">
-          <p style="font-size:28px;font-weight:800;color:#1f2937;margin:0;">$570</p>
-          <p style="font-size:14px;color:#9ca3af;text-decoration:line-through;margin:0;">$600</p>
-        </div>
-        <p style="font-size:13px;color:#6b7280;margin:0 0 16px;">8 sessions · Save $30 · Exclusive to returning families</p>
-        <ul style="margin:0 0 16px;padding-left:20px;color:#374151;font-size:14px;line-height:1.9;">
-          <li>8 one-on-one sessions (60 min each)</li>
-          <li>${subject ? `Continued ${subject} progress` : "Continued subject progress"}</li>
-          <li>Progress recap at session 4</li>
-          <li>WhatsApp check-ins between sessions</li>
-        </ul>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;">
-          <a href="${baseUrl}/pricing" style="display:inline-block;background:#7c3aed;color:#fff;font-weight:700;font-size:14px;padding:12px 24px;border-radius:8px;text-decoration:none;">
-            Renew Now — $570
-          </a>
-          <a href="${baseUrl}/pricing" style="display:inline-block;background:#fff;color:#7c3aed;font-weight:600;font-size:14px;padding:12px 24px;border-radius:8px;text-decoration:none;border:1px solid #ddd6fe;">
-            See All Options
-          </a>
-        </div>
-      </div>
+ <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:20px;margin:20px 0;">
+ <p style="font-size:12px;font-weight:700;color:#7c3aed;text-transform:uppercase;letter-spacing:0.06em;margin:0 0 8px;">Loyalty Renewal Offer</p>
+ <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:4px;">
+ <p style="font-size:28px;font-weight:800;color:#1f2937;margin:0;">$570</p>
+ <p style="font-size:14px;color:#9ca3af;text-decoration:line-through;margin:0;">$600</p>
+ </div>
+ <p style="font-size:13px;color:#6b7280;margin:0 0 16px;">8 sessions · Save $30 · Exclusive to returning families</p>
+ <ul style="margin:0 0 16px;padding-left:20px;color:#374151;font-size:14px;line-height:1.9;">
+ <li>8 one-on-one sessions (60 min each)</li>
+ <li>${subject ? `Continued ${subject} progress` : "Continued subject progress"}</li>
+ <li>Progress recap at session 4</li>
+ <li>WhatsApp check-ins between sessions</li>
+ </ul>
+ <div style="display:flex;gap:12px;flex-wrap:wrap;">
+ <a href="${baseUrl}/pricing" style="display:inline-block;background:#7c3aed;color:#fff;font-weight:700;font-size:14px;padding:12px 24px;border-radius:8px;text-decoration:none;">
+ Renew Now — $570
+ </a>
+ <a href="${baseUrl}/pricing" style="display:inline-block;background:#fff;color:#7c3aed;font-weight:600;font-size:14px;padding:12px 24px;border-radius:8px;text-decoration:none;border:1px solid #ddd6fe;">
+ See All Options
+ </a>
+ </div>
+ </div>
 
-      <p style="font-size:14px;color:#6b7280;line-height:1.6;margin:16px 0 0;">
-        Have questions or want to chat first? Just reply here — I'm happy to talk through what makes the most sense for ${studentFirst} next.
-      </p>
-      <p style="font-size:14px;color:#374151;margin:20px 0 0;font-weight:600;">- Ms. Horace</p>
-    </div>
+ <p style="font-size:14px;color:#6b7280;line-height:1.6;margin:16px 0 0;">
+ Have questions or want to chat first? Just reply here — I'm happy to talk through what makes the most sense for ${studentFirst} next.
+ </p>
+ <p style="font-size:14px;color:#374151;margin:20px 0 0;font-weight:600;">- Ms. Horace</p>
+ </div>
 
-    <div style="background:#f9fafb;padding:16px 32px;border-top:1px solid #f3f4f6;">
-      <p style="margin:0;font-size:12px;color:#9ca3af;text-align:center;">Ms. Horace Tutoring - Virtual Math &amp; Science Tutoring</p>
-    </div>
-  </div>
+ <div style="background:#f9fafb;padding:16px 32px;border-top:1px solid #f3f4f6;">
+ <p style="margin:0;font-size:12px;color:#9ca3af;text-align:center;">Ms. Horace Tutoring - Virtual Math &amp; Science Tutoring</p>
+ </div>
+ </div>
 </body>
 </html>`;
 
-  await resend.emails.send({
-    from: "Ms. Horace <noreply@mshoracetutoring.com>",
-    to: [parentEmail],
-    subject: `${studentFirst} has 1 session left — your loyalty renewal offer inside`,
-    html,
-    text: `Hi ${firstName}, ${studentFirst} has completed ${completedCount} sessions and has just one left. As a returning family, you're getting a loyalty rate on the next 8-session pack: $570 (save $30). Renew here: ${baseUrl}/pricing — Ms. Horace`,
-  });
+ await resend.emails.send({
+ from: "Ms. Horace <noreply@mshoracetutoring.com>",
+ to: [parentEmail],
+ subject: `${studentFirst} has 1 session left — your loyalty renewal offer inside`,
+ html,
+ text: `Hi ${firstName}, ${studentFirst} has completed ${completedCount} sessions and has just one left. As a returning family, you're getting a loyalty rate on the next 8-session pack: $570 (save $30). Renew here: ${baseUrl}/pricing — Ms. Horace`,
+ });
 }
 
 const ZOOM_LINKS: Record<string, string> = {
-  "solo-30": "https://us06web.zoom.us/j/86054653309?pwd=bmSKYvXlsHnIFi5eSTvqOW7LR2vzM7.1",
-  "solo-60": "https://us06web.zoom.us/j/83084805570?pwd=oWTi3ifrieiuhsNK8MgMjWxqanocgJ.1",
-  "group":   "https://us06web.zoom.us/j/83897527262?pwd=3PK8eBvZaVlzUR8jlmI5jL5BKHvzD2.1",
+ "solo-30": "https://us06web.zoom.us/j/86054653309?pwd=bmSKYvXlsHnIFi5eSTvqOW7LR2vzM7.1",
+ "solo-60": "https://us06web.zoom.us/j/83084805570?pwd=oWTi3ifrieiuhsNK8MgMjWxqanocgJ.1",
+ "group": "https://us06web.zoom.us/j/83897527262?pwd=3PK8eBvZaVlzUR8jlmI5jL5BKHvzD2.1",
 };
 
 const DURATIONS: Record<string, number> = {
-  "solo-30": 30, "solo-60": 60, "group": 90,
+ "solo-30": 30, "solo-60": 60, "group": 90,
 };
 
 export async function POST(req: NextRequest) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || user.user_metadata?.role !== "admin") {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+ const supabase = await createClient();
+ const { data: { user } } = await supabase.auth.getUser();
+ if (!user || user.user_metadata?.role !== "admin") {
+ return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+ }
 
-  const { id, parentName, parentEmail, subject, gradeLevel, sessionType, sessionDate, sessionTime, status } = await req.json();
+ const { id, parentName, parentEmail, subject, gradeLevel, sessionType, sessionDate, sessionTime, status } = await req.json();
 
-  if (!id) return NextResponse.json({ error: "Missing session ID" }, { status: 400 });
+ if (!id) return NextResponse.json({ error: "Missing session ID" }, { status: 400 });
 
-  // Convert HH:MM to 12hr display format
-  const [h, m] = sessionTime.split(":").map(Number);
-  const ampm = h >= 12 ? "PM" : "AM";
-  const displayTime = `${h > 12 ? h - 12 : h || 12}:${String(m).padStart(2, "0")} ${ampm}`;
+ // Convert HH:MM to 12hr display format
+ const [h, m] = sessionTime.split(":").map(Number);
+ const ampm = h >= 12 ? "PM" : "AM";
+ const displayTime = `${h > 12 ? h - 12 : h || 12}:${String(m).padStart(2, "0")} ${ampm}`;
 
-  const admin = createAdminClient();
+ const admin = createAdminClient();
 
-  const { error } = await admin
-    .from("sessions")
-    .update({
-      parent_name: parentName,
-      parent_email: parentEmail,
-      subject,
-      grade_level: gradeLevel,
-      session_type: sessionType,
-      session_date: sessionDate,
-      session_time: displayTime,
-      status,
-      zoom_join_url: ZOOM_LINKS[sessionType] ?? ZOOM_LINKS["solo-60"],
-      duration_minutes: DURATIONS[sessionType] ?? 60,
-      scheduled_at: sessionDate && sessionTime
-        ? new Date(`${sessionDate}T${sessionTime}`).toISOString()
-        : null,
-    })
-    .eq("id", id);
+ const { error } = await admin
+ .from("sessions")
+ .update({
+ parent_name: parentName,
+ parent_email: parentEmail,
+ subject,
+ grade_level: gradeLevel,
+ session_type: sessionType,
+ session_date: sessionDate,
+ session_time: displayTime,
+ status,
+ zoom_join_url: ZOOM_LINKS[sessionType] ?? ZOOM_LINKS["solo-60"],
+ duration_minutes: DURATIONS[sessionType] ?? 60,
+ scheduled_at: sessionDate && sessionTime
+ ? new Date(`${sessionDate}T${sessionTime}`).toISOString()
+ : null,
+ })
+ .eq("id", id);
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+ if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-  // Email triggers — only fire when marking a session as completed
-  if (status === "completed" && parentEmail) {
-    try {
-      // Count total completed sessions for this parent
-      const { count: completedCount } = await admin
-        .from("sessions")
-        .select("*", { count: "exact", head: true })
-        .eq("parent_email", parentEmail)
-        .eq("status", "completed");
+ // Email triggers — only fire when marking a session as completed
+ if (status === "completed" && parentEmail) {
+ try {
+ // Count total completed sessions for this parent
+ const { count: completedCount } = await admin
+ .from("sessions")
+ .select("*", { count: "exact", head: true })
+ .eq("parent_email", parentEmail)
+ .eq("status", "completed");
 
-      // Count remaining upcoming sessions for this parent
-      const { count: upcomingCount } = await admin
-        .from("sessions")
-        .select("*", { count: "exact", head: true })
-        .eq("parent_email", parentEmail)
-        .eq("status", "upcoming");
+ // Count remaining upcoming sessions for this parent
+ const { count: upcomingCount } = await admin
+ .from("sessions")
+ .select("*", { count: "exact", head: true })
+ .eq("parent_email", parentEmail)
+ .eq("status", "upcoming");
 
-      const sessionSubject = subject ?? "";
-      const studentName = parentName ?? "";
+ const sessionSubject = subject ?? "";
+ const studentName = parentName ?? "";
 
-      if (upcomingCount === 0) {
-        // No more upcoming sessions — this was the last one → send end-of-sessions email
-        await sendEndOfSessionsEmail(parentEmail, parentName ?? "", studentName, sessionSubject, completedCount ?? 0);
-      } else if (upcomingCount === 1 && (completedCount ?? 0) >= 7) {
-        // One session left and they've done 7+ — this is the 2nd-to-last in a big pack → send renewal offer
-        await sendRenewalEmail(parentEmail, parentName ?? "", studentName, sessionSubject, completedCount ?? 0);
-      } else if (completedCount && completedCount % 2 === 0) {
-        // Mid-pack milestone (every 2nd session) → send digital products email
-        await sendMidPackEmail(parentEmail, parentName ?? "", studentName, sessionSubject, completedCount);
-      }
-    } catch (e) {
-      // Never block the booking update if email fails
-      console.error("Session email trigger failed:", e);
-    }
-  }
+ if (upcomingCount === 0) {
+ // No more upcoming sessions — this was the last one → send end-of-sessions email
+ await sendEndOfSessionsEmail(parentEmail, parentName ?? "", studentName, sessionSubject, completedCount ?? 0);
+ } else if (upcomingCount === 1 && (completedCount ?? 0) >= 7) {
+ // One session left and they've done 7+ — this is the 2nd-to-last in a big pack → send renewal offer
+ await sendRenewalEmail(parentEmail, parentName ?? "", studentName, sessionSubject, completedCount ?? 0);
+ } else if (completedCount && completedCount % 2 === 0) {
+ // Mid-pack milestone (every 2nd session) → send digital products email
+ await sendMidPackEmail(parentEmail, parentName ?? "", studentName, sessionSubject, completedCount);
+ }
+ } catch (e) {
+ // Never block the booking update if email fails
+ console.error("Session email trigger failed:", e);
+ }
+ }
 
-  return NextResponse.json({ success: true });
+ return NextResponse.json({ success: true });
 }

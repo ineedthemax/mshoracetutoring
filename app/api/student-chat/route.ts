@@ -30,44 +30,44 @@ IMPORTANT:
 - Use emojis occasionally to keep it friendly (not too many)`;
 
 export async function POST(req: NextRequest) {
-  // Auth guard — must be logged in (student, parent, or admin)
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+ // Auth guard — must be logged in (student, parent, or admin)
+ const supabase = await createClient();
+ const { data: { user } } = await supabase.auth.getUser();
+ if (!user) {
+ return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+ }
 
-  try {
-    const { messages } = await req.json();
+ try {
+ const { messages } = await req.json();
 
-    if (!messages || !Array.isArray(messages)) {
-      return NextResponse.json({ error: "Invalid messages" }, { status: 400 });
-    }
+ if (!messages || !Array.isArray(messages)) {
+ return NextResponse.json({ error: "Invalid messages" }, { status: 400 });
+ }
 
-    const stream = await client.messages.stream({
-      model: "claude-haiku-4-5",
-      max_tokens: 1024,
-      system: [{ type: "text", text: SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
-      messages: messages.slice(-12),
-    });
+ const stream = await client.messages.stream({
+ model: "claude-haiku-4-5",
+ max_tokens: 1024,
+ system: [{ type: "text", text: SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
+ messages: messages.slice(-12),
+ });
 
-    const encoder = new TextEncoder();
-    const readable = new ReadableStream({
-      async start(controller) {
-        for await (const event of stream) {
-          if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
-            controller.enqueue(encoder.encode(event.delta.text));
-          }
-        }
-        controller.close();
-      },
-    });
+ const encoder = new TextEncoder();
+ const readable = new ReadableStream({
+ async start(controller) {
+ for await (const event of stream) {
+ if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
+ controller.enqueue(encoder.encode(event.delta.text));
+ }
+ }
+ controller.close();
+ },
+ });
 
-    return new Response(readable, {
-      headers: { "Content-Type": "text/plain; charset=utf-8", "Transfer-Encoding": "chunked" },
-    });
-  } catch (error) {
-    console.error("Student chat error:", error);
-    return NextResponse.json({ error: "Failed to get response" }, { status: 500 });
-  }
+ return new Response(readable, {
+ headers: { "Content-Type": "text/plain; charset=utf-8", "Transfer-Encoding": "chunked" },
+ });
+ } catch (error) {
+ console.error("Student chat error:", error);
+ return NextResponse.json({ error: "Failed to get response" }, { status: 500 });
+ }
 }
