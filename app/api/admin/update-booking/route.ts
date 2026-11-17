@@ -10,19 +10,19 @@ const SUBJECT_PRODUCTS: Record<string, { name: string; slug: string; price: stri
     name: "Pre-Algebra Mastery PDF Course",
     slug: "pre-algebra-mastery",
     price: "$197",
-    description: "15 PDF lessons with worked examples and full answer keys - everything to keep the momentum going independently.",
+    description: "{lessons} PDF lessons with worked examples and full answer keys - everything to keep the momentum going independently.",
   },
   "algebra 1": {
     name: "Algebra I Mastery PDF Course",
     slug: "algebra-1-mastery",
     price: "$197",
-    description: "15 PDF lessons covering every Algebra I concept with step-by-step walkthroughs and practice problems.",
+    description: "{lessons} PDF lessons covering every Algebra I concept with step-by-step walkthroughs and practice problems.",
   },
   "algebra i": {
     name: "Algebra I Mastery PDF Course",
     slug: "algebra-1-mastery",
     price: "$197",
-    description: "15 PDF lessons covering every Algebra I concept with step-by-step walkthroughs and practice problems.",
+    description: "{lessons} PDF lessons covering every Algebra I concept with step-by-step walkthroughs and practice problems.",
   },
 };
 
@@ -35,6 +35,23 @@ function getProductForSubject(subject: string) {
   return null;
 }
 
+// Fill in the real lesson count from the courses table so the email never drifts from the course page
+async function withLessonCount<T extends { slug: string; description: string }>(product: T | null) {
+  if (!product) return null;
+  const { data } = await createAdminClient()
+    .from("courses")
+    .select("total_lessons")
+    .eq("slug", product.slug)
+    .single();
+  const n = data?.total_lessons;
+  return {
+    ...product,
+    description: n
+      ? product.description.replace("{lessons}", String(n))
+      : product.description.replace("{lessons} ", ""),
+  };
+}
+
 // EMAIL 1: Sent mid-pack (every 2nd session) — pushes digital/supplemental products
 async function sendMidPackEmail(
   parentEmail: string, parentName: string, studentName: string,
@@ -43,7 +60,7 @@ async function sendMidPackEmail(
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://mshoracetutoring.com";
   const firstName = (parentName || parentEmail).split(" ")[0];
   const studentFirst = (studentName || "your student").split(" ")[0];
-  const product = getProductForSubject(subject);
+  const product = await withLessonCount(getProductForSubject(subject));
 
   const html = `
 <!DOCTYPE html>
@@ -117,7 +134,7 @@ async function sendEndOfSessionsEmail(
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://mshoracetutoring.com";
   const firstName = (parentName || parentEmail).split(" ")[0];
   const studentFirst = (studentName || "your student").split(" ")[0];
-  const product = getProductForSubject(subject);
+  const product = await withLessonCount(getProductForSubject(subject));
 
   const html = `
 <!DOCTYPE html>
