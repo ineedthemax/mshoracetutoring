@@ -94,7 +94,7 @@ async function sendMidPackEmail(
  </div>
 
  <div style="background:#f9fafb;padding:16px 32px;border-top:1px solid #f3f4f6;">
- <p style="margin:0;font-size:12px;color:#9ca3af;text-align:center;">Ms. Horace Tutoring - Virtual Math &amp; Science Tutoring</p>
+ <p style="margin:0;font-size:12px;color:#9ca3af;text-align:center;">Ms. Horace Tutoring - Pre-Algebra &amp; Algebra 1 Tutoring</p>
  </div>
  </div>
 </body>
@@ -168,7 +168,7 @@ async function sendEndOfSessionsEmail(
  </div>
 
  <div style="background:#f9fafb;padding:16px 32px;border-top:1px solid #f3f4f6;">
- <p style="margin:0;font-size:12px;color:#9ca3af;text-align:center;">Ms. Horace Tutoring - Virtual Math &amp; Science Tutoring</p>
+ <p style="margin:0;font-size:12px;color:#9ca3af;text-align:center;">Ms. Horace Tutoring - Pre-Algebra &amp; Algebra 1 Tutoring</p>
  </div>
  </div>
 </body>
@@ -243,7 +243,7 @@ async function sendRenewalEmail(
  </div>
 
  <div style="background:#f9fafb;padding:16px 32px;border-top:1px solid #f3f4f6;">
- <p style="margin:0;font-size:12px;color:#9ca3af;text-align:center;">Ms. Horace Tutoring - Virtual Math &amp; Science Tutoring</p>
+ <p style="margin:0;font-size:12px;color:#9ca3af;text-align:center;">Ms. Horace Tutoring - Pre-Algebra &amp; Algebra 1 Tutoring</p>
  </div>
  </div>
 </body>

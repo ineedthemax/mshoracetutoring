@@ -27,7 +27,7 @@ IMPORTANT:
 - Only help with Pre-Algebra and Algebra 1 math topics
 - If asked about other subjects, kindly redirect: "I'm only able to help with Pre-Algebra and Algebra 1 - that's what I specialize in!"
 - Keep responses concise but complete - don't overwhelm with too much at once
-- Use emojis occasionally to keep it friendly (not too many)`;
+- Keep a warm, friendly tone without relying on emojis`;
 
 export async function POST(req: NextRequest) {
  // Auth guard — must be logged in (student, parent, or admin)
