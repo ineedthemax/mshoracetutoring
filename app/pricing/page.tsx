@@ -105,55 +105,158 @@ export default function PricingPage() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {bundles.map((bundle) => (
-            <Card key={bundle.id} className="relative overflow-hidden flex flex-col">
-              {/* Badge */}
-              <div className="bg-amber-500 text-white text-xs font-bold px-3 py-1.5 text-center">
-                {bundle.badge}
-              </div>
-              <CardContent className="p-5 flex flex-col flex-1">
-                <h3 className="font-bold text-gray-900 text-lg mb-1">{bundle.name}</h3>
-                <p className="text-gray-400 text-xs mb-4 italic">{bundle.tagline}</p>
+          {bundles.map((bundle) => {
+            const isBestSeller = bundle.id === "b2";
+            const isGroup = bundle.id === "b6";
 
-                {/* Price */}
-                <div className="flex items-baseline gap-2 mb-1">
-                  {bundle.originalPrice && (
-                    <span className="text-gray-300 line-through text-lg">${bundle.originalPrice}</span>
-                  )}
-                  <span className="text-3xl font-bold text-violet-600">${bundle.price}</span>
-                  {bundle.id === "b4" && <span className="text-gray-400 text-sm">/mo</span>}
+            return (
+              <Card
+                key={bundle.id}
+                className={`relative overflow-hidden flex flex-col ${
+                  isBestSeller
+                    ? "bg-violet-700 border-violet-600 shadow-xl shadow-violet-200 dark:shadow-violet-950 ring-2 ring-violet-500 scale-[1.02]"
+                    : isGroup
+                    ? "bg-amber-50 border-amber-200 dark:bg-amber-950 dark:border-amber-800"
+                    : ""
+                }`}
+              >
+                {/* Badge */}
+                <div
+                  className={`text-white text-xs font-bold px-3 py-1.5 text-center ${
+                    isBestSeller
+                      ? "bg-violet-900"
+                      : isGroup
+                      ? "bg-amber-500"
+                      : "bg-amber-500"
+                  }`}
+                >
+                  {isBestSeller ? "⭐ BEST SELLER — Most Booked" : bundle.badge}
                 </div>
-                <p className="text-xs text-gray-400 mb-4">
-                  {bundle.perSession} · {bundle.validity}
-                </p>
 
-                {/* Payment plan callout */}
-                {bundle.paymentPlan && (
-                  <div className="bg-violet-50 border border-violet-100 rounded-lg px-3 py-2 mb-4 flex items-start gap-2">
-                    <CreditCard className="w-4 h-4 text-violet-500 flex-shrink-0 mt-0.5" />
-                    <p className="text-xs text-violet-700">
-                      <span className="font-semibold">Payment plan: </span>
-                      {bundle.paymentPlan.splits}×${bundle.paymentPlan.amount}, {bundle.paymentPlan.interval}. All sessions released on first payment.
-                    </p>
+                <CardContent className="p-5 flex flex-col flex-1">
+                  <h3
+                    className={`font-bold text-lg mb-1 ${
+                      isBestSeller ? "text-white" : "text-gray-900"
+                    }`}
+                  >
+                    {bundle.name}
+                  </h3>
+                  <p
+                    className={`text-xs mb-4 italic ${
+                      isBestSeller ? "text-violet-200" : "text-gray-400"
+                    }`}
+                  >
+                    {bundle.tagline}
+                  </p>
+
+                  {/* Price */}
+                  <div className="flex items-baseline gap-2 mb-1">
+                    {bundle.originalPrice && (
+                      <span
+                        className={`line-through text-lg ${
+                          isBestSeller ? "text-violet-300" : "text-gray-300"
+                        }`}
+                      >
+                        ${bundle.originalPrice}
+                      </span>
+                    )}
+                    <span
+                      className={`text-3xl font-bold ${
+                        isBestSeller
+                          ? "text-white"
+                          : isGroup
+                          ? "text-amber-600"
+                          : "text-violet-600"
+                      }`}
+                    >
+                      ${bundle.price}
+                    </span>
+                    {bundle.id === "b4" && (
+                      <span
+                        className={`text-sm ${
+                          isBestSeller ? "text-violet-200" : "text-gray-400"
+                        }`}
+                      >
+                        /mo
+                      </span>
+                    )}
                   </div>
-                )}
+                  <p
+                    className={`text-xs mb-4 ${
+                      isBestSeller ? "text-violet-200" : "text-gray-400"
+                    }`}
+                  >
+                    {bundle.perSession} · {bundle.validity}
+                  </p>
 
-                {/* Highlights */}
-                <ul className="space-y-1.5 mb-6 flex-1">
-                  {bundle.highlights.map(h => (
-                    <li key={h} className="flex items-start gap-2 text-sm text-gray-600">
-                      <CheckCircle className="w-4 h-4 text-violet-500 flex-shrink-0 mt-0.5" />
-                      {h}
-                    </li>
-                  ))}
-                </ul>
+                  {/* Payment plan callout */}
+                  {bundle.paymentPlan && (
+                    <div
+                      className={`rounded-lg px-3 py-2 mb-4 flex items-start gap-2 ${
+                        isBestSeller
+                          ? "bg-violet-600 border border-violet-500"
+                          : "bg-violet-50 border border-violet-100"
+                      }`}
+                    >
+                      <CreditCard
+                        className={`w-4 h-4 flex-shrink-0 mt-0.5 ${
+                          isBestSeller ? "text-violet-200" : "text-violet-500"
+                        }`}
+                      />
+                      <p
+                        className={`text-xs ${
+                          isBestSeller ? "text-violet-100" : "text-violet-700"
+                        }`}
+                      >
+                        <span className="font-semibold">Payment plan: </span>
+                        {bundle.paymentPlan.splits}×${bundle.paymentPlan.amount},{" "}
+                        {bundle.paymentPlan.interval}. All sessions released on first payment.
+                      </p>
+                    </div>
+                  )}
 
-                <Link href={`/checkout?type=${bundle.checkoutType}`} className="mt-auto">
-                  <Button className="w-full">Buy Bundle</Button>
-                </Link>
-              </CardContent>
-            </Card>
-          ))}
+                  {/* Highlights */}
+                  <ul className="space-y-1.5 mb-6 flex-1">
+                    {bundle.highlights.map((h) => (
+                      <li key={h} className="flex items-start gap-2 text-sm">
+                        <CheckCircle
+                          className={`w-4 h-4 flex-shrink-0 mt-0.5 ${
+                            isBestSeller
+                              ? "text-violet-200"
+                              : isGroup
+                              ? "text-amber-500"
+                              : "text-violet-500"
+                          }`}
+                        />
+                        <span
+                          className={
+                            isBestSeller ? "text-violet-100" : "text-gray-600"
+                          }
+                        >
+                          {h}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Link href={`/checkout?type=${bundle.checkoutType}`} className="mt-auto">
+                    <Button
+                      className={`w-full ${
+                        isBestSeller
+                          ? "bg-white text-violet-700 hover:bg-violet-50 font-bold"
+                          : isGroup
+                          ? "bg-amber-500 hover:bg-amber-600 text-white border-0"
+                          : ""
+                      }`}
+                      variant={isBestSeller || isGroup ? "default" : "default"}
+                    >
+                      {isBestSeller ? "Buy Best Seller →" : isGroup ? "Buy Group Pass" : "Buy Bundle"}
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
         {/* Payment Plans Banner */}
