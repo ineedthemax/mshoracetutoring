@@ -183,6 +183,81 @@ async function sendEndOfSessionsEmail(
   });
 }
 
+// EMAIL 3: Sent when 1 session remains AND 7+ completed — loyalty renewal offer
+async function sendRenewalEmail(
+  parentEmail: string, parentName: string, studentName: string,
+  subject: string, completedCount: number
+) {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://mshoracetutoring.com";
+  const firstName = (parentName || parentEmail).split(" ")[0];
+  const studentFirst = (studentName || "your student").split(" ")[0];
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#f9fafb;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <div style="max-width:560px;margin:40px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);">
+
+    <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);padding:28px 32px;">
+      <p style="margin:0;font-size:13px;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;">Ms. Horace Tutoring</p>
+      <h1 style="margin:8px 0 0;font-size:22px;font-weight:800;color:#fff;">${studentFirst} has one session left — keep the momentum going</h1>
+    </div>
+
+    <div style="padding:28px 32px;">
+      <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 16px;">Hi ${firstName},</p>
+      <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 16px;">
+        ${studentFirst} has completed ${completedCount} sessions with me — that kind of consistency is exactly what builds real results. You have one session left in your current pack.
+      </p>
+      <p style="font-size:15px;color:#374151;line-height:1.6;margin:0 0 20px;">
+        I'd love to keep working with ${studentFirst}. As a returning family, I'm holding a spot for you at a loyalty rate before you have to rebook from scratch.
+      </p>
+
+      <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:20px;margin:20px 0;">
+        <p style="font-size:12px;font-weight:700;color:#7c3aed;text-transform:uppercase;letter-spacing:0.06em;margin:0 0 8px;">Loyalty Renewal Offer</p>
+        <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:4px;">
+          <p style="font-size:28px;font-weight:800;color:#1f2937;margin:0;">$570</p>
+          <p style="font-size:14px;color:#9ca3af;text-decoration:line-through;margin:0;">$600</p>
+        </div>
+        <p style="font-size:13px;color:#6b7280;margin:0 0 16px;">8 sessions · Save $30 · Exclusive to returning families</p>
+        <ul style="margin:0 0 16px;padding-left:20px;color:#374151;font-size:14px;line-height:1.9;">
+          <li>8 one-on-one sessions (60 min each)</li>
+          <li>${subject ? `Continued ${subject} progress` : "Continued subject progress"}</li>
+          <li>Progress recap at session 4</li>
+          <li>WhatsApp check-ins between sessions</li>
+        </ul>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="${baseUrl}/pricing" style="display:inline-block;background:#7c3aed;color:#fff;font-weight:700;font-size:14px;padding:12px 24px;border-radius:8px;text-decoration:none;">
+            Renew Now — $570
+          </a>
+          <a href="${baseUrl}/pricing" style="display:inline-block;background:#fff;color:#7c3aed;font-weight:600;font-size:14px;padding:12px 24px;border-radius:8px;text-decoration:none;border:1px solid #ddd6fe;">
+            See All Options
+          </a>
+        </div>
+      </div>
+
+      <p style="font-size:14px;color:#6b7280;line-height:1.6;margin:16px 0 0;">
+        Have questions or want to chat first? Just reply here — I'm happy to talk through what makes the most sense for ${studentFirst} next.
+      </p>
+      <p style="font-size:14px;color:#374151;margin:20px 0 0;font-weight:600;">- Ms. Horace</p>
+    </div>
+
+    <div style="background:#f9fafb;padding:16px 32px;border-top:1px solid #f3f4f6;">
+      <p style="margin:0;font-size:12px;color:#9ca3af;text-align:center;">Ms. Horace Tutoring - Virtual Math &amp; Science Tutoring</p>
+    </div>
+  </div>
+</body>
+</html>`;
+
+  await resend.emails.send({
+    from: "Ms. Horace <noreply@mshoracetutoring.com>",
+    to: [parentEmail],
+    subject: `${studentFirst} has 1 session left — your loyalty renewal offer inside`,
+    html,
+    text: `Hi ${firstName}, ${studentFirst} has completed ${completedCount} sessions and has just one left. As a returning family, you're getting a loyalty rate on the next 8-session pack: $570 (save $30). Renew here: ${baseUrl}/pricing — Ms. Horace`,
+  });
+}
+
 const ZOOM_LINKS: Record<string, string> = {
   "solo-30": "https://us06web.zoom.us/j/86054653309?pwd=bmSKYvXlsHnIFi5eSTvqOW7LR2vzM7.1",
   "solo-60": "https://us06web.zoom.us/j/83084805570?pwd=oWTi3ifrieiuhsNK8MgMjWxqanocgJ.1",
@@ -255,6 +330,9 @@ export async function POST(req: NextRequest) {
       if (upcomingCount === 0) {
         // No more upcoming sessions — this was the last one → send end-of-sessions email
         await sendEndOfSessionsEmail(parentEmail, parentName ?? "", studentName, sessionSubject, completedCount ?? 0);
+      } else if (upcomingCount === 1 && (completedCount ?? 0) >= 7) {
+        // One session left and they've done 7+ — this is the 2nd-to-last in a big pack → send renewal offer
+        await sendRenewalEmail(parentEmail, parentName ?? "", studentName, sessionSubject, completedCount ?? 0);
       } else if (completedCount && completedCount % 2 === 0) {
         // Mid-pack milestone (every 2nd session) → send digital products email
         await sendMidPackEmail(parentEmail, parentName ?? "", studentName, sessionSubject, completedCount);
