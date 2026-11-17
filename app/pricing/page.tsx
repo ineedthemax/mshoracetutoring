@@ -116,7 +116,7 @@ export default function PricingPage() {
  isBestSeller
  ? "bg-violet-700 border-violet-600 shadow-xl shadow-violet-200 dark:shadow-violet-950 ring-2 ring-violet-500 scale-[1.02]"
  : isGroup
- ? "bg-amber-50 border-amber-200 dark:bg-amber-950 dark:border-amber-800"
+ ? "bg-rose-50 border-rose-200 dark:bg-rose-950 dark:border-rose-800"
  : ""
  }`}
  >
@@ -126,7 +126,7 @@ export default function PricingPage() {
  isBestSeller
  ? "bg-violet-900"
  : isGroup
- ? "bg-amber-500"
+ ? "bg-rose-500"
  : "bg-amber-500"
  }`}
  >
@@ -165,7 +165,7 @@ export default function PricingPage() {
  isBestSeller
  ? "text-white"
  : isGroup
- ? "text-amber-600"
+ ? "text-rose-600"
  : "text-violet-600"
  }`}
  >
@@ -224,7 +224,7 @@ export default function PricingPage() {
  isBestSeller
  ? "text-violet-200"
  : isGroup
- ? "text-amber-500"
+ ? "text-rose-500"
  : "text-violet-500"
  }`}
  />
@@ -245,7 +245,7 @@ export default function PricingPage() {
  isBestSeller
  ? "bg-white text-violet-700 hover:bg-violet-50 font-bold"
  : isGroup
- ? "bg-amber-500 hover:bg-amber-600 text-white border-0"
+ ? "bg-rose-500 hover:bg-rose-600 text-white border-0"
  : ""
  }`}
  variant={isBestSeller || isGroup ? "default" : "default"}
